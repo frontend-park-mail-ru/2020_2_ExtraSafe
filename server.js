@@ -12,7 +12,7 @@ const server =  http.createServer((req, res) => {
     let currentUrl = url.parse(req.url, true).pathname;
     console.log(currentUrl);
 
-    const filePath = path.join(__dirname, '/public',currentUrl === '/' ? '/index.html' : currentUrl);
+    const filePath = path.join(__dirname, '/public',currentUrl === '/' ? '/main_page.html' : currentUrl);
 
     fs.readFile(filePath, (err, file) => {
         if (err){
