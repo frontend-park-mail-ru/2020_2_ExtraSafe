@@ -22,7 +22,20 @@ export default class LoginView extends BaseView {
      */
     render() {
         this.el.innerHTML =
-            `<div>Здесь будет авторизация</div>
-            <div>Перейти к <a href="/reg">регистрации</a></div>`;
+            `<div class="login-container">
+                <div class="login-form">
+                    <div>Авторизация</div>
+                    <div class="login-input">
+                        Электронная почта:
+                        <input placeholder="mymailbox@mail.ru">
+                    </div>
+                    <div class="login-input">
+                        Пароль:
+                        <input placeholder="Введите пароль">
+                    </div>
+                    <button class="login-button">Войти</button>
+                    <a class="login-a" href="/reg">Ещё нет аккаунта? Зарегистрироваться!</a>
+                </div>
+            </div>`;
     }
 }
