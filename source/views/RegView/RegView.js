@@ -22,7 +22,25 @@ export default class RegView extends BaseView {
      */
     render() {
         this.el.innerHTML =
-            `<div>Здесь будет регистрация</div>
-        <div>Вернуться на <a href="/login">авторизацию</a></div>`;
+            `<div class="reg-container">
+                <div class="reg-form">
+                    <div>Регистрация аккаунта</div>
+                    <div class="reg-input">
+                        Электронная почта:
+                        <input placeholder="mymailbox@mail.ru">
+                    </div>
+                    <div class="reg-input">
+                        Полное имя:
+                        <input placeholder="Имя Фамилия">
+                    </div>
+                    <div class="reg-input">
+                        Пароль:
+                        <input placeholder="Придумайте пароль">
+                        <input placeholder="Придумайте пароль">
+                    </div>
+                    <button class="reg-button">Зарегистрироваться</button>
+                    <a class="reg-a" href="/login">Уже есть аккаунт? Войти!</a>
+                </div>
+            </div>`;
     }
 }
