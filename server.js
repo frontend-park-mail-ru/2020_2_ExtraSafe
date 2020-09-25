@@ -1,31 +1,17 @@
-"use strict"
-
-const fs = require('fs');
-const http = require('http');
+const express = require('express');
 const path = require('path');
-const url = require('url');
 
+const app = express();
+// const srcFolder = path.resolve(__dirname, '/source');
 
-const server =  http.createServer((req, res) => {
-    console.log('requested', req.url);
+app.use(express.static(__dirname + '/source'));
 
-    let currentUrl = url.parse(req.url, true).pathname;
-    console.log(currentUrl);
+const port = 3033;
 
-    const filePath = path.join(__dirname, '/public',currentUrl === '/' ? '/main_page.html' : currentUrl);
-
-    fs.readFile(filePath, (err, file) => {
-        if (err){
-            console.log('file read error', path, err);
-            res.write('error 404');
-            res.end();
-
-            return;
-        }
-
-        res.write(file);
-        res.end();
-    });
+app.get('*', (req, res) => {
+    res.sendFile(__dirname + '/source/html/index.html');
 });
 
-server.listen(3000);
+app.listen(port, () => {
+    console.log(`Server listening port ${port}`);
+});
