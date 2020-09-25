@@ -7,19 +7,25 @@ let FORM_NAME = "form" // название формы регистрации/а�
     не содержит больше или меньше @ и ., чем нужно
 */
 function validateEmail() {
-    let email = document.forms[FORM_NAME]["email"].value;
+    let email = document.getElementById("email").value
+    let emailError = document.getElementById('emailError')
 
     let at = email.split("@").length - 1;
     let dot = email.split(".").length - 1;
 
     if (email.length === 0) {
-        document.getElementById("emailForm").innerHTML="данное поле необходимо для заполнения";
+        emailError.innerHTML="данное поле необходимо для заполнения";
+        emailError.hidden=false
         return false;
     } else if (at > 1 || dot > 1) {
-        document.getElementById('emailForm').innerHTML="не верный email";
+        emailError.innerHTML="не верный email";
+        emailError.hidden=false
         return false;
     }
-    document.getElementById('emailForm').innerHTML="";
+    emailError.innerHTML="";
+    emailError.hidden=true
+
+    return true
 }
 
 /* проверка валидности username:
@@ -48,15 +54,18 @@ function validateUsername() {
     пароль содержит заглавные и строчные буквы, а также цифры
 */
 function validatePassword() {
-    let password = document.forms[FORM_NAME]["password"].value;
+    let password = document.getElementById("password").value
+    let passwordError = document.getElementById("passwordError")
 
     if (password.length === 0) {
-        document.getElementById("passwordForm").innerHTML="данное поле необходимо для заполнения";
+        passwordError.innerHTML="данное поле необходимо для заполнения";
+        passwordError.hidden=false
         return false;
     }
 
     if (password.length < 8) {
-        document.getElementById("passwordForm").innerHTML="минимальная длина пароля - 8 символов";
+        passwordError.innerHTML="минимальная длина пароля - 8 символов";
+        passwordError.hidden=false
         return false;
     }
 
@@ -68,12 +77,16 @@ function validatePassword() {
     //console.log(numbers)
 
     if ((upperCaseLetters === null) || (lowerCaseLetters === null) || (numbers === null)) {
-        document.getElementById("passwordForm").innerHTML="пароль должен содержать цифры, строчные " +
+        passwordError.innerHTML="пароль должен содержать цифры, строчные " +
                                                                     "и заглавные буквы";
+        passwordError.hidden=false
         return false;
     }
 
-    document.getElementById("passwordForm").innerHTML="";
+    passwordError.innerHTML="";
+    passwordError.hidden=true
+
+    return true
 }
 
 // проверка идентичности паролей
@@ -102,8 +115,5 @@ function validateSignUp() {
 
 
 function validateSignIn() {
-    validateUsername();
-    validatePassword();
-
-    return false;
+    return validateEmail() && validatePassword()
 }
