@@ -1,7 +1,5 @@
 "use strict"
 
-let FORM_NAME = "form" // название формы регистрации/авторизации
-
 /* проверка валидности email:
     длина не равна 0;
     не содержит больше или меньше @ и ., чем нужно
@@ -22,6 +20,7 @@ function validateEmail() {
         emailError.hidden=false
         return false;
     }
+
     emailError.innerHTML="";
     emailError.hidden=true
 
@@ -32,6 +31,7 @@ function validateEmail() {
     длина не равна 0;
     длина меньше 64 (пусть пока так будет)
 */
+// данная функция пока (или вообще?) не используется
 function validateUsername() {
     let username = document.forms[FORM_NAME]["username"].value;
 
@@ -70,11 +70,8 @@ function validatePassword() {
     }
 
     let upperCaseLetters = password.match(/[A-Z]/)
-    //console.log(upperCaseLetters)
     let lowerCaseLetters = password.match(/[a-z]/)
-    //console.log(lowerCaseLetters)
-    let numbers =  password.match(/[0-9]/g)
-    //console.log(numbers)
+    let numbers = password.match(/[0-9]/g)
 
     if ((upperCaseLetters === null) || (lowerCaseLetters === null) || (numbers === null)) {
         passwordError.innerHTML="пароль должен содержать цифры, строчные " +
@@ -91,26 +88,26 @@ function validatePassword() {
 
 // проверка идентичности паролей
 function validateComparePasswords() {
-    let firstPassword = document.forms[FORM_NAME]["password"].value;
-    let secondPassword = document.forms[FORM_NAME]["confirmPassword"].value;
+    let password = document.getElementById("password").value;
+    let checkPassword = document.getElementById("checkPassword").value;
+    let compareError = document.getElementById("compareError")
 
-    if (firstPassword !== secondPassword) {
-        document.getElementById("passwordForm").innerHTML="пароли не совпадают";
+    if (password !== checkPassword) {
+        compareError.innerHTML="пароли не совпадают";
+        compareError.hidden=false
         return false;
     }
 
     if (validatePassword() !== false) {
-        document.getElementById("passwordForm").innerHTML="";
+        compareError.innerHTML="";
+        compareError.hidden=true
     }
+
+    return true
 }
 
 function validateSignUp() {
-    validateEmail();
-    validateUsername();
-    validatePassword();
-    validateComparePasswords();
-
-    return false;
+    return validateEmail() && validatePassword() && validateComparePasswords()
 }
 
 
