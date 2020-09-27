@@ -1,3 +1,5 @@
+"use strict"
+
 import BaseView from '../BaseView/BaseView.js';
 
 /**
@@ -22,7 +24,22 @@ export default class LoginView extends BaseView {
      */
     render() {
         this.el.innerHTML =
-            `<div>Здесь будет авторизация</div>
-            <div>Перейти к <a href="/reg">регистрации</a></div>`;
+            `<div class="login-container">
+                <form id="form" class="login-form">
+                    <div>Авторизация</div>
+                    <div class="login-input">
+                        Электронная почта:
+                        <input type="text" id="email" placeholder="mymailbox@mail.ru" autofocus>
+                        <div id="emailError" class="login-error" hidden="true"></div>
+                    </div>
+                    <div class="login-input">
+                        Пароль:
+                        <input type="password" id="password" placeholder="Введите пароль">
+                        <div id="passwordError" class="login-error" hidden="true"></div>
+                    </div>
+                    <button type="submit" class="login-button">Войти</button>
+                    <a class="login-a" href="/reg">Ещё нет аккаунта? Зарегистрироваться!</a>
+                </form>
+            </div>`;
     }
 }
