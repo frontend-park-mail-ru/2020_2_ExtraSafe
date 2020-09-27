@@ -29,14 +29,14 @@ export default class LoginView extends BaseView {
                     <div>Авторизация</div>
                     <div class="login-input">
                         Электронная почта:
-                        <input type="text" id="email" placeholder="mymailbox@mail.ru">
+                        <input type="text" id="email" placeholder="mymailbox@mail.ru" autofocus>
+                        <div id="emailError" class="login-error" hidden="true"></div>
                     </div>
-                    <div id="emailError" hidden="true"></div>
                     <div class="login-input">
                         Пароль:
                         <input type="password" id="password" placeholder="Введите пароль">
+                        <div id="passwordError" class="login-error" hidden="true"></div>
                     </div>
-                    <div id="passwordError" hidden="true"></div>
                     <button type="submit" class="login-button">Войти</button>
                     <a class="login-a" href="/reg">Ещё нет аккаунта? Зарегистрироваться!</a>
                 </form>
