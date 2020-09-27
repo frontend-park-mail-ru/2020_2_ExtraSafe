@@ -25,7 +25,7 @@ export default class LoginView extends BaseView {
     render() {
         this.el.innerHTML =
             `<div class="login-container">
-                <form id="form" class="login-form" onsubmit="return validateSignIn()">
+                <form id="form" class="login-form">
                     <div>Авторизация</div>
                     <div class="login-input">
                         Электронная почта:

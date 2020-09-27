@@ -1,16 +1,18 @@
 "use strict"
 
 // регулярные выражения
-const emailRegExp = '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$.';
-const passwordRegExp = '^[a-zA-Z0-9_+-!]$';
-const usernameRegExp = '^[a-zA-Z0-9_]$';
+const emailRegExp = '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$';
+const passwordRegExp = '^[a-zA-Z0-9~!@#$%^&*-_+=`|\\(){}:;"\'<>,.?/]+$';
+const usernameRegExp = '^[a-zA-Z0-9_]+$';
+const fullNameRegExp = '^[a-zA-Zа-яА-Я _]+$';
 const lowerCaseRegExp = '[a-z]+';
 const upperCaseRegExp = '[A-Z]+';
 const numbersRegExp = '[0-9]+';
 
 
-/*  email validation
- *   @return {boolean} Valid or inValid
+/**
+ *  email validation
+ *  @return {object} Valid or inValid
  */
 function validateEmail() {
     let email = document.getElementById("email").value;
@@ -19,7 +21,7 @@ function validateEmail() {
         return {result: false, message: "обязательное поле"};
     }
 
-    if (!(new RegExp(usernameRegExp)).test(email)) {
+    if (!(new RegExp(emailRegExp)).test(email)) {
         return {result: false, message: "некорректный email"};
     }
 
@@ -27,8 +29,9 @@ function validateEmail() {
 }
 
 
-/* username validation
- * @return {object}
+/**
+ *  username validation
+ *  @return {object}
  */
 function validateUsername() {
     let username = document.getElementById("username").value;
@@ -49,8 +52,32 @@ function validateUsername() {
 }
 
 
-/* password validation
- * @return {object}
+/**
+ *  full name validation
+ *  @return {object}
+ */
+function validateFullName() {
+    let fullName = document.getElementById("fullName").value;
+
+    if (fullName.length === 0) {
+        return {result: false, message: "обязательное поле"};
+    }
+
+    if (fullName.length < 2 || fullName.length > 40) {
+        return {result: false, message: "минимальная длина имени - 2, максимальная - 40"};
+    }
+
+    if (!(new RegExp(fullNameRegExp)).test(fullName)) {
+        return {result: false, message: "содержит некорректные символы"};
+    }
+
+    return {result: true};
+}
+
+
+/**
+ *  password validation
+ *  @return {object}
  */
 function validatePassword() {
     let password = document.getElementById("password").value;
@@ -59,28 +86,22 @@ function validatePassword() {
         return {result: false, message: "обязательное поле"};
     }
 
-    if (!new RegExp(passwordRegExp).test(password)) {
-        return {result: false, message: "пароль содержит неразрешенные символы"};
-    }
-
-    if (!(new RegExp(lowerCaseRegExp)).test(password)) {
-        return {result: false, message: "пароль должен содержать хотя бы одну строчную букву"};
-    }
-
-    if (!(new RegExp(upperCaseRegExp)).test(password)) {
-        return {result: false, message: "пароль должен содержать хотя бы одну заглавную букву"};
-    }
-
-    if (!(new RegExp(numbersRegExp)).test(password)) {
-        return {result: false, message: "пароль должен содержать хотя бы одну цифру"};
+    if (!(new RegExp(passwordRegExp)).test(password) ||
+        !(new RegExp(lowerCaseRegExp)).test(password) ||
+        !(new RegExp(upperCaseRegExp)).test(password) ||
+        !(new RegExp(numbersRegExp)).test(password) ||
+        (password.length < 8 || password.length > 64)) {
+        return {result: false, message: "пароль должен содержать хотя бы одну строчную, заглавную буквы, цифру " +
+                                        "и иметь длину от 8 до 64 символов"};
     }
 
     return {result: true}
 }
 
 
-/* compare password validation
- * @return {object}
+/**
+ *  compare password validation
+ *  @return {object}
  */
 function validateComparePasswords() {
     let password = document.getElementById("password").value;
@@ -91,4 +112,28 @@ function validateComparePasswords() {
     }
 
     return {result: true}
+}
+
+function updateError(inputId, validateFunc) {
+    let errorElement = document.getElementById(inputId + "Error")
+    let inputElement = document.getElementById(inputId)
+    let validationResult = validateFunc()
+
+    if (!validationResult.result) {
+        inputElement.style.borderColor = "#FF0404"
+        errorElement.innerHTML = validationResult.message
+        errorElement.hidden = false
+        return
+    }
+
+    inputElement.style.borderColor = "#808080"
+    errorElement.innerHTML = ""
+    errorElement.hidden = true
+}
+
+function updateAllErrors() {
+    updateError('email', validateEmail)
+    updateError('password', validatePassword)
+    updateError('checkPassword', validateComparePasswords)
+    updateError('fullName', validateFullName)
 }
