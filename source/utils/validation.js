@@ -1,5 +1,6 @@
 "use strict"
 
+// регулярные выражения
 const emailRegExp = '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$.';
 const passwordRegExp = '^[a-zA-Z0-9_+-!]$';
 const usernameRegExp = '^[a-zA-Z0-9_]$';
@@ -8,12 +9,27 @@ const upperCaseRegExp = '[A-Z]+';
 const numbersRegExp = '[0-9]+';
 
 
+/*  email validation
+ *   @return {boolean} Valid or inValid
+ */
 function validateEmail() {
     let email = document.getElementById("email").value;
-    return (new RegExp(emailRegExp)).test(email);
+
+    if (email.length === 0) {
+        return {result: false, message: "обязательное поле"};
+    }
+
+    if (!(new RegExp(usernameRegExp)).test(email)) {
+        return {result: false, message: "некорректный email"};
+    }
+
+    return {result: true};
 }
 
 
+/* username validation
+ * @return {object}
+ */
 function validateUsername() {
     let username = document.getElementById("username").value;
 
@@ -33,6 +49,9 @@ function validateUsername() {
 }
 
 
+/* password validation
+ * @return {object}
+ */
 function validatePassword() {
     let password = document.getElementById("password").value;
 
@@ -59,6 +78,10 @@ function validatePassword() {
     return {result: true}
 }
 
+
+/* compare password validation
+ * @return {object}
+ */
 function validateComparePasswords() {
     let password = document.getElementById("password").value;
     let checkPassword = document.getElementById("checkPassword").value;
