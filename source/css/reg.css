@@ -64,6 +64,14 @@
     text-decoration: none;
 }
 
+.reg-error {
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 12px;
+    color: #FF0404;
+}
+
 input {
     padding: 8px 14px;
     margin: 8px 0;
