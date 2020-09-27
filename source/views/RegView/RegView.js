@@ -32,6 +32,7 @@ export default class RegView extends BaseView {
                         <input type="text" id="email" onfocusout="updateEmailError()" placeholder="mymailbox@mail.ru" autofocus>
                         <div id="emailError" class="reg-error" hidden="true"></div>
                     </div>
+                    <div id="emailError" hidden="true"></div>
                     <div class="reg-input">
                         Полное имя:
                         <input type="text" id="fullName" placeholder="Имя Фамилия">
@@ -43,6 +44,8 @@ export default class RegView extends BaseView {
                         <input id="checkPassword" onfocusout="updatePasswordError()" placeholder="Придумайте пароль">
                         <div id="compareError" class="reg-error" hidden="true"></div>
                     </div>
+                    <div id="passwordError" hidden="true"></div>
+                    <div id="compareError" hidden="true"></div>
                     <input class="reg-button" type="submit" value="Зарегистрироваться">
                     <a class="reg-a" href="/login">Уже есть аккаунт? Войти!</a>
                 </form>
