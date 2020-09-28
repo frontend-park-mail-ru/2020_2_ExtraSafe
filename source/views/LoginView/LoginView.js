@@ -4,25 +4,25 @@ import BaseView from '../BaseView/BaseView.js';
  * Class Login view.
  */
 export default class LoginView extends BaseView {
-  /**
+    /**
      * LoginView view constructor.
      * @constructor
      * @param {object} el - Root application div.
      * @param {*} router
      * @param {*} args
      */
-  constructor(el, router, args) {
-    super(el, router, {});
-    this.el = el;
-    this.args = args;
-  }
+    constructor(el, router, args) {
+        super(el, router, {});
+        this.el = el;
+        this.args = args;
+    }
 
-  /**
+    /**
      * Render Login view.
      */
-  render() {
-    this.el.innerHTML = `<div class="login-reg-container">
-                <form id="form" class="login-form">
+    render() {
+        this.el.innerHTML = `<div class="login-reg-container">
+                <form id="form" class="login-form" onsubmit="return false">
                     <div>Авторизация</div>
                     <div class="login-reg-input">
                         Электронная почта:
@@ -38,5 +38,5 @@ export default class LoginView extends BaseView {
                     <a class="login-reg-a" href="/reg">Ещё нет аккаунта? Зарегистрироваться!</a>
                 </form>
             </div>`;
-  }
+    }
 }

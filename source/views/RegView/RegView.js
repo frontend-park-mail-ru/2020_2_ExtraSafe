@@ -4,29 +4,30 @@ import BaseView from '../BaseView/BaseView.js';
  * Class Reg view.
  */
 export default class RegView extends BaseView {
-  /**
+    /**
      * RegView view constructor.
      * @constructor
      * @param {object} el - Root application div.
      * @param {*} router
      * @param {*} args
      */
-  constructor(el, router, args) {
-    super(el, router, {});
-    this.el = el;
-    this.args = args;
-  }
-
-  /**
+    constructor(el, router, args) {
+        super(el, router, {});
+        this.el = el;
+        this.args = args;
+    }
+    /* eslint-disable max-len */
+    /**
      * Render Reg view.
      */
-  render() {
-    this.el.innerHTML = `<div class="login-reg-container">
+    render() {
+        this.el.innerHTML = `<div class="login-reg-container">
                 <form class="reg-form" onsubmit="updateAllErrors(); return false">
                     <div>Регистрация аккаунта</div>
                     <div class="login-reg-input">
                         Электронная почта:
-                        <input type="text" id="email" onfocusout="updateError('email', validateEmail)" placeholder="mymailbox@mail.ru" autofocus>
+                        <input type="text" id="email" onfocusout="updateError('email', validateEmail)" 
+                        placeholder="mymailbox@mail.ru" autofocus>
                         <div id="emailError" class="login-reg-error" hidden="true"></div>
                     </div>
                     <div id="emailError" hidden="true"></div>
@@ -46,5 +47,6 @@ export default class RegView extends BaseView {
                     <a class="login-reg-a" href="/login">Уже есть аккаунт? Войти!</a>
                 </form>
             </div>`;
-  }
+    }
+    /* eslint-enable max-len */
 }

@@ -4,7 +4,11 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
+    "lint-fix": "eslint --fix .",
+    "start": "node server.js",
+    "dev-start": "npm run lint && npm run start"
   },
   "keywords": [],
   "author": "",
@@ -14,7 +18,7 @@
   },
   "devDependencies": {
     "eslint": "^7.10.0",
-    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-config-google": "^0.14.0",
     "eslint-plugin-import": "^2.22.1"
   }
 }
