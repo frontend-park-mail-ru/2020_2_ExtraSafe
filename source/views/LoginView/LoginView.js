@@ -21,21 +21,21 @@ export default class LoginView extends BaseView {
      * Render Login view.
      */
   render() {
-    this.el.innerHTML = `<div class="login-container">
+    this.el.innerHTML = `<div class="login-reg-container">
                 <form id="form" class="login-form">
                     <div>Авторизация</div>
-                    <div class="login-input">
+                    <div class="login-reg-input">
                         Электронная почта:
                         <input type="text" id="email" placeholder="mymailbox@mail.ru" autofocus>
-                        <div id="emailError" class="login-error" hidden="true"></div>
+                        <div id="emailError" class="login-reg-error" hidden="true"></div>
                     </div>
-                    <div class="login-input">
+                    <div class="login-reg-input">
                         Пароль:
                         <input type="password" id="password" placeholder="Введите пароль">
-                        <div id="passwordError" class="login-error" hidden="true"></div>
+                        <div id="passwordError" class="login-reg-error" hidden="true"></div>
                     </div>
-                    <button type="submit" class="login-button">Войти</button>
-                    <a class="login-a" href="/reg">Ещё нет аккаунта? Зарегистрироваться!</a>
+                    <button type="submit" class="login-reg-button">Войти</button>
+                    <a class="login-reg-a" href="/reg">Ещё нет аккаунта? Зарегистрироваться!</a>
                 </form>
             </div>`;
   }
