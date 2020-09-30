@@ -32,15 +32,15 @@ export default class RegView extends BaseView {
                     </div>
                     <div id="emailError" hidden="true"></div>
                     <div class="login-reg-input">
-                        Полное имя:
-                        <input type="text" id="fullName" onfocusout="updateError('fullName', validateFullName)" placeholder="Имя Фамилия">
-                        <div id="fullNameError" class="login-reg-error" hidden="true"></div>
+                        Имя пользователя:
+                        <input type="text" id="username" onfocusout="updateError('username', validateUsername)" placeholder="Username">
+                        <div id="usernameError" class="login-reg-error" hidden="true"></div>
                     </div>
                     <div class="login-reg-input">
                         Пароль:
                         <input type="password" id="password" onfocusout="updateError('password', validatePassword)" placeholder="Придумайте пароль">
                         <div id="passwordError" class="login-reg-error" hidden="true"></div>
-                        <input type="password" id="checkPassword" onfocusout="updateError('checkPassword', validateComparePasswords)" placeholder="Придумайте пароль">
+                        <input type="password" id="checkPassword" onfocusout="updateError('checkPassword', validateComparePasswords)" placeholder="Повторите пароль">
                         <div id="checkPasswordError" class="login-reg-error" hidden="true"></div>
                     </div>
                     <input class="login-reg-button" type="submit" value="Зарегистрироваться">
