@@ -22,7 +22,7 @@ export default class LoginView extends BaseView {
      */
     render() {
         this.el.innerHTML = `<div class="login-reg-container">
-                <form id="form" class="login-form" onsubmit="return false">
+                <form id="form" class="login-form" onsubmit="authRequest(); return false">
                     <div>Авторизация</div>
                     <div class="login-reg-input">
                         Электронная почта:
