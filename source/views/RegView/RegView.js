@@ -21,7 +21,7 @@ export default class RegView extends BaseView {
      * Render Reg view.
      */
     render() {
-        this.el.innerHTML = `<div class="login-reg-container">
+        this.el.innerHTML = `<div class="default-container">
                 <form class="reg-form" onsubmit="updateAllErrors(); return false">
                     <div>Регистрация аккаунта</div>
                     <div class="login-reg-input">

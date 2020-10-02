@@ -21,7 +21,7 @@ export default class LoginView extends BaseView {
      * Render Login view.
      */
     render() {
-        this.el.innerHTML = `<div class="login-reg-container">
+        this.el.innerHTML = `<div class="default-container">
                 <form id="form" class="login-form" onsubmit="return false">
                     <div>Авторизация</div>
                     <div class="login-reg-input">
