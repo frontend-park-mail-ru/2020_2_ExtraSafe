@@ -24,16 +24,17 @@ export default class ProfileView extends BaseView {
         this.el.innerHTML = `<div class="default-container">
                 <div id="form" class="profile-form" onsubmit="return false">
                     <div class="navigation"> 
-                    <div class="first-profile-nav"> Профиль </div>
-                    <!--<div class="profile-nav"> Внешний вид </div>--> 
-                    <div class="profile-nav"> Аккаунты </div>
-                    <div class="profile-nav"> Безопасность </div>
-                    <div class="profile-nav"> Уведомления </div>
-                </div>
+                        <a class="profile-nav"> Профиль </a>
+                        <!--<div class="profile-nav"> Внешний вид </div>--> 
+                        <a class="profile-nav"> Аккаунты </a>
+                        <a class="profile-nav"> Безопасность </a>
+                        <!--<a class="profile-nav"> Уведомления </a>-->
+                    </div>
                
                 <div class="settings-body">
                 
-                  <div class="avatar"> </div>
+                    <img src="../../img/egor.jpg" class="avatar" alt="avatar">
+
                     <div class="settings-input-container">
                         <div class="settings-input">
                             Имя пользователя:
@@ -50,9 +51,10 @@ export default class ProfileView extends BaseView {
                             <input type="text" id="email">
                         </div>
                     </div>
+
                     <div class="settings-input">
                         <button class="main-settings-button">Применить изменения</button>
-                    </div>
+                    </div>                
                     
                 </div>  
             </div>`;
@@ -61,7 +63,8 @@ export default class ProfileView extends BaseView {
 
 
 /* профиль
-                    <div class="avatar"> </div>
+                    <img src="../../img/egor.jpg" class="avatar" alt="avatar">
+
                     <div class="settings-input-container">
                         <div class="settings-input">
                             Имя пользователя:
@@ -78,6 +81,7 @@ export default class ProfileView extends BaseView {
                             <input type="text" id="email">
                         </div>
                     </div>
+
                     <div class="settings-input">
                         <button class="main-settings-button">Применить изменения</button>
                     </div>
