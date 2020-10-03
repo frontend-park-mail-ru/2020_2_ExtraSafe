@@ -21,20 +21,43 @@ export default class LoginView extends BaseView {
      * Render Login view.
      */
     render() {
-        this.el.innerHTML = `<div class="login-reg-container">
-                <form id="form" class="login-form" onsubmit="authRequest(); return false">
+        const emailInput = {
+            name: 'Электронная почта:',
+            inputs: [
+                {
+                    type: 'text',
+                    id: 'email',
+                    placeholder: 'mymailbox@mail.ru',
+                    hasError: true,
+                    params: [
+                        {
+                            name: 'autofocus',
+                        },
+                    ],
+                },
+            ],
+        };
+
+        const passwordInput = {
+            name: 'Пароль:',
+            inputs: [
+                {
+                    type: 'password',
+                    id: 'password',
+                    placeholder: 'Введите пароль',
+                    hasError: true,
+                },
+            ],
+        };
+
+        const signInButton = {buttonText: 'Войти'};
+
+        this.el.innerHTML = `<div class="default-container">
+                <form id="form" class="login-form" onsubmit="return false">
                     <div>Авторизация</div>
-                    <div class="login-reg-input">
-                        Электронная почта:
-                        <input type="text" id="email" placeholder="mymailbox@mail.ru" autofocus>
-                        <div id="emailError" class="login-reg-error" hidden="true"></div>
-                    </div>
-                    <div class="login-reg-input">
-                        Пароль:
-                        <input type="password" id="password" placeholder="Введите пароль">
-                        <div id="passwordError" class="login-reg-error" hidden="true"></div>
-                    </div>
-                    <button type="submit" class="login-reg-button">Войти</button>
+                    ${window.fest['components/NamedInput/NamedInput.tmpl'](emailInput)}
+                    ${window.fest['components/NamedInput/NamedInput.tmpl'](passwordInput)}
+                    ${window.fest['components/SubmitButton/SubmitButton.tmpl'](signInButton)}
                     <a class="login-reg-a" href="/reg">Ещё нет аккаунта? Зарегистрироваться!</a>
                 </form>
             </div>`;

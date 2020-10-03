@@ -1,8 +1,8 @@
 // регулярные выражения
 const emailRegExp = '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$';
 const passwordRegExp = '^[a-zA-Z0-9~!@#$%^&*-_+=`|\\(){}:;"\'<>,.?/]+$';
-// const usernameRegExp = '^[a-zA-Z0-9_]+$';
-const fullNameRegExp = '^[a-zA-Zа-яА-Я _]+$';
+const usernameRegExp = '^[a-zA-Z0-9_]+$';
+// const fullNameRegExp = '^[a-zA-Zа-яА-Я _]+$';
 const lowerCaseRegExp = '[a-z]+';
 const upperCaseRegExp = '[A-Z]+';
 const numbersRegExp = '[0-9]+';
@@ -35,55 +35,24 @@ function validateEmail() {
  *  username validation
  *  @return {object}
  */
-// function validateUsername() {
-//     const username = document.getElementById('username').value;
-//
-//     if (username.length === 0) {
-//         return {
-//             result: false,
-//             message: 'обязательное поле',
-//         };
-//     }
-//
-//     if (username.length < 2 || username.length > 40) {
-//         return {
-//             result: false,
-//             message: 'минимальная длина имени - 2, максимальная - 40',
-//         };
-//     }
-//
-//     if (!(new RegExp(usernameRegExp)).test(username)) {
-//         return {
-//             result: false,
-//             message: 'содержит некорректные символы',
-//         };
-//     }
-//
-//     return {result: true};
-// }
+function validateUsername() {
+    const username = document.getElementById('username').value;
 
-/**
- *  full name validation
- *  @return {object}
- */
-function validateFullName() {
-    const fullName = document.getElementById('fullName').value;
-
-    if (fullName.length === 0) {
+    if (username.length === 0) {
         return {
             result: false,
             message: 'обязательное поле',
         };
     }
 
-    if (fullName.length < 2 || fullName.length > 40) {
+    if (username.length < 2 || username.length > 40) {
         return {
             result: false,
             message: 'минимальная длина имени - 2, максимальная - 40',
         };
     }
 
-    if (!(new RegExp(fullNameRegExp)).test(fullName)) {
+    if (!(new RegExp(usernameRegExp)).test(username)) {
         return {
             result: false,
             message: 'содержит некорректные символы',
@@ -92,6 +61,37 @@ function validateFullName() {
 
     return {result: true};
 }
+
+/**
+ *  full name validation
+ *  @return {object}
+ */
+// function validateFullName() {
+//     const fullName = document.getElementById('fullName').value;
+//
+//     if (fullName.length === 0) {
+//         return {
+//             result: false,
+//             message: 'обязательное поле',
+//         };
+//     }
+//
+//     if (fullName.length < 2 || fullName.length > 40) {
+//         return {
+//             result: false,
+//             message: 'минимальная длина имени - 2, максимальная - 40',
+//         };
+//     }
+//
+//     if (!(new RegExp(fullNameRegExp)).test(fullName)) {
+//         return {
+//             result: false,
+//             message: 'содержит некорректные символы',
+//         };
+//     }
+//
+//     return {result: true};
+// }
 
 /**
  *  password validation
@@ -170,5 +170,5 @@ function updateAllErrors() {
     updateError('email', validateEmail);
     updateError('password', validatePassword);
     updateError('checkPassword', validateComparePasswords);
-    updateError('fullName', validateFullName);
+    updateError('username', validateUsername);
 }

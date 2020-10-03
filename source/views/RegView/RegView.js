@@ -21,29 +21,84 @@ export default class RegView extends BaseView {
      * Render Reg view.
      */
     render() {
-        this.el.innerHTML = `<div class="login-reg-container">
+        const emailInput = {
+            name: 'Электронная почта:',
+            inputs: [
+                {
+                    type: 'text',
+                    id: 'email',
+                    placeholder: 'mymailbox@mail.ru',
+                    hasError: true,
+                    params: [
+                        {
+                            name: 'autofocus',
+                        },
+                        {
+                            name: 'onfocusout',
+                            value: 'updateError(\'email\', validateEmail)',
+                        },
+                    ],
+                },
+            ],
+        };
+
+        const usernameInput = {
+            name: 'Имя пользователя:',
+            inputs: [
+                {
+                    type: 'text',
+                    id: 'username',
+                    placeholder: 'Username',
+                    hasError: true,
+                    params: [
+                        {
+                            name: 'onfocusout',
+                            value: 'updateError(\'username\', validateUsername)',
+                        },
+                    ],
+                },
+            ],
+        };
+
+        const passwordInput = {
+            name: 'Пароль:',
+            inputs: [
+                {
+                    type: 'password',
+                    id: 'password',
+                    placeholder: 'Придумайте пароль',
+                    hasError: true,
+                    params: [
+                        {
+                            name: 'onfocusout',
+                            value: 'updateError(\'password\', validatePassword)',
+                        },
+                    ],
+                },
+                {
+                    type: 'password',
+                    id: 'checkPassword',
+                    placeholder: 'Повторите пароль',
+                    hasError: true,
+                    params: [
+                        {
+                            name: 'onfocusout',
+                            value: 'updateError(\'checkPassword\', validateComparePasswords)',
+                        },
+                    ],
+                },
+            ],
+        };
+
+        const signInButton = {buttonText: 'Зарегистрироваться'};
+
+        this.el.innerHTML = `<div class="default-container">
                 <form class="reg-form" onsubmit="updateAllErrors(); return false">
                     <div>Регистрация аккаунта</div>
-                    <div class="login-reg-input">
-                        Электронная почта:
-                        <input type="text" id="email" onfocusout="updateError('email', validateEmail)" 
-                        placeholder="mymailbox@mail.ru" autofocus>
-                        <div id="emailError" class="login-reg-error" hidden="true"></div>
-                    </div>
-                    <div id="emailError" hidden="true"></div>
-                    <div class="login-reg-input">
-                        Полное имя:
-                        <input type="text" id="fullName" onfocusout="updateError('fullName', validateFullName)" placeholder="Имя Фамилия">
-                        <div id="fullNameError" class="login-reg-error" hidden="true"></div>
-                    </div>
-                    <div class="login-reg-input">
-                        Пароль:
-                        <input type="password" id="password" onfocusout="updateError('password', validatePassword)" placeholder="Придумайте пароль">
-                        <div id="passwordError" class="login-reg-error" hidden="true"></div>
-                        <input type="password" id="checkPassword" onfocusout="updateError('checkPassword', validateComparePasswords)" placeholder="Придумайте пароль">
-                        <div id="checkPasswordError" class="login-reg-error" hidden="true"></div>
-                    </div>
-                    <input class="login-reg-button" type="submit" value="Зарегистрироваться">
+                    ${window.fest['components/NamedInput/NamedInput.tmpl'](emailInput)}
+                    ${window.fest['components/NamedInput/NamedInput.tmpl'](usernameInput)}
+                    ${window.fest['components/NamedInput/NamedInput.tmpl'](passwordInput)}
+                    ${window.fest['components/SubmitButton/SubmitButton.tmpl'](signInButton)}
                     <a class="login-reg-a" href="/login">Уже есть аккаунт? Войти!</a>
                 </form>
             </div>`;
