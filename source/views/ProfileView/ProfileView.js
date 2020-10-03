@@ -32,9 +32,9 @@ export default class ProfileView extends BaseView {
                     </div>
                
                 <div class="settings-body">
-                
+                    
                     <img src="../../img/egor.jpg" class="avatar" alt="avatar">
-
+                 
                     <div class="settings-input-container">
                         <div class="settings-input">
                             Имя пользователя:
