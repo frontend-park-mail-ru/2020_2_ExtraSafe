@@ -1,23 +1,55 @@
+import Router from "./router";
 
-function authRequest() {
+const router = new Router(app);
+
+async function authRequest() {
     let user = {
-        name: document.getElementById('email').value,
+        email: document.getElementById('email').value,
         password: document.getElementById('password').value
     };
 
-    console.log(user.name, user.password)
+    console.log(user.email, user.password)
 
-    try {
-        const response = fetch('http://127.0.0.1:8080/login/', {
-            method: 'POST',
-            body: JSON.stringify(user),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        const json = response.json();
-        console.log('Успех:', JSON.stringify(json));
-    } catch (error) {
-        console.error('Ошибка:', error);
+    const resp = await fetch('http://127.0.0.1:8080/login/', {
+        credentials: 'include',
+        //credentials: 'same-origin',
+        method: 'POST',
+        body: JSON.stringify(user),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    })
+    if (resp.ok) {
+        return await resp.json()
     }
+    console.log("no");
+}
+
+function regRequest() {
+    let user = {
+        email: document.getElementById('email').value,
+        nickname: document.getElementById('fullName').value,
+        password: document.getElementById('password').value
+    };
+
+    console.log(user.email, user.password)
+
+    fetch('http://127.0.0.1:8080/reg/', {
+        credentials: 'include',
+        method: 'POST',
+        body: JSON.stringify(user),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    }).then((response) => {
+        if (response.ok) {
+            console.log("ok")
+            //router.open('/pro')
+        }
+        return response.json()
+    }).then((responseBody) => {
+        console.log(responseBody)
+        return responseBody
+    })
+
 }

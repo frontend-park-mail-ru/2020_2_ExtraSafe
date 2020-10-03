@@ -215,4 +215,5 @@ fabric.properties
 # https://plugins.jetbrains.com/plugin/12206-codestream
 .idea/codestream.xml
 
+someInfo
 # End of https://www.toptal.com/developers/gitignore/api/webstorm,node
