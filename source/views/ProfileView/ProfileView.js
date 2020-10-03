@@ -23,6 +23,7 @@ export default class ProfileView extends BaseView {
     render() {
         this.el.innerHTML = `<div class="default-container">
                 <div id="form" class="profile-form" onsubmit="return false">
+                
                     <div class="navigation"> 
                         <a class="profile-nav"> Профиль </a>
                         <!--<div class="profile-nav"> Внешний вид </div>--> 
@@ -34,7 +35,7 @@ export default class ProfileView extends BaseView {
                 <div class="settings-body">
                     
                     <img src="../../img/egor.jpg" class="avatar" alt="avatar">
-                 
+
                     <div class="settings-input-container">
                         <div class="settings-input">
                             Имя пользователя:
@@ -54,15 +55,19 @@ export default class ProfileView extends BaseView {
 
                     <div class="settings-input">
                         <button class="main-settings-button">Применить изменения</button>
-                    </div>                
-                    
-                </div>  
+                    </div>
+                                        
+                </div> 
+                
+                <img src="../../img/close.svg" class="close" alt="close"> 
+                
             </div>`;
     }
 }
 
 
 /* профиль
+
                     <img src="../../img/egor.jpg" class="avatar" alt="avatar">
 
                     <div class="settings-input-container">

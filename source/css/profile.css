@@ -145,6 +145,18 @@
     filter: blur(5px);
 }
 
+.close {
+    position: relative;
+
+    width: 17px;
+    height: 17px;
+
+    align-self: flex-start;
+
+    padding-right: 25px;
+    padding-top: 25px;
+}
+
 .checkbox-settings {
     display: flex;
     flex-direction: row;
