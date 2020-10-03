@@ -93,7 +93,7 @@ export default class RegView extends BaseView {
         const signInButton = {buttonText: 'Зарегистрироваться'};
 
         this.el.innerHTML = `<div class="default-container">
-                <form class="reg-form" onsubmit="updateAllErrors(); return false">
+                <form class="reg-form" onsubmit="updateAllErrors(); regRequest(); return false">
                     <div>Регистрация аккаунта</div>
                     ${window.fest['components/NamedInput/NamedInput.tmpl'](emailInput)}
                     ${window.fest['components/NamedInput/NamedInput.tmpl'](usernameInput)}

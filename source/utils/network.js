@@ -1,6 +1,3 @@
-import Router from "./router";
-
-const router = new Router(app);
 
 async function authRequest() {
     let user = {
@@ -28,7 +25,7 @@ async function authRequest() {
 function regRequest() {
     let user = {
         email: document.getElementById('email').value,
-        nickname: document.getElementById('fullName').value,
+        nickname: document.getElementById('username').value,
         password: document.getElementById('password').value
     };
 
@@ -44,12 +41,11 @@ function regRequest() {
     }).then((response) => {
         if (response.ok) {
             console.log("ok")
-            //router.open('/pro')
+            //router.open('/profile')
         }
         return response.json()
     }).then((responseBody) => {
         console.log(responseBody)
         return responseBody
     })
-
 }
