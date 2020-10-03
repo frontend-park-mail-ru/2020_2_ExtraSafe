@@ -39,6 +39,8 @@
     margin-top: 30px;
     margin-left: 30px;
 
+    color: var(--grey-text-color);
+    text-decoration: none;
     transition: 0.05s linear;
 }
 
@@ -48,6 +50,9 @@
 }
 
 .active-profile-nav {
+    margin-top: 30px;
+    margin-left: 30px;
+
     color: var(--electric-indigo);
 }
 
@@ -154,4 +159,10 @@
     width: 100%;
     justify-content: center;
     align-items: center;
+}
+
+.account-logo {
+    margin-right: 25px;
+    width: 37px;
+    height: 37px;
 }
