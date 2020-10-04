@@ -16,92 +16,86 @@ export default class RegView extends BaseView {
         this.el = el;
         this.args = args;
     }
-    /* eslint-disable max-len */
+
     /**
      * Render Reg view.
      */
     render() {
-        const emailInput = {
-            name: 'Электронная почта:',
-            inputs: [
-                {
-                    type: 'text',
-                    id: 'email',
-                    placeholder: 'mymailbox@mail.ru',
-                    hasError: true,
-                    params: [
-                        {
-                            name: 'autofocus',
-                        },
-                        {
-                            name: 'onfocusout',
-                            value: 'updateError(\'email\', validateEmail)',
-                        },
-                    ],
-                },
-            ],
+        const json = {
+            emailInput: {
+                name: 'Электронная почта:',
+                inputs: [
+                    {
+                        type: 'text',
+                        id: 'email',
+                        placeholder: 'mymailbox@mail.ru',
+                        hasError: true,
+                        params: [
+                            {
+                                name: 'autofocus',
+                            },
+                            {
+                                name: 'onfocusout',
+                                value: 'updateError(\'email\', validateEmail)',
+                            },
+                        ],
+                    },
+                ],
+            },
+
+            usernameInput: {
+                name: 'Имя пользователя:',
+                inputs: [
+                    {
+                        type: 'text',
+                        id: 'username',
+                        placeholder: 'Username',
+                        hasError: true,
+                        params: [
+                            {
+                                name: 'onfocusout',
+                                value: 'updateError(\'username\', validateUsername)',
+                            },
+                        ],
+                    },
+                ],
+            },
+
+            passwordInput: {
+                name: 'Пароль:',
+                inputs: [
+                    {
+                        type: 'password',
+                        id: 'password',
+                        placeholder: 'Придумайте пароль',
+                        hasError: true,
+                        params: [
+                            {
+                                name: 'onfocusout',
+                                value: 'updateError(\'password\', validatePassword)',
+                            },
+                        ],
+                    },
+                    {
+                        type: 'password',
+                        id: 'checkPassword',
+                        placeholder: 'Повторите пароль',
+                        hasError: true,
+                        params: [
+                            {
+                                name: 'onfocusout',
+                                value: 'updateError(\'checkPassword\', validateComparePasswords)',
+                            },
+                        ],
+                    },
+                ],
+            },
+
+            signUpButton: {
+                buttonText: 'Зарегистрироваться',
+            },
         };
 
-        const usernameInput = {
-            name: 'Имя пользователя:',
-            inputs: [
-                {
-                    type: 'text',
-                    id: 'username',
-                    placeholder: 'Username',
-                    hasError: true,
-                    params: [
-                        {
-                            name: 'onfocusout',
-                            value: 'updateError(\'username\', validateUsername)',
-                        },
-                    ],
-                },
-            ],
-        };
-
-        const passwordInput = {
-            name: 'Пароль:',
-            inputs: [
-                {
-                    type: 'password',
-                    id: 'password',
-                    placeholder: 'Придумайте пароль',
-                    hasError: true,
-                    params: [
-                        {
-                            name: 'onfocusout',
-                            value: 'updateError(\'password\', validatePassword)',
-                        },
-                    ],
-                },
-                {
-                    type: 'password',
-                    id: 'checkPassword',
-                    placeholder: 'Повторите пароль',
-                    hasError: true,
-                    params: [
-                        {
-                            name: 'onfocusout',
-                            value: 'updateError(\'checkPassword\', validateComparePasswords)',
-                        },
-                    ],
-                },
-            ],
-        };
-
-        const signInButton = {buttonText: 'Зарегистрироваться'};
-
-        this.el.innerHTML = `<div class="default-container">
-                <form class="reg-form" onsubmit="updateAllErrors(); return false">
-                    <div>Регистрация аккаунта</div>
-                    ${window.fest['components/NamedInput/NamedInput.tmpl'](emailInput)}
-                    ${window.fest['components/NamedInput/NamedInput.tmpl'](usernameInput)}
-                    ${window.fest['components/NamedInput/NamedInput.tmpl'](passwordInput)}
-                    ${window.fest['components/SubmitButton/SubmitButton.tmpl'](signInButton)}
-                    <a class="login-reg-a" href="/login">Уже есть аккаунт? Войти!</a>
-                </form>
-            </div>`;
+        this.el.innerHTML = window.fest['views/RegView/RegView.tmpl'](json);
     }
-    /* eslint-enable max-len */
 }

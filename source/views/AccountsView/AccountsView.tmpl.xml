@@ -1,0 +1,41 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
+    <div class="default-container">
+        <div id="form" class="profile-form" onsubmit="return false">
+            <div class="navigation">
+                <a class="profile-nav" href="/profile">Профиль</a>
+                <!--<div class="profile-nav">Внешний вид</div>-->
+                <div class="active-profile-nav">Аккаунты</div>
+                <a class="profile-nav" href="/security">Безопасность</a>
+                <!--<a class="profile-nav">Уведомления</a>-->
+            </div>
+
+            <form class="settings-body">
+                <div class="settings-input-with-img">
+                    <img class="account-logo" src="../../img/account_logos/telegram.svg" alt="telegram"/>
+                    <fest:include context="json.telegramInput" src="../../components/NamedInput/NamedInput.tmpl.xml"/>
+                </div>
+                <div class="settings-input-with-img">
+                    <img class="account-logo" src="../../img/account_logos/instagram.svg" alt="instagram"/>
+                    <fest:include context="json.instagramInput" src="../../components/NamedInput/NamedInput.tmpl.xml"/>
+                </div>
+                <div class="settings-input-with-img">
+                    <img class="account-logo" src="../../img/account_logos/github.svg" alt="github"/>
+                    <fest:include context="json.githubInput" src="../../components/NamedInput/NamedInput.tmpl.xml"/>
+                </div>
+                <div class="settings-input-with-img">
+                    <img class="account-logo" src="../../img/account_logos/bitbucket.svg" alt="bitbucket"/>
+                    <fest:include context="json.bitbucketInput" src="../../components/NamedInput/NamedInput.tmpl.xml"/>
+                </div>
+                <div class="settings-input-with-img">
+                    <img class="account-logo" src="../../img/account_logos/vkontakte.svg" alt="vkontakte"/>
+                    <fest:include context="json.vkontakteInput" src="../../components/NamedInput/NamedInput.tmpl.xml"/>
+                </div>
+                <div class="settings-input-with-img">
+                    <img class="account-logo" src="../../img/account_logos/facebook.svg" alt="facebook"/>
+                    <fest:include context="json.facebookInput" src="../../components/NamedInput/NamedInput.tmpl.xml"/>
+                </div>
+                <fest:include context="json.submitButton" src="../../components/SubmitButton/SubmitButton.tmpl.xml"/>
+            </form>
+        </div>
+    </div>
+</fest:template>

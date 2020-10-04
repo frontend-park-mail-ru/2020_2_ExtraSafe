@@ -1,0 +1,23 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
+    <div class="default-container">
+        <div id="form" class="profile-form" onsubmit="return false">
+            <div class="navigation">
+                <div class="active-profile-nav">Профиль</div>
+                <!--<div class="profile-nav">Внешний вид</div>-->
+                <a class="profile-nav" href="/accounts">Аккаунты</a>
+                <a class="profile-nav" href="/security">Безопасность</a>
+                <!--<a class="profile-nav">Уведомления</a>-->
+            </div>
+
+            <form class="settings-body">
+                <img src="../../img/egor.jpg" class="avatar" alt="avatar"/>
+                <div class="settings-input-container">
+                    <fest:include context="json.usernameInput" src="../../components/NamedInput/NamedInput.tmpl.xml"/>
+                    <fest:include context="json.fullnameInput" src="../../components/NamedInput/NamedInput.tmpl.xml"/>
+                    <fest:include context="json.emailInput" src="../../components/NamedInput/NamedInput.tmpl.xml"/>
+                </div>
+                <fest:include context="json.submitButton" src="../../components/SubmitButton/SubmitButton.tmpl.xml"/>
+            </form>
+        </div>
+    </div>
+</fest:template>
