@@ -1,10 +1,12 @@
 .profile-form {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: start;
     justify-content: space-evenly;
+
     width: 836px;
     height: 599px;
+
     background-color: white;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
@@ -13,69 +15,45 @@
 .navigation {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: start;
     justify-content: flex-start;
-    width: 233px;
+
+    margin-left: 5px;
+    width: 160px;
     height: 599px;
-    background-color: var(--light-grey);
-    border-radius: 5px 0 0 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+
+    border-right-style: solid;
+    border-right-color: var(--input-border-color);
+    border-width: 1px;
+
+    background-color: white;
 
     font-family: Roboto, sans-serif;
     font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-}
-
-.first-profile-nav {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 233px;
-    height: 75px;
-    justify-content: center;
-    background-color: var(--light-grey);
-    border: 0.5px solid rgba(51, 51, 51, 0.6);
-    border-radius: 5px 0 0 0;
-}
-
-.active-first-profile-nav {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 233px;
-    height: 75px;
-    justify-content: center;
-    background-color: var(--electric-indigo);
-    border: 0.5px solid rgba(51, 51, 51, 0.6);
-    border-radius: 5px 0 0 0;
-
-    color: var(--light-grey);
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 16px;
 }
 
 .profile-nav {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 233px;
-    height: 75px;
-    justify-content: center;
-    background-color: var(--light-grey);
-    border: 0.5px solid rgba(51, 51, 51, 0.6);
+    margin-top: 30px;
+    margin-left: 30px;
 
+    color: var(--grey-text-color);
+    text-decoration: none;
+    transition: 0.05s linear;
+}
+
+.profile-nav:hover {
+    cursor: pointer;
+    color: var(--electric-indigo);
 }
 
 .active-profile-nav {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 233px;
-    height: 75px;
-    justify-content: center;
-    background-color: var(--electric-indigo);
-    border: 0.5px solid rgba(51, 51, 51, 0.6);
+    margin-top: 30px;
+    margin-left: 30px;
 
-    color: var(--light-grey);
+    color: var(--electric-indigo);
 }
 
 .settings-body {
@@ -83,11 +61,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    width: 603px;
+    width: 676px;
     height: 599px;
     background-color: white;
     border-radius: 0 5px 5px 0;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
 
     font-family: Roboto, sans-serif;
     font-style: normal;
@@ -146,9 +123,16 @@
 .avatar {
     height: 96px;
     width: 96px;
-    border-radius: 50%;
-    border: 1px solid var(--electric-indigo);
-    background: url(../img/doge-icon.svg);
+
+    /*border-radius: 100px;*/
+    clip-path: circle();
+
+    box-shadow: 0 0 0 2px, 0 0 15px var(--input-border-color);
+    /*color: var(--electric-indigo);*/
+    /*-webkit-linear-gradient(black, transparent);*/
+    /*mask-image: linear-gradient(transparent, transparent 5%, black 100%);*/
+/*    background-image:
+            linear-gradient(-45deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.2) 50%,  rgba(0,0,0,0.3) 51%, rgba(255,255,255,0.3) 100%);*/
 }
 
 .change-avatar {
@@ -161,6 +145,18 @@
 
     background: rgba(0, 0, 0, 0.5);
     filter: blur(5px);
+}
+
+.close {
+    position: relative;
+
+    width: 17px;
+    height: 17px;
+
+    align-self: flex-start;
+
+    padding-right: 25px;
+    padding-top: 25px;
 }
 
 .checkbox-settings {
@@ -182,4 +178,10 @@
     width: 100%;
     justify-content: center;
     align-items: center;
+}
+
+.account-logo {
+    margin-right: 25px;
+    width: 37px;
+    height: 37px;
 }
