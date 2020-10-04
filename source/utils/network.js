@@ -1,51 +1,52 @@
+ServerAddr = 'http://127.0.0.1:8080/';
 
-async function authRequest() {
-    let user = {
-        email: document.getElementById('email').value,
-        password: document.getElementById('password').value
-    };
+/**
+ * Send sign in request to server
+ * @param data
+ * @returns {Promise<Response>}
+ */
+function loginRequest(data) {
+    const url = ServerAddr + 'login/';
 
-    console.log(user.email, user.password)
-
-    const resp = await fetch('http://127.0.0.1:8080/login/', {
+    return fetch(url, {
         credentials: 'include',
         //credentials: 'same-origin',
         method: 'POST',
-        body: JSON.stringify(user),
+        body: JSON.stringify(data),
         headers: {
             'Content-Type': 'application/json'
         },
-    })
-    if (resp.ok) {
-        return await resp.json()
-    }
-    console.log("no");
+    });
 }
 
-function regRequest() {
-    let user = {
-        email: document.getElementById('email').value,
-        nickname: document.getElementById('username').value,
-        password: document.getElementById('password').value
-    };
+/**
+ * Send sign up request to server
+ * @param data
+ * @returns {Promise<Response>}
+ */
+function regRequest(data) {
+    const url = ServerAddr + 'reg/';
 
-    console.log(user.email, user.password)
-
-    fetch('http://127.0.0.1:8080/reg/', {
+    return fetch(url, {
         credentials: 'include',
         method: 'POST',
-        body: JSON.stringify(user),
+        body: JSON.stringify(data),
         headers: {
             'Content-Type': 'application/json'
         },
-    }).then((response) => {
-        if (response.ok) {
-            console.log("ok")
-            //router.open('/profile')
-        }
-        return response.json()
-    }).then((responseBody) => {
-        console.log(responseBody)
-        return responseBody
-    })
+    });
+}
+
+/**
+ * Send request to server to check
+ * if user is authorized
+ * @returns {Promise<Response>}
+ */
+function authRequest() {
+    const url = ServerAddr;
+
+    return fetch(url, {
+        credentials: 'include',
+        method: 'GET',
+    });
 }

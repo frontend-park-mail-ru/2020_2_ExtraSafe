@@ -15,6 +15,31 @@ export default class ProfileView extends BaseView {
         super(el, router, {});
         this.el = el;
         this.args = args;
+        this.coocies = Cookies.get('tabutask_id');
+    }
+
+    /**
+     * Check if user is authorized
+     */
+    ifAuthorized() {
+        if (this.coocies !== undefined) {
+            authRequest().then((response) => {
+                if (response.ok) {
+                    console.log("ok");
+                    this.render();
+                }
+                else {
+                    this.router.open('/login');
+                }
+                return response.json();
+            }).then((responseBody) => {
+                console.log(responseBody);
+                return responseBody;
+            });
+        }
+        else {
+            this.router.open('/login');
+        }
     }
 
     /**

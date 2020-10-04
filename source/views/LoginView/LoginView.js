@@ -1,4 +1,5 @@
 import BaseView from '../BaseView/BaseView.js';
+// import Cookies from 'js-cookie';
 
 /**
  * Class Login view.
@@ -15,6 +16,55 @@ export default class LoginView extends BaseView {
         super(el, router, {});
         this.el = el;
         this.args = args;
+        this.coocies = Cookies.get('tabutask_id');
+        console.log(this.coocies)
+    }
+
+    /**
+     * Check if user is authorized
+     */
+    ifAuthorized() {
+        if (this.coocies !== undefined) {
+            authRequest().then((response) => {
+                if (response.ok) {
+                    console.log("ok");
+                    this.router.open('/profile');
+                }
+                else {
+                    this.render();
+                }
+                return response.json();
+            }).then((responseBody) => {
+                console.log(responseBody);
+                return responseBody;
+            });
+        }
+        else {
+            this.render();
+        }
+    }
+
+    /**
+     * Request to server
+     */
+    requestAuthorization() {
+        let user = {
+            email: document.getElementById('email').value,
+            password: document.getElementById('password').value
+        };
+
+        console.log(user.email, user.password);
+
+        loginRequest(user).then((response) => {
+            if (response.ok) {
+                console.log("ok");
+                this.router.open('/profile');
+            }
+            return response.json();
+        }).then((responseBody) => {
+            console.log(responseBody);
+            return responseBody;
+        });
     }
 
     /**
@@ -53,7 +103,7 @@ export default class LoginView extends BaseView {
         const signInButton = {buttonText: 'Войти'};
 
         this.el.innerHTML = `<div class="default-container">
-                <form id="form" class="login-form" onsubmit="return false">
+                <form id="loginForm" class="login-form" onsubmit="return false">
                     <div>Авторизация</div>
                     ${window.fest['components/NamedInput/NamedInput.tmpl'](emailInput)}
                     ${window.fest['components/NamedInput/NamedInput.tmpl'](passwordInput)}
@@ -61,5 +111,8 @@ export default class LoginView extends BaseView {
                     <a class="login-reg-a" href="/reg">Ещё нет аккаунта? Зарегистрироваться!</a>
                 </form>
             </div>`;
+
+        document.getElementById("loginForm")
+            .addEventListener("submit", this.requestAuthorization.bind(this), false);
     }
 }

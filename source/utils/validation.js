@@ -154,12 +154,13 @@ function updateError(inputId, validateFunc) {
         inputElement.style.borderColor = '#FF0404';
         errorElement.innerHTML = validationResult.message;
         errorElement.hidden = false;
-        return;
+        return false;
     }
 
     inputElement.style.borderColor = '#808080';
     errorElement.innerHTML = '';
     errorElement.hidden = true;
+    return true;
 }
 
 /**
@@ -167,8 +168,9 @@ function updateError(inputId, validateFunc) {
  */
 // eslint-disable-next-line no-unused-vars,require-jsdoc
 function updateAllErrors() {
-    updateError('email', validateEmail);
-    updateError('password', validatePassword);
-    updateError('checkPassword', validateComparePasswords);
-    updateError('username', validateUsername);
+    let error = updateError('email', validateEmail);
+    error *= updateError('password', validatePassword);
+    error *= updateError('checkPassword', validateComparePasswords);
+    error *= updateError('username', validateUsername);
+    return error;
 }

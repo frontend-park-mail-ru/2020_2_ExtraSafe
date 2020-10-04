@@ -15,8 +15,9 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "node-fetch": "^2.6.1",
-    "fest": "^0.12.1"
+    "fest": "^0.12.1",
+    "js-cookie": "^2.2.1",
+    "node-fetch": "^2.6.1"
   },
   "devDependencies": {
     "cross-fetch": "^3.0.6",

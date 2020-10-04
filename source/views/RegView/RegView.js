@@ -15,8 +15,67 @@ export default class RegView extends BaseView {
         super(el, router, {});
         this.el = el;
         this.args = args;
+        this.coocies = Cookies.get('tabutask_id');
     }
-    /* eslint-disable max-len */
+
+    /**
+     * Check if user is authorized
+     */
+    ifAuthorized() {
+        if (this.coocies !== undefined) {
+            authRequest().then((response) => {
+                if (response.ok) {
+                    console.log("ok");
+                    this.router.open('/profile');
+                }
+                else {
+                    this.render();
+                }
+                return response.json();
+            }).then((responseBody) => {
+                console.log(responseBody);
+                return responseBody;
+            });
+        }
+        else {
+            this.render();
+        }
+    }
+
+    /**
+     * Validate all fields and
+     * send request to server
+     */
+    formSubmit() {
+        if (updateAllErrors()) {
+            this.registrationRequest()
+        }
+    }
+
+    /**
+     * Request to server
+     */
+    registrationRequest() {
+        let user = {
+            email: document.getElementById('email').value,
+            nickname: document.getElementById('username').value,
+            password: document.getElementById('password').value,
+        };
+
+        console.log(user.email, user.password);
+
+        regRequest(user).then((response) => {
+            if (response.ok) {
+                console.log("ok");
+                this.router.open('/profile');
+            }
+            return response.json();
+        }).then((responseBody) => {
+            console.log(responseBody);
+            return responseBody;
+        });
+    }
+
     /**
      * Render Reg view.
      */
@@ -91,9 +150,8 @@ export default class RegView extends BaseView {
         };
 
         const signInButton = {buttonText: 'Зарегистрироваться'};
-
         this.el.innerHTML = `<div class="default-container">
-                <form class="reg-form" onsubmit="updateAllErrors(); regRequest(); return false">
+                <form id="regForm" class="reg-form" onsubmit="return false">
                     <div>Регистрация аккаунта</div>
                     ${window.fest['components/NamedInput/NamedInput.tmpl'](emailInput)}
                     ${window.fest['components/NamedInput/NamedInput.tmpl'](usernameInput)}
@@ -102,6 +160,8 @@ export default class RegView extends BaseView {
                     <a class="login-reg-a" href="/login">Уже есть аккаунт? Войти!</a>
                 </form>
             </div>`;
+
+        document.getElementById("regForm")
+            .addEventListener("submit", this.formSubmit.bind(this), false);
     }
-    /* eslint-enable max-len */
 }
