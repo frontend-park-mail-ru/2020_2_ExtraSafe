@@ -31,8 +31,6 @@ body {
     justify-content: center;
     align-items: center;
     background-color: var(--main-bg-color);
-    margin: auto;
-    width: 100vw;
     height: 100vh;
 
     font-family: Roboto, sans-serif;
