@@ -8,7 +8,8 @@
     "lint": "eslint .",
     "lint-fix": "eslint --fix .",
     "start": "node_modules/.bin/fest-build --dir=source; node server.js",
-    "dev-start": "npm run lint && npm run start"
+    "dev-start": "npm run lint && npm run start",
+    "build": "fest-build --dir=source"
   },
   "keywords": [],
   "author": "",

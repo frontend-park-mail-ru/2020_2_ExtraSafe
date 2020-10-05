@@ -25,30 +25,30 @@ export default class ProfileView extends BaseView {
         if (cookies !== undefined) {
             authRequest().then((response) => {
                 if (response.ok) {
-                    console.log("ok");
-                    console.log("open profile profile")
+                    console.log('ok');
+                    console.log('open profile profile')
                     this.render();
                 }
                 else {
-                    console.log("open login profile")
+                    console.log('open login profile')
                     this.router.permOpen('/login');
                 }
             });
         }
         else {
-            console.log("open login profile 2")
+            console.log('open login profile 2')
             this.router.permOpen('/login');
         }
     }
 
     /**
      * Get params from server
-     * @returns {Promise<void>}
+     * @return {Promise<void>}
      */
     async getParams() {
         try {
-            let response = await profileGet();
-            let profileData = await response.json();
+            const response = await profileGet();
+            const profileData = await response.json();
             console.log(profileData);
             await this.setParams(profileData);
         } catch (err) {
@@ -70,7 +70,7 @@ export default class ProfileView extends BaseView {
      * Change user profile
      */
     changeParams() {
-        let data = {
+        const data = {
             email: document.getElementById('email').value,
             nickname: document.getElementById('username').value,
             fullname: document.getElementById('fullName').value,
@@ -78,7 +78,7 @@ export default class ProfileView extends BaseView {
 
         profileSet(data).then((response) => {
             if (response.ok) {
-                console.log("ok");
+                console.log('ok');
             }
             return response.json();
         }).then((responseBody) => {
@@ -92,7 +92,7 @@ export default class ProfileView extends BaseView {
      * Render Profile view.
      */
     render() {
-        //console.log(profileData.nickname);
+        // console.log(profileData.nickname);
         const json = {
             usernameInput: {
                 name: 'Имя пользователя:',
@@ -106,6 +106,12 @@ export default class ProfileView extends BaseView {
                         type: 'text',
                         id: 'username',
                         hasError: true,
+                        params: [
+                            {
+                                name: 'onfocusout',
+                                value: 'updateError(\'username\', validateUsername)',
+                            },
+                        ],
                     }],
             },
 
@@ -121,6 +127,12 @@ export default class ProfileView extends BaseView {
                         type: 'text',
                         id: 'fullName',
                         hasError: true,
+                        params: [
+                            {
+                                name: 'onfocusout',
+                                value: 'updateError(\'fullName\', validateFullName)',
+                            },
+                        ],
                     }],
             },
 
@@ -136,6 +148,12 @@ export default class ProfileView extends BaseView {
                         type: 'text',
                         id: 'email',
                         hasError: true,
+                        params: [
+                            {
+                                name: 'onfocusout',
+                                value: 'updateError(\'email\', validateEmail)',
+                            },
+                        ],
                     }],
             },
 
@@ -151,8 +169,9 @@ export default class ProfileView extends BaseView {
 
         this.el.innerHTML = window.fest['views/ProfileView/ProfileView.tmpl'](json);
         this.getParams();
+        document.getElementById('profileForm')
+            .addEventListener('submit', this.changeParams.bind(this), false);
     }
-
 }
 
 /* уведомления

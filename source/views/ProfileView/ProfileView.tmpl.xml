@@ -9,7 +9,7 @@
                 <!--<a class="profile-nav">Уведомления</a>-->
             </div>
 
-            <form class="settings-body">
+            <form id="profileForm" class="settings-body" onsubmit="return false">
                 <img src="../../img/egor.jpg" class="avatar" alt="avatar"/>
                 <div class="settings-input-container">
                     <fest:include context="json.usernameInput" src="../../components/NamedInput/NamedInput.tmpl.xml"/>

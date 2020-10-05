@@ -22,7 +22,7 @@ export default class RegView extends BaseView {
      */
     async ifAuthorized() {
         const cookies = Cookies.get('tabutask_id');
-        /*if (cookies !== undefined) {
+        /* if (cookies !== undefined) {
                 try {
                     await authRequest();
                     console.log("ok");
@@ -40,18 +40,16 @@ export default class RegView extends BaseView {
         if (cookies !== undefined) {
             authRequest().then((response) => {
                 if (response.ok) {
-                    console.log("ok");
-                    console.log("open profile registr")
+                    console.log('ok');
+                    console.log('open profile registr');
                     this.router.permOpen('/profile');
-                }
-                else {
-                    console.log("open reg registr")
+                } else {
+                    console.log('open reg registr');
                     this.render();
                 }
             });
-        }
-        else {
-            console.log("open reg registr 2")
+        } else {
+            console.log('open reg registr 2');
             this.render();
         }
     }
@@ -62,7 +60,7 @@ export default class RegView extends BaseView {
      */
     formSubmit() {
         if (updateAllErrors()) {
-            this.registrationRequest()
+            this.registrationRequest();
         }
     }
 
@@ -70,7 +68,7 @@ export default class RegView extends BaseView {
      * Request to server
      */
     registrationRequest() {
-        let user = {
+        const user = {
             email: document.getElementById('email').value,
             nickname: document.getElementById('username').value,
             password: document.getElementById('password').value,
@@ -80,7 +78,7 @@ export default class RegView extends BaseView {
 
         regRequest(user).then((response) => {
             if (response.ok) {
-                console.log("ok");
+                console.log('ok');
                 this.router.permOpen('/profile');
             }
             return response.json();
@@ -170,7 +168,7 @@ export default class RegView extends BaseView {
         };
 
         this.el.innerHTML = window.fest['views/RegView/RegView.tmpl'](json);
-        document.getElementById("regForm")
-            .addEventListener("submit", this.formSubmit.bind(this), false);
+        document.getElementById('regForm')
+            .addEventListener('submit', this.formSubmit.bind(this), false);
     }
 }

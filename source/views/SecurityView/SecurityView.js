@@ -26,7 +26,7 @@ export default class SecurityView extends BaseView {
         if (cookies !== undefined) {
             authRequest().then((response) => {
                 if (response.ok) {
-                    console.log("ok");
+                    console.log('ok');
                     this.render();
                 }
                 else {
@@ -45,7 +45,7 @@ export default class SecurityView extends BaseView {
      */
     formSubmit() {
         if (updateAllErrorsPassword()) {
-            this.changeParams()
+            this.changeParams();
         }
     }
 
@@ -53,14 +53,14 @@ export default class SecurityView extends BaseView {
      * Change user password
      */
     changeParams() {
-        let data = {
+        const data = {
             oldpassword: document.getElementById('oldPassword').value,
             password: document.getElementById('password').value,
         };
 
         accountsSet(data).then((response) => {
             if (response.ok) {
-                console.log("ok");
+                console.log('ok');
             }
             return response.json();
         }).then((responseBody) => {
