@@ -26,7 +26,7 @@ export default class AccountsView extends BaseView {
         if (cookies !== undefined) {
             authRequest().then((response) => {
                 if (response.ok) {
-                    console.log("ok");
+                    console.log('ok');
                     this.render();
                 }
                 else {
@@ -41,12 +41,12 @@ export default class AccountsView extends BaseView {
 
     /**
      * Get params from server
-     * @returns {Promise<void>}
+     * @return {Promise<void>}
      */
     async getParams() {
         try {
-            let response = await accountsGet();
-            let profileData = await response.json();
+            const response = await accountsGet();
+            const profileData = await response.json();
             console.log(profileData);
             await this.setParams(profileData);
         } catch (err) {
@@ -72,7 +72,7 @@ export default class AccountsView extends BaseView {
      * Change user accounts
      */
     changeParams() {
-        let data = {
+        const data = {
             telegram: document.getElementById('telegram').value,
             instagram: document.getElementById('instagram').value,
             github: document.getElementById('github').value,
@@ -83,7 +83,7 @@ export default class AccountsView extends BaseView {
 
         accountsSet(data).then((response) => {
             if (response.ok) {
-                console.log("ok");
+                console.log('ok');
             }
             return response.json();
         }).then((responseBody) => {
@@ -194,5 +194,7 @@ export default class AccountsView extends BaseView {
 
         this.el.innerHTML = window.fest['views/AccountsView/AccountsView.tmpl'](json);
         this.getParams();
+        document.getElementById('accountsForm')
+            .addEventListener('submit', this.changeParams.bind(this), false);
     }
 }

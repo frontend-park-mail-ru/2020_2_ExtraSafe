@@ -58,7 +58,7 @@ export default class SecurityView extends BaseView {
             password: document.getElementById('password').value,
         };
 
-        accountsSet(data).then((response) => {
+        passwordSet(data).then((response) => {
             if (response.ok) {
                 console.log('ok');
             }
@@ -125,5 +125,7 @@ export default class SecurityView extends BaseView {
         };
 
         this.el.innerHTML = window.fest['views/SecurityView/SecurityView.tmpl'](json);
+        document.getElementById('securityForm')
+            .addEventListener('submit', this.formSubmit.bind(this), false);
     }
 }

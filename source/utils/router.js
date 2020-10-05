@@ -25,7 +25,7 @@ export default class Router {
         window.history.replaceState({}, '', route);
 
         if (this.routesMap.has(route)) {
-            this.routesMap.get(route).render();
+            this.routesMap.get(route).ifAuthorized();
         } else {
             alert('Такой страницы нет! Перенаправляю на авторизацию');
             this.open('/login');
@@ -38,7 +38,7 @@ export default class Router {
         window.history.replaceState({}, '', route);
 
         if (this.routesMap.has(route)) {
-            this.routesMap.get(route).ifAuthorized();
+            this.routesMap.get(route).render();
         } else {
             alert('Такой страницы нет! Перенаправляю на авторизацию');
             this.open('/login');

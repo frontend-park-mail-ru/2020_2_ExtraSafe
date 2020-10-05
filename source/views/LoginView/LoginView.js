@@ -26,18 +26,16 @@ export default class LoginView extends BaseView {
         if (cookies !== undefined) {
             authRequest().then((response) => {
                 if (response.ok) {
-                    console.log("ok");
-                    console.log("open profile login")
+                    console.log('ok');
+                    console.log('open profile login');
                     this.router.permOpen('/profile');
-                }
-                else {
-                    console.log("open login login")
+                } else {
+                    console.log('open login login');
                     this.render();
                 }
             });
-        }
-        else {
-            console.log("open login login 2")
+        } else {
+            console.log('open login login 2');
             this.render();
         }
     }
@@ -46,16 +44,16 @@ export default class LoginView extends BaseView {
      * Request to server
      */
     requestAuthorization() {
-        let user = {
+        const user = {
             email: document.getElementById('email').value,
-            password: document.getElementById('password').value
+            password: document.getElementById('password').value,
         };
 
         console.log(user.email, user.password);
 
         loginRequest(user).then((response) => {
             if (response.ok) {
-                console.log("ok");
+                console.log('ok');
                 this.router.permOpen('/profile');
             }
             return response.json();
@@ -105,7 +103,7 @@ export default class LoginView extends BaseView {
         };
 
         this.el.innerHTML = window.fest['views/LoginView/LoginView.tmpl'](json);
-        document.getElementById("loginForm")
-            .addEventListener("submit", this.requestAuthorization.bind(this), false);
+        document.getElementById('loginForm')
+            .addEventListener('submit', this.requestAuthorization.bind(this), false);
     }
 }

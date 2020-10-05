@@ -3,7 +3,7 @@
     <fest:include context="json.navbar" src="../../components/Navbar/Navbar.tmpl.xml"/>
 
     <div class="default-container">
-        <div id="form" class="profile-form" onsubmit="return false">
+        <div class="profile-form" onsubmit="return false">
             <div class="navigation">
                 <a class="profile-nav" href="/profile">Профиль</a>
                 <!--<div class="profile-nav">Внешний вид</div>-->
@@ -12,7 +12,7 @@
                 <!--<a class="profile-nav">Уведомления</a>-->
             </div>
 
-            <form class="settings-body">
+            <form id="securityForm" class="settings-body">
                 <fest:include context="json.passwordInput" src="../../components/NamedInput/NamedInput.tmpl.xml"/>
                 <fest:include context="json.submitButton" src="../../components/SubmitButton/SubmitButton.tmpl.xml"/>
 <!--                <div class="settings-input">-->

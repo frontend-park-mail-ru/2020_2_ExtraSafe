@@ -3,7 +3,7 @@
     <fest:include context="json.navbar" src="../../components/Navbar/Navbar.tmpl.xml"/>
 
     <div class="default-container">
-        <div id="form" class="profile-form" onsubmit="return false">
+        <div class="profile-form" onsubmit="return false">
             <div class="navigation">
                 <div class="active-profile-nav">Профиль</div>
                 <!--<div class="profile-nav">Внешний вид</div>-->
