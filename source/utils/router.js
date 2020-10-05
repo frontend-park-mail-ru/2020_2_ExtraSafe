@@ -32,6 +32,10 @@ export default class Router {
         }
     }
 
+    /**
+     * Open route without permission check
+     * @param {string} route
+     */
     permOpen(route) {
         // console.log(this.routesMap);
 
@@ -55,10 +59,11 @@ export default class Router {
             const link = event.target;
 
             this.open(link.pathname);
-        } else if (event.target instanceof HTMLImageElement) {
-            event.preventDefault();
-            this.open(event.target.dataset.section);
         }
+        // } else if (event.target instanceof HTMLImageElement) {
+        //     event.preventDefault();
+        //     this.open(event.target.dataset.section);
+        // }
     }
 
     /**

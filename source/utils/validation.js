@@ -177,3 +177,8 @@ function updateAllErrorsPassword() {
     error *= updateError('checkPassword', validateComparePasswords);
     return error;
 }
+
+function updateProfileImg() {
+    const profileAvatar = document.getElementById('profileAvatar');
+    profileAvatar.src = URL.createObjectURL(event.target.files[0]);
+}

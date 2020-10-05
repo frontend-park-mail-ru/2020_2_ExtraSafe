@@ -13,7 +13,11 @@
             </div>
 
             <form id="profileForm" class="settings-body" onsubmit="return false">
-                <img src="../../img/egor.jpg" class="avatar" alt="avatar"/>
+                <label for="imageInput">
+                    <img id="profileAvatar" src="../../img/egor.jpg" class="avatar" alt="avatar"/>
+                </label>
+                <input id="imageInput" style="display: none" type="file" accept="image/*" onchange="updateProfileImg()"/>
+
                 <div class="settings-input-container">
                     <fest:include context="json.usernameInput" src="../../components/NamedInput/NamedInput.tmpl.xml"/>
                     <fest:include context="json.fullNameInput" src="../../components/NamedInput/NamedInput.tmpl.xml"/>
