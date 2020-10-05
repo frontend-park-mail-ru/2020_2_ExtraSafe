@@ -15,6 +15,58 @@ export default class SecurityView extends BaseView {
         super(el, router, {});
         this.el = el;
         this.args = args;
+        this.coocies = Cookies.get('tabutask_id');
+    }
+
+    /**
+     * Check if user is authorized
+     */
+    ifAuthorized() {
+        const cookies = Cookies.get('tabutask_id');
+        if (cookies !== undefined) {
+            authRequest().then((response) => {
+                if (response.ok) {
+                    console.log("ok");
+                    this.render();
+                }
+                else {
+                    this.router.permOpen('/login');
+                }
+            });
+        }
+        else {
+            this.router.permOpen('/login');
+        }
+    }
+
+    /**
+     * Validate all fields and
+     * send request to server
+     */
+    formSubmit() {
+        if (updateAllErrorsPassword()) {
+            this.changeParams()
+        }
+    }
+
+    /**
+     * Change user password
+     */
+    changeParams() {
+        let data = {
+            oldpassword: document.getElementById('oldPassword').value,
+            password: document.getElementById('password').value,
+        };
+
+        accountsSet(data).then((response) => {
+            if (response.ok) {
+                console.log("ok");
+            }
+            return response.json();
+        }).then((responseBody) => {
+            console.log(responseBody);
+            return responseBody;
+        });
     }
 
     /**

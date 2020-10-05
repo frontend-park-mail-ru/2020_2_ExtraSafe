@@ -15,29 +15,43 @@ export default class RegView extends BaseView {
         super(el, router, {});
         this.el = el;
         this.args = args;
-        this.coocies = Cookies.get('tabutask_id');
     }
 
     /**
      * Check if user is authorized
      */
-    ifAuthorized() {
-        if (this.coocies !== undefined) {
+    async ifAuthorized() {
+        const cookies = Cookies.get('tabutask_id');
+        /*if (cookies !== undefined) {
+                try {
+                    await authRequest();
+                    console.log("ok");
+                    console.log("open profile registr");
+                    this.router.permOpen('/profile');
+                } catch (err) {
+                    console.log("open reg registr")
+                    this.render();
+                }
+            }
+        else {
+            console.log("open reg registr 2");
+            this.render();
+        }*/
+        if (cookies !== undefined) {
             authRequest().then((response) => {
                 if (response.ok) {
                     console.log("ok");
-                    this.router.open('/profile');
+                    console.log("open profile registr")
+                    this.router.permOpen('/profile');
                 }
                 else {
+                    console.log("open reg registr")
                     this.render();
                 }
-                return response.json();
-            }).then((responseBody) => {
-                console.log(responseBody);
-                return responseBody;
             });
         }
         else {
+            console.log("open reg registr 2")
             this.render();
         }
     }
@@ -67,7 +81,7 @@ export default class RegView extends BaseView {
         regRequest(user).then((response) => {
             if (response.ok) {
                 console.log("ok");
-                this.router.open('/profile');
+                this.router.permOpen('/profile');
             }
             return response.json();
         }).then((responseBody) => {

@@ -15,37 +15,84 @@ export default class ProfileView extends BaseView {
         super(el, router, {});
         this.el = el;
         this.args = args;
-        this.coocies = Cookies.get('tabutask_id');
     }
 
     /**
      * Check if user is authorized
      */
     ifAuthorized() {
-        if (this.coocies !== undefined) {
+        const cookies = Cookies.get('tabutask_id');
+        if (cookies !== undefined) {
             authRequest().then((response) => {
                 if (response.ok) {
                     console.log("ok");
+                    console.log("open profile profile")
                     this.render();
                 }
                 else {
-                    this.router.open('/login');
+                    console.log("open login profile")
+                    this.router.permOpen('/login');
                 }
-                return response.json();
-            }).then((responseBody) => {
-                console.log(responseBody);
-                return responseBody;
             });
         }
         else {
-            this.router.open('/login');
+            console.log("open login profile 2")
+            this.router.permOpen('/login');
         }
+    }
+
+    /**
+     * Get params from server
+     * @returns {Promise<void>}
+     */
+    async getParams() {
+        try {
+            let response = await profileGet();
+            let profileData = await response.json();
+            console.log(profileData);
+            await this.setParams(profileData);
+        } catch (err) {
+            alert(err);
+        }
+    }
+
+    /**
+     * Set params to form
+     * @param data
+     */
+    setParams(data) {
+        document.getElementById('username').value = data.nickname;
+        document.getElementById('fullName').value = data.fullname;
+        document.getElementById('email').value = data.email;
+    }
+
+    /**
+     * Change user profile
+     */
+    changeParams() {
+        let data = {
+            email: document.getElementById('email').value,
+            nickname: document.getElementById('username').value,
+            fullname: document.getElementById('fullName').value,
+        };
+
+        profileSet(data).then((response) => {
+            if (response.ok) {
+                console.log("ok");
+            }
+            return response.json();
+        }).then((responseBody) => {
+            console.log(responseBody);
+            this.setParams(responseBody);
+            return responseBody;
+        });
     }
 
     /**
      * Render Profile view.
      */
     render() {
+        //console.log(profileData.nickname);
         const json = {
             usernameInput: {
                 name: 'Имя пользователя:',
@@ -103,7 +150,9 @@ export default class ProfileView extends BaseView {
         };
 
         this.el.innerHTML = window.fest['views/ProfileView/ProfileView.tmpl'](json);
+        this.getParams();
     }
+
 }
 
 /* уведомления

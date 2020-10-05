@@ -32,6 +32,19 @@ export default class Router {
         }
     }
 
+    permOpen(route) {
+        // console.log(this.routesMap);
+
+        window.history.replaceState({}, '', route);
+
+        if (this.routesMap.has(route)) {
+            this.routesMap.get(route).render();
+        } else {
+            alert('Такой страницы нет! Перенаправляю на авторизацию');
+            this.open('/login');
+        }
+    }
+
     /**
      * Catch click function
      * @param {object} event

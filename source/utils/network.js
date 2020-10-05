@@ -50,3 +50,60 @@ function authRequest() {
         method: 'GET',
     });
 }
+
+function profileGet() {
+    const url = ServerAddr + 'profile/';
+
+    return fetch(url, {
+        credentials: 'include',
+        method: 'GET',
+    });
+}
+
+function accountsGet() {
+    const url = ServerAddr + 'accounts/';
+
+    return fetch(url, {
+        credentials: 'include',
+        method: 'GET',
+    });
+}
+
+function profileSet(data) {
+    const url = ServerAddr + 'profile/';
+
+    return fetch(url, {
+        credentials: 'include',
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    });
+}
+
+function accountsSet(data) {
+    const url = ServerAddr + 'accounts/';
+
+    return fetch(url, {
+        credentials: 'include',
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    });
+}
+
+function passwordSet(data) {
+    const url = ServerAddr + 'password/';
+
+    return fetch(url, {
+        credentials: 'include',
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    });
+}

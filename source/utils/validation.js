@@ -174,3 +174,9 @@ function updateAllErrors() {
     error *= updateError('username', validateUsername);
     return error;
 }
+
+function updateAllErrorsPassword() {
+    let error = updateError('password', validatePassword);
+    error *= updateError('checkPassword', validateComparePasswords);
+    return error;
+}

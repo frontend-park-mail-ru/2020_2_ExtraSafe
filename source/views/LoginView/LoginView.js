@@ -16,30 +16,28 @@ export default class LoginView extends BaseView {
         super(el, router, {});
         this.el = el;
         this.args = args;
-        this.coocies = Cookies.get('tabutask_id');
-        console.log(this.coocies)
     }
 
     /**
      * Check if user is authorized
      */
     ifAuthorized() {
-        if (this.coocies !== undefined) {
+        const cookies = Cookies.get('tabutask_id');
+        if (cookies !== undefined) {
             authRequest().then((response) => {
                 if (response.ok) {
                     console.log("ok");
-                    this.router.open('/profile');
+                    console.log("open profile login")
+                    this.router.permOpen('/profile');
                 }
                 else {
+                    console.log("open login login")
                     this.render();
                 }
-                return response.json();
-            }).then((responseBody) => {
-                console.log(responseBody);
-                return responseBody;
             });
         }
         else {
+            console.log("open login login 2")
             this.render();
         }
     }
@@ -58,7 +56,7 @@ export default class LoginView extends BaseView {
         loginRequest(user).then((response) => {
             if (response.ok) {
                 console.log("ok");
-                this.router.open('/profile');
+                this.router.permOpen('/profile');
             }
             return response.json();
         }).then((responseBody) => {

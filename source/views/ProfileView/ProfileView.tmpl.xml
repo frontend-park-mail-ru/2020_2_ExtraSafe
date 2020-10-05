@@ -13,7 +13,7 @@
                 <img src="../../img/egor.jpg" class="avatar" alt="avatar"/>
                 <div class="settings-input-container">
                     <fest:include context="json.usernameInput" src="../../components/NamedInput/NamedInput.tmpl.xml"/>
-                    <fest:include context="json.fullnameInput" src="../../components/NamedInput/NamedInput.tmpl.xml"/>
+                    <fest:include context="json.fullNameInput" src="../../components/NamedInput/NamedInput.tmpl.xml"/>
                     <fest:include context="json.emailInput" src="../../components/NamedInput/NamedInput.tmpl.xml"/>
                 </div>
                 <fest:include context="json.submitButton" src="../../components/SubmitButton/SubmitButton.tmpl.xml"/>

@@ -15,6 +15,82 @@ export default class AccountsView extends BaseView {
         super(el, router, {});
         this.el = el;
         this.args = args;
+        this.coocies = Cookies.get('tabutask_id');
+    }
+
+    /**
+     * Check if user is authorized
+     */
+    ifAuthorized() {
+        const cookies = Cookies.get('tabutask_id');
+        if (cookies !== undefined) {
+            authRequest().then((response) => {
+                if (response.ok) {
+                    console.log("ok");
+                    this.render();
+                }
+                else {
+                    this.router.permOpen('/login');
+                }
+            });
+        }
+        else {
+            this.router.permOpen('/login');
+        }
+    }
+
+    /**
+     * Get params from server
+     * @returns {Promise<void>}
+     */
+    async getParams() {
+        try {
+            let response = await accountsGet();
+            let profileData = await response.json();
+            console.log(profileData);
+            await this.setParams(profileData);
+        } catch (err) {
+            alert(err);
+        }
+    }
+
+    /**
+     * Set params to form
+     * @param data
+     */
+
+    setParams(data) {
+        document.getElementById('telegram').value = data.telegram;
+        document.getElementById('instagram').value = data.instagram;
+        document.getElementById('github').value = data.github;
+        document.getElementById('bitbucket').value = data.bitbucket;
+        document.getElementById('vkontakte').value = data.vk;
+        document.getElementById('facebook').value = data.facebook;
+    }
+
+    /**
+     * Change user accounts
+     */
+    changeParams() {
+        let data = {
+            telegram: document.getElementById('telegram').value,
+            instagram: document.getElementById('instagram').value,
+            github: document.getElementById('github').value,
+            bitbucket: document.getElementById('bitbucket').value,
+            vk: document.getElementById('vkontakte').value,
+            facebook: document.getElementById('facebook').value,
+        };
+
+        accountsSet(data).then((response) => {
+            if (response.ok) {
+                console.log("ok");
+            }
+            return response.json();
+        }).then((responseBody) => {
+            console.log(responseBody);
+            this.setParams(responseBody);
+            return responseBody;
+        });
     }
 
     /**
@@ -117,5 +193,6 @@ export default class AccountsView extends BaseView {
         };
 
         this.el.innerHTML = window.fest['views/AccountsView/AccountsView.tmpl'](json);
+        this.getParams();
     }
 }
