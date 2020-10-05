@@ -1,4 +1,10 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
+    <div class="navbar">
+        <img class="navbar-icon" src="../img/home.svg"/>
+        <img class="main_logo" src="../img/tabutask_logo_white.svg"/>
+        <img class="avatar-mini"  src="../img/egor.jpg"/>
+    </div>
+
     <div class="default-container">
         <div id="form" class="profile-form" onsubmit="return false">
             <div class="navigation">

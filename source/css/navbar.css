@@ -1,0 +1,33 @@
+.navbar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background:  linear-gradient(90deg, var(--blue) 0%, var(--violet) 100%);
+    overflow: hidden;
+    width: 100%;
+   /* margin-left: 15px;*/
+    margin: 0;
+}
+
+.main_logo {
+    margin: auto;
+    width: 120px;
+    height: 40px;
+    color: white;
+}
+
+.avatar-mini {
+    margin-right: 20px;
+    height: 32px;
+    width: 32px;
+    clip-path: circle();
+}
+
+.navbar-icon {
+    margin-left: 20px;
+    width: 28px;
+    height: 28px;
+    text-align: center;
+    transition: all 0.1s ease;
+}
+
