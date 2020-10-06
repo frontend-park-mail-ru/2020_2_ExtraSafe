@@ -51,7 +51,7 @@ export default class RegView extends BaseView {
     registrationRequest() {
         const user = {
             email: document.getElementById('email').value,
-            nickname: document.getElementById('username').value,
+            username: document.getElementById('username').value,
             password: document.getElementById('password').value,
         };
 
