@@ -72,7 +72,7 @@ export default class AccountsView extends BaseView {
             instagram: document.getElementById('instagram').value,
             github: document.getElementById('github').value,
             bitbucket: document.getElementById('bitbucket').value,
-            vk: document.getElementById('vkontakte').value,
+            vkontakte: document.getElementById('vkontakte').value,
             facebook: document.getElementById('facebook').value,
         };
 
