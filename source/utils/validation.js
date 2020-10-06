@@ -125,7 +125,7 @@ function validatePassword() {
  */
 function validateComparePasswords() {
     const password = document.getElementById('password').value;
-    const checkPassword = document.getElementById('checkPassword').value;
+    const checkPassword = document.getElementById('repeatPassword').value;
 
     if (password !== checkPassword) {
         return {
@@ -135,50 +135,4 @@ function validateComparePasswords() {
     }
 
     return {result: true};
-}
-
-/**
- *  render error div
- *  @param {string} inputId - error div id
- *  @param {function} validateFunc - validate function
- */
-function updateError(inputId, validateFunc) {
-    const errorElement = document.getElementById(`${inputId}Error`);
-    const inputElement = document.getElementById(inputId);
-    const validationResult = validateFunc();
-
-    if (!validationResult.result) {
-        inputElement.style.borderColor = '#FF0404';
-        errorElement.innerHTML = validationResult.message;
-        errorElement.hidden = false;
-        return false;
-    }
-
-    inputElement.style.borderColor = '#808080';
-    errorElement.innerHTML = '';
-    errorElement.hidden = true;
-    return true;
-}
-
-/**
- * render all error divs
- */
-// eslint-disable-next-line no-unused-vars,require-jsdoc
-function updateAllErrors() {
-    let error = updateError('email', validateEmail);
-    error *= updateError('password', validatePassword);
-    error *= updateError('checkPassword', validateComparePasswords);
-    error *= updateError('username', validateUsername);
-    return error;
-}
-
-function updateAllErrorsPassword() {
-    let error = updateError('password', validatePassword);
-    error *= updateError('checkPassword', validateComparePasswords);
-    return error;
-}
-
-function updateProfileImg() {
-    const profileAvatar = document.getElementById('profileAvatar');
-    profileAvatar.src = URL.createObjectURL(event.target.files[0]);
 }
