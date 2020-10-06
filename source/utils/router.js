@@ -59,11 +59,13 @@ export default class Router {
             const link = event.target;
 
             this.open(link.pathname);
+        } else if (event.target instanceof HTMLImageElement) {
+            const href = event.target.dataset.href;
+            if (href !== undefined) {
+                event.preventDefault();
+                this.open(href);
+            }
         }
-        // } else if (event.target instanceof HTMLImageElement) {
-        //     event.preventDefault();
-        //     this.open(event.target.dataset.section);
-        // }
     }
 
     /**

@@ -122,7 +122,7 @@ export default class SecurityView extends BaseView {
                     },
                     {
                         type: 'password',
-                        id: 'checkPassword',
+                        id: 'repeatPassword',
                         placeholder: 'Повторите новый пароль',
                         hasError: true,
                     },

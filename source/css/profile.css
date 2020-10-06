@@ -124,10 +124,10 @@
     height: 96px;
     width: 96px;
     object-fit: cover;
-    /*border-radius: 100px;*/
     clip-path: circle();
 
     box-shadow: 0 0 0 2px, 0 0 15px var(--input-border-color);
+    cursor: pointer;
     /*color: var(--electric-indigo);*/
     /*-webkit-linear-gradient(black, transparent);*/
     /*mask-image: linear-gradient(transparent, transparent 5%, black 100%);*/
@@ -157,6 +157,7 @@
 
     padding-right: 25px;
     padding-top: 25px;
+    cursor: pointer;
 }
 
 .checkbox-settings {

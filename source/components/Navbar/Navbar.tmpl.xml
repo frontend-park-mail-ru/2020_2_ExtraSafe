@@ -1,7 +1,11 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
     <div class="navbar">
-        <img class="navbar-icon" src="../img/home.svg"/>
-        <img class="main_logo" src="../img/tabutask_logo_white.svg"/>
-        <img title="Профиль" class="avatar-mini"  src="../img/egor.jpg"/>
+        <img data-href="/" class="navbar-icon" src="../img/home.svg"/>
+        <img data-href="/" class="main_logo" src="../img/tabutask_logo_white.svg"/>
+        <img class="avatar-mini" onclick="myFunction()" title="Профиль" src="../img/egor.jpg"/>
+    </div>
+    <div id="myDropdown" class="dropdown-content">
+        <a href="/profile">Настройки</a>
+        <a href="#contact">Выйти</a>
     </div>
 </fest:template>

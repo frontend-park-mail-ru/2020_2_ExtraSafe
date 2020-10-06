@@ -20,7 +20,7 @@
 <!--                    <button class="main-settings-button"> Подключить </button>-->
 <!--                </div>-->
             </form>
-            <img src="../../img/close.svg" class="close" alt="close"/>
+            <img data-href="/" src="../../img/close.svg" class="close" alt="close"/>
         </div>
     </div>
 </fest:template>

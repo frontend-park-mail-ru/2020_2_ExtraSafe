@@ -53,7 +53,7 @@ export default class LoginView extends BaseView {
         loginRequest(user).then((response) => {
             if (response.ok) {
                 console.log('ok');
-                this.router.permOpen('/profile');
+                this.router.permOpen('/');
             } else {
                 this.printError('Не верная почта или пароль');
             }
