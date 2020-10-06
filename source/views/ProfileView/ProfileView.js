@@ -25,7 +25,6 @@ export default class ProfileView extends BaseView {
         if (cookies !== undefined) {
             authRequest().then((response) => {
                 if (response.ok) {
-                    console.log('ok');
                     this.render();
                 } else {
                     this.router.permOpen('/login');
@@ -54,7 +53,6 @@ export default class ProfileView extends BaseView {
         try {
             const response = await profileGet();
             const profileData = await response.json();
-            console.log(profileData);
             await this.setParams(profileData);
         } catch (err) {
             alert(err);
@@ -89,16 +87,11 @@ export default class ProfileView extends BaseView {
         formData.append('avatar', document.getElementById('imageInput').files[0]);
 
         profileSet(formData).then((response) => {
-            if (response.ok) {
-                console.log('ok');
-            }
             return response.json();
         }).then((responseBody) => {
-            console.log(responseBody);
             if (responseBody.status > 200) {
                 this.printErrors(responseBody.messages);
             }
-            console.log(data);
             this.setParams(data);
             return responseBody;
         });
@@ -157,7 +150,6 @@ export default class ProfileView extends BaseView {
      * Render Profile view.
      */
     render() {
-        // console.log(profileData.nickname);
         const json = {
             usernameInput: {
                 name: 'Имя пользователя:',

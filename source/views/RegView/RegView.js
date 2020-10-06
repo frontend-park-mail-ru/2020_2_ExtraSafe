@@ -22,25 +22,9 @@ export default class RegView extends BaseView {
      */
     async ifAuthorized() {
         const cookies = Cookies.get('tabutask_id');
-        /* if (cookies !== undefined) {
-                try {
-                    await authRequest();
-                    console.log("ok");
-                    console.log("open profile registr");
-                    this.router.permOpen('/profile');
-                } catch (err) {
-                    console.log("open reg registr")
-                    this.render();
-                }
-            }
-        else {
-            console.log("open reg registr 2");
-            this.render();
-        }*/
         if (cookies !== undefined) {
             authRequest().then((response) => {
                 if (response.ok) {
-                    console.log('ok');
                     this.router.permOpen('/');
                 } else {
                     this.render();
@@ -71,16 +55,12 @@ export default class RegView extends BaseView {
             password: document.getElementById('password').value,
         };
 
-        console.log(user.email, user.password);
-
         regRequest(user).then((response) => {
             if (response.ok) {
-                console.log('ok');
                 this.router.permOpen('/');
             }
             return response.json();
         }).then((responseBody) => {
-            console.log(responseBody);
             if (responseBody.status > 200) {
                 this.printErrors(responseBody.messages);
             }

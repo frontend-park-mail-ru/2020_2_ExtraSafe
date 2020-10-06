@@ -25,16 +25,12 @@ export default class LoginView extends BaseView {
         if (cookies !== undefined) {
             authRequest().then((response) => {
                 if (response.ok) {
-                    console.log('ok');
-                    console.log('open profile login');
                     this.router.permOpen('/');
                 } else {
-                    console.log('open login login');
                     this.render();
                 }
             });
         } else {
-            console.log('open login login 2');
             this.render();
         }
     }
@@ -48,18 +44,12 @@ export default class LoginView extends BaseView {
             password: document.getElementById('password').value,
         };
 
-        console.log(user.email, user.password);
-
         loginRequest(user).then((response) => {
             if (response.ok) {
-                console.log('ok');
                 this.router.permOpen('/');
-            } else {
-                this.printError('Не верная почта или пароль');
             }
             return response.json();
         }).then((responseBody) => {
-            console.log(responseBody);
             if (responseBody.status > 200) {
                 this.printErrors(responseBody.messages);
             }

@@ -26,7 +26,6 @@ export default class SecurityView extends BaseView {
         if (cookies !== undefined) {
             authRequest().then((response) => {
                 if (response.ok) {
-                    console.log('ok');
                     this.render();
                 } else {
                     this.router.permOpen('/login');
@@ -57,9 +56,6 @@ export default class SecurityView extends BaseView {
         };
 
         passwordSet(data).then((response) => {
-            if (response.ok) {
-                console.log('ok');
-            }
             return response.json();
         }).then((responseBody) => {
             if (responseBody.status > 200) {

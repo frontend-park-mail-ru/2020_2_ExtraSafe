@@ -10,7 +10,6 @@ function loginRequest(data) {
 
     return fetch(url, {
         credentials: 'include',
-        //credentials: 'same-origin',
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
