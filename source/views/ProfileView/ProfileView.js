@@ -26,18 +26,26 @@ export default class ProfileView extends BaseView {
             authRequest().then((response) => {
                 if (response.ok) {
                     console.log('ok');
-                    console.log('open profile profile')
+                    console.log('open profile profile');
                     this.render();
-                }
-                else {
-                    console.log('open login profile')
+                } else {
+                    console.log('open login profile');
                     this.router.permOpen('/login');
                 }
             });
-        }
-        else {
-            console.log('open login profile 2')
+        } else {
+            console.log('open login profile 2');
             this.router.permOpen('/login');
+        }
+    }
+
+    /**
+     * Validate all fields and
+     * send request to server
+     */
+    formSubmit() {
+        if (this.updateAllErrors()) {
+            this.changeParams();
         }
     }
 
@@ -58,7 +66,7 @@ export default class ProfileView extends BaseView {
 
     /**
      * Set params to form
-     * @param data
+     * @param {object} data
      */
     setParams(data) {
         document.getElementById('username').value = data.nickname;
@@ -89,6 +97,41 @@ export default class ProfileView extends BaseView {
     }
 
     /**
+     * render all error divs
+     * @return {boolean} - error
+     */
+    updateAllErrors() {
+        let error = renderInputError('username', validateUsername());
+        error *= renderInputError('fullName', validateFullName());
+        error *= renderInputError('email', validateEmail());
+        return error;
+    }
+
+    /**
+     * add all event listeners
+     */
+    addEventListeners() {
+        document.getElementById('username').addEventListener('focusout',
+            function() {
+                renderInputError('username', validateUsername());
+            }, false);
+
+        document.getElementById('fullName').addEventListener('focusout',
+            function() {
+                renderInputError('fullName', validateFullName());
+            }, false);
+
+        document.getElementById('email').addEventListener('focusout',
+            function() {
+                renderInputError('email', validateEmail());
+            }, false);
+
+
+        document.getElementById('profileForm')
+            .addEventListener('submit', this.formSubmit.bind(this), false);
+    }
+
+    /**
      * Render Profile view.
      */
     render() {
@@ -106,12 +149,6 @@ export default class ProfileView extends BaseView {
                         type: 'text',
                         id: 'username',
                         hasError: true,
-                        params: [
-                            {
-                                name: 'onfocusout',
-                                value: 'updateError(\'username\', validateUsername)',
-                            },
-                        ],
                     }],
             },
 
@@ -127,12 +164,6 @@ export default class ProfileView extends BaseView {
                         type: 'text',
                         id: 'fullName',
                         hasError: true,
-                        params: [
-                            {
-                                name: 'onfocusout',
-                                value: 'updateError(\'fullName\', validateFullName)',
-                            },
-                        ],
                     }],
             },
 
@@ -148,12 +179,6 @@ export default class ProfileView extends BaseView {
                         type: 'text',
                         id: 'email',
                         hasError: true,
-                        params: [
-                            {
-                                name: 'onfocusout',
-                                value: 'updateError(\'email\', validateEmail)',
-                            },
-                        ],
                     }],
             },
 
@@ -169,8 +194,7 @@ export default class ProfileView extends BaseView {
 
         this.el.innerHTML = window.fest['views/ProfileView/ProfileView.tmpl'](json);
         this.getParams();
-        document.getElementById('profileForm')
-            .addEventListener('submit', this.changeParams.bind(this), false);
+        this.addEventListeners();
     }
 }
 

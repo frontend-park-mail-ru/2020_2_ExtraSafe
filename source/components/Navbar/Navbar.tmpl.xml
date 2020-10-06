@@ -2,6 +2,6 @@
     <div class="navbar">
         <img class="navbar-icon" src="../img/home.svg"/>
         <img class="main_logo" src="../img/tabutask_logo_white.svg"/>
-        <img class="avatar-mini"  src="../img/egor.jpg"/>
+        <img title="Профиль" class="avatar-mini"  src="../img/egor.jpg"/>
     </div>
 </fest:template>

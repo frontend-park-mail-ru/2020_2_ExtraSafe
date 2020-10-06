@@ -28,13 +28,11 @@ export default class SecurityView extends BaseView {
                 if (response.ok) {
                     console.log('ok');
                     this.render();
-                }
-                else {
+                } else {
                     this.router.permOpen('/login');
                 }
             });
-        }
-        else {
+        } else {
             this.router.permOpen('/login');
         }
     }
@@ -44,7 +42,7 @@ export default class SecurityView extends BaseView {
      * send request to server
      */
     formSubmit() {
-        if (updateAllErrorsPassword()) {
+        if (this.updateAllErrors()) {
             this.changeParams();
         }
     }
@@ -70,6 +68,35 @@ export default class SecurityView extends BaseView {
     }
 
     /**
+     * render all error divs
+     * @return {boolean} - error
+     */
+    updateAllErrors() {
+        let error = renderInputError('password', validatePassword());
+        error *= renderInputError('repeatPassword', validateComparePasswords());
+        return error;
+    }
+
+    /**
+     * add all event listeners
+     */
+    addEventListeners() {
+        document.getElementById('password').addEventListener('focusout',
+            function() {
+                renderInputError('password', validatePassword());
+            }, false);
+
+        document.getElementById('repeatPassword').addEventListener('focusout',
+            function() {
+                renderInputError('repeatPassword', validateComparePasswords());
+            }, false);
+
+
+        document.getElementById('securityForm')
+            .addEventListener('submit', this.formSubmit.bind(this), false);
+    }
+
+    /**
      * Render Security view.
      */
     render() {
@@ -92,24 +119,12 @@ export default class SecurityView extends BaseView {
                         id: 'password',
                         placeholder: 'Введите новый пароль',
                         hasError: true,
-                        params: [
-                            {
-                                name: 'onfocusout',
-                                value: 'updateError(\'password\', validatePassword)',
-                            },
-                        ],
                     },
                     {
                         type: 'password',
                         id: 'checkPassword',
                         placeholder: 'Повторите новый пароль',
                         hasError: true,
-                        params: [
-                            {
-                                name: 'onfocusout',
-                                value: 'updateError(\'checkPassword\', validateComparePasswords)',
-                            },
-                        ],
                     },
                 ],
             },
@@ -125,7 +140,6 @@ export default class SecurityView extends BaseView {
         };
 
         this.el.innerHTML = window.fest['views/SecurityView/SecurityView.tmpl'](json);
-        document.getElementById('securityForm')
-            .addEventListener('submit', this.formSubmit.bind(this), false);
+        this.addEventListeners();
     }
 }

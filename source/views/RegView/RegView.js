@@ -42,7 +42,7 @@ export default class RegView extends BaseView {
                 if (response.ok) {
                     console.log('ok');
                     console.log('open profile registr');
-                    this.router.permOpen('/profile');
+                    this.router.permOpen('/');
                 } else {
                     console.log('open reg registr');
                     this.render();
@@ -59,7 +59,7 @@ export default class RegView extends BaseView {
      * send request to server
      */
     formSubmit() {
-        if (updateAllErrors()) {
+        if (this.updateAllErrors()) {
             this.registrationRequest();
         }
     }
@@ -79,13 +79,54 @@ export default class RegView extends BaseView {
         regRequest(user).then((response) => {
             if (response.ok) {
                 console.log('ok');
-                this.router.permOpen('/profile');
+                this.router.permOpen('/');
             }
             return response.json();
         }).then((responseBody) => {
             console.log(responseBody);
             return responseBody;
         });
+    }
+
+    /**
+     * render all error divs
+     * @return {boolean} - error
+     */
+    updateAllErrors() {
+        let error = renderInputError('email', validateEmail());
+        error *= renderInputError('username', validateUsername());
+        error *= renderInputError('password', validatePassword());
+        error *= renderInputError('repeatPassword', validateComparePasswords());
+        return error;
+    }
+
+    /**
+     * add all event listeners
+     */
+    addEventListeners() {
+        document.getElementById('email').addEventListener('focusout',
+            function() {
+                renderInputError('email', validateEmail());
+            }, false);
+
+        document.getElementById('username').addEventListener('focusout',
+            function() {
+                renderInputError('username', validateUsername());
+            }, false);
+
+        document.getElementById('password').addEventListener('focusout',
+            function() {
+                renderInputError('password', validatePassword());
+            }, false);
+
+        document.getElementById('repeatPassword').addEventListener('focusout',
+            function() {
+                renderInputError('repeatPassword', validateComparePasswords());
+            }, false);
+
+
+        document.getElementById('regForm')
+            .addEventListener('submit', this.formSubmit.bind(this), false);
     }
 
     /**
@@ -101,15 +142,7 @@ export default class RegView extends BaseView {
                         id: 'email',
                         placeholder: 'mymailbox@mail.ru',
                         hasError: true,
-                        params: [
-                            {
-                                name: 'autofocus',
-                            },
-                            {
-                                name: 'onfocusout',
-                                value: 'updateError(\'email\', validateEmail)',
-                            },
-                        ],
+                        params: [{name: 'autofocus'}],
                     },
                 ],
             },
@@ -122,12 +155,6 @@ export default class RegView extends BaseView {
                         id: 'username',
                         placeholder: 'Username',
                         hasError: true,
-                        params: [
-                            {
-                                name: 'onfocusout',
-                                value: 'updateError(\'username\', validateUsername)',
-                            },
-                        ],
                     },
                 ],
             },
@@ -140,24 +167,12 @@ export default class RegView extends BaseView {
                         id: 'password',
                         placeholder: 'Придумайте пароль',
                         hasError: true,
-                        params: [
-                            {
-                                name: 'onfocusout',
-                                value: 'updateError(\'password\', validatePassword)',
-                            },
-                        ],
                     },
                     {
                         type: 'password',
-                        id: 'checkPassword',
+                        id: 'repeatPassword',
                         placeholder: 'Повторите пароль',
                         hasError: true,
-                        params: [
-                            {
-                                name: 'onfocusout',
-                                value: 'updateError(\'checkPassword\', validateComparePasswords)',
-                            },
-                        ],
                     },
                 ],
             },
@@ -168,7 +183,6 @@ export default class RegView extends BaseView {
         };
 
         this.el.innerHTML = window.fest['views/RegView/RegView.tmpl'](json);
-        document.getElementById('regForm')
-            .addEventListener('submit', this.formSubmit.bind(this), false);
+        this.addEventListeners();
     }
 }

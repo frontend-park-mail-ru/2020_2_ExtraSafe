@@ -1,5 +1,4 @@
 import BaseView from '../BaseView/BaseView.js';
-// import Cookies from 'js-cookie';
 
 /**
  * Class Login view.
@@ -28,7 +27,7 @@ export default class LoginView extends BaseView {
                 if (response.ok) {
                     console.log('ok');
                     console.log('open profile login');
-                    this.router.permOpen('/profile');
+                    this.router.permOpen('/');
                 } else {
                     console.log('open login login');
                     this.render();
@@ -55,12 +54,26 @@ export default class LoginView extends BaseView {
             if (response.ok) {
                 console.log('ok');
                 this.router.permOpen('/profile');
+            } else {
+                this.printError('Не верная почта или пароль');
             }
             return response.json();
         }).then((responseBody) => {
             console.log(responseBody);
             return responseBody;
         });
+    }
+
+    /**
+     * print error
+     * @param {string} errorString - error message
+     */
+    printError(errorString) {
+        const error = {
+            result: false,
+            message: errorString,
+        };
+        renderInputError('password', error);
     }
 
     /**
