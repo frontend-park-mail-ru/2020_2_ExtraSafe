@@ -1,4 +1,4 @@
-ServerAddr = 'http://127.0.0.1:8080/';
+ServerAddr = 'http://95.163.213.142:8080/';
 
 /**
  * Send sign in request to server
