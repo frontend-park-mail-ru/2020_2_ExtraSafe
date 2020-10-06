@@ -2,8 +2,8 @@ ServerAddr = 'http://127.0.0.1:8080/';
 
 /**
  * Send sign in request to server
- * @param data
- * @returns {Promise<Response>}
+ * @param {requestData} data
+ * @return {Promise<Response>}
  */
 function loginRequest(data) {
     const url = ServerAddr + 'login/';
@@ -13,15 +13,15 @@ function loginRequest(data) {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         },
     });
 }
 
 /**
  * Send sign up request to server
- * @param data
- * @returns {Promise<Response>}
+ * @param {requestData} data
+ * @return {Promise<Response>}
  */
 function regRequest(data) {
     const url = ServerAddr + 'reg/';
@@ -39,7 +39,7 @@ function regRequest(data) {
 /**
  * Send request to server to check
  * if user is authorized
- * @returns {Promise<Response>}
+ * @return {Promise<Response>}
  */
 function authRequest() {
     const url = ServerAddr;
@@ -50,6 +50,10 @@ function authRequest() {
     });
 }
 
+/**
+ * get profile information from server
+ * @return {Promise<Response>}
+ */
 function profileGet() {
     const url = ServerAddr + 'profile/';
 
@@ -59,6 +63,10 @@ function profileGet() {
     });
 }
 
+/**
+ * get accounts information from server
+ * @return {Promise<Response>}
+ */
 function accountsGet() {
     const url = ServerAddr + 'accounts/';
 
@@ -68,6 +76,11 @@ function accountsGet() {
     });
 }
 
+/**
+ * request to change profile data on server
+ * @param {requestData} data
+ * @return {Promise<Response>}
+ */
 function profileSet(data) {
     const url = ServerAddr + 'profile/';
 
@@ -78,6 +91,11 @@ function profileSet(data) {
     });
 }
 
+/**
+ * request to change accounts data on server
+ * @param {requestData} data
+ * @return {Promise<Response>}
+ */
 function accountsSet(data) {
     const url = ServerAddr + 'accounts/';
 
@@ -91,6 +109,11 @@ function accountsSet(data) {
     });
 }
 
+/**
+ * request to change password data on server
+ * @param {requestData} data
+ * @return {Promise<Response>}
+ */
 function passwordSet(data) {
     const url = ServerAddr + 'password/';
 
@@ -104,6 +127,10 @@ function passwordSet(data) {
     });
 }
 
+/**
+ * logout request to server
+ * @return {Promise<Response>}
+ */
 function logout() {
     const url = ServerAddr + 'logout/';
 

@@ -55,7 +55,6 @@ export default class ProfileView extends BaseView {
             const profileData = await response.json();
             await this.setParams(profileData);
         } catch (err) {
-            alert(err);
         }
     }
 
@@ -134,7 +133,7 @@ export default class ProfileView extends BaseView {
 
     /**
      * print error
-     * @param errors
+     * @param {errorObject} errors
      */
     printErrors(errors) {
         errors.forEach((element, i) => {

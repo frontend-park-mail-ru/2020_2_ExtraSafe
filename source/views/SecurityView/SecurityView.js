@@ -95,8 +95,8 @@ export default class SecurityView extends BaseView {
     }
 
     /**
-     * print error
-     * @param errors
+     * print server error
+     * @param {errorsArray} errors
      */
     printErrors(errors) {
         errors.forEach((element, i) => {

@@ -26,15 +26,12 @@ export default class AccountsView extends BaseView {
         if (cookies !== undefined) {
             authRequest().then((response) => {
                 if (response.ok) {
-                    console.log('ok');
                     this.render();
-                }
-                else {
+                } else {
                     this.router.permOpen('/login');
                 }
             });
-        }
-        else {
+        } else {
             this.router.permOpen('/login');
         }
     }
@@ -50,15 +47,13 @@ export default class AccountsView extends BaseView {
             console.log(profileData);
             await this.setParams(profileData);
         } catch (err) {
-            alert(err);
         }
     }
 
     /**
      * Set params to form
-     * @param data
+     * @param {responseData} data
      */
-
     setParams(data) {
         document.getElementById('telegram').value = data.telegram;
         document.getElementById('instagram').value = data.instagram;
@@ -69,7 +64,7 @@ export default class AccountsView extends BaseView {
     }
 
     /**
-     * Change user accounts
+     * Change user accounts on server
      */
     changeParams() {
         const data = {
@@ -82,12 +77,8 @@ export default class AccountsView extends BaseView {
         };
 
         accountsSet(data).then((response) => {
-            if (response.ok) {
-                console.log('ok');
-            }
             return response.json();
         }).then((responseBody) => {
-            console.log(responseBody);
             this.setParams(responseBody);
             return responseBody;
         });

@@ -109,6 +109,10 @@ export default class RegView extends BaseView {
             .addEventListener('submit', this.formSubmit.bind(this), false);
     }
 
+    /**
+     * print server error
+     * @param {errorsArray} errors
+     */
     printErrors(errors) {
         errors.forEach((element, i) => {
             const error = {

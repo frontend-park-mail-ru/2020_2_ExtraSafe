@@ -25,7 +25,6 @@ export default class HomeView extends BaseView {
         if (cookies !== undefined) {
             authRequest().then((response) => {
                 if (response.ok) {
-                    console.log('ok');
                     this.render();
                 } else {
                     this.router.permOpen('/login');
@@ -41,7 +40,5 @@ export default class HomeView extends BaseView {
      */
     render() {
         this.el.innerHTML = window.fest['views/HomeView/HomeView.tmpl']();
-        // document.getElementById('loginForm')
-        //     .addEventListener('submit', this.requestAuthorization.bind(this), false);
     }
 }
