@@ -75,10 +75,7 @@ function profileSet(data) {
     return fetch(url, {
         credentials: 'include',
         method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json'
-        },
+        body: data,
     });
 }
 

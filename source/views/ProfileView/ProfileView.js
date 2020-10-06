@@ -70,13 +70,14 @@ export default class ProfileView extends BaseView {
      * Change user profile
      */
     changeParams() {
-        const data = {
-            email: document.getElementById('email').value,
-            nickname: document.getElementById('username').value,
-            fullname: document.getElementById('fullName').value,
-        };
+        const formData = new FormData();
 
-        profileSet(data).then((response) => {
+        formData.append('username', document.getElementById('username').value);
+        formData.append('email', document.getElementById('email').value);
+        formData.append('fullName', document.getElementById('fullName').value);
+        formData.append('avatar', document.getElementById('imageInput').files[0]);
+
+        profileSet(formData).then((response) => {
             if (response.ok) {
                 console.log('ok');
             }
