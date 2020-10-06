@@ -27,7 +27,6 @@ export default class Router {
         if (this.routesMap.has(route)) {
             this.routesMap.get(route).ifAuthorized();
         } else {
-            alert('Такой страницы нет! Перенаправляю на авторизацию');
             this.open('/login');
         }
     }
@@ -44,7 +43,6 @@ export default class Router {
         if (this.routesMap.has(route)) {
             this.routesMap.get(route).render();
         } else {
-            alert('Такой страницы нет! Перенаправляю на авторизацию');
             this.open('/login');
         }
     }

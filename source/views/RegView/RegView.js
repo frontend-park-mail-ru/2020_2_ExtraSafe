@@ -41,15 +41,12 @@ export default class RegView extends BaseView {
             authRequest().then((response) => {
                 if (response.ok) {
                     console.log('ok');
-                    console.log('open profile registr');
                     this.router.permOpen('/');
                 } else {
-                    console.log('open reg registr');
                     this.render();
                 }
             });
         } else {
-            console.log('open reg registr 2');
             this.render();
         }
     }
@@ -84,6 +81,9 @@ export default class RegView extends BaseView {
             return response.json();
         }).then((responseBody) => {
             console.log(responseBody);
+            if (responseBody.status > 200) {
+                this.printErrors(responseBody.messages);
+            }
             return responseBody;
         });
     }
@@ -127,6 +127,16 @@ export default class RegView extends BaseView {
 
         document.getElementById('regForm')
             .addEventListener('submit', this.formSubmit.bind(this), false);
+    }
+
+    printErrors(errors) {
+        errors.forEach((element, i) => {
+            const error = {
+                result: false,
+                message: element.message,
+            };
+            renderInputError(element.errorName, error);
+        });
     }
 
     /**

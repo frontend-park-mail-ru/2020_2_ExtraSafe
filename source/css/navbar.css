@@ -22,6 +22,7 @@
     height: 32px;
     width: 32px;
     clip-path: circle();
+    object-fit: cover;
     cursor: pointer;
 }
 
@@ -30,6 +31,7 @@
     width: 28px;
     height: 28px;
     color: white;
+    object-fit: cover;
     cursor: pointer;
 }
 

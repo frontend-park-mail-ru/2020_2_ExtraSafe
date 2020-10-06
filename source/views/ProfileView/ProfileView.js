@@ -26,15 +26,12 @@ export default class ProfileView extends BaseView {
             authRequest().then((response) => {
                 if (response.ok) {
                     console.log('ok');
-                    console.log('open profile profile');
                     this.render();
                 } else {
-                    console.log('open login profile');
                     this.router.permOpen('/login');
                 }
             });
         } else {
-            console.log('open login profile 2');
             this.router.permOpen('/login');
         }
     }
@@ -69,8 +66,8 @@ export default class ProfileView extends BaseView {
      * @param {object} data
      */
     setParams(data) {
-        document.getElementById('username').value = data.nickname;
-        document.getElementById('fullName').value = data.fullname;
+        document.getElementById('username').value = data.username;
+        document.getElementById('fullName').value = data.fullName;
         document.getElementById('email').value = data.email;
     }
 
@@ -78,20 +75,31 @@ export default class ProfileView extends BaseView {
      * Change user profile
      */
     changeParams() {
+        const formData = new FormData();
+
         const data = {
             email: document.getElementById('email').value,
-            nickname: document.getElementById('username').value,
-            fullname: document.getElementById('fullName').value,
+            username: document.getElementById('username').value,
+            fullName: document.getElementById('fullName').value,
         };
 
-        profileSet(data).then((response) => {
+        formData.append('username', document.getElementById('username').value);
+        formData.append('email', document.getElementById('email').value);
+        formData.append('fullName', document.getElementById('fullName').value);
+        formData.append('avatar', document.getElementById('imageInput').files[0]);
+
+        profileSet(formData).then((response) => {
             if (response.ok) {
                 console.log('ok');
             }
             return response.json();
         }).then((responseBody) => {
             console.log(responseBody);
-            this.setParams(responseBody);
+            if (responseBody.status > 200) {
+                this.printErrors(responseBody.messages);
+            }
+            console.log(data);
+            this.setParams(data);
             return responseBody;
         });
     }
@@ -129,6 +137,20 @@ export default class ProfileView extends BaseView {
 
         document.getElementById('profileForm')
             .addEventListener('submit', this.formSubmit.bind(this), false);
+    }
+
+    /**
+     * print error
+     * @param errors
+     */
+    printErrors(errors) {
+        errors.forEach((element, i) => {
+            const error = {
+                result: false,
+                message: element.message,
+            };
+            renderInputError(element.errorName, error);
+        });
     }
 
     /**

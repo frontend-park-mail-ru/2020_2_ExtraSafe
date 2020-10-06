@@ -75,10 +75,7 @@ function profileSet(data) {
     return fetch(url, {
         credentials: 'include',
         method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json'
-        },
+        body: data,
     });
 }
 
@@ -105,5 +102,14 @@ function passwordSet(data) {
         headers: {
             'Content-Type': 'application/json'
         },
+    });
+}
+
+function logout() {
+    const url = ServerAddr + 'logout/';
+
+    return fetch(url, {
+        credentials: 'include',
+        method: 'GET',
     });
 }

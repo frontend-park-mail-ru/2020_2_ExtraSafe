@@ -2,10 +2,10 @@
     <div class="navbar">
         <img class="navbar-icon" data-href="/" title="Домой" src="../img/home.svg"/>
         <img class="main_logo" data-href="/" src="../img/tabutask_logo_white.svg"/>
-        <img class="avatar-mini" onclick="myFunction()" title="Профиль" src="../img/egor.jpg"/>
+        <img class="avatar-mini" onclick="myFunction()" title="Профиль" src="http://127.0.0.1:8080/avatar/"/>
     </div>
     <div id="myDropdown" class="dropdown-content">
         <a href="/profile">Настройки</a>
-        <a href="#contact">Выйти</a>
+        <a href="" onclick="logout()">Выйти</a>
     </div>
 </fest:template>

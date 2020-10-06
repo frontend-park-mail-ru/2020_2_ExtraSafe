@@ -60,20 +60,25 @@ export default class LoginView extends BaseView {
             return response.json();
         }).then((responseBody) => {
             console.log(responseBody);
+            if (responseBody.status > 200) {
+                this.printErrors(responseBody.messages);
+            }
             return responseBody;
         });
     }
 
     /**
      * print error
-     * @param {string} errorString - error message
+     * @param {errors[]} errors
      */
-    printError(errorString) {
-        const error = {
-            result: false,
-            message: errorString,
-        };
-        renderInputError('password', error);
+    printErrors(errors) {
+        errors.forEach((element, i) => {
+            const error = {
+                result: false,
+                message: element.message,
+            };
+            renderInputError(element.errorName, error);
+        });
     }
 
     /**

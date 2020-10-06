@@ -62,7 +62,9 @@ export default class SecurityView extends BaseView {
             }
             return response.json();
         }).then((responseBody) => {
-            console.log(responseBody);
+            if (responseBody.status > 200) {
+                this.printErrors(responseBody.messages);
+            }
             return responseBody;
         });
     }
@@ -97,6 +99,20 @@ export default class SecurityView extends BaseView {
     }
 
     /**
+     * print error
+     * @param errors
+     */
+    printErrors(errors) {
+        errors.forEach((element, i) => {
+            const error = {
+                result: false,
+                message: element.message,
+            };
+            renderInputError(element.errorName, error);
+        });
+    }
+
+    /**
      * Render Security view.
      */
     render() {
@@ -113,6 +129,7 @@ export default class SecurityView extends BaseView {
                         type: 'password',
                         id: 'oldPassword',
                         placeholder: 'Введите старый пароль',
+                        hasError: true,
                     },
                     {
                         type: 'password',
