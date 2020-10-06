@@ -1,7 +1,7 @@
 // регулярные выражения
 const emailRegExp = '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$';
 const passwordRegExp = '^[a-zA-Z0-9~!@#$%^&*-_+=`|\\(){}:;"\'<>,.?/]+$';
-// const usernameRegExp = '^[a-zA-Z0-9_]+$';
+const usernameRegExp = '^[a-zA-Z0-9_]+$';
 const fullNameRegExp = '^[a-zA-Zа-яА-Я _]+$';
 const lowerCaseRegExp = '[a-z]+';
 const upperCaseRegExp = '[A-Z]+';
@@ -35,32 +35,32 @@ function validateEmail() {
  *  username validation
  *  @return {object}
  */
-// function validateUsername() {
-//     const username = document.getElementById('username').value;
-//
-//     if (username.length === 0) {
-//         return {
-//             result: false,
-//             message: 'обязательное поле',
-//         };
-//     }
-//
-//     if (username.length < 2 || username.length > 40) {
-//         return {
-//             result: false,
-//             message: 'минимальная длина имени - 2, максимальная - 40',
-//         };
-//     }
-//
-//     if (!(new RegExp(usernameRegExp)).test(username)) {
-//         return {
-//             result: false,
-//             message: 'содержит некорректные символы',
-//         };
-//     }
-//
-//     return {result: true};
-// }
+function validateUsername() {
+    const username = document.getElementById('username').value;
+
+    if (username.length === 0) {
+        return {
+            result: false,
+            message: 'обязательное поле',
+        };
+    }
+
+    if (username.length < 2 || username.length > 40) {
+        return {
+            result: false,
+            message: 'минимальная длина имени - 2, максимальная - 40',
+        };
+    }
+
+    if (!(new RegExp(usernameRegExp)).test(username)) {
+        return {
+            result: false,
+            message: 'содержит некорректные символы',
+        };
+    }
+
+    return {result: true};
+}
 
 /**
  *  full name validation
@@ -70,16 +70,13 @@ function validateFullName() {
     const fullName = document.getElementById('fullName').value;
 
     if (fullName.length === 0) {
-        return {
-            result: false,
-            message: 'обязательное поле',
-        };
+        return {result: true};
     }
 
-    if (fullName.length < 2 || fullName.length > 40) {
+    if (fullName.length > 40) {
         return {
             result: false,
-            message: 'минимальная длина имени - 2, максимальная - 40',
+            message: 'максимальная длина имени - 40',
         };
     }
 
@@ -128,7 +125,7 @@ function validatePassword() {
  */
 function validateComparePasswords() {
     const password = document.getElementById('password').value;
-    const checkPassword = document.getElementById('checkPassword').value;
+    const checkPassword = document.getElementById('repeatPassword').value;
 
     if (password !== checkPassword) {
         return {
@@ -138,37 +135,4 @@ function validateComparePasswords() {
     }
 
     return {result: true};
-}
-
-/**
- *  render error div
- *  @param {string} inputId - error div id
- *  @param {function} validateFunc - validate function
- */
-function updateError(inputId, validateFunc) {
-    const errorElement = document.getElementById(`${inputId}Error`);
-    const inputElement = document.getElementById(inputId);
-    const validationResult = validateFunc();
-
-    if (!validationResult.result) {
-        inputElement.style.borderColor = '#FF0404';
-        errorElement.innerHTML = validationResult.message;
-        errorElement.hidden = false;
-        return;
-    }
-
-    inputElement.style.borderColor = '#808080';
-    errorElement.innerHTML = '';
-    errorElement.hidden = true;
-}
-
-/**
- * render all error divs
- */
-// eslint-disable-next-line no-unused-vars,require-jsdoc
-function updateAllErrors() {
-    updateError('email', validateEmail);
-    updateError('password', validatePassword);
-    updateError('checkPassword', validateComparePasswords);
-    updateError('fullName', validateFullName);
 }

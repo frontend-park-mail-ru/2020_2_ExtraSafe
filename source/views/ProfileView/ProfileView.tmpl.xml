@@ -1,0 +1,31 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
+
+    <fest:include context="json.navbar" src="../../components/Navbar/Navbar.tmpl.xml"/>
+
+    <div class="default-container">
+        <div class="profile-form" onsubmit="return false">
+            <div class="navigation">
+                <div class="active-profile-nav">Профиль</div>
+                <!--<div class="profile-nav">Внешний вид</div>-->
+                <a class="profile-nav" href="/accounts">Аккаунты</a>
+                <a class="profile-nav" href="/security">Безопасность</a>
+                <!--<a class="profile-nav">Уведомления</a>-->
+            </div>
+
+            <form id="profileForm" class="settings-body" onsubmit="return false">
+                <label for="imageInput">
+                    <img id="profileAvatar" src="http://127.0.0.1:8080/avatar/" class="avatar" alt="avatar"/>
+                </label>
+                <input id="imageInput" style="display: none" type="file" accept="image/*" onchange="updateProfileImg()"/>
+
+                <div class="settings-input-container">
+                    <fest:include context="json.usernameInput" src="../../components/NamedInput/NamedInput.tmpl.xml"/>
+                    <fest:include context="json.fullNameInput" src="../../components/NamedInput/NamedInput.tmpl.xml"/>
+                    <fest:include context="json.emailInput" src="../../components/NamedInput/NamedInput.tmpl.xml"/>
+                </div>
+                <fest:include context="json.submitButton" src="../../components/SubmitButton/SubmitButton.tmpl.xml"/>
+            </form>
+            <img data-href="/" src="../../img/close.svg" class="close" alt="close"/>
+        </div>
+    </div>
+</fest:template>

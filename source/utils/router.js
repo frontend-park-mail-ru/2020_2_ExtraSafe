@@ -25,9 +25,24 @@ export default class Router {
         window.history.replaceState({}, '', route);
 
         if (this.routesMap.has(route)) {
+            this.routesMap.get(route).ifAuthorized();
+        } else {
+            this.open('/login');
+        }
+    }
+
+    /**
+     * Open route without permission check
+     * @param {string} route
+     */
+    permOpen(route) {
+        // console.log(this.routesMap);
+
+        window.history.replaceState({}, '', route);
+
+        if (this.routesMap.has(route)) {
             this.routesMap.get(route).render();
         } else {
-            alert('Такой страницы нет! Перенаправляю на авторизацию');
             this.open('/login');
         }
     }
@@ -43,8 +58,11 @@ export default class Router {
 
             this.open(link.pathname);
         } else if (event.target instanceof HTMLImageElement) {
-            event.preventDefault();
-            this.open(event.target.dataset.section);
+            const href = event.target.dataset.href;
+            if (href !== undefined) {
+                event.preventDefault();
+                this.open(href);
+            }
         }
     }
 

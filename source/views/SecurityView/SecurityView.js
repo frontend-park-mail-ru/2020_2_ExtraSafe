@@ -1,11 +1,11 @@
 import BaseView from '../BaseView/BaseView.js';
 
 /**
- * Class Reg view.
+ * Class Security view.
  */
-export default class RegView extends BaseView {
+export default class SecurityView extends BaseView {
     /**
-     * RegView view constructor.
+     * SecurityView view constructor.
      * @constructor
      * @param {object} el - Root application div.
      * @param {*} router
@@ -15,23 +15,24 @@ export default class RegView extends BaseView {
         super(el, router, {});
         this.el = el;
         this.args = args;
+        this.coocies = Cookies.get('tabutask_id');
     }
 
     /**
      * Check if user is authorized
      */
-    async ifAuthorized() {
+    ifAuthorized() {
         const cookies = Cookies.get('tabutask_id');
         if (cookies !== undefined) {
             authRequest().then((response) => {
                 if (response.ok) {
-                    this.router.permOpen('/');
-                } else {
                     this.render();
+                } else {
+                    this.router.permOpen('/login');
                 }
             });
         } else {
-            this.render();
+            this.router.permOpen('/login');
         }
     }
 
@@ -41,24 +42,20 @@ export default class RegView extends BaseView {
      */
     formSubmit() {
         if (this.updateAllErrors()) {
-            this.registrationRequest();
+            this.changeParams();
         }
     }
 
     /**
-     * Request to server
+     * Change user password
      */
-    registrationRequest() {
-        const user = {
-            email: document.getElementById('email').value,
-            nickname: document.getElementById('username').value,
+    changeParams() {
+        const data = {
+            oldpassword: document.getElementById('oldPassword').value,
             password: document.getElementById('password').value,
         };
 
-        regRequest(user).then((response) => {
-            if (response.ok) {
-                this.router.permOpen('/');
-            }
+        passwordSet(data).then((response) => {
             return response.json();
         }).then((responseBody) => {
             if (responseBody.status > 200) {
@@ -73,9 +70,7 @@ export default class RegView extends BaseView {
      * @return {boolean} - error
      */
     updateAllErrors() {
-        let error = renderInputError('email', validateEmail());
-        error *= renderInputError('username', validateUsername());
-        error *= renderInputError('password', validatePassword());
+        let error = renderInputError('password', validatePassword());
         error *= renderInputError('repeatPassword', validateComparePasswords());
         return error;
     }
@@ -84,16 +79,6 @@ export default class RegView extends BaseView {
      * add all event listeners
      */
     addEventListeners() {
-        document.getElementById('email').addEventListener('focusout',
-            function() {
-                renderInputError('email', validateEmail());
-            }, false);
-
-        document.getElementById('username').addEventListener('focusout',
-            function() {
-                renderInputError('username', validateUsername());
-            }, false);
-
         document.getElementById('password').addEventListener('focusout',
             function() {
                 renderInputError('password', validatePassword());
@@ -105,7 +90,7 @@ export default class RegView extends BaseView {
             }, false);
 
 
-        document.getElementById('regForm')
+        document.getElementById('securityForm')
             .addEventListener('submit', this.formSubmit.bind(this), false);
     }
 
@@ -124,59 +109,50 @@ export default class RegView extends BaseView {
     }
 
     /**
-     * Render Reg view.
+     * Render Security view.
      */
     render() {
         const json = {
-            emailInput: {
-                name: 'Электронная почта:',
-                inputs: [
-                    {
-                        type: 'text',
-                        id: 'email',
-                        placeholder: 'mymailbox@mail.ru',
-                        hasError: true,
-                        params: [{name: 'autofocus'}],
-                    },
-                ],
-            },
-
-            usernameInput: {
-                name: 'Имя пользователя:',
-                inputs: [
-                    {
-                        type: 'text',
-                        id: 'username',
-                        placeholder: 'Username',
-                        hasError: true,
-                    },
-                ],
-            },
-
             passwordInput: {
-                name: 'Пароль:',
+                name: 'Изменить пароль:',
+                params: [
+                    {
+                        name: 'style',
+                        value: 'width: 50%',
+                    }],
                 inputs: [
                     {
                         type: 'password',
+                        id: 'oldPassword',
+                        placeholder: 'Введите старый пароль',
+                        hasError: true,
+                    },
+                    {
+                        type: 'password',
                         id: 'password',
-                        placeholder: 'Придумайте пароль',
+                        placeholder: 'Введите новый пароль',
                         hasError: true,
                     },
                     {
                         type: 'password',
                         id: 'repeatPassword',
-                        placeholder: 'Повторите пароль',
+                        placeholder: 'Повторите новый пароль',
                         hasError: true,
                     },
                 ],
             },
 
-            signUpButton: {
-                buttonText: 'Зарегистрироваться',
+            submitButton: {
+                buttonText: 'Применить изменения',
+                params: [
+                    {
+                        name: 'style',
+                        value: 'width: 50%',
+                    }],
             },
         };
 
-        this.el.innerHTML = window.fest['views/RegView/RegView.tmpl'](json);
+        this.el.innerHTML = window.fest['views/SecurityView/SecurityView.tmpl'](json);
         this.addEventListeners();
     }
 }

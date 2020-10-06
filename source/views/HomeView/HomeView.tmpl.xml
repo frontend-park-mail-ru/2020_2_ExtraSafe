@@ -1,0 +1,9 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
+
+    <fest:include src="../../components/Navbar/Navbar.tmpl.xml"/>
+
+    <div class="default-container">
+        <h1>Тут будут доски :)</h1>
+    </div>
+
+</fest:template>

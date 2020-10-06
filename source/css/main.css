@@ -5,6 +5,8 @@
     --violet: #A32CDF;
     --blue: #4F4FD7;
     --red: #FF0404;
+    --light-grey: #F3F3F3;
+    --electric-indigo: #6D27E7;
 }
 
 input {
@@ -21,4 +23,18 @@ input:focus {
 
 body {
     margin: 0;
+}
+
+.default-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--main-bg-color);
+    height: 100vh;
+
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
 }
