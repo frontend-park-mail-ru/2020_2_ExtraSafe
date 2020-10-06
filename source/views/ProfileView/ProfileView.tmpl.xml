@@ -14,7 +14,7 @@
 
             <form id="profileForm" class="settings-body" onsubmit="return false">
                 <label for="imageInput">
-                    <img id="profileAvatar" src="../../img/egor.jpg" class="avatar" alt="avatar"/>
+                    <img id="profileAvatar" src="http://127.0.0.1:8080/avatar/" class="avatar" alt="avatar"/>
                 </label>
                 <input id="imageInput" style="display: none" type="file" accept="image/*" onchange="updateProfileImg()"/>
 

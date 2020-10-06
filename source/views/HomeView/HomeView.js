@@ -26,15 +26,12 @@ export default class HomeView extends BaseView {
             authRequest().then((response) => {
                 if (response.ok) {
                     console.log('ok');
-                    console.log('open profile profile');
                     this.render();
                 } else {
-                    console.log('open login profile');
                     this.router.permOpen('/login');
                 }
             });
         } else {
-            console.log('open login profile 2');
             this.router.permOpen('/login');
         }
     }
