@@ -101,10 +101,14 @@ export default class ProfileView extends BaseView {
         }).then((responseBody) => {
             if (responseBody.status > 200) {
                 this.printErrors(responseBody.messages);
-                this.setParams(data);
             } else {
-                this.setParams(responseBody);
+                const error = document.getElementById('emailError');
+                error.className = 'changes-success';
+                error.innerHTML = 'Данные изменены';
+                error.hidden = false;
             }
+
+            this.setParams(data);
             return responseBody;
         });
     }
