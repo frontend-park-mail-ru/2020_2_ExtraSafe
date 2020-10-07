@@ -1,4 +1,5 @@
 import BaseView from '../BaseView/BaseView.js';
+import Network from '../../utils/network.js';
 
 /**
  * Class Accounts view.
@@ -15,7 +16,7 @@ export default class AccountsView extends BaseView {
         super(el, router, {});
         this.el = el;
         this.args = args;
-        this.coocies = Cookies.get('tabutask_id');
+        this.network = new Network();
     }
 
     /**
@@ -24,7 +25,7 @@ export default class AccountsView extends BaseView {
     ifAuthorized() {
         const cookies = Cookies.get('tabutask_id');
         if (cookies !== undefined) {
-            authRequest().then((response) => {
+            this.network.authRequest().then((response) => {
                 if (response.ok) {
                     this.render();
                 } else {
@@ -42,9 +43,8 @@ export default class AccountsView extends BaseView {
      */
     async getParams() {
         try {
-            const response = await accountsGet();
+            const response = await this.network.accountsGet();
             const profileData = await response.json();
-            console.log(profileData);
             await this.setParams(profileData);
         } catch (err) {
         }
@@ -76,7 +76,7 @@ export default class AccountsView extends BaseView {
             facebook: document.getElementById('facebook').value,
         };
 
-        accountsSet(data).then((response) => {
+        this.network.accountsSet(data).then((response) => {
             return response.json();
         }).then((responseBody) => {
             this.setParams(responseBody);
@@ -187,5 +187,7 @@ export default class AccountsView extends BaseView {
         this.getParams();
         document.getElementById('accountsForm')
             .addEventListener('submit', this.changeParams.bind(this), false);
+        document.getElementById('logout')
+            .addEventListener('click', this.network.logout.bind(this.network), false);
     }
 }

@@ -1,138 +1,148 @@
-// регулярные выражения
-const emailRegExp = '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$';
-const passwordRegExp = '^[a-zA-Z0-9~!@#$%^&*-_+=`|\\(){}:;"\'<>,.?/]+$';
-const usernameRegExp = '^[a-zA-Z0-9_]+$';
-const fullNameRegExp = '^[a-zA-Zа-яА-Я _]+$';
-const lowerCaseRegExp = '[a-z]+';
-const upperCaseRegExp = '[A-Z]+';
-const numbersRegExp = '[0-9]+';
-
 /**
- *  email validation
- *  @return {object} Valid or inValid
+ * Validation
  */
-function validateEmail() {
-    const email = document.getElementById('email').value;
-
-    if (email.length === 0) {
-        return {
-            result: false,
-            message: 'обязательное поле',
-        };
+export default class Validation {
+    /**
+     * Constructor
+     */
+    constructor() {
+        // регулярные выражения
+        this.emailRegExp = '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$';
+        this.passwordRegExp = '^[a-zA-Z0-9~!@#$%^&*-_+=`|\\(){}:;"\'<>,.?/]+$';
+        this.usernameRegExp = '^[a-zA-Z0-9_]+$';
+        this.fullNameRegExp = '^[a-zA-Zа-яА-Я _]+$';
+        this.lowerCaseRegExp = '[a-z]+';
+        this.upperCaseRegExp = '[A-Z]+';
+        this.numbersRegExp = '[0-9]+';
     }
 
-    if (!(new RegExp(emailRegExp)).test(email)) {
-        return {
-            result: false,
-            message: 'некорректный email',
-        };
-    }
+    /**
+     *  email validation
+     *  @return {object} Valid or inValid
+     */
+    validateEmail() {
+        const email = document.getElementById('email').value;
 
-    return {result: true};
-}
+        if (email.length === 0) {
+            return {
+                result: false,
+                message: 'обязательное поле',
+            };
+        }
 
-/**
- *  username validation
- *  @return {object}
- */
-function validateUsername() {
-    const username = document.getElementById('username').value;
+        if (!(new RegExp(this.emailRegExp)).test(email)) {
+            return {
+                result: false,
+                message: 'некорректный email',
+            };
+        }
 
-    if (username.length === 0) {
-        return {
-            result: false,
-            message: 'обязательное поле',
-        };
-    }
-
-    if (username.length < 2 || username.length > 40) {
-        return {
-            result: false,
-            message: 'минимальная длина имени - 2, максимальная - 40',
-        };
-    }
-
-    if (!(new RegExp(usernameRegExp)).test(username)) {
-        return {
-            result: false,
-            message: 'содержит некорректные символы',
-        };
-    }
-
-    return {result: true};
-}
-
-/**
- *  full name validation
- *  @return {object}
- */
-function validateFullName() {
-    const fullName = document.getElementById('fullName').value;
-
-    if (fullName.length === 0) {
         return {result: true};
     }
 
-    if (fullName.length > 40) {
-        return {
-            result: false,
-            message: 'максимальная длина имени - 40',
-        };
+    /**
+     *  username validation
+     *  @return {object}
+     */
+    validateUsername() {
+        const username = document.getElementById('username').value;
+
+        if (username.length === 0) {
+            return {
+                result: false,
+                message: 'обязательное поле',
+            };
+        }
+
+        if (username.length < 2 || username.length > 40) {
+            return {
+                result: false,
+                message: 'минимальная длина имени - 2, максимальная - 40',
+            };
+        }
+
+        if (!(new RegExp(this.usernameRegExp)).test(username)) {
+            return {
+                result: false,
+                message: 'содержит некорректные символы',
+            };
+        }
+
+        return {result: true};
     }
 
-    if (!(new RegExp(fullNameRegExp)).test(fullName)) {
-        return {
-            result: false,
-            message: 'содержит некорректные символы',
-        };
+    /**
+     *  full name validation
+     *  @return {object}
+     */
+    validateFullName() {
+        const fullName = document.getElementById('fullName').value;
+
+        if (fullName.length === 0) {
+            return {result: true};
+        }
+
+        if (fullName.length > 40) {
+            return {
+                result: false,
+                message: 'максимальная длина имени - 40',
+            };
+        }
+
+        if (!(new RegExp(this.fullNameRegExp)).test(fullName)) {
+            return {
+                result: false,
+                message: 'содержит некорректные символы',
+            };
+        }
+
+        return {result: true};
     }
 
-    return {result: true};
-}
+    /**
+     *  password validation
+     *  @return {object}
+     */
+    validatePassword() {
+        const password = document.getElementById('password').value;
 
-/**
- *  password validation
- *  @return {object}
- */
-function validatePassword() {
-    const password = document.getElementById('password').value;
+        if (password.length === 0) {
+            return {
+                result: false,
+                message: 'обязательное поле',
+            };
+        }
 
-    if (password.length === 0) {
-        return {
-            result: false,
-            message: 'обязательное поле',
-        };
+        if (!(new RegExp(this.passwordRegExp)).test(password) ||
+            !(new RegExp(this.lowerCaseRegExp)).test(password) ||
+            !(new RegExp(this.upperCaseRegExp)).test(password) ||
+            !(new RegExp(this.numbersRegExp)).test(password) ||
+            (password.length < 8 || password.length > 64)) {
+            return {
+                result: false,
+                message: 'пароль должен содержать хотя бы одну строчную, заглавную буквы, цифру ' +
+                    'и иметь длину от 8 до 64 символов',
+            };
+        }
+
+        return {result: true};
     }
 
-    if (!(new RegExp(passwordRegExp)).test(password) ||
-      !(new RegExp(lowerCaseRegExp)).test(password) ||
-      !(new RegExp(upperCaseRegExp)).test(password) ||
-      !(new RegExp(numbersRegExp)).test(password) ||
-      (password.length < 8 || password.length > 64)) {
-        return {
-            result: false,
-            message: 'пароль должен содержать хотя бы одну строчную, заглавную буквы, цифру ' +
-          'и иметь длину от 8 до 64 символов',
-        };
+    /**
+     *  compare password validation
+     *  @return {object}
+     */
+    validateComparePasswords() {
+        const password = document.getElementById('password').value;
+        const checkPassword = document.getElementById('repeatPassword').value;
+
+        if (password !== checkPassword) {
+            return {
+                result: false,
+                message: 'пароли не совпадают',
+            };
+        }
+
+        return {result: true};
     }
-
-    return {result: true};
-}
-
-/**
- *  compare password validation
- *  @return {object}
- */
-function validateComparePasswords() {
-    const password = document.getElementById('password').value;
-    const checkPassword = document.getElementById('repeatPassword').value;
-
-    if (password !== checkPassword) {
-        return {
-            result: false,
-            message: 'пароли не совпадают',
-        };
-    }
-
-    return {result: true};
 }

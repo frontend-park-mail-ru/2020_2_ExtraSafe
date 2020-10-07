@@ -1,4 +1,7 @@
 import BaseView from '../BaseView/BaseView.js';
+import Rendering from '../../utils/rendering.js';
+import Validation from '../../utils/validation.js';
+import Network from '../../utils/network.js';
 
 /**
  * Class Profile view.
@@ -15,6 +18,9 @@ export default class ProfileView extends BaseView {
         super(el, router, {});
         this.el = el;
         this.args = args;
+        this.rendering = new Rendering();
+        this.validation = new Validation();
+        this.network = new Network();
     }
 
     /**
@@ -23,7 +29,7 @@ export default class ProfileView extends BaseView {
     ifAuthorized() {
         const cookies = Cookies.get('tabutask_id');
         if (cookies !== undefined) {
-            authRequest().then((response) => {
+            this.network.authRequest().then((response) => {
                 if (response.ok) {
                     this.render();
                 } else {
@@ -51,7 +57,7 @@ export default class ProfileView extends BaseView {
      */
     async getParams() {
         try {
-            const response = await profileGet();
+            const response = await this.network.profileGet();
             const profileData = await response.json();
             await this.setParams(profileData);
         } catch (err) {
@@ -85,7 +91,7 @@ export default class ProfileView extends BaseView {
         formData.append('fullName', document.getElementById('fullName').value);
         formData.append('avatar', document.getElementById('imageInput').files[0]);
 
-        profileSet(formData).then((response) => {
+        this.network.profileSet(formData).then((response) => {
             return response.json();
         }).then((responseBody) => {
             if (responseBody.status > 200) {
@@ -101,9 +107,9 @@ export default class ProfileView extends BaseView {
      * @return {boolean} - error
      */
     updateAllErrors() {
-        let error = renderInputError('username', validateUsername());
-        error *= renderInputError('fullName', validateFullName());
-        error *= renderInputError('email', validateEmail());
+        let error = this.rendering.renderInputError('username', this.validation.validateUsername());
+        error *= this.rendering.renderInputError('fullName', this.validation.validateFullName());
+        error *= this.rendering.renderInputError('email', this.validation.validateEmail());
         return error;
     }
 
@@ -113,22 +119,25 @@ export default class ProfileView extends BaseView {
     addEventListeners() {
         document.getElementById('username').addEventListener('focusout',
             function() {
-                renderInputError('username', validateUsername());
-            }, false);
+                this.rendering.renderInputError('username', this.validation.validateUsername());
+            }.bind(this), false);
 
         document.getElementById('fullName').addEventListener('focusout',
             function() {
-                renderInputError('fullName', validateFullName());
-            }, false);
+                this.rendering.renderInputError('fullName', this.validation.validateFullName());
+            }.bind(this), false);
 
         document.getElementById('email').addEventListener('focusout',
             function() {
-                renderInputError('email', validateEmail());
-            }, false);
+                this.rendering.renderInputError('email', this.validation.validateEmail());
+            }.bind(this), false);
 
 
         document.getElementById('profileForm')
             .addEventListener('submit', this.formSubmit.bind(this), false);
+
+        document.getElementById('logout')
+            .addEventListener('click', this.network.logout.bind(this.network), false);
     }
 
     /**
@@ -141,7 +150,7 @@ export default class ProfileView extends BaseView {
                 result: false,
                 message: element.message,
             };
-            renderInputError(element.errorName, error);
+            this.rendering.renderInputError(element.errorName, error);
         });
     }
 

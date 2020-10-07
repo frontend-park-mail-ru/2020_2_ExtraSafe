@@ -1,4 +1,7 @@
 import BaseView from '../BaseView/BaseView.js';
+import Rendering from '../../utils/rendering.js';
+import Validation from '../../utils/validation.js';
+import Network from '../../utils/network.js';
 
 /**
  * Class Security view.
@@ -15,7 +18,9 @@ export default class SecurityView extends BaseView {
         super(el, router, {});
         this.el = el;
         this.args = args;
-        this.coocies = Cookies.get('tabutask_id');
+        this.rendering = new Rendering();
+        this.validation = new Validation();
+        this.network = new Network();
     }
 
     /**
@@ -24,7 +29,7 @@ export default class SecurityView extends BaseView {
     ifAuthorized() {
         const cookies = Cookies.get('tabutask_id');
         if (cookies !== undefined) {
-            authRequest().then((response) => {
+            this.network.authRequest().then((response) => {
                 if (response.ok) {
                     this.render();
                 } else {
@@ -55,7 +60,7 @@ export default class SecurityView extends BaseView {
             password: document.getElementById('password').value,
         };
 
-        passwordSet(data).then((response) => {
+        this.network.passwordSet(data).then((response) => {
             return response.json();
         }).then((responseBody) => {
             if (responseBody.status > 200) {
@@ -70,8 +75,8 @@ export default class SecurityView extends BaseView {
      * @return {boolean} - error
      */
     updateAllErrors() {
-        let error = renderInputError('password', validatePassword());
-        error *= renderInputError('repeatPassword', validateComparePasswords());
+        let error = this.rendering.renderInputError('password', this.validation.validatePassword());
+        error *= this.rendering.renderInputError('repeatPassword', this.validation.validateComparePasswords());
         return error;
     }
 
@@ -81,17 +86,20 @@ export default class SecurityView extends BaseView {
     addEventListeners() {
         document.getElementById('password').addEventListener('focusout',
             function() {
-                renderInputError('password', validatePassword());
-            }, false);
+                this.rendering.renderInputError('password', this.validation.validatePassword());
+            }.bind(this), false);
 
         document.getElementById('repeatPassword').addEventListener('focusout',
             function() {
-                renderInputError('repeatPassword', validateComparePasswords());
-            }, false);
+                this.rendering.renderInputError('repeatPassword', this.validation.validateComparePasswords());
+            }.bind(this), false);
 
 
         document.getElementById('securityForm')
             .addEventListener('submit', this.formSubmit.bind(this), false);
+
+        document.getElementById('logout')
+            .addEventListener('click', this.network.logout.bind(this.network), false);
     }
 
     /**
@@ -104,7 +112,7 @@ export default class SecurityView extends BaseView {
                 result: false,
                 message: element.message,
             };
-            renderInputError(element.errorName, error);
+            this.rendering.renderInputError(element.errorName, error);
         });
     }
 

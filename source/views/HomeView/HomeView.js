@@ -1,4 +1,5 @@
 import BaseView from '../BaseView/BaseView.js';
+import Network from '../../utils/network.js';
 
 /**
  * Class Home view.
@@ -15,6 +16,7 @@ export default class HomeView extends BaseView {
         super(el, router, {});
         this.el = el;
         this.args = args;
+        this.network = new Network();
     }
 
     /**
@@ -23,7 +25,7 @@ export default class HomeView extends BaseView {
     ifAuthorized() {
         const cookies = Cookies.get('tabutask_id');
         if (cookies !== undefined) {
-            authRequest().then((response) => {
+            this.network.authRequest().then((response) => {
                 if (response.ok) {
                     this.render();
                 } else {
@@ -40,5 +42,7 @@ export default class HomeView extends BaseView {
      */
     render() {
         this.el.innerHTML = window.fest['views/HomeView/HomeView.tmpl']();
+        document.getElementById('logout')
+            .addEventListener('click', this.network.logout.bind(this.network), false);
     }
 }

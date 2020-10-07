@@ -1,4 +1,6 @@
 import BaseView from '../BaseView/BaseView.js';
+import Rendering from '../../utils/rendering.js';
+import Network from '../../utils/network.js';
 
 /**
  * Class Login view.
@@ -15,6 +17,8 @@ export default class LoginView extends BaseView {
         super(el, router, {});
         this.el = el;
         this.args = args;
+        this.rendering = new Rendering();
+        this.network = new Network();
     }
 
     /**
@@ -23,7 +27,7 @@ export default class LoginView extends BaseView {
     ifAuthorized() {
         const cookies = Cookies.get('tabutask_id');
         if (cookies !== undefined) {
-            authRequest().then((response) => {
+            this.network.authRequest().then((response) => {
                 if (response.ok) {
                     this.router.permOpen('/');
                 } else {
@@ -44,7 +48,7 @@ export default class LoginView extends BaseView {
             password: document.getElementById('password').value,
         };
 
-        loginRequest(user).then((response) => {
+        this.network.loginRequest(user).then((response) => {
             if (response.ok) {
                 this.router.permOpen('/');
             }
@@ -67,7 +71,7 @@ export default class LoginView extends BaseView {
                 result: false,
                 message: element.message,
             };
-            renderInputError(element.errorName, error);
+            this.rendering.renderInputError(element.errorName, error);
         });
     }
 

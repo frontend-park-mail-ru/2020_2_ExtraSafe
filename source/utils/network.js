@@ -1,141 +1,151 @@
-ServerAddr = 'http://95.163.213.142:8080/';
-
 /**
- * Send sign in request to server
- * @param {requestData} data
- * @return {Promise<Response>}
+ * Network
  */
-function loginRequest(data) {
-    const url = ServerAddr + 'login/';
+export default class Network {
+    /**
+     * Constructor
+     */
+    constructor() {
+        this.serverAddr = 'http://127.0.0.1:8080/';
+    }
 
-    return fetch(url, {
-        credentials: 'include',
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
-}
+    /**
+     * Send sign in request to server
+     * @param {requestData} data
+     * @return {Promise<Response>}
+     */
+    loginRequest(data) {
+        const url = this.serverAddr + 'login/';
 
-/**
- * Send sign up request to server
- * @param {requestData} data
- * @return {Promise<Response>}
- */
-function regRequest(data) {
-    const url = ServerAddr + 'reg/';
+        return fetch(url, {
+            credentials: 'include',
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+    }
 
-    return fetch(url, {
-        credentials: 'include',
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json'
-        },
-    });
-}
+    /**
+     * Send sign up request to server
+     * @param {requestData} data
+     * @return {Promise<Response>}
+     */
+    regRequest(data) {
+        const url = this.serverAddr + 'reg/';
 
-/**
- * Send request to server to check
- * if user is authorized
- * @return {Promise<Response>}
- */
-function authRequest() {
-    const url = ServerAddr;
+        return fetch(url, {
+            credentials: 'include',
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+    }
 
-    return fetch(url, {
-        credentials: 'include',
-        method: 'GET',
-    });
-}
+    /**
+     * Send request to server to check
+     * if user is authorized
+     * @return {Promise<Response>}
+     */
+    authRequest() {
+        const url = this.serverAddr;
 
-/**
- * get profile information from server
- * @return {Promise<Response>}
- */
-function profileGet() {
-    const url = ServerAddr + 'profile/';
+        return fetch(url, {
+            credentials: 'include',
+            method: 'GET',
+        });
+    }
 
-    return fetch(url, {
-        credentials: 'include',
-        method: 'GET',
-    });
-}
+    /**
+     * get profile information from server
+     * @return {Promise<Response>}
+     */
+    profileGet() {
+        const url = this.serverAddr + 'profile/';
 
-/**
- * get accounts information from server
- * @return {Promise<Response>}
- */
-function accountsGet() {
-    const url = ServerAddr + 'accounts/';
+        return fetch(url, {
+            credentials: 'include',
+            method: 'GET',
+        });
+    }
 
-    return fetch(url, {
-        credentials: 'include',
-        method: 'GET',
-    });
-}
+    /**
+     * get accounts information from server
+     * @return {Promise<Response>}
+     */
+    accountsGet() {
+        const url = this.serverAddr + 'accounts/';
 
-/**
- * request to change profile data on server
- * @param {requestData} data
- * @return {Promise<Response>}
- */
-function profileSet(data) {
-    const url = ServerAddr + 'profile/';
+        return fetch(url, {
+            credentials: 'include',
+            method: 'GET',
+        });
+    }
 
-    return fetch(url, {
-        credentials: 'include',
-        method: 'POST',
-        body: data,
-    });
-}
+    /**
+     * request to change profile data on server
+     * @param {requestData} data
+     * @return {Promise<Response>}
+     */
+    profileSet(data) {
+        const url = this.serverAddr + 'profile/';
 
-/**
- * request to change accounts data on server
- * @param {requestData} data
- * @return {Promise<Response>}
- */
-function accountsSet(data) {
-    const url = ServerAddr + 'accounts/';
+        return fetch(url, {
+            credentials: 'include',
+            method: 'POST',
+            body: data,
+        });
+    }
 
-    return fetch(url, {
-        credentials: 'include',
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json'
-        },
-    });
-}
+    /**
+     * request to change accounts data on server
+     * @param {requestData} data
+     * @return {Promise<Response>}
+     */
+    accountsSet(data) {
+        const url = this.serverAddr + 'accounts/';
 
-/**
- * request to change password data on server
- * @param {requestData} data
- * @return {Promise<Response>}
- */
-function passwordSet(data) {
-    const url = ServerAddr + 'password/';
+        return fetch(url, {
+            credentials: 'include',
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+    }
 
-    return fetch(url, {
-        credentials: 'include',
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json'
-        },
-    });
-}
+    /**
+     * request to change password data on server
+     * @param {requestData} data
+     * @return {Promise<Response>}
+     */
+    passwordSet(data) {
+        const url = this.serverAddr + 'password/';
 
-/**
- * logout request to server
- * @return {Promise<Response>}
- */
-function logout() {
-    const url = ServerAddr + 'logout/';
+        return fetch(url, {
+            credentials: 'include',
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+    }
 
-    return fetch(url, {
-        credentials: 'include',
-        method: 'GET',
-    });
+    /**
+     * logout request to server
+     * @return {Promise<Response>}
+     */
+    logout() {
+        const url = this.serverAddr + 'logout/';
+
+        return fetch(url, {
+            credentials: 'include',
+            method: 'GET',
+        });
+    }
 }

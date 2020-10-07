@@ -1,4 +1,7 @@
 import BaseView from '../BaseView/BaseView.js';
+import Rendering from '../../utils/rendering.js';
+import Validation from '../../utils/validation.js';
+import Network from '../../utils/network.js';
 
 /**
  * Class Reg view.
@@ -15,6 +18,9 @@ export default class RegView extends BaseView {
         super(el, router, {});
         this.el = el;
         this.args = args;
+        this.rendering = new Rendering();
+        this.validation = new Validation();
+        this.network = new Network();
     }
 
     /**
@@ -23,7 +29,7 @@ export default class RegView extends BaseView {
     async ifAuthorized() {
         const cookies = Cookies.get('tabutask_id');
         if (cookies !== undefined) {
-            authRequest().then((response) => {
+            this.network.authRequest().then((response) => {
                 if (response.ok) {
                     this.router.permOpen('/');
                 } else {
@@ -55,7 +61,7 @@ export default class RegView extends BaseView {
             password: document.getElementById('password').value,
         };
 
-        regRequest(user).then((response) => {
+        this.network.regRequest(user).then((response) => {
             if (response.ok) {
                 this.router.permOpen('/');
             }
@@ -73,10 +79,10 @@ export default class RegView extends BaseView {
      * @return {boolean} - error
      */
     updateAllErrors() {
-        let error = renderInputError('email', validateEmail());
-        error *= renderInputError('username', validateUsername());
-        error *= renderInputError('password', validatePassword());
-        error *= renderInputError('repeatPassword', validateComparePasswords());
+        let error = this.rendering.renderInputError('email', this.validation.validateEmail());
+        error *= this.rendering.renderInputError('username', this.validation.validateUsername());
+        error *= this.rendering.renderInputError('password', this.validation.validatePassword());
+        error *= this.rendering.renderInputError('repeatPassword', this.validation.validateComparePasswords());
         return error;
     }
 
@@ -86,23 +92,23 @@ export default class RegView extends BaseView {
     addEventListeners() {
         document.getElementById('email').addEventListener('focusout',
             function() {
-                renderInputError('email', validateEmail());
-            }, false);
+                this.rendering.renderInputError('email', this.validation.validateEmail());
+            }.bind(this), false);
 
         document.getElementById('username').addEventListener('focusout',
             function() {
-                renderInputError('username', validateUsername());
-            }, false);
+                this.rendering.renderInputError('username', this.validation.validateUsername());
+            }.bind(this), false);
 
         document.getElementById('password').addEventListener('focusout',
             function() {
-                renderInputError('password', validatePassword());
-            }, false);
+                this.rendering.renderInputError('password', this.validation.validatePassword());
+            }.bind(this), false);
 
         document.getElementById('repeatPassword').addEventListener('focusout',
             function() {
-                renderInputError('repeatPassword', validateComparePasswords());
-            }, false);
+                this.rendering.renderInputError('repeatPassword', this.validation.validateComparePasswords());
+            }.bind(this), false);
 
 
         document.getElementById('regForm')
@@ -119,7 +125,7 @@ export default class RegView extends BaseView {
                 result: false,
                 message: element.message,
             };
-            renderInputError(element.errorName, error);
+            this.rendering.renderInputError(element.errorName, error);
         });
     }
 
