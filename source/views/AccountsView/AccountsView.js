@@ -1,5 +1,7 @@
 import BaseView from '../BaseView/BaseView.js';
 import Network from '../../utils/network.js';
+import './AccountsView.tmpl.js';
+import navbarPopup from '../../components/Navbar/Navbar.js';
 
 /**
  * Class Accounts view.
@@ -189,5 +191,7 @@ export default class AccountsView extends BaseView {
             .addEventListener('submit', this.changeParams.bind(this), false);
         document.getElementById('logout')
             .addEventListener('click', this.network.logout.bind(this.network), false);
+        document.getElementById('avatarMini')
+            .addEventListener('click', navbarPopup, false);
     }
 }

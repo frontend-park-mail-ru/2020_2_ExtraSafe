@@ -2,6 +2,8 @@ import BaseView from '../BaseView/BaseView.js';
 import Rendering from '../../utils/rendering.js';
 import Validation from '../../utils/validation.js';
 import Network from '../../utils/network.js';
+import './SecurityView.tmpl.js';
+import navbarPopup from '../../components/Navbar/Navbar.js';
 
 /**
  * Class Security view.
@@ -100,6 +102,9 @@ export default class SecurityView extends BaseView {
 
         document.getElementById('logout')
             .addEventListener('click', this.network.logout.bind(this.network), false);
+
+        document.getElementById('avatarMini')
+            .addEventListener('click', navbarPopup, false);
     }
 
     /**

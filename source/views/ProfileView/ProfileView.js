@@ -2,6 +2,8 @@ import BaseView from '../BaseView/BaseView.js';
 import Rendering from '../../utils/rendering.js';
 import Validation from '../../utils/validation.js';
 import Network from '../../utils/network.js';
+import './ProfileView.tmpl.js';
+import navbarPopup from '../../components/Navbar/Navbar.js';
 
 /**
  * Class Profile view.
@@ -138,6 +140,9 @@ export default class ProfileView extends BaseView {
 
         document.getElementById('logout')
             .addEventListener('click', this.network.logout.bind(this.network), false);
+
+        document.getElementById('avatarMini')
+            .addEventListener('click', navbarPopup, false);
     }
 
     /**

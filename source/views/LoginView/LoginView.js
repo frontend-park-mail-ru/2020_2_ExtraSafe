@@ -1,6 +1,7 @@
 import BaseView from '../BaseView/BaseView.js';
 import Rendering from '../../utils/rendering.js';
 import Network from '../../utils/network.js';
+import './LoginView.tmpl.js';
 
 /**
  * Class Login view.

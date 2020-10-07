@@ -2,6 +2,7 @@ import BaseView from '../BaseView/BaseView.js';
 import Rendering from '../../utils/rendering.js';
 import Validation from '../../utils/validation.js';
 import Network from '../../utils/network.js';
+import './RegView.tmpl.js';
 
 /**
  * Class Reg view.
