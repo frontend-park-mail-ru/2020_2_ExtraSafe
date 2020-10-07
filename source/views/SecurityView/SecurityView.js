@@ -95,7 +95,7 @@ export default class SecurityView extends BaseView {
                 passwordSuccess.innerHTML = 'Пароль изменен';
                 passwordSuccess.hidden = false;
 
-                this.rendering.renderInputError('oldPassword',{result: true});
+                this.rendering.renderInputError('oldPassword', {result: true});
 
                 document.getElementById('oldPassword').value = '';
                 document.getElementById('password').value = '';

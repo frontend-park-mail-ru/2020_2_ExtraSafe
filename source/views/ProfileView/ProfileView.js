@@ -104,10 +104,10 @@ export default class ProfileView extends BaseView {
                 this.setParams(data);
             } else {
                 this.setParams(responseBody);
-                const error = document.getElementById('emailError');
-                error.className = 'changes-success';
-                error.innerHTML = 'Данные изменены';
-                error.hidden = false;
+                const profileSuccess = document.getElementById('emailError');
+                profileSuccess.className = 'changes-success';
+                profileSuccess.innerHTML = 'Данные изменены';
+                profileSuccess.hidden = false;
             }
 
             return responseBody;
