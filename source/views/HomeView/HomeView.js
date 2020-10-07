@@ -38,11 +38,34 @@ export default class HomeView extends BaseView {
     }
 
     /**
+     * Set params to form
+     * @param {object} data
+     */
+    setParams(data) {
+        const avatarUrl = this.network.serverAddr + 'avatar/' + data.avatar;
+        document.getElementById('avatarMini').src = avatarUrl;
+    }
+
+    /**
+     * Get params from server
+     * @return {Promise<void>}
+     */
+    async getParams() {
+        try {
+            const response = await this.network.profileGet();
+            const profileData = await response.json();
+            await this.setParams(profileData);
+        } catch (err) {
+        }
+    }
+
+    /**
      * Render Login view.
      */
     render() {
         this.el.innerHTML = window.fest['views/HomeView/HomeView.tmpl']();
         document.getElementById('logout')
             .addEventListener('click', this.network.logout.bind(this.network), false);
+        this.getParams();
     }
 }

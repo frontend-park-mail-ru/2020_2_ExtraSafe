@@ -69,9 +69,12 @@ export default class ProfileView extends BaseView {
      * @param {object} data
      */
     setParams(data) {
+        const avatarUrl = this.network.serverAddr + 'avatar/' + data.avatar;
         document.getElementById('username').value = data.username;
         document.getElementById('fullName').value = data.fullName;
         document.getElementById('email').value = data.email;
+        document.getElementById('profileAvatar').src = avatarUrl;
+        document.getElementById('avatarMini').src = avatarUrl;
     }
 
     /**
@@ -96,8 +99,10 @@ export default class ProfileView extends BaseView {
         }).then((responseBody) => {
             if (responseBody.status > 200) {
                 this.printErrors(responseBody.messages);
+                this.setParams(data);
+            } else {
+                this.setParams(responseBody);
             }
-            this.setParams(data);
             return responseBody;
         });
     }
@@ -138,6 +143,10 @@ export default class ProfileView extends BaseView {
 
         document.getElementById('logout')
             .addEventListener('click', this.network.logout.bind(this.network), false);
+
+
+        document.getElementById('imageInput')
+            .addEventListener('change', this.rendering.updateProfileImg.bind(this.rendering), false);
     }
 
     /**

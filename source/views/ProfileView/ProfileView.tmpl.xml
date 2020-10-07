@@ -16,7 +16,7 @@
                 <label for="imageInput">
                     <img id="profileAvatar" src="http://127.0.0.1:8080/avatar/" class="avatar" alt="avatar"/>
                 </label>
-                <input id="imageInput" style="display: none" type="file" accept="image/*" onchange="updateProfileImg()"/>
+                <input id="imageInput" style="display: none" type="file" accept="image/*"/>
 
                 <div class="settings-input-container">
                     <fest:include context="json.usernameInput" src="../../components/NamedInput/NamedInput.tmpl.xml"/>
