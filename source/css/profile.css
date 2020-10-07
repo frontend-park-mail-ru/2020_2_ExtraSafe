@@ -187,3 +187,12 @@
     width: 37px;
     height: 37px;
 }
+
+.changes-success {
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 12px;
+    color: green;
+    margin-bottom: 5px;
+}
