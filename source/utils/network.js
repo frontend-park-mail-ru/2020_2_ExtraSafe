@@ -18,6 +18,7 @@ export default class Network {
         const url = this.serverAddr + 'login/';
 
         return fetch(url, {
+            mode: 'cors',
             credentials: 'include',
             method: 'POST',
             body: JSON.stringify(data),
@@ -36,6 +37,7 @@ export default class Network {
         const url = this.serverAddr + 'reg/';
 
         return fetch(url, {
+            mode: 'cors',
             credentials: 'include',
             method: 'POST',
             body: JSON.stringify(data),
@@ -54,6 +56,7 @@ export default class Network {
         const url = this.serverAddr;
 
         return fetch(url, {
+            mode: 'cors',
             credentials: 'include',
             method: 'GET',
         });
@@ -67,6 +70,7 @@ export default class Network {
         const url = this.serverAddr + 'profile/';
 
         return fetch(url, {
+            mode: 'cors',
             credentials: 'include',
             method: 'GET',
         });
@@ -80,6 +84,7 @@ export default class Network {
         const url = this.serverAddr + 'accounts/';
 
         return fetch(url, {
+            mode: 'cors',
             credentials: 'include',
             method: 'GET',
         });
@@ -94,6 +99,7 @@ export default class Network {
         const url = this.serverAddr + 'profile/';
 
         return fetch(url, {
+            mode: 'cors',
             credentials: 'include',
             method: 'POST',
             body: data,
@@ -109,6 +115,7 @@ export default class Network {
         const url = this.serverAddr + 'accounts/';
 
         return fetch(url, {
+            mode: 'cors',
             credentials: 'include',
             method: 'POST',
             body: JSON.stringify(data),
@@ -127,6 +134,7 @@ export default class Network {
         const url = this.serverAddr + 'password/';
 
         return fetch(url, {
+            mode: 'cors',
             credentials: 'include',
             method: 'POST',
             body: JSON.stringify(data),
@@ -144,6 +152,7 @@ export default class Network {
         const url = this.serverAddr + 'logout/';
 
         return fetch(url, {
+            mode: 'cors',
             credentials: 'include',
             method: 'GET',
         });

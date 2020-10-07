@@ -44,6 +44,28 @@ export default class SecurityView extends BaseView {
     }
 
     /**
+     * Set params to form
+     * @param {object} data
+     */
+    setParams(data) {
+        const avatarUrl = this.network.serverAddr + 'avatar/' + data.avatar;
+        document.getElementById('avatarMini').src = avatarUrl;
+    }
+
+    /**
+     * Get params from server
+     * @return {Promise<void>}
+     */
+    async getParams() {
+        try {
+            const response = await this.network.profileGet();
+            const profileData = await response.json();
+            await this.setParams(profileData);
+        } catch (err) {
+        }
+    }
+
+    /**
      * Validate all fields and
      * send request to server
      */
@@ -175,5 +197,6 @@ export default class SecurityView extends BaseView {
 
         this.el.innerHTML = window.fest['views/SecurityView/SecurityView.tmpl'](templateInput);
         this.addEventListeners();
+        this.getParams();
     }
 }

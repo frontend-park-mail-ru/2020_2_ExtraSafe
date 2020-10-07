@@ -114,14 +114,10 @@ export default class Validation {
         }
 
         if (!(new RegExp(this.passwordRegExp)).test(password) ||
-            !(new RegExp(this.lowerCaseRegExp)).test(password) ||
-            !(new RegExp(this.upperCaseRegExp)).test(password) ||
-            !(new RegExp(this.numbersRegExp)).test(password) ||
-            (password.length < 8 || password.length > 64)) {
+            (password.length < 4 || password.length > 64)) {
             return {
                 result: false,
-                message: 'пароль должен содержать хотя бы одну строчную, заглавную буквы, цифру ' +
-                    'и иметь длину от 8 до 64 символов',
+                message: 'пароль должен иметь длину от 4 до 64 символов',
             };
         }
 
