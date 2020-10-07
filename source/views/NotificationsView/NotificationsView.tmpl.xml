@@ -14,23 +14,23 @@
     <div> </div>
 
     <div class="settings-input">
-    <div class="checkbox-settings">
-        <label style="margin: auto"> Уведомлять меня о моих дедлайнах </label>
-        <input style="margin: 10px" type="checkbox">
-    </div>
+        <div class="checkbox-settings">
+            <label style="margin: auto"> Уведомлять меня о моих дедлайнах </label>
+            <input style="margin: 10px" type="checkbox"/>
+        </div>
 
-    <div class="checkbox-settings">
-        <label style="margin: auto"> Уведомлять меня о моих новых задачах </label>
-        <input style="margin: 10px" type="checkbox">
-    </div>
+        <div class="checkbox-settings">
+            <label style="margin: auto"> Уведомлять меня о моих новых задачах </label>
+            <input style="margin: 10px" type="checkbox"/>
+        </div>
 
-    <div class="checkbox-settings">
-        <label style="margin: auto"> Уведомлять меня о новых комментариях под моими задачами </label>
-        <input style="margin: 10px" type="checkbox">
-    </div>
+        <div class="checkbox-settings">
+            <label style="margin: auto"> Уведомлять меня о новых комментариях под моими задачами </label>
+            <input style="margin: 10px" type="checkbox"/>
+        </div>
     </div>
 
     <div class="settings-input">
-    <button class="main-settings-button"> Подтвердить изменения </button>
+        <button class="main-settings-button"> Подтвердить изменения </button>
     </div>
 </fest:template>
