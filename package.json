@@ -1,0 +1,29 @@
+{
+  "name": "trello",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
+    "lint-fix": "eslint --fix .",
+    "start": "node_modules/.bin/fest-build --dir=source; node server.js",
+    "dev-start": "npm run lint && npm run start",
+    "build": "fest-build --dir=source"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "fest": "^0.12.1",
+    "js-cookie": "^2.2.1",
+    "node-fetch": "^2.6.1"
+  },
+  "devDependencies": {
+    "cross-fetch": "^3.0.6",
+    "eslint": "^7.10.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-import": "^2.22.1"
+  }
+}

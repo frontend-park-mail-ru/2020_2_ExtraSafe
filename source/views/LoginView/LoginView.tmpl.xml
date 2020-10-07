@@ -1,0 +1,11 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
+    <div class="default-container">
+        <form id="loginForm" class="login-form" onsubmit="return false">
+            <div>Авторизация</div>
+            <fest:include context="json.emailInput" src="../../components/NamedInput/NamedInput.tmpl.xml"/>
+            <fest:include context="json.passwordInput" src="../../components/NamedInput/NamedInput.tmpl.xml"/>
+            <fest:include context="json.signInButton" src="../../components/SubmitButton/SubmitButton.tmpl.xml"/>
+            <a class="login-reg-a" href="/reg">Ещё нет аккаунта? Зарегистрироваться!</a>
+        </form>
+    </div>
+</fest:template>

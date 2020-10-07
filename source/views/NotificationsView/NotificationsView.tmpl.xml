@@ -1,0 +1,36 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
+    <div class="buttons-notifications">
+        <div class="settings-input">
+            Уведомления по почте
+            <button class="main-settings-button"> Включить </button>
+        </div>
+
+        <div class="settings-input">
+            Уведомления в браузере
+            <button class="main-settings-button"> Включить </button>
+        </div>
+    </div>
+
+    <div> </div>
+
+    <div class="settings-input">
+        <div class="checkbox-settings">
+            <label style="margin: auto"> Уведомлять меня о моих дедлайнах </label>
+            <input style="margin: 10px" type="checkbox"/>
+        </div>
+
+        <div class="checkbox-settings">
+            <label style="margin: auto"> Уведомлять меня о моих новых задачах </label>
+            <input style="margin: 10px" type="checkbox"/>
+        </div>
+
+        <div class="checkbox-settings">
+            <label style="margin: auto"> Уведомлять меня о новых комментариях под моими задачами </label>
+            <input style="margin: 10px" type="checkbox"/>
+        </div>
+    </div>
+
+    <div class="settings-input">
+        <button class="main-settings-button"> Подтвердить изменения </button>
+    </div>
+</fest:template>
