@@ -77,5 +77,6 @@ export default class HomeView extends BaseView {
     render() {
         this.el.innerHTML = window.fest['views/HomeView/HomeView.tmpl']();
         this.addEventListeners();
+        this.getParams();
     }
 }
