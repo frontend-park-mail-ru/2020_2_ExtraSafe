@@ -87,10 +87,25 @@ export default class AccountsView extends BaseView {
     }
 
     /**
-     * Render Accounts view.
+     * add all event listeners
      */
-    render() {
-        const json = {
+    addEventListeners() {
+        document.getElementById('accountsForm')
+            .addEventListener('submit', this.changeParams.bind(this), false);
+
+        document.getElementById('logout')
+            .addEventListener('click', this.network.logout.bind(this.network), false);
+
+        document.getElementById('avatarMini')
+            .addEventListener('click', navbarPopup, false);
+    }
+
+    /**
+     * setup template input data
+     * @return {JSON} templateData
+     */
+    templateJSONSetup() {
+        return {
             telegramInput: {
                 name: 'Telegram:',
                 params: [
@@ -184,14 +199,15 @@ export default class AccountsView extends BaseView {
                     }],
             },
         };
+    }
 
-        this.el.innerHTML = window.fest['views/AccountsView/AccountsView.tmpl'](json);
+    /**
+     * Render Accounts view.
+     */
+    render() {
+        const templateInput = this.templateJSONSetup();
+        this.el.innerHTML = window.fest['views/AccountsView/AccountsView.tmpl'](templateInput);
         this.getParams();
-        document.getElementById('accountsForm')
-            .addEventListener('submit', this.changeParams.bind(this), false);
-        document.getElementById('logout')
-            .addEventListener('click', this.network.logout.bind(this.network), false);
-        document.getElementById('avatarMini')
-            .addEventListener('click', navbarPopup, false);
+        this.addEventListeners();
     }
 }

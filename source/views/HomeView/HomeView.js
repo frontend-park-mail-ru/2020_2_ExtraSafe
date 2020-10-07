@@ -40,13 +40,21 @@ export default class HomeView extends BaseView {
     }
 
     /**
+     * add all event listeners
+     */
+    addEventListeners() {
+        document.getElementById('logout')
+            .addEventListener('click', this.network.logout.bind(this.network), false);
+
+        document.getElementById('avatarMini')
+            .addEventListener('click', navbarPopup, false);
+    }
+
+    /**
      * Render Login view.
      */
     render() {
         this.el.innerHTML = window.fest['views/HomeView/HomeView.tmpl']();
-        document.getElementById('logout')
-            .addEventListener('click', this.network.logout.bind(this.network), false);
-        document.getElementById('avatarMini')
-            .addEventListener('click', navbarPopup, false);
+        this.addEventListeners();
     }
 }

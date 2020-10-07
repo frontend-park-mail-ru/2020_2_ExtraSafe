@@ -77,10 +77,19 @@ export default class LoginView extends BaseView {
     }
 
     /**
-     * Render Login view.
+     * add all event listeners
      */
-    render() {
-        const json = {
+    addEventListeners() {
+        document.getElementById('loginForm')
+            .addEventListener('submit', this.requestAuthorization.bind(this), false);
+    }
+
+    /**
+     * setup template input data
+     * @return {JSON} templateData
+     */
+    templateJSONSetup() {
+        return {
             emailInput: {
                 name: 'Электронная почта:',
                 inputs: [
@@ -114,9 +123,14 @@ export default class LoginView extends BaseView {
                 buttonText: 'Войти',
             },
         };
+    }
 
-        this.el.innerHTML = window.fest['views/LoginView/LoginView.tmpl'](json);
-        document.getElementById('loginForm')
-            .addEventListener('submit', this.requestAuthorization.bind(this), false);
+    /**
+     * Render Login view.
+     */
+    render() {
+        const templateInput = this.templateJSONSetup();
+        this.el.innerHTML = window.fest['views/LoginView/LoginView.tmpl'](templateInput);
+        this.addEventListeners();
     }
 }

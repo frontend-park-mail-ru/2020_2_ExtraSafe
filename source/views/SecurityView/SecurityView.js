@@ -122,10 +122,11 @@ export default class SecurityView extends BaseView {
     }
 
     /**
-     * Render Security view.
+     * setup template input data
+     * @return {JSON} templateData
      */
-    render() {
-        const json = {
+    templateJSONSetup() {
+        return {
             passwordInput: {
                 name: 'Изменить пароль:',
                 params: [
@@ -164,8 +165,15 @@ export default class SecurityView extends BaseView {
                     }],
             },
         };
+    }
 
-        this.el.innerHTML = window.fest['views/SecurityView/SecurityView.tmpl'](json);
+    /**
+     * Render Security view.
+     */
+    render() {
+        const templateInput = this.templateJSONSetup();
+
+        this.el.innerHTML = window.fest['views/SecurityView/SecurityView.tmpl'](templateInput);
         this.addEventListeners();
     }
 }

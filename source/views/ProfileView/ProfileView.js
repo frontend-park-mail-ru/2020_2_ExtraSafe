@@ -160,10 +160,11 @@ export default class ProfileView extends BaseView {
     }
 
     /**
-     * Render Profile view.
+     * setup template input data
+     * @return {JSON} templateData
      */
-    render() {
-        const json = {
+    templateJSONSetup() {
+        return {
             usernameInput: {
                 name: 'Имя пользователя:',
                 params: [
@@ -218,46 +219,15 @@ export default class ProfileView extends BaseView {
                     }],
             },
         };
+    }
 
-        this.el.innerHTML = window.fest['views/ProfileView/ProfileView.tmpl'](json);
+    /**
+     * Render Profile view.
+     */
+    render() {
+        const templateInput = this.templateJSONSetup();
+        this.el.innerHTML = window.fest['views/ProfileView/ProfileView.tmpl'](templateInput);
         this.getParams();
         this.addEventListeners();
     }
 }
-
-/* уведомления
-                    <div class="buttons-notifications">
-                        <div class="settings-input">
-                                Уведомления по почте
-                                <button class="main-settings-button"> Включить </button>
-                        </div>
-
-                        <div class="settings-input">
-                                Уведомления в браузере
-                                <button class="main-settings-button"> Включить </button>
-                        </div>
-                    </div>
-
-                    <div> </div>
-
-                    <div class="settings-input">
-                        <div class="checkbox-settings">
-                            <label style="margin: auto"> Уведомлять меня о моих дедлайнах </label>
-                            <input style="margin: 10px" type="checkbox">
-                        </div>
-
-                        <div class="checkbox-settings">
-                            <label style="margin: auto"> Уведомлять меня о моих новых задачах </label>
-                            <input style="margin: 10px" type="checkbox">
-                        </div>
-
-                        <div class="checkbox-settings">
-                            <label style="margin: auto"> Уведомлять меня о новых комментариях под моими задачами </label>
-                            <input style="margin: 10px" type="checkbox">
-                        </div>
-                    </div>
-
-                    <div class="settings-input">
-                        <button class="main-settings-button"> Подтвердить изменения </button>
-                    </div>
-*/

@@ -131,10 +131,11 @@ export default class RegView extends BaseView {
     }
 
     /**
-     * Render Reg view.
+     * setup template input data
+     * @return {JSON} templateData
      */
-    render() {
-        const json = {
+    templateJSONSetup() {
+        return {
             emailInput: {
                 name: 'Электронная почта:',
                 inputs: [
@@ -182,8 +183,14 @@ export default class RegView extends BaseView {
                 buttonText: 'Зарегистрироваться',
             },
         };
+    }
 
-        this.el.innerHTML = window.fest['views/RegView/RegView.tmpl'](json);
+    /**
+     * Render Reg view.
+     */
+    render() {
+        const templateInput = this.templateJSONSetup();
+        this.el.innerHTML = window.fest['views/RegView/RegView.tmpl'](templateInput);
         this.addEventListeners();
     }
 }
