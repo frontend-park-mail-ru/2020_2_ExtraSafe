@@ -25,25 +25,20 @@ export default class HomeView extends BaseView {
      * Check if user is authorized
      */
     ifAuthorized() {
-        const cookies = Cookies.get('tabutask_id');
-        if (cookies !== undefined) {
-            this.network.authRequest().then((response) => {
-                if (response.ok) {
-                    this.render();
-                } else {
-                    this.router.permOpen('/login');
-                }
-            });
-        } else {
-            this.router.permOpen('/login');
-        }
+        this.network.authRequest().then((response) => {
+            if (response.ok) {
+                this.render();
+            } else {
+                this.router.permOpen('/login');
+            }
+        });
     }
 
     /** Set params to form
      * @param {object} data
      */
     setParams(data) {
-        const avatarUrl = this.network.serverAddr + 'avatar/' + data.avatar;
+        const avatarUrl = this.network.serverAddr + '/avatar/' + data.avatar;
         document.getElementById('avatarMini').src = avatarUrl;
     }
 

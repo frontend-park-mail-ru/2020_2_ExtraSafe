@@ -6,7 +6,7 @@ export default class Network {
      * Constructor
      */
     constructor() {
-        this.serverAddr = 'http://95.163.213.142:8080/';
+        this.serverAddr = 'http://127.0.0.1:8080';
     }
 
     /**
@@ -15,7 +15,7 @@ export default class Network {
      * @return {Promise<Response>}
      */
     loginRequest(data) {
-        const url = this.serverAddr + 'login/';
+        const url = this.serverAddr + '/login/';
 
         return fetch(url, {
             mode: 'cors',
@@ -34,7 +34,7 @@ export default class Network {
      * @return {Promise<Response>}
      */
     regRequest(data) {
-        const url = this.serverAddr + 'reg/';
+        const url = this.serverAddr + '/reg/';
 
         return fetch(url, {
             mode: 'cors',
@@ -53,7 +53,7 @@ export default class Network {
      * @return {Promise<Response>}
      */
     authRequest() {
-        const url = this.serverAddr;
+        const url = this.serverAddr + "/";
 
         return fetch(url, {
             mode: 'cors',
@@ -67,7 +67,7 @@ export default class Network {
      * @return {Promise<Response>}
      */
     profileGet() {
-        const url = this.serverAddr + 'profile/';
+        const url = this.serverAddr + '/profile/';
 
         return fetch(url, {
             mode: 'cors',
@@ -81,7 +81,7 @@ export default class Network {
      * @return {Promise<Response>}
      */
     accountsGet() {
-        const url = this.serverAddr + 'accounts/';
+        const url = this.serverAddr + '/accounts/';
 
         return fetch(url, {
             mode: 'cors',
@@ -96,7 +96,7 @@ export default class Network {
      * @return {Promise<Response>}
      */
     profileSet(data) {
-        const url = this.serverAddr + 'profile/';
+        const url = this.serverAddr + '/profile/';
 
         return fetch(url, {
             mode: 'cors',
@@ -112,7 +112,7 @@ export default class Network {
      * @return {Promise<Response>}
      */
     accountsSet(data) {
-        const url = this.serverAddr + 'accounts/';
+        const url = this.serverAddr + '/accounts/';
 
         return fetch(url, {
             mode: 'cors',
@@ -131,7 +131,7 @@ export default class Network {
      * @return {Promise<Response>}
      */
     passwordSet(data) {
-        const url = this.serverAddr + 'password/';
+        const url = this.serverAddr + '/password/';
 
         return fetch(url, {
             mode: 'cors',
@@ -149,7 +149,7 @@ export default class Network {
      * @return {Promise<Response>}
      */
     logout() {
-        const url = this.serverAddr + 'logout/';
+        const url = this.serverAddr + '/logout/';
 
         return fetch(url, {
             mode: 'cors',
