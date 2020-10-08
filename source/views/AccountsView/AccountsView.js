@@ -79,6 +79,10 @@ export default class AccountsView extends BaseView {
             return response.json();
         }).then((responseBody) => {
             this.setParams(responseBody);
+            const accountsSuccess = document.getElementById('facebookError');
+            accountsSuccess.className = 'changes-success';
+            accountsSuccess.innerHTML = 'Данные изменены';
+            accountsSuccess.hidden = false;
             return responseBody;
         });
     }
@@ -184,6 +188,7 @@ export default class AccountsView extends BaseView {
                     {
                         type: 'text',
                         id: 'facebook',
+                        hasError: true,
                     }],
             },
 

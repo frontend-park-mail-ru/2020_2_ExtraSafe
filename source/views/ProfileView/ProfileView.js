@@ -99,7 +99,12 @@ export default class ProfileView extends BaseView {
                 this.setParams(data);
             } else {
                 this.setParams(responseBody);
+                const profileSuccess = document.getElementById('emailError');
+                profileSuccess.className = 'changes-success';
+                profileSuccess.innerHTML = 'Данные изменены';
+                profileSuccess.hidden = false;
             }
+
             return responseBody;
         });
     }

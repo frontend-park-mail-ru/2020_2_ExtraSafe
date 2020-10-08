@@ -84,6 +84,17 @@ export default class SecurityView extends BaseView {
         }).then((responseBody) => {
             if (responseBody.status > 200) {
                 this.printErrors(responseBody.messages);
+            } else {
+                const passwordSuccess = document.getElementById('repeatPasswordError');
+                passwordSuccess.className = 'changes-success';
+                passwordSuccess.innerHTML = 'Пароль изменен';
+                passwordSuccess.hidden = false;
+
+                this.rendering.renderInputError('oldPassword', {result: true});
+
+                document.getElementById('oldPassword').value = '';
+                document.getElementById('password').value = '';
+                document.getElementById('repeatPassword').value = '';
             }
             return responseBody;
         });
