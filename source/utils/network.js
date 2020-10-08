@@ -6,7 +6,7 @@ export default class Network {
      * Constructor
      */
     constructor() {
-        this.serverAddr = 'http://95.163.213.142:8080';
+        this.serverAddr = 'http://tabutask.ru:8080';
     }
 
     /**
