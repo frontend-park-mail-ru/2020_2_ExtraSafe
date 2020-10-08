@@ -28,18 +28,13 @@ export default class RegView extends BaseView {
      * Check if user is authorized
      */
     async ifAuthorized() {
-        const cookies = Cookies.get('tabutask_id');
-        if (cookies !== undefined) {
-            this.network.authRequest().then((response) => {
-                if (response.ok) {
-                    this.router.permOpen('/');
-                } else {
-                    this.render();
-                }
-            });
-        } else {
-            this.render();
-        }
+        this.network.authRequest().then((response) => {
+            if (response.ok) {
+                this.router.permOpen('/');
+            } else {
+                this.render();
+            }
+        });
     }
 
     /**
