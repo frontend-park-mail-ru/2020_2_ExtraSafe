@@ -6,7 +6,26 @@ export default class Network {
      * Constructor
      */
     constructor() {
-        this.serverAddr = 'http://tabutask.ru:8080';
+        //this.serverAddr = 'http://tabutask.ru:8080';
+        this.serverAddr = 'http://127.0.0.1:8080';
+        this.requestGet = {
+            mode: 'cors',
+            credentials: 'include',
+            method: 'GET',
+        };
+        this.requestPost = {
+            mode: 'cors',
+            credentials: 'include',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        };
+        this.requestFormData = {
+            mode: 'cors',
+            credentials: 'include',
+            method: 'POST',
+        };
     }
 
     /**
@@ -16,16 +35,9 @@ export default class Network {
      */
     loginRequest(data) {
         const url = this.serverAddr + '/login/';
+        this.requestPost.body = JSON.stringify(data);
 
-        return fetch(url, {
-            mode: 'cors',
-            credentials: 'include',
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
+        return fetch(url, this.requestPost);
     }
 
     /**
@@ -35,16 +47,9 @@ export default class Network {
      */
     regRequest(data) {
         const url = this.serverAddr + '/reg/';
+        this.requestPost.body = JSON.stringify(data);
 
-        return fetch(url, {
-            mode: 'cors',
-            credentials: 'include',
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
+        return fetch(url, this.requestPost);
     }
 
     /**
@@ -55,11 +60,7 @@ export default class Network {
     authRequest() {
         const url = this.serverAddr + "/";
 
-        return fetch(url, {
-            mode: 'cors',
-            credentials: 'include',
-            method: 'GET',
-        });
+        return fetch(url, this.requestGet);
     }
 
     /**
@@ -69,11 +70,7 @@ export default class Network {
     profileGet() {
         const url = this.serverAddr + '/profile/';
 
-        return fetch(url, {
-            mode: 'cors',
-            credentials: 'include',
-            method: 'GET',
-        });
+        return fetch(url, this.requestGet);
     }
 
     /**
@@ -83,11 +80,7 @@ export default class Network {
     accountsGet() {
         const url = this.serverAddr + '/accounts/';
 
-        return fetch(url, {
-            mode: 'cors',
-            credentials: 'include',
-            method: 'GET',
-        });
+        return fetch(url, this.requestGet);
     }
 
     /**
@@ -97,13 +90,9 @@ export default class Network {
      */
     profileSet(data) {
         const url = this.serverAddr + '/profile/';
+        this.requestFormData.body = data;
 
-        return fetch(url, {
-            mode: 'cors',
-            credentials: 'include',
-            method: 'POST',
-            body: data,
-        });
+        return fetch(url, this.requestFormData);
     }
 
     /**
@@ -113,16 +102,9 @@ export default class Network {
      */
     accountsSet(data) {
         const url = this.serverAddr + '/accounts/';
+        this.requestPost.body = JSON.stringify(data);
 
-        return fetch(url, {
-            mode: 'cors',
-            credentials: 'include',
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
+        return fetch(url, this.requestPost);
     }
 
     /**
@@ -132,16 +114,9 @@ export default class Network {
      */
     passwordSet(data) {
         const url = this.serverAddr + '/password/';
+        this.requestPost.body = JSON.stringify(data);
 
-        return fetch(url, {
-            mode: 'cors',
-            credentials: 'include',
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
+        return fetch(url, this.requestPost);
     }
 
     /**
@@ -151,10 +126,6 @@ export default class Network {
     logout() {
         const url = this.serverAddr + '/logout/';
 
-        return fetch(url, {
-            mode: 'cors',
-            credentials: 'include',
-            method: 'GET',
-        });
+        return fetch(url, this.requestGet);
     }
 }
