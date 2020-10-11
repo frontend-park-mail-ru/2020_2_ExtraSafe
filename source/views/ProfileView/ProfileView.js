@@ -125,19 +125,19 @@ export default class ProfileView extends BaseView {
      */
     addEventListeners() {
         document.getElementById('username').addEventListener('focusout',
-            function() {
+            () => {
                 this.rendering.renderInputError('username', this.validation.validateUsername());
-            }.bind(this), false);
+            }, false);
 
         document.getElementById('fullName').addEventListener('focusout',
-            function() {
+            () => {
                 this.rendering.renderInputError('fullName', this.validation.validateFullName());
-            }.bind(this), false);
+            }, false);
 
         document.getElementById('email').addEventListener('focusout',
-            function() {
+            () => {
                 this.rendering.renderInputError('email', this.validation.validateEmail());
-            }.bind(this), false);
+            }, false);
 
 
         document.getElementById('profileForm')

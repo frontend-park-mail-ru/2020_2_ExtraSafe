@@ -87,24 +87,24 @@ export default class RegView extends BaseView {
      */
     addEventListeners() {
         document.getElementById('email').addEventListener('focusout',
-            function() {
+            () => {
                 this.rendering.renderInputError('email', this.validation.validateEmail());
-            }.bind(this), false);
+            }, false);
 
         document.getElementById('username').addEventListener('focusout',
-            function() {
+            () => {
                 this.rendering.renderInputError('username', this.validation.validateUsername());
-            }.bind(this), false);
+            }, false);
 
         document.getElementById('password').addEventListener('focusout',
-            function() {
+            () => {
                 this.rendering.renderInputError('password', this.validation.validatePassword());
-            }.bind(this), false);
+            }, false);
 
         document.getElementById('repeatPassword').addEventListener('focusout',
-            function() {
+            () => {
                 this.rendering.renderInputError('repeatPassword', this.validation.validateComparePasswords());
-            }.bind(this), false);
+            }, false);
 
 
         document.getElementById('regForm')

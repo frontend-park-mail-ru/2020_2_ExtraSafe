@@ -6,7 +6,7 @@ export default class Network {
      * Constructor
      */
     constructor() {
-        //this.serverAddr = 'http://tabutask.ru:8080';
+        // this.serverAddr = 'http://tabutask.ru:8080';
         this.serverAddr = 'http://127.0.0.1:8080';
         this.requestGet = {
             mode: 'cors',
@@ -58,7 +58,7 @@ export default class Network {
      * @return {Promise<Response>}
      */
     authRequest() {
-        const url = this.serverAddr + "/";
+        const url = this.serverAddr + '/';
 
         return fetch(url, this.requestGet);
     }

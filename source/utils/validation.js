@@ -7,13 +7,13 @@ export default class Validation {
      */
     constructor() {
         // регулярные выражения
-        this.emailRegExp = '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$';
-        this.passwordRegExp = '^[a-zA-Z0-9~!@#$%^&*-_+=`|\\(){}:;"\'<>,.?/]+$';
-        this.usernameRegExp = '^[a-zA-Z0-9_]+$';
-        this.fullNameRegExp = '^[a-zA-Zа-яА-Я _]+$';
-        this.lowerCaseRegExp = '[a-z]+';
-        this.upperCaseRegExp = '[A-Z]+';
-        this.numbersRegExp = '[0-9]+';
+        this.emailRegExp = new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$');
+        this.passwordRegExp = new RegExp('^[a-zA-Z0-9~!@#$%^&*-_+=`|(){}:;"\'<>,.?/]+$');
+        this.usernameRegExp = new RegExp('^[a-zA-Z0-9_]+$');
+        this.fullNameRegExp = new RegExp('^[a-zA-Zа-яА-Я _]+$');
+        // this.lowerCaseRegExp = new RegExp('[a-z]+');
+        // this.upperCaseRegExp = new RegExp('[A-Z]+');
+        // this.numbersRegExp = new RegExp('[0-9]+');
     }
 
     /**
@@ -30,7 +30,7 @@ export default class Validation {
             };
         }
 
-        if (!(new RegExp(this.emailRegExp)).test(email)) {
+        if (!this.emailRegExp.test(email)) {
             return {
                 result: false,
                 message: 'некорректный email',
@@ -61,7 +61,7 @@ export default class Validation {
             };
         }
 
-        if (!(new RegExp(this.usernameRegExp)).test(username)) {
+        if (!this.usernameRegExp.test(username)) {
             return {
                 result: false,
                 message: 'содержит некорректные символы',
@@ -89,7 +89,7 @@ export default class Validation {
             };
         }
 
-        if (!(new RegExp(this.fullNameRegExp)).test(fullName)) {
+        if (!this.fullNameRegExp.test(fullName)) {
             return {
                 result: false,
                 message: 'содержит некорректные символы',
@@ -113,7 +113,7 @@ export default class Validation {
             };
         }
 
-        if (!(new RegExp(this.passwordRegExp)).test(password) ||
+        if (!this.passwordRegExp.test(password) ||
             (password.length < 4 || password.length > 64)) {
             return {
                 result: false,

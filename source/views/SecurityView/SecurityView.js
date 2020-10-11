@@ -115,14 +115,14 @@ export default class SecurityView extends BaseView {
      */
     addEventListeners() {
         document.getElementById('password').addEventListener('focusout',
-            function() {
+            () => {
                 this.rendering.renderInputError('password', this.validation.validatePassword());
-            }.bind(this), false);
+            }, false);
 
         document.getElementById('repeatPassword').addEventListener('focusout',
-            function() {
+            () => {
                 this.rendering.renderInputError('repeatPassword', this.validation.validateComparePasswords());
-            }.bind(this), false);
+            }, false);
 
 
         document.getElementById('securityForm')
