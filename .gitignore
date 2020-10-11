@@ -3,6 +3,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=webstorm,node
 
 ### Node ###
+# Fest
 *.tmpl.js
 # Logs
 logs

@@ -1,5 +1,5 @@
 {
-  "name": "trello",
+  "name": "tabutask",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -11,6 +11,9 @@
     "dev-start": "npm run lint && npm run start",
     "build": "fest-build --dir=source"
   },
+  "pre-commit": [
+    "lint-fix"
+  ],
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -23,6 +26,7 @@
     "cross-fetch": "^3.0.6",
     "eslint": "^7.10.0",
     "eslint-config-google": "^0.14.0",
-    "eslint-plugin-import": "^2.22.1"
+    "eslint-plugin-import": "^2.22.1",
+    "pre-commit": "^1.2.2"
   }
 }
