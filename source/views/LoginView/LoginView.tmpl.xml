@@ -1,5 +1,5 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
-    <div class="default-container">
+    <div class="container-without-navbar">
         <form id="loginForm" class="login-form" onsubmit="return false">
             <div>Авторизация</div>
             <fest:include context="json.emailInput" src="../../components/NamedInput/NamedInput.tmpl.xml"/>

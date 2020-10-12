@@ -4,8 +4,9 @@
     align-items: start;
     justify-content: space-evenly;
 
-    width: 836px;
-    height: 599px;
+    width: 100%;
+    max-width: 836px;
+    flex-basis: 599px;
 
     background-color: white;
     border-radius: 5px;
@@ -19,8 +20,9 @@
     justify-content: flex-start;
 
     margin-left: 5px;
-    width: 160px;
-    height: 599px;
+    width: 100%;
+    max-width: 160px;
+    height: 100%;
 
     border-right-style: solid;
     border-right-color: var(--input-border-color);
@@ -62,8 +64,9 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    width: 676px;
-    height: 599px;
+    width: 100%;
+    max-width: 676px;
+    height: 100%;
     background-color: white;
     border-radius: 0 5px 5px 0;
 
