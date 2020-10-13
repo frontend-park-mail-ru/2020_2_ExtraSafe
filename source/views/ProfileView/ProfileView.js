@@ -5,6 +5,9 @@ import Network from '../../utils/network.js';
 import './ProfileView.tmpl.js';
 import navbarPopup from '../../components/Navbar/Navbar.js';
 
+const START_AVATAR_URL = 4
+const END_AVATAR_URL = 6
+
 /**
  * Class Profile view.
  */
@@ -84,6 +87,8 @@ export default class ProfileView extends BaseView {
             email: document.getElementById('email').value,
             username: document.getElementById('username').value,
             fullName: document.getElementById('fullName').value,
+            avatar: document.getElementById('profileAvatar').src.split('/')
+                .slice(START_AVATAR_URL, END_AVATAR_URL).join('/')
         };
 
         formData.append('username', document.getElementById('username').value);
@@ -95,7 +100,7 @@ export default class ProfileView extends BaseView {
             return response.json();
         }).then((responseBody) => {
             if (responseBody.status > 200) {
-                this.printErrors(responseBody.messages);
+                this.rendering.printServerErrors(responseBody.codes);
                 this.setParams(data);
             } else {
                 this.setParams(responseBody);
@@ -151,20 +156,6 @@ export default class ProfileView extends BaseView {
 
         document.getElementById('imageInput')
             .addEventListener('change', this.rendering.updateProfileImg.bind(this.rendering), false);
-    }
-
-    /**
-     * print error
-     * @param {errorObject} errors
-     */
-    printErrors(errors) {
-        errors.forEach((element, i) => {
-            const error = {
-                result: false,
-                message: element.message,
-            };
-            this.rendering.renderInputError(element.errorName, error);
-        });
     }
 
     /**

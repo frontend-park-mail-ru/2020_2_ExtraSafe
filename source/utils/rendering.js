@@ -1,3 +1,5 @@
+import {errorsDescription} from "./errors.js";
+
 /**
  * Rendering
  */
@@ -23,6 +25,20 @@ export default class Rendering {
         errorElement.innerHTML = '';
         errorElement.hidden = true;
         return error.result;
+    }
+
+    /**
+     * print error
+     * @param {errorsDescription} errors
+     */
+    printServerErrors(errors) {
+        errors.forEach((element, i) => {
+            const error = {
+                result: false,
+                message: errorsDescription[element].message,
+            };
+            this.renderInputError(errorsDescription[element].field, error);
+        });
     }
 
     /**

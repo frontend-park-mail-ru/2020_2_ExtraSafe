@@ -51,7 +51,7 @@ export default class LoginView extends BaseView {
             return response.json();
         }).then((responseBody) => {
             if (responseBody.status > 200) {
-                this.printErrors(responseBody.messages);
+                this.rendering.printServerErrors(responseBody.codes);
             }
             return responseBody;
         });
