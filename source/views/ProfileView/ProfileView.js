@@ -91,6 +91,8 @@ export default class ProfileView extends BaseView {
                 .slice(START_AVATAR_URL, END_AVATAR_URL).join('/')
         };
 
+        console.log(data.avatar);
+
         formData.append('username', document.getElementById('username').value);
         formData.append('email', document.getElementById('email').value);
         formData.append('fullName', document.getElementById('fullName').value);

@@ -4,7 +4,7 @@ export const errorsDescription = {
     '202': {field: 'username', message: 'Такое имя пользователя уже существует'},
     '301': {field: 'email', message: 'Такой адрес электронной почты уже зарегистрирован'},
     '302': {field: 'username', message: 'Такое имя пользователя уже существует'},
-    '401': {field: 'imageInput', message: 'Нехороший файл'},
-    '402': {field: 'imageInput', message: 'Неверный формат файла'},
+    '401': {field: 'profileAvatar', message: 'Нехороший файл'},
+    '402': {field: 'profileAvatar', message: 'Неверный формат файла'},
     '501': {field: 'oldPassword', message: 'Неверный пароль'},
 };
