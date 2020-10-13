@@ -15,6 +15,7 @@
             <form id="profileForm" class="settings-body" onsubmit="return false">
                 <label for="imageInput">
                     <img id="profileAvatar" src="" class="avatar" alt="avatar"/>
+                    <div id="profileAvatarError" class="profile-avatar-error" hidden="true"/>
                 </label>
                 <input id="imageInput" style="display: none" type="file" accept="image/*"/>
 
