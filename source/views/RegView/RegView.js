@@ -21,19 +21,6 @@ export default class RegView extends BaseView {
     }
 
     /**
-     * Check if user is authorized
-     */
-    async ifAuthorized() {
-        Network.authRequest().then((response) => {
-            if (response.ok) {
-                this.router.permOpen('/');
-            } else {
-                this.render();
-            }
-        });
-    }
-
-    /**
      * Validate all fields and
      * send request to server
      */
@@ -55,7 +42,8 @@ export default class RegView extends BaseView {
 
         Network.regRequest(user).then((response) => {
             if (response.ok) {
-                this.router.permOpen('/');
+                this.router.isAuth = true;
+                this.router.open('/');
             }
             return response.json();
         }).then((responseBody) => {

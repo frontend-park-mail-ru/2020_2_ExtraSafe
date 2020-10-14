@@ -1,3 +1,5 @@
+import Network from './network.js';
+
 /**
  * Router
  */
@@ -9,10 +11,48 @@ export default class Router {
     constructor(root) {
         this.root = root;
         this.routesMap = new Map();
+        this.isAuth = false;
 
         // When clicking on the link, correctly process
         this.catchMouseClick = this.catchMouseClick.bind(this);
         this.root.addEventListener('click', this.catchMouseClick);
+    }
+
+    /**
+     * Check if user is authorized
+     * @return {Promise<*>}
+     */
+    ifAuthorized() {
+        return Network.authRequest().then((response) => {
+            console.log(response.ok);
+            return response.ok;
+        });
+    }
+
+    /**
+     * render if user is authorised
+     * @param {string} route
+     */
+    renderIfAuth(route) {
+        if (route === '/login' || route === '/reg') {
+            window.history.replaceState({}, '', '/');
+            this.routesMap.get('/').render();
+        } else {
+            this.routesMap.get(route).render();
+        }
+    }
+
+    /**
+     * render if user is not authorised
+     * @param {string} route
+     */
+    renderIfNotAuth(route) {
+        if (route === '/login' || route === '/reg') {
+            this.routesMap.get(route).render();
+        } else {
+            window.history.replaceState({}, '', '/login');
+            this.routesMap.get('/login').render();
+        }
     }
 
     /**
@@ -23,23 +63,21 @@ export default class Router {
         window.history.replaceState({}, '', route);
 
         if (this.routesMap.has(route)) {
-            this.routesMap.get(route).ifAuthorized();
+            if (!this.isAuth) {
+                this.ifAuthorized().then((response) => {
+                    this.isAuth = response;
+                    if (response === true) {
+                        this.renderIfAuth(route);
+                    } else {
+                        this.renderIfNotAuth(route);
+                    }
+                });
+            } else {
+                this.renderIfAuth(route);
+            }
         } else {
-            this.open('/login');
-        }
-    }
-
-    /**
-     * Open route without permission check
-     * @param {string} route
-     */
-    permOpen(route) {
-        window.history.replaceState({}, '', route);
-
-        if (this.routesMap.has(route)) {
-            this.routesMap.get(route).render();
-        } else {
-            this.open('/login');
+            window.history.replaceState({}, '', '/login');
+            this.routesMap.get('/login').render();
         }
     }
 

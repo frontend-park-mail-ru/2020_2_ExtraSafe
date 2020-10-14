@@ -22,19 +22,6 @@ export default class SecurityView extends BaseView {
     }
 
     /**
-     * Check if user is authorized
-     */
-    ifAuthorized() {
-        Network.authRequest().then((response) => {
-            if (response.ok) {
-                this.render();
-            } else {
-                this.router.permOpen('/login');
-            }
-        });
-    }
-
-    /**
      * Set params to form
      * @param {object} data
      */

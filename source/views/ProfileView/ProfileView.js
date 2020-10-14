@@ -25,19 +25,6 @@ export default class ProfileView extends BaseView {
     }
 
     /**
-     * Check if user is authorized
-     */
-    ifAuthorized() {
-        Network.authRequest().then((response) => {
-            if (response.ok) {
-                this.render();
-            } else {
-                this.router.permOpen('/login');
-            }
-        });
-    }
-
-    /**
      * Validate all fields and
      * send request to server
      */

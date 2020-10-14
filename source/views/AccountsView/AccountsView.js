@@ -21,19 +21,6 @@ export default class AccountsView extends BaseView {
     }
 
     /**
-     * Check if user is authorized
-     */
-    ifAuthorized() {
-        Network.authRequest().then((response) => {
-            if (response.ok) {
-                this.render();
-            } else {
-                this.router.permOpen('/login');
-            }
-        });
-    }
-
-    /**
      * Get params from server
      * @return {Promise<void>}
      */

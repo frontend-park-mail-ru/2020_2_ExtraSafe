@@ -20,19 +20,6 @@ export default class LoginView extends BaseView {
     }
 
     /**
-     * Check if user is authorized
-     */
-    ifAuthorized() {
-        Network.authRequest().then((response) => {
-            if (response.ok) {
-                this.router.permOpen('/');
-            } else {
-                this.render();
-            }
-        });
-    }
-
-    /**
      * Request to server
      */
     requestAuthorization() {
@@ -43,7 +30,8 @@ export default class LoginView extends BaseView {
 
         Network.loginRequest(user).then((response) => {
             if (response.ok) {
-                this.router.permOpen('/');
+                this.router.isAuth = true;
+                this.router.open('/');
             }
             return response.json();
         }).then((responseBody) => {
