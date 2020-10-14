@@ -49,3 +49,5 @@ export default class Rendering {
         profileAvatar.src = URL.createObjectURL(event.target.files[0]);
     }
 }
+
+export const rendering = new Rendering();

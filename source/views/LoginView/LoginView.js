@@ -1,6 +1,6 @@
 import BaseView from '../BaseView/BaseView.js';
-import Rendering from '../../utils/rendering.js';
-import Network from '../../utils/network.js';
+import {rendering} from '../../utils/rendering.js';
+import {network} from '../../utils/network.js';
 import './LoginView.tmpl.js';
 
 /**
@@ -16,17 +16,14 @@ export default class LoginView extends BaseView {
      */
     constructor(el, router, args) {
         super(el, router, {});
-        this.el = el;
         this.args = args;
-        this.rendering = new Rendering();
-        this.network = new Network();
     }
 
     /**
      * Check if user is authorized
      */
     ifAuthorized() {
-        this.network.authRequest().then((response) => {
+        network.authRequest().then((response) => {
             if (response.ok) {
                 this.router.permOpen('/');
             } else {
@@ -44,30 +41,16 @@ export default class LoginView extends BaseView {
             password: document.getElementById('password').value,
         };
 
-        this.network.loginRequest(user).then((response) => {
+        network.loginRequest(user).then((response) => {
             if (response.ok) {
                 this.router.permOpen('/');
             }
             return response.json();
         }).then((responseBody) => {
             if (responseBody.status > 200) {
-                this.rendering.printServerErrors(responseBody.codes);
+                rendering.printServerErrors(responseBody.codes);
             }
             return responseBody;
-        });
-    }
-
-    /**
-     * print error
-     * @param {errors[]} errors
-     */
-    printErrors(errors) {
-        errors.forEach((element, i) => {
-            const error = {
-                result: false,
-                message: element.message,
-            };
-            this.rendering.renderInputError(element.errorName, error);
         });
     }
 

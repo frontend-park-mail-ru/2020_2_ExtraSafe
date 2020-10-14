@@ -129,3 +129,5 @@ export default class Network {
         return fetch(url, this.requestGet);
     }
 }
+
+export const network = new Network();

@@ -1,7 +1,7 @@
 import BaseView from '../BaseView/BaseView.js';
-import Rendering from '../../utils/rendering.js';
-import Validation from '../../utils/validation.js';
-import Network from '../../utils/network.js';
+import {rendering} from '../../utils/rendering.js';
+import {validation} from '../../utils/validation.js';
+import {network} from '../../utils/network.js';
 import './RegView.tmpl.js';
 
 /**
@@ -17,18 +17,14 @@ export default class RegView extends BaseView {
      */
     constructor(el, router, args) {
         super(el, router, {});
-        this.el = el;
         this.args = args;
-        this.rendering = new Rendering();
-        this.validation = new Validation();
-        this.network = new Network();
     }
 
     /**
      * Check if user is authorized
      */
     async ifAuthorized() {
-        this.network.authRequest().then((response) => {
+        network.authRequest().then((response) => {
             if (response.ok) {
                 this.router.permOpen('/');
             } else {
@@ -57,14 +53,14 @@ export default class RegView extends BaseView {
             password: document.getElementById('password').value,
         };
 
-        this.network.regRequest(user).then((response) => {
+        network.regRequest(user).then((response) => {
             if (response.ok) {
                 this.router.permOpen('/');
             }
             return response.json();
         }).then((responseBody) => {
             if (responseBody.status > 200) {
-                this.rendering.printServerErrors(responseBody.codes);
+                rendering.printServerErrors(responseBody.codes);
             }
             return responseBody;
         });
@@ -75,10 +71,10 @@ export default class RegView extends BaseView {
      * @return {boolean} - error
      */
     updateAllErrors() {
-        let error = this.rendering.renderInputError('email', this.validation.validateEmail());
-        error *= this.rendering.renderInputError('username', this.validation.validateUsername());
-        error *= this.rendering.renderInputError('password', this.validation.validatePassword());
-        error *= this.rendering.renderInputError('repeatPassword', this.validation.validateComparePasswords());
+        let error = rendering.renderInputError('email', validation.validateEmail());
+        error *= rendering.renderInputError('username', validation.validateUsername());
+        error *= rendering.renderInputError('password', validation.validatePassword());
+        error *= rendering.renderInputError('repeatPassword', validation.validateComparePasswords());
         return error;
     }
 
@@ -88,41 +84,27 @@ export default class RegView extends BaseView {
     addEventListeners() {
         document.getElementById('email').addEventListener('focusout',
             () => {
-                this.rendering.renderInputError('email', this.validation.validateEmail());
+                rendering.renderInputError('email', validation.validateEmail());
             }, false);
 
         document.getElementById('username').addEventListener('focusout',
             () => {
-                this.rendering.renderInputError('username', this.validation.validateUsername());
+                rendering.renderInputError('username', validation.validateUsername());
             }, false);
 
         document.getElementById('password').addEventListener('focusout',
             () => {
-                this.rendering.renderInputError('password', this.validation.validatePassword());
+                rendering.renderInputError('password', validation.validatePassword());
             }, false);
 
         document.getElementById('repeatPassword').addEventListener('focusout',
             () => {
-                this.rendering.renderInputError('repeatPassword', this.validation.validateComparePasswords());
+                rendering.renderInputError('repeatPassword', validation.validateComparePasswords());
             }, false);
 
 
         document.getElementById('regForm')
             .addEventListener('submit', this.formSubmit.bind(this), false);
-    }
-
-    /**
-     * print server error
-     * @param {errorsArray} errors
-     */
-    printErrors(errors) {
-        errors.forEach((element, i) => {
-            const error = {
-                result: false,
-                message: element.message,
-            };
-            this.rendering.renderInputError(element.errorName, error);
-        });
     }
 
     /**

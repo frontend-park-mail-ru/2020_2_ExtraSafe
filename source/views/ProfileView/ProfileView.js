@@ -1,7 +1,7 @@
 import BaseView from '../BaseView/BaseView.js';
-import Rendering from '../../utils/rendering.js';
-import Validation from '../../utils/validation.js';
-import Network from '../../utils/network.js';
+import {rendering} from '../../utils/rendering.js';
+import {validation} from '../../utils/validation.js';
+import {network} from '../../utils/network.js';
 import './ProfileView.tmpl.js';
 import navbarPopup from '../../components/Navbar/Navbar.js';
 
@@ -21,18 +21,14 @@ export default class ProfileView extends BaseView {
      */
     constructor(el, router, args) {
         super(el, router, {});
-        this.el = el;
         this.args = args;
-        this.rendering = new Rendering();
-        this.validation = new Validation();
-        this.network = new Network();
     }
 
     /**
      * Check if user is authorized
      */
     ifAuthorized() {
-        this.network.authRequest().then((response) => {
+        network.authRequest().then((response) => {
             if (response.ok) {
                 this.render();
             } else {
@@ -57,7 +53,7 @@ export default class ProfileView extends BaseView {
      */
     async getParams() {
         try {
-            const response = await this.network.profileGet();
+            const response = await network.profileGet();
             const profileData = await response.json();
             await this.setParams(profileData);
         } catch (err) {
@@ -69,7 +65,7 @@ export default class ProfileView extends BaseView {
      * @param {object} data
      */
     setParams(data) {
-        const avatarUrl = this.network.serverAddr + '/avatar/' + data.avatar;
+        const avatarUrl = network.serverAddr + '/avatar/' + data.avatar;
         document.getElementById('username').value = data.username;
         document.getElementById('fullName').value = data.fullName;
         document.getElementById('email').value = data.email;
@@ -91,18 +87,16 @@ export default class ProfileView extends BaseView {
                 .slice(START_AVATAR_URL, END_AVATAR_URL).join('/')
         };
 
-        console.log(data.avatar);
-
         formData.append('username', document.getElementById('username').value);
         formData.append('email', document.getElementById('email').value);
         formData.append('fullName', document.getElementById('fullName').value);
         formData.append('avatar', document.getElementById('imageInput').files[0]);
 
-        this.network.profileSet(formData).then((response) => {
+        network.profileSet(formData).then((response) => {
             return response.json();
         }).then((responseBody) => {
             if (responseBody.status > 200) {
-                this.rendering.printServerErrors(responseBody.codes);
+                rendering.printServerErrors(responseBody.codes);
                 this.setParams(data);
             } else {
                 this.setParams(responseBody);
@@ -121,9 +115,9 @@ export default class ProfileView extends BaseView {
      * @return {boolean} - error
      */
     updateAllErrors() {
-        const usernameError = this.rendering.renderInputError('username', this.validation.validateUsername());
-        const fullNameError = this.rendering.renderInputError('fullName', this.validation.validateFullName());
-        const emailError = this.rendering.renderInputError('email', this.validation.validateEmail());
+        const usernameError = rendering.renderInputError('username', validation.validateUsername());
+        const fullNameError = rendering.renderInputError('fullName', validation.validateFullName());
+        const emailError = rendering.renderInputError('email', validation.validateEmail());
         return usernameError && fullNameError && emailError;
     }
 
@@ -133,17 +127,17 @@ export default class ProfileView extends BaseView {
     addEventListeners() {
         document.getElementById('username').addEventListener('focusout',
             () => {
-                this.rendering.renderInputError('username', this.validation.validateUsername());
+                rendering.renderInputError('username', validation.validateUsername());
             }, false);
 
         document.getElementById('fullName').addEventListener('focusout',
             () => {
-                this.rendering.renderInputError('fullName', this.validation.validateFullName());
+                rendering.renderInputError('fullName', validation.validateFullName());
             }, false);
 
         document.getElementById('email').addEventListener('focusout',
             () => {
-                this.rendering.renderInputError('email', this.validation.validateEmail());
+                rendering.renderInputError('email', validation.validateEmail());
             }, false);
 
 
@@ -151,13 +145,13 @@ export default class ProfileView extends BaseView {
             .addEventListener('submit', this.formSubmit.bind(this), false);
 
         document.getElementById('logout')
-            .addEventListener('click', this.network.logout.bind(this.network), false);
+            .addEventListener('click', network.logout.bind(network), false);
 
         document.getElementById('avatarMini')
             .addEventListener('click', navbarPopup, false);
 
         document.getElementById('imageInput')
-            .addEventListener('change', this.rendering.updateProfileImg.bind(this.rendering), false);
+            .addEventListener('change', rendering.updateProfileImg.bind(rendering), false);
     }
 
     /**

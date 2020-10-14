@@ -1,7 +1,7 @@
 import BaseView from '../BaseView/BaseView.js';
-import Rendering from '../../utils/rendering.js';
-import Validation from '../../utils/validation.js';
-import Network from '../../utils/network.js';
+import {rendering} from '../../utils/rendering.js';
+import {validation} from '../../utils/validation.js';
+import {network} from '../../utils/network.js';
 import './SecurityView.tmpl.js';
 import navbarPopup from '../../components/Navbar/Navbar.js';
 
@@ -18,18 +18,14 @@ export default class SecurityView extends BaseView {
      */
     constructor(el, router, args) {
         super(el, router, {});
-        this.el = el;
         this.args = args;
-        this.rendering = new Rendering();
-        this.validation = new Validation();
-        this.network = new Network();
     }
 
     /**
      * Check if user is authorized
      */
     ifAuthorized() {
-        this.network.authRequest().then((response) => {
+        network.authRequest().then((response) => {
             if (response.ok) {
                 this.render();
             } else {
@@ -43,7 +39,7 @@ export default class SecurityView extends BaseView {
      * @param {object} data
      */
     setParams(data) {
-        const avatarUrl = this.network.serverAddr + '/avatar/' + data.avatar;
+        const avatarUrl = network.serverAddr + '/avatar/' + data.avatar;
         document.getElementById('avatarMini').src = avatarUrl;
     }
 
@@ -53,7 +49,7 @@ export default class SecurityView extends BaseView {
      */
     async getParams() {
         try {
-            const response = await this.network.profileGet();
+            const response = await network.profileGet();
             const profileData = await response.json();
             await this.setParams(profileData);
         } catch (err) {
@@ -79,7 +75,7 @@ export default class SecurityView extends BaseView {
             password: document.getElementById('password').value,
         };
 
-        this.network.passwordSet(data).then((response) => {
+        network.passwordSet(data).then((response) => {
             return response.json();
         }).then((responseBody) => {
             if (responseBody.status > 200) {
@@ -90,7 +86,7 @@ export default class SecurityView extends BaseView {
                 passwordSuccess.innerHTML = 'Пароль изменен';
                 passwordSuccess.hidden = false;
 
-                this.rendering.renderInputError('oldPassword', {result: true});
+                rendering.renderInputError('oldPassword', {result: true});
 
                 document.getElementById('oldPassword').value = '';
                 document.getElementById('password').value = '';
@@ -105,8 +101,8 @@ export default class SecurityView extends BaseView {
      * @return {boolean} - error
      */
     updateAllErrors() {
-        let error = this.rendering.renderInputError('password', this.validation.validatePassword());
-        error *= this.rendering.renderInputError('repeatPassword', this.validation.validateComparePasswords());
+        let error = rendering.renderInputError('password', validation.validatePassword());
+        error *= rendering.renderInputError('repeatPassword', validation.validateComparePasswords());
         return error;
     }
 
@@ -116,12 +112,12 @@ export default class SecurityView extends BaseView {
     addEventListeners() {
         document.getElementById('password').addEventListener('focusout',
             () => {
-                this.rendering.renderInputError('password', this.validation.validatePassword());
+                rendering.renderInputError('password', validation.validatePassword());
             }, false);
 
         document.getElementById('repeatPassword').addEventListener('focusout',
             () => {
-                this.rendering.renderInputError('repeatPassword', this.validation.validateComparePasswords());
+                rendering.renderInputError('repeatPassword', validation.validateComparePasswords());
             }, false);
 
 
@@ -129,24 +125,10 @@ export default class SecurityView extends BaseView {
             .addEventListener('submit', this.formSubmit.bind(this), false);
 
         document.getElementById('logout')
-            .addEventListener('click', this.network.logout.bind(this.network), false);
+            .addEventListener('click', network.logout.bind(network), false);
 
         document.getElementById('avatarMini')
             .addEventListener('click', navbarPopup, false);
-    }
-
-    /**
-     * print server error
-     * @param {errorsArray} errors
-     */
-    printErrors(errors) {
-        errors.forEach((element, i) => {
-            const error = {
-                result: false,
-                message: element.message,
-            };
-            this.rendering.renderInputError(element.errorName, error);
-        });
     }
 
     /**

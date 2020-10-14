@@ -142,3 +142,5 @@ export default class Validation {
         return {result: true};
     }
 }
+
+export const validation = new Validation();
