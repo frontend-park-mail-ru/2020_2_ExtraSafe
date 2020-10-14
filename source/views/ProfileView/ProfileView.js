@@ -115,10 +115,11 @@ export default class ProfileView extends BaseView {
      * @return {boolean} - error
      */
     updateAllErrors() {
+        const avatarError = rendering.renderInputError('profileAvatar', validation.validateAvatar());
         const usernameError = rendering.renderInputError('username', validation.validateUsername());
         const fullNameError = rendering.renderInputError('fullName', validation.validateFullName());
         const emailError = rendering.renderInputError('email', validation.validateEmail());
-        return usernameError && fullNameError && emailError;
+        return avatarError && usernameError && fullNameError && emailError;
     }
 
     /**

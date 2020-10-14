@@ -1,7 +1,7 @@
 /**
  * Network
  */
-export default class Network {
+class Network {
     /**
      * Constructor
      */

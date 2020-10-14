@@ -1,7 +1,7 @@
 /**
  * Validation
  */
-export default class Validation {
+class Validation {
     /**
      * Constructor
      */
@@ -140,6 +140,18 @@ export default class Validation {
         }
 
         return {result: true};
+    }
+
+    validateAvatar() {
+        const avatar = document.getElementById('imageInput').files[0];
+        console.log(avatar.type);
+        if (avatar.type === 'image/jpeg' || avatar.type === 'image/png') {
+            return {result: true};
+        }
+        return {
+            result: false,
+            message: 'Неверный формат файла',
+        };
     }
 }
 

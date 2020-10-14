@@ -3,7 +3,7 @@ import {errorsDescription} from "./errors.js";
 /**
  * Rendering
  */
-export default class Rendering {
+class Rendering {
     /**
      * render input error
      * @param {string} inputId - error input id
