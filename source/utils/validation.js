@@ -144,14 +144,15 @@ class Validation {
 
     validateAvatar() {
         const avatar = document.getElementById('imageInput').files[0];
-        console.log(avatar.type);
-        if (avatar.type === 'image/jpeg' || avatar.type === 'image/png') {
-            return {result: true};
-        }
-        return {
-            result: false,
-            message: 'Неверный формат файла',
-        };
+        try {
+            if (avatar.type !== 'image/jpeg' && avatar.type !== 'image/png') {
+                return {
+                    result: false,
+                    message: 'Неверный формат файла',
+                };
+            }
+        } catch (err) {}
+        return {result: true};
     }
 }
 
