@@ -20,8 +20,6 @@ export default class Router {
      * @param {string} route
      */
     open(route) {
-    // console.log(this.routesMap);
-
         window.history.replaceState({}, '', route);
 
         if (this.routesMap.has(route)) {
@@ -36,8 +34,6 @@ export default class Router {
      * @param {string} route
      */
     permOpen(route) {
-        // console.log(this.routesMap);
-
         window.history.replaceState({}, '', route);
 
         if (this.routesMap.has(route)) {

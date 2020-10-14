@@ -1,9 +1,9 @@
-import {errorsDescription} from "./errors.js";
+import {errorsDescription} from './errors.js';
 
 /**
  * Rendering
  */
-export default class Rendering {
+class Rendering {
     /**
      * render input error
      * @param {string} inputId - error input id
@@ -50,4 +50,4 @@ export default class Rendering {
     }
 }
 
-export const rendering = new Rendering();
+export default new Rendering();

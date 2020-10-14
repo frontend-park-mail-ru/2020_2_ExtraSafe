@@ -1,7 +1,7 @@
 /**
  * Network
  */
-export default class Network {
+class Network {
     /**
      * Constructor
      */
@@ -130,4 +130,4 @@ export default class Network {
     }
 }
 
-export const network = new Network();
+export default new Network();

@@ -1,7 +1,7 @@
 /**
  * Validation
  */
-export default class Validation {
+class Validation {
     /**
      * Constructor
      */
@@ -143,4 +143,4 @@ export default class Validation {
     }
 }
 
-export const validation = new Validation();
+export default new Validation();

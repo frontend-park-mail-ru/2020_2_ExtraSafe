@@ -1,9 +1,9 @@
 import BaseView from '../BaseView/BaseView.js';
-import {rendering} from '../../utils/rendering.js';
-import {validation} from '../../utils/validation.js';
-import {network} from '../../utils/network.js';
+import Navbar from '../../components/Navbar/Navbar.js';
+import Rendering from '../../utils/rendering.js';
+import Validation from '../../utils/validation.js';
+import Network from '../../utils/network.js';
 import './SecurityView.tmpl.js';
-import navbarPopup from '../../components/Navbar/Navbar.js';
 
 /**
  * Class Security view.
@@ -25,7 +25,7 @@ export default class SecurityView extends BaseView {
      * Check if user is authorized
      */
     ifAuthorized() {
-        network.authRequest().then((response) => {
+        Network.authRequest().then((response) => {
             if (response.ok) {
                 this.render();
             } else {
@@ -39,8 +39,8 @@ export default class SecurityView extends BaseView {
      * @param {object} data
      */
     setParams(data) {
-        const avatarUrl = network.serverAddr + '/avatar/' + data.avatar;
-        document.getElementById('avatarMini').src = avatarUrl;
+        const avatarUrl = Network.serverAddr + '/avatar/' + data.avatar;
+        Navbar.setAvatarURL(avatarUrl);
     }
 
     /**
@@ -49,7 +49,7 @@ export default class SecurityView extends BaseView {
      */
     async getParams() {
         try {
-            const response = await network.profileGet();
+            const response = await Network.profileGet();
             const profileData = await response.json();
             await this.setParams(profileData);
         } catch (err) {
@@ -75,7 +75,7 @@ export default class SecurityView extends BaseView {
             password: document.getElementById('password').value,
         };
 
-        network.passwordSet(data).then((response) => {
+        Network.passwordSet(data).then((response) => {
             return response.json();
         }).then((responseBody) => {
             if (responseBody.status > 200) {
@@ -86,7 +86,7 @@ export default class SecurityView extends BaseView {
                 passwordSuccess.innerHTML = 'Пароль изменен';
                 passwordSuccess.hidden = false;
 
-                rendering.renderInputError('oldPassword', {result: true});
+                Rendering.renderInputError('oldPassword', {result: true});
 
                 document.getElementById('oldPassword').value = '';
                 document.getElementById('password').value = '';
@@ -101,8 +101,8 @@ export default class SecurityView extends BaseView {
      * @return {boolean} - error
      */
     updateAllErrors() {
-        let error = rendering.renderInputError('password', validation.validatePassword());
-        error *= rendering.renderInputError('repeatPassword', validation.validateComparePasswords());
+        let error = Rendering.renderInputError('password', Validation.validatePassword());
+        error *= Rendering.renderInputError('repeatPassword', Validation.validateComparePasswords());
         return error;
     }
 
@@ -112,23 +112,17 @@ export default class SecurityView extends BaseView {
     addEventListeners() {
         document.getElementById('password').addEventListener('focusout',
             () => {
-                rendering.renderInputError('password', validation.validatePassword());
+                Rendering.renderInputError('password', Validation.validatePassword());
             }, false);
 
         document.getElementById('repeatPassword').addEventListener('focusout',
             () => {
-                rendering.renderInputError('repeatPassword', validation.validateComparePasswords());
+                Rendering.renderInputError('repeatPassword', Validation.validateComparePasswords());
             }, false);
 
 
         document.getElementById('securityForm')
             .addEventListener('submit', this.formSubmit.bind(this), false);
-
-        document.getElementById('logout')
-            .addEventListener('click', network.logout.bind(network), false);
-
-        document.getElementById('avatarMini')
-            .addEventListener('click', navbarPopup, false);
     }
 
     /**
@@ -181,8 +175,8 @@ export default class SecurityView extends BaseView {
      * Render Security view.
      */
     render() {
+        Navbar.navbarShow();
         const templateInput = this.templateJSONSetup();
-
         this.el.innerHTML = window.fest['views/SecurityView/SecurityView.tmpl'](templateInput);
         this.addEventListeners();
         this.getParams();

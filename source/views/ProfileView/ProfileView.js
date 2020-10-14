@@ -1,12 +1,12 @@
 import BaseView from '../BaseView/BaseView.js';
-import {rendering} from '../../utils/rendering.js';
-import {validation} from '../../utils/validation.js';
-import {network} from '../../utils/network.js';
+import Navbar from '../../components/Navbar/Navbar.js';
+import Rendering from '../../utils/rendering.js';
+import Validation from '../../utils/validation.js';
+import Network from '../../utils/network.js';
 import './ProfileView.tmpl.js';
-import navbarPopup from '../../components/Navbar/Navbar.js';
 
-const START_AVATAR_URL = 4
-const END_AVATAR_URL = 6
+const START_AVATAR_URL = 4;
+const END_AVATAR_URL = 6;
 
 /**
  * Class Profile view.
@@ -28,7 +28,7 @@ export default class ProfileView extends BaseView {
      * Check if user is authorized
      */
     ifAuthorized() {
-        network.authRequest().then((response) => {
+        Network.authRequest().then((response) => {
             if (response.ok) {
                 this.render();
             } else {
@@ -53,7 +53,7 @@ export default class ProfileView extends BaseView {
      */
     async getParams() {
         try {
-            const response = await network.profileGet();
+            const response = await Network.profileGet();
             const profileData = await response.json();
             await this.setParams(profileData);
         } catch (err) {
@@ -65,12 +65,12 @@ export default class ProfileView extends BaseView {
      * @param {object} data
      */
     setParams(data) {
-        const avatarUrl = network.serverAddr + '/avatar/' + data.avatar;
+        const avatarUrl = Network.serverAddr + '/avatar/' + data.avatar;
         document.getElementById('username').value = data.username;
         document.getElementById('fullName').value = data.fullName;
         document.getElementById('email').value = data.email;
         document.getElementById('profileAvatar').src = avatarUrl;
-        document.getElementById('avatarMini').src = avatarUrl;
+        Navbar.setAvatarURL(avatarUrl);
     }
 
     /**
@@ -84,7 +84,7 @@ export default class ProfileView extends BaseView {
             username: document.getElementById('username').value,
             fullName: document.getElementById('fullName').value,
             avatar: document.getElementById('profileAvatar').src.split('/')
-                .slice(START_AVATAR_URL, END_AVATAR_URL).join('/')
+                .slice(START_AVATAR_URL, END_AVATAR_URL).join('/'),
         };
 
         formData.append('username', document.getElementById('username').value);
@@ -92,11 +92,11 @@ export default class ProfileView extends BaseView {
         formData.append('fullName', document.getElementById('fullName').value);
         formData.append('avatar', document.getElementById('imageInput').files[0]);
 
-        network.profileSet(formData).then((response) => {
+        Network.profileSet(formData).then((response) => {
             return response.json();
         }).then((responseBody) => {
             if (responseBody.status > 200) {
-                rendering.printServerErrors(responseBody.codes);
+                Rendering.printServerErrors(responseBody.codes);
                 this.setParams(data);
             } else {
                 this.setParams(responseBody);
@@ -115,9 +115,9 @@ export default class ProfileView extends BaseView {
      * @return {boolean} - error
      */
     updateAllErrors() {
-        const usernameError = rendering.renderInputError('username', validation.validateUsername());
-        const fullNameError = rendering.renderInputError('fullName', validation.validateFullName());
-        const emailError = rendering.renderInputError('email', validation.validateEmail());
+        const usernameError = Rendering.renderInputError('username', Validation.validateUsername());
+        const fullNameError = Rendering.renderInputError('fullName', Validation.validateFullName());
+        const emailError = Rendering.renderInputError('email', Validation.validateEmail());
         return usernameError && fullNameError && emailError;
     }
 
@@ -127,31 +127,25 @@ export default class ProfileView extends BaseView {
     addEventListeners() {
         document.getElementById('username').addEventListener('focusout',
             () => {
-                rendering.renderInputError('username', validation.validateUsername());
+                Rendering.renderInputError('username', Validation.validateUsername());
             }, false);
 
         document.getElementById('fullName').addEventListener('focusout',
             () => {
-                rendering.renderInputError('fullName', validation.validateFullName());
+                Rendering.renderInputError('fullName', Validation.validateFullName());
             }, false);
 
         document.getElementById('email').addEventListener('focusout',
             () => {
-                rendering.renderInputError('email', validation.validateEmail());
+                Rendering.renderInputError('email', Validation.validateEmail());
             }, false);
 
 
         document.getElementById('profileForm')
             .addEventListener('submit', this.formSubmit.bind(this), false);
 
-        document.getElementById('logout')
-            .addEventListener('click', network.logout.bind(network), false);
-
-        document.getElementById('avatarMini')
-            .addEventListener('click', navbarPopup, false);
-
         document.getElementById('imageInput')
-            .addEventListener('change', rendering.updateProfileImg.bind(rendering), false);
+            .addEventListener('change', Rendering.updateProfileImg.bind(Rendering), false);
     }
 
     /**
@@ -220,6 +214,7 @@ export default class ProfileView extends BaseView {
      * Render Profile view.
      */
     render() {
+        Navbar.navbarShow();
         const templateInput = this.templateJSONSetup();
         this.el.innerHTML = window.fest['views/ProfileView/ProfileView.tmpl'](templateInput);
         this.getParams();

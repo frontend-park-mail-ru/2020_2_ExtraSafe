@@ -1,7 +1,7 @@
 import BaseView from '../BaseView/BaseView.js';
+import Navbar from '../../components/Navbar/Navbar.js';
 import Network from '../../utils/network.js';
 import './HomeView.tmpl.js';
-import navbarPopup from '../../components/Navbar/Navbar.js';
 
 /**
  * Class Home view.
@@ -18,14 +18,13 @@ export default class HomeView extends BaseView {
         super(el, router, {});
         this.el = el;
         this.args = args;
-        this.network = new Network();
     }
 
     /**
      * Check if user is authorized
      */
     ifAuthorized() {
-        this.network.authRequest().then((response) => {
+        Network.authRequest().then((response) => {
             if (response.ok) {
                 this.render();
             } else {
@@ -38,8 +37,8 @@ export default class HomeView extends BaseView {
      * @param {object} data
      */
     setParams(data) {
-        const avatarUrl = this.network.serverAddr + '/avatar/' + data.avatar;
-        document.getElementById('avatarMini').src = avatarUrl;
+        const avatarUrl = Network.serverAddr + '/avatar/' + data.avatar;
+        Navbar.setAvatarURL(avatarUrl);
     }
 
     /**
@@ -48,7 +47,7 @@ export default class HomeView extends BaseView {
      */
     async getParams() {
         try {
-            const response = await this.network.profileGet();
+            const response = await Network.profileGet();
             const profileData = await response.json();
             await this.setParams(profileData);
         } catch (err) {
@@ -56,22 +55,11 @@ export default class HomeView extends BaseView {
     }
 
     /**
-     * add all event listeners
-     */
-    addEventListeners() {
-        document.getElementById('logout')
-            .addEventListener('click', this.network.logout.bind(this.network), false);
-
-        document.getElementById('avatarMini')
-            .addEventListener('click', navbarPopup, false);
-    }
-
-    /**
      * Render Login view.
      */
     render() {
+        Navbar.navbarShow();
         this.el.innerHTML = window.fest['views/HomeView/HomeView.tmpl']();
-        this.addEventListeners();
         this.getParams();
     }
 }

@@ -1,7 +1,7 @@
 import BaseView from '../BaseView/BaseView.js';
-import {rendering} from '../../utils/rendering.js';
-import {validation} from '../../utils/validation.js';
-import {network} from '../../utils/network.js';
+import Rendering from '../../utils/rendering.js';
+import Validation from '../../utils/validation.js';
+import Network from '../../utils/network.js';
 import './RegView.tmpl.js';
 
 /**
@@ -24,7 +24,7 @@ export default class RegView extends BaseView {
      * Check if user is authorized
      */
     async ifAuthorized() {
-        network.authRequest().then((response) => {
+        Network.authRequest().then((response) => {
             if (response.ok) {
                 this.router.permOpen('/');
             } else {
@@ -53,14 +53,14 @@ export default class RegView extends BaseView {
             password: document.getElementById('password').value,
         };
 
-        network.regRequest(user).then((response) => {
+        Network.regRequest(user).then((response) => {
             if (response.ok) {
                 this.router.permOpen('/');
             }
             return response.json();
         }).then((responseBody) => {
             if (responseBody.status > 200) {
-                rendering.printServerErrors(responseBody.codes);
+                Rendering.printServerErrors(responseBody.codes);
             }
             return responseBody;
         });
@@ -71,10 +71,10 @@ export default class RegView extends BaseView {
      * @return {boolean} - error
      */
     updateAllErrors() {
-        let error = rendering.renderInputError('email', validation.validateEmail());
-        error *= rendering.renderInputError('username', validation.validateUsername());
-        error *= rendering.renderInputError('password', validation.validatePassword());
-        error *= rendering.renderInputError('repeatPassword', validation.validateComparePasswords());
+        let error = Rendering.renderInputError('email', Validation.validateEmail());
+        error *= Rendering.renderInputError('username', Validation.validateUsername());
+        error *= Rendering.renderInputError('password', Validation.validatePassword());
+        error *= Rendering.renderInputError('repeatPassword', Validation.validateComparePasswords());
         return error;
     }
 
@@ -84,22 +84,22 @@ export default class RegView extends BaseView {
     addEventListeners() {
         document.getElementById('email').addEventListener('focusout',
             () => {
-                rendering.renderInputError('email', validation.validateEmail());
+                Rendering.renderInputError('email', Validation.validateEmail());
             }, false);
 
         document.getElementById('username').addEventListener('focusout',
             () => {
-                rendering.renderInputError('username', validation.validateUsername());
+                Rendering.renderInputError('username', Validation.validateUsername());
             }, false);
 
         document.getElementById('password').addEventListener('focusout',
             () => {
-                rendering.renderInputError('password', validation.validatePassword());
+                Rendering.renderInputError('password', Validation.validatePassword());
             }, false);
 
         document.getElementById('repeatPassword').addEventListener('focusout',
             () => {
-                rendering.renderInputError('repeatPassword', validation.validateComparePasswords());
+                Rendering.renderInputError('repeatPassword', Validation.validateComparePasswords());
             }, false);
 
 
