@@ -1,7 +1,7 @@
 import BaseView from '../BaseView/BaseView.js';
-import {network} from '../../utils/network.js';
+import Navbar from '../../components/Navbar/Navbar.js';
+import Network from '../../utils/network.js';
 import './HomeView.tmpl.js';
-import navbarPopup from '../../components/Navbar/Navbar.js';
 
 /**
  * Class Home view.
@@ -23,7 +23,7 @@ export default class HomeView extends BaseView {
      * Check if user is authorized
      */
     ifAuthorized() {
-        network.authRequest().then((response) => {
+        Network.authRequest().then((response) => {
             if (response.ok) {
                 this.render();
             } else {
@@ -36,8 +36,8 @@ export default class HomeView extends BaseView {
      * @param {object} data
      */
     setParams(data) {
-        const avatarUrl = network.serverAddr + '/avatar/' + data.avatar;
-        document.getElementById('avatarMini').src = avatarUrl;
+        const avatarUrl = Network.serverAddr + '/avatar/' + data.avatar;
+        Navbar.setAvatarURL(avatarUrl);
     }
 
     /**
@@ -46,7 +46,7 @@ export default class HomeView extends BaseView {
      */
     async getParams() {
         try {
-            const response = await network.profileGet();
+            const response = await Network.profileGet();
             const profileData = await response.json();
             await this.setParams(profileData);
         } catch (err) {
@@ -54,6 +54,7 @@ export default class HomeView extends BaseView {
     }
 
     /**
+<<<<<<< HEAD
      * add all event listeners
      */
     addEventListeners() {
@@ -65,11 +66,13 @@ export default class HomeView extends BaseView {
     }
 
     /**
+=======
+>>>>>>> 4fb0aaa7e24d8a0239b4abdfea9738d812f6b86b
      * Render Login view.
      */
     render() {
+        Navbar.navbarShow();
         this.el.innerHTML = window.fest['views/HomeView/HomeView.tmpl']();
-        this.addEventListeners();
         this.getParams();
     }
 }

@@ -1,2 +1,5 @@
 # Fest
 *.tmpl.js
+
+# Temporary files
+temp

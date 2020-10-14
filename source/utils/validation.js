@@ -46,7 +46,6 @@ class Validation {
      */
     validateUsername() {
         const username = document.getElementById('username').value;
-
         if (username.length === 0) {
             return {
                 result: false,
@@ -142,6 +141,10 @@ class Validation {
         return {result: true};
     }
 
+    /**
+     * avatar validation
+     * @return {{result: boolean}|{result: boolean, message: string}}
+     */
     validateAvatar() {
         const avatar = document.getElementById('imageInput').files[0];
         try {
@@ -156,4 +159,4 @@ class Validation {
     }
 }
 
-export const validation = new Validation();
+export default new Validation();

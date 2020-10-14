@@ -1,7 +1,7 @@
 import BaseView from '../BaseView/BaseView.js';
-import {network} from '../../utils/network.js';
+import Navbar from '../../components/Navbar/Navbar.js';
+import Network from '../../utils/network.js';
 import './AccountsView.tmpl.js';
-import navbarPopup from '../../components/Navbar/Navbar.js';
 
 /**
  * Class Accounts view.
@@ -24,7 +24,7 @@ export default class AccountsView extends BaseView {
      * Check if user is authorized
      */
     ifAuthorized() {
-        network.authRequest().then((response) => {
+        Network.authRequest().then((response) => {
             if (response.ok) {
                 this.render();
             } else {
@@ -39,7 +39,7 @@ export default class AccountsView extends BaseView {
      */
     async getParams() {
         try {
-            const response = await network.accountsGet();
+            const response = await Network.accountsGet();
             const profileData = await response.json();
             await this.setParams(profileData);
         } catch (err) {
@@ -51,14 +51,14 @@ export default class AccountsView extends BaseView {
      * @param {responseData} data
      */
     setParams(data) {
-        const avatarUrl = network.serverAddr + '/avatar/' + data.avatar;
+        const avatarUrl = Network.serverAddr + '/avatar/' + data.avatar;
         document.getElementById('telegram').value = data.telegram;
         document.getElementById('instagram').value = data.instagram;
         document.getElementById('github').value = data.github;
         document.getElementById('bitbucket').value = data.bitbucket;
         document.getElementById('vkontakte').value = data.vkontakte;
         document.getElementById('facebook').value = data.facebook;
-        document.getElementById('avatarMini').src = avatarUrl;
+        Navbar.setAvatarURL(avatarUrl);
     }
 
     /**
@@ -74,7 +74,7 @@ export default class AccountsView extends BaseView {
             facebook: document.getElementById('facebook').value,
         };
 
-        network.accountsSet(data).then((response) => {
+        Network.accountsSet(data).then((response) => {
             return response.json();
         }).then((responseBody) => {
             this.setParams(responseBody);
@@ -92,12 +92,6 @@ export default class AccountsView extends BaseView {
     addEventListeners() {
         document.getElementById('accountsForm')
             .addEventListener('submit', this.changeParams.bind(this), false);
-
-        document.getElementById('logout')
-            .addEventListener('click', network.logout.bind(network), false);
-
-        document.getElementById('avatarMini')
-            .addEventListener('click', navbarPopup, false);
     }
 
     /**
@@ -206,6 +200,7 @@ export default class AccountsView extends BaseView {
      * Render Accounts view.
      */
     render() {
+        Navbar.navbarShow();
         const templateInput = this.templateJSONSetup();
         this.el.innerHTML = window.fest['views/AccountsView/AccountsView.tmpl'](templateInput);
         this.getParams();

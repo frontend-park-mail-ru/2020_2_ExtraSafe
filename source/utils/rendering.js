@@ -1,4 +1,4 @@
-import {errorsDescription} from "./errors.js";
+import {errorsDescription} from './errors.js';
 
 /**
  * Rendering
@@ -50,4 +50,4 @@ class Rendering {
     }
 }
 
-export const rendering = new Rendering();
+export default new Rendering();

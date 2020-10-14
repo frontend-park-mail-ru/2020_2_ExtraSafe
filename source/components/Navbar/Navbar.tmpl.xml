@@ -1,4 +1,4 @@
-<fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
+<fest:template xmlns:fest="http://fest.mail.ru">
     <div class="navbar">
         <img class="navbar-icon" data-href="/" title="Домой" src="../img/home.svg"/>
         <img class="main_logo" data-href="/" src="../img/tabutask_logo_white.svg"/>

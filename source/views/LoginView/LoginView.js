@@ -1,6 +1,6 @@
 import BaseView from '../BaseView/BaseView.js';
-import {rendering} from '../../utils/rendering.js';
-import {network} from '../../utils/network.js';
+import Rendering from '../../utils/rendering.js';
+import Network from '../../utils/network.js';
 import './LoginView.tmpl.js';
 
 /**
@@ -23,7 +23,7 @@ export default class LoginView extends BaseView {
      * Check if user is authorized
      */
     ifAuthorized() {
-        network.authRequest().then((response) => {
+        Network.authRequest().then((response) => {
             if (response.ok) {
                 this.router.permOpen('/');
             } else {
@@ -41,14 +41,14 @@ export default class LoginView extends BaseView {
             password: document.getElementById('password').value,
         };
 
-        network.loginRequest(user).then((response) => {
+        Network.loginRequest(user).then((response) => {
             if (response.ok) {
                 this.router.permOpen('/');
             }
             return response.json();
         }).then((responseBody) => {
             if (responseBody.status > 200) {
-                rendering.printServerErrors(responseBody.codes);
+                Rendering.printServerErrors(responseBody.codes);
             }
             return responseBody;
         });
