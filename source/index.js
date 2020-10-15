@@ -9,12 +9,14 @@ import HomeView from './views/HomeView/HomeView.js';
 const app = document.getElementById('application');
 const router = new Router(app);
 
-const loginView = new LoginView(app, router, {});
-const regView = new RegView(app, router, {});
-const profileView = new ProfileView(app, router, {});
-const accountsView = new AccountsView(app, router, {});
-const securityView = new SecurityView(app, router, {});
-const homeView = new HomeView(app, router, {});
+const content = document.getElementById('content');
+
+const loginView = new LoginView(content, router, {});
+const regView = new RegView(content, router, {});
+const profileView = new ProfileView(content, router, {});
+const accountsView = new AccountsView(content, router, {});
+const securityView = new SecurityView(content, router, {});
+const homeView = new HomeView(content, router, {});
 
 
 router.addRoute('/login', loginView);

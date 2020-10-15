@@ -1,4 +1,6 @@
+import UserSession from './userSession.js';
 import Network from './network.js';
+import eventBus from './eventBus.js';
 
 /**
  * Router
@@ -16,16 +18,26 @@ export default class Router {
         // When clicking on the link, correctly process
         this.catchMouseClick = this.catchMouseClick.bind(this);
         this.root.addEventListener('click', this.catchMouseClick);
+        eventBus.on('network:logout', (input) => {
+            this.isAuth = false;
+            this.open('/login');
+        });
     }
 
     /**
      * Check if user is authorized
      * @return {Promise<*>}
      */
-    ifAuthorized() {
+    authorize() {
         return Network.authRequest().then((response) => {
-            console.log(response.ok);
-            return response.ok;
+            return response.json();
+        }).then((responseBody) => {
+            if (responseBody.status > 200) {
+                return false;
+            } else {
+                UserSession.setData(responseBody);
+                return true;
+            }
         });
     }
 
@@ -64,7 +76,7 @@ export default class Router {
 
         if (this.routesMap.has(route)) {
             if (!this.isAuth) {
-                this.ifAuthorized().then((response) => {
+                this.authorize().then((response) => {
                     this.isAuth = response;
                     if (response === true) {
                         this.renderIfAuth(route);
@@ -76,8 +88,8 @@ export default class Router {
                 this.renderIfAuth(route);
             }
         } else {
-            window.history.replaceState({}, '', '/login');
-            this.routesMap.get('/login').render();
+            window.history.replaceState({}, '', '/');
+            this.routesMap.get('/').render();
         }
     }
 

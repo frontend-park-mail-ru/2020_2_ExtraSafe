@@ -5,7 +5,7 @@
         <img id="avatarMini" class="avatar-mini" title="Профиль" src=""/>
     </div>
     <div id="myDropdown" class="dropdown-content">
-        <a href="/profile">Настройки</a>
-        <a id="logout" href="">Выйти</a>
+        <a id="navbarSettings" href="/profile">Настройки</a>
+        <a id="navbarLogout" href="">Выйти</a>
     </div>
 </fest:template>

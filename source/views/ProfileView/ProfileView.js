@@ -3,10 +3,9 @@ import Navbar from '../../components/Navbar/Navbar.js';
 import Rendering from '../../utils/rendering.js';
 import Validation from '../../utils/validation.js';
 import Network from '../../utils/network.js';
+import userSession from '../../utils/userSession.js';
+import eventBus from '../../utils/eventBus.js';
 import './ProfileView.tmpl.js';
-
-const START_AVATAR_URL = 4;
-const END_AVATAR_URL = 6;
 
 /**
  * Class Profile view.
@@ -35,29 +34,14 @@ export default class ProfileView extends BaseView {
     }
 
     /**
-     * Get params from server
-     * @return {Promise<void>}
-     */
-    async getParams() {
-        try {
-            const response = await Network.profileGet();
-            const profileData = await response.json();
-            await this.setParams(profileData);
-        } catch (err) {
-        }
-    }
-
-    /**
      * Set params to form
      * @param {object} data
      */
     setParams(data) {
-        const avatarUrl = Network.serverAddr + '/avatar/' + data.avatar;
         document.getElementById('username').value = data.username;
         document.getElementById('fullName').value = data.fullName;
         document.getElementById('email').value = data.email;
-        document.getElementById('profileAvatar').src = avatarUrl;
-        Navbar.setAvatarURL(avatarUrl);
+        document.getElementById('profileAvatar').src = data.avatar;
     }
 
     /**
@@ -65,15 +49,6 @@ export default class ProfileView extends BaseView {
      */
     changeParams() {
         const formData = new FormData();
-
-        const data = {
-            email: document.getElementById('email').value,
-            username: document.getElementById('username').value,
-            fullName: document.getElementById('fullName').value,
-            avatar: document.getElementById('profileAvatar').src.split('/')
-                .slice(START_AVATAR_URL, END_AVATAR_URL).join('/'),
-        };
-
         formData.append('username', document.getElementById('username').value);
         formData.append('email', document.getElementById('email').value);
         formData.append('fullName', document.getElementById('fullName').value);
@@ -84,9 +59,8 @@ export default class ProfileView extends BaseView {
         }).then((responseBody) => {
             if (responseBody.status > 200) {
                 Rendering.printServerErrors(responseBody.codes);
-                this.setParams(data);
             } else {
-                this.setParams(responseBody);
+                userSession.setData(responseBody);
                 const profileSuccess = document.getElementById('emailError');
                 profileSuccess.className = 'changes-success';
                 profileSuccess.innerHTML = 'Данные изменены';
@@ -134,6 +108,11 @@ export default class ProfileView extends BaseView {
 
         document.getElementById('imageInput')
             .addEventListener('change', Rendering.updateProfileImg.bind(Rendering), false);
+
+
+        eventBus.on('userSession:set', (input) => {
+            this.setParams(input);
+        });
     }
 
     /**
@@ -205,7 +184,7 @@ export default class ProfileView extends BaseView {
         Navbar.navbarShow();
         const templateInput = this.templateJSONSetup();
         this.el.innerHTML = window.fest['views/ProfileView/ProfileView.tmpl'](templateInput);
-        this.getParams();
+        this.setParams(userSession.data);
         this.addEventListeners();
     }
 }

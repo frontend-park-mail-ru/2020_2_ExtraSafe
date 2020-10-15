@@ -1,6 +1,8 @@
 /**
  * Network
  */
+import eventBus from './eventBus.js';
+
 class Network {
     /**
      * Constructor
@@ -121,12 +123,15 @@ class Network {
 
     /**
      * logout request to server
-     * @return {Promise<Response>}
+     * @return {Promise<void>}
      */
     logout() {
         const url = this.serverAddr + '/logout/';
-
-        return fetch(url, this.requestGet);
+        return fetch(url, this.requestGet).then((response) => {
+            if (response.ok) {
+                eventBus.emit('network:logout', null);
+            }
+        });
     }
 }
 

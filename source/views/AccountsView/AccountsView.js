@@ -38,14 +38,12 @@ export default class AccountsView extends BaseView {
      * @param {responseData} data
      */
     setParams(data) {
-        const avatarUrl = Network.serverAddr + '/avatar/' + data.avatar;
         document.getElementById('telegram').value = data.telegram;
         document.getElementById('instagram').value = data.instagram;
         document.getElementById('github').value = data.github;
         document.getElementById('bitbucket').value = data.bitbucket;
         document.getElementById('vkontakte').value = data.vkontakte;
         document.getElementById('facebook').value = data.facebook;
-        Navbar.setAvatarURL(avatarUrl);
     }
 
     /**

@@ -1,6 +1,7 @@
 import BaseView from '../BaseView/BaseView.js';
 import Rendering from '../../utils/rendering.js';
 import Network from '../../utils/network.js';
+import Navbar from '../../components/Navbar/Navbar.js';
 import './LoginView.tmpl.js';
 
 /**
@@ -30,7 +31,7 @@ export default class LoginView extends BaseView {
 
         Network.loginRequest(user).then((response) => {
             if (response.ok) {
-                this.router.isAuth = true;
+                // this.router.isAuth = true;
                 this.router.open('/');
             }
             return response.json();
@@ -95,6 +96,7 @@ export default class LoginView extends BaseView {
      * Render Login view.
      */
     render() {
+        Navbar.navbarHide();
         const templateInput = this.templateJSONSetup();
         this.el.innerHTML = window.fest['views/LoginView/LoginView.tmpl'](templateInput);
         this.addEventListeners();
