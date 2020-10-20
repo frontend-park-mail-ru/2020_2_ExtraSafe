@@ -5,6 +5,7 @@ import ProfileView from './views/ProfileView/ProfileView.js';
 import AccountsView from './views/AccountsView/AccountsView.js';
 import SecurityView from './views/SecurityView/SecurityView.js';
 import HomeView from './views/HomeView/HomeView.js';
+import CurrentBoardView from './views/CurrentBoardView/CurrentBoard.js';
 
 const app = document.getElementById('application');
 const router = new Router(app);
@@ -17,6 +18,7 @@ const profileView = new ProfileView(content, router, {});
 const accountsView = new AccountsView(content, router, {});
 const securityView = new SecurityView(content, router, {});
 const homeView = new HomeView(content, router, {});
+const currentboardView = new CurrentBoardView(content, router, {});
 
 
 router.addRoute('/login', loginView);
@@ -25,6 +27,7 @@ router.addRoute('/profile', profileView);
 router.addRoute('/accounts', accountsView);
 router.addRoute('/security', securityView);
 router.addRoute('/', homeView);
+router.addRoute('/current', currentboardView);
 
 
 router.open(window.location.pathname);

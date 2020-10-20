@@ -1,8 +1,8 @@
+import eventBus from './eventBus.js';
+
 /**
  * Network
  */
-import eventBus from './eventBus.js';
-
 class Network {
     /**
      * Constructor

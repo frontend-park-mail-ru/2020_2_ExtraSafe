@@ -36,7 +36,7 @@
                 </div>
                 <fest:include context="json.submitButton" src="../../components/SubmitButton/SubmitButton.tmpl.xml"/>
             </form>
-            <img data-href="/" src="../../img/close.svg" class="close" alt="close"/>
+            <img data-href="/" src="../../img/icons/close.svg" class="close" alt="close"/>
         </div>
     </div>
 </fest:template>
