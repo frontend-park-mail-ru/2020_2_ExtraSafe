@@ -43,7 +43,7 @@ export default class RegView extends BaseView {
 
         Network.regRequest(user).then((response) => {
             if (response.ok) {
-                this.router.isAuth = true;
+                // this.router.isAuth = true;
                 this.router.open('/');
             }
             return response.json();
