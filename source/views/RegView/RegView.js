@@ -1,9 +1,9 @@
 import BaseView from '../BaseView/BaseView.js';
 import Rendering from '../../utils/rendering.js';
 import Validation from '../../utils/validation.js';
-import Network from '../../utils/network.js';
 import Navbar from '../../components/Navbar/Navbar.js';
 import './RegView.tmpl.js';
+import eventBus from '../../utils/eventBus.js';
 
 /**
  * Class Reg view.
@@ -11,48 +11,10 @@ import './RegView.tmpl.js';
 export default class RegView extends BaseView {
     /**
      * RegView view constructor.
-     * @constructor
-     * @param {object} el - Root application div.
-     * @param {*} router
-     * @param {*} args
+     * @param {HTMLElement} el - Root application div.
      */
-    constructor(el, router, args) {
-        super(el, router, {});
-        this.args = args;
-    }
-
-    /**
-     * Validate all fields and
-     * send request to server
-     */
-    formSubmit() {
-        if (this.updateAllErrors()) {
-            this.registrationRequest();
-        }
-    }
-
-    /**
-     * Request to server
-     */
-    registrationRequest() {
-        const user = {
-            email: document.getElementById('email').value,
-            username: document.getElementById('username').value,
-            password: document.getElementById('password').value,
-        };
-
-        Network.regRequest(user).then((response) => {
-            if (response.ok) {
-                // this.router.isAuth = true;
-                this.router.open('/');
-            }
-            return response.json();
-        }).then((responseBody) => {
-            if (responseBody.status > 200) {
-                Rendering.printServerErrors(responseBody.codes);
-            }
-            return responseBody;
-        });
+    constructor(el) {
+        super(el);
     }
 
     /**
@@ -61,9 +23,9 @@ export default class RegView extends BaseView {
      */
     updateAllErrors() {
         let error = Rendering.renderInputError('email', Validation.validateEmail());
-        error *= Rendering.renderInputError('username', Validation.validateUsername());
-        error *= Rendering.renderInputError('password', Validation.validatePassword());
-        error *= Rendering.renderInputError('repeatPassword', Validation.validateComparePasswords());
+        error &= Rendering.renderInputError('username', Validation.validateUsername());
+        error &= Rendering.renderInputError('password', Validation.validatePassword());
+        error &= Rendering.renderInputError('repeatPassword', Validation.validateComparePasswords());
         return error;
     }
 
@@ -93,7 +55,11 @@ export default class RegView extends BaseView {
 
 
         document.getElementById('regForm')
-            .addEventListener('submit', this.formSubmit.bind(this), false);
+            .addEventListener('submit', () => {
+                if (this.updateAllErrors()) {
+                    eventBus.emit('regView:formSubmit', null);
+                }
+            }, false);
     }
 
     /**

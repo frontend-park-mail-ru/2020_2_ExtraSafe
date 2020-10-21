@@ -1,36 +1,19 @@
-import BaseView from '../BaseView/BaseView.js';
-import Navbar from '../../components/Navbar/Navbar.js';
-import Network from '../../utils/network.js';
-import './AccountsView.tmpl.js';
+import BaseView from '../../views/BaseView/BaseView.js';
+import './AccountsSettingsView.tmpl.js';
+import userSession from '../../utils/userSession.js';
+import eventBus from '../../utils/eventBus.js';
 
 /**
- * Class Accounts view.
+ * Accounts settings view
  */
-export default class AccountsView extends BaseView {
+export default class AccountsSettingsView extends BaseView {
     /**
-     * AccountsView view constructor.
+     * Accounts settings view constructor.
      * @constructor
-     * @param {object} el - Root application div.
-     * @param {*} router
-     * @param {*} args
+     * @param {HTMLElement} el - Root application div.
      */
-    constructor(el, router, args) {
-        super(el, router, {});
-        this.el = el;
-        this.args = args;
-    }
-
-    /**
-     * Get params from server
-     * @return {Promise<void>}
-     */
-    async getParams() {
-        try {
-            const response = await Network.accountsGet();
-            const profileData = await response.json();
-            await this.setParams(profileData);
-        } catch (err) {
-        }
+    constructor(el) {
+        super(el);
     }
 
     /**
@@ -47,36 +30,22 @@ export default class AccountsView extends BaseView {
     }
 
     /**
-     * Change user accounts on server
+     * show server success
      */
-    changeParams() {
-        const data = {
-            telegram: document.getElementById('telegram').value,
-            instagram: document.getElementById('instagram').value,
-            github: document.getElementById('github').value,
-            bitbucket: document.getElementById('bitbucket').value,
-            vkontakte: document.getElementById('vkontakte').value,
-            facebook: document.getElementById('facebook').value,
-        };
-
-        Network.accountsSet(data).then((response) => {
-            return response.json();
-        }).then((responseBody) => {
-            this.setParams(responseBody);
-            const accountsSuccess = document.getElementById('facebookError');
-            accountsSuccess.className = 'changes-success';
-            accountsSuccess.innerHTML = 'Данные изменены';
-            accountsSuccess.hidden = false;
-            return responseBody;
-        });
+    showServerSuccess() {
+        const profileSuccess = document.getElementById('facebookError');
+        profileSuccess.className = 'changes-success';
+        profileSuccess.innerHTML = 'Данные изменены';
+        profileSuccess.hidden = false;
     }
 
     /**
      * add all event listeners
      */
     addEventListeners() {
-        document.getElementById('accountsForm')
-            .addEventListener('submit', this.changeParams.bind(this), false);
+        document.getElementById('accountsForm').addEventListener('submit', () => {
+            eventBus.emit('accountsSettingsView:formSubmit', null);
+        }, false);
     }
 
     /**
@@ -185,10 +154,9 @@ export default class AccountsView extends BaseView {
      * Render Accounts view.
      */
     render() {
-        Navbar.navbarShow();
         const templateInput = this.templateJSONSetup();
-        this.el.innerHTML = window.fest['views/AccountsView/AccountsView.tmpl'](templateInput);
-        this.getParams();
+        this.el.innerHTML = window.fest['components/AccountsSettings/AccountsSettingsView.tmpl'](templateInput);
+        this.setParams(userSession.accounts);
         this.addEventListeners();
     }
 }

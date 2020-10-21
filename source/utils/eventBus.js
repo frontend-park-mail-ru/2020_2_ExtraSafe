@@ -35,7 +35,7 @@ class EventBus {
     /**
      * emit the event
      * @param {string} event
-     * @param {callbackInput} data
+     * @param {*} data
      */
     emit(event, data) {
         if (!this.listeners.hasOwnProperty(event)) {

@@ -6,15 +6,10 @@
 export default class BaseView {
     /**
      * Constructor for a BaseView.
-     * @constructor
-     * @param {object} el
-     * @param {*} router
-     * @param {*} args
+     * @param {HTMLElement} el
      */
-    constructor(el, router, args) {
+    constructor(el) {
         this.el = el;
-        this.router = router;
-        this.args = args;
     }
 
     /**

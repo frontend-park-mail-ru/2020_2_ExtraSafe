@@ -1,51 +1,25 @@
 import BaseView from '../BaseView/BaseView.js';
 import Navbar from '../../components/Navbar/Navbar.js';
-import Network from '../../utils/network.js';
 import './HomeView.tmpl.js';
 
 /**
- * Class Home view.
+ * Home view
  */
 export default class HomeView extends BaseView {
     /**
-     * LoginView view constructor.
+     * Home view constructor
      * @constructor
-     * @param {object} el - Root application div.
-     * @param {*} router
-     * @param {*} args
+     * @param {HTMLElement} el - Root application div.
      */
-    constructor(el, router, args) {
-        super(el, router, {});
-        this.args = args;
-    }
-
-    /** Set params to form
-     * @param {object} data
-     */
-    setParams(data) {
-        // const avatarUrl = Network.serverAddr + '/avatar/' + data.avatar;
-        // Navbar.setAvatarURL(avatarUrl);
+    constructor(el) {
+        super(el);
     }
 
     /**
-     * Get params from server
-     * @return {Promise<void>}
-     */
-    async getParams() {
-        try {
-            const response = await Network.profileGet();
-            const profileData = await response.json();
-            await this.setParams(profileData);
-        } catch (err) {
-        }
-    }
-
-    /**
-     * Render Login view.
+     * Render Home view.
      */
     render() {
         Navbar.navbarShow();
         this.el.innerHTML = window.fest['views/HomeView/HomeView.tmpl']();
-        // this.getParams();
     }
 }

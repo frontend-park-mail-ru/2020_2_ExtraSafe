@@ -1,30 +1,24 @@
 import Router from './utils/router.js';
-import LoginView from './views/LoginView/LoginView.js';
-import RegView from './views/RegView/RegView.js';
-import ProfileView from './views/ProfileView/ProfileView.js';
-import AccountsView from './views/AccountsView/AccountsView.js';
-import SecurityView from './views/SecurityView/SecurityView.js';
-import HomeView from './views/HomeView/HomeView.js';
+import LoginController from './controllers/LoginController.js';
+import RegController from './controllers/RegController.js';
+import SettingsController from './controllers/SettingsController.js';
+import HomeController from './controllers/HomeController.js';
 
-const app = document.getElementById('application');
-const router = new Router(app);
+const appDiv = document.getElementById('application');
+const contentDiv = document.getElementById('content');
 
-const content = document.getElementById('content');
+const router = new Router(appDiv);
 
-const loginView = new LoginView(content, router, {});
-const regView = new RegView(content, router, {});
-const profileView = new ProfileView(content, router, {});
-const accountsView = new AccountsView(content, router, {});
-const securityView = new SecurityView(content, router, {});
-const homeView = new HomeView(content, router, {});
+const loginController = new LoginController(contentDiv, router);
+const regController = new RegController(contentDiv, router);
+const homeController = new HomeController(contentDiv, router);
+const settingsController = new SettingsController(contentDiv, router);
 
 
-router.addRoute('/login', loginView);
-router.addRoute('/reg', regView);
-router.addRoute('/profile', profileView);
-router.addRoute('/accounts', accountsView);
-router.addRoute('/security', securityView);
-router.addRoute('/', homeView);
+router.addRoute('/login', loginController);
+router.addRoute('/reg', regController);
+router.addRoute('/settings', settingsController);
+router.addRoute('/', homeController);
 
 
 router.open(window.location.pathname);

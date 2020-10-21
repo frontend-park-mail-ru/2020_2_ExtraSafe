@@ -1,0 +1,16 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
+    <div class="default-container">
+        <div class="profile-form" onsubmit="return false">
+            <div class="navigation">
+                <div class="active-profile-nav" id="profileLink">Профиль</div>
+                <!--<div class="profile-nav">Внешний вид</div>-->
+                <span class="profile-nav" id="accountsLink">Аккаунты</span>
+                <span class="profile-nav" id="securityLink">Безопасность</span>
+                <!--<a class="profile-nav">Уведомления</a>-->
+            </div>
+
+            <div id="settingsBody" class="settings-body"/>
+            <img data-href="/" src="../../img/close.svg" class="close" alt="close"/>
+        </div>
+    </div>
+</fest:template>

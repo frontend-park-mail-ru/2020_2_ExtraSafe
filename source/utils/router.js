@@ -4,10 +4,12 @@ import eventBus from './eventBus.js';
 
 /**
  * Router
+ * @typedef {Object} Router
  */
 export default class Router {
     /**
      * Router constructor
+     * @constructor
      * @param {object} root
      */
     constructor(root) {
@@ -18,7 +20,7 @@ export default class Router {
         // When clicking on the link, correctly process
         this.catchMouseClick = this.catchMouseClick.bind(this);
         this.root.addEventListener('click', this.catchMouseClick);
-        eventBus.on('network:logout', (input) => {
+        eventBus.on('network:logout', () => {
             this.isAuth = false;
             this.open('/login');
         });
@@ -36,6 +38,7 @@ export default class Router {
                 return false;
             } else {
                 UserSession.setData(responseBody);
+                UserSession.setAccounts(responseBody);
                 return true;
             }
         });
@@ -48,9 +51,9 @@ export default class Router {
     renderIfAuth(route) {
         if (route === '/login' || route === '/reg') {
             window.history.replaceState({}, '', '/');
-            this.routesMap.get('/').render();
+            this.routesMap.get('/').view.render();
         } else {
-            this.routesMap.get(route).render();
+            this.routesMap.get(route).view.render();
         }
     }
 
@@ -60,10 +63,10 @@ export default class Router {
      */
     renderIfNotAuth(route) {
         if (route === '/login' || route === '/reg') {
-            this.routesMap.get(route).render();
+            this.routesMap.get(route).view.render();
         } else {
             window.history.replaceState({}, '', '/login');
-            this.routesMap.get('/login').render();
+            this.routesMap.get('/login').view.render();
         }
     }
 
@@ -89,7 +92,7 @@ export default class Router {
             }
         } else {
             window.history.replaceState({}, '', '/');
-            this.routesMap.get('/').render();
+            this.routesMap.get('/').view.render();
         }
     }
 
@@ -115,7 +118,7 @@ export default class Router {
     /**
      * Add route function
      * @param {string} route
-     * @param {function} handler
+     * @param {BaseController} handler
      */
     addRoute(route, handler) {
     // handler is a callable function or method
