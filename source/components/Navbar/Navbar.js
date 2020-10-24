@@ -18,7 +18,7 @@ class Navbar {
         this.navbarHide();
         EventBus.on('userSession:set', (input) => {
             this.setAvatarURL(input.avatar);
-        });
+        }, 'Navbar');
     }
 
     /**
@@ -44,10 +44,17 @@ class Navbar {
     }
 
     /**
-     * Show popup menu
+     * Show popup menu show
      */
-    navbarPopup() {
-        document.getElementById('myDropdown').classList.toggle('show');
+    navbarPopupShow() {
+        document.getElementById('myDropdown').classList.add('show');
+    }
+
+    /**
+     * Show popup menu hide
+     */
+    navbarPopupHide() {
+        document.getElementById('myDropdown').classList.remove('show');
     }
 
     /**
@@ -56,14 +63,15 @@ class Navbar {
     addEventListeners() {
         document.getElementById('navbarLogout')
             .addEventListener('click', Network.logout.bind(Network), false);
-        document.getElementById('navbarLogout')
-            .addEventListener('click', this.navbarPopup.bind(this), false);
-
-        document.getElementById('navbarSettings')
-            .addEventListener('click', this.navbarPopup.bind(this));
 
         document.getElementById('avatarMini')
-            .addEventListener('click', this.navbarPopup.bind(this), false);
+            .addEventListener('click', this.navbarPopupShow.bind(this), false);
+
+        document.addEventListener('click', (event) => {
+            if (event.target.id !== 'myDropdown' && event.target.id !== 'avatarMini') {
+                this.navbarPopupHide();
+            }
+        }, false);
     }
 }
 

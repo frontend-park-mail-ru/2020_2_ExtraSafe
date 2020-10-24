@@ -91,7 +91,12 @@ export default class ProfileSettingsView extends BaseView {
 
         eventBus.on('userSession:set', (input) => {
             this.setParams(input);
-        });
+        }, 'ProfileSettingsView');
+        eventBus.on('router:render', (input) => {
+            if (input !== this) {
+                eventBus.offObject('ProfileSettingsView');
+            }
+        }, 'ProfileSettingsView');
     }
 
     /**

@@ -23,12 +23,12 @@ export default class LoginController extends BaseController {
 
         eventBus.on('loginView:formSubmit', () => {
             this.model.requestAuthorization();
-        });
+        }, 'LoginController');
         eventBus.on('loginModel:loginSuccess', () => {
             this.router.open('/');
-        });
+        }, 'LoginController');
         eventBus.on('loginModel:loginFailed', (input) => {
             Rendering.printServerErrors(input);
-        });
+        }, 'LoginController');
     }
 }

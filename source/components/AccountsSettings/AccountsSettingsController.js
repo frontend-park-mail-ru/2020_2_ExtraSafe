@@ -18,10 +18,10 @@ export default class AccountsSettingsController {
 
         eventBus.on('accountsSettingsView:formSubmit', () => {
             this.model.changeParams();
-        });
+        }, 'AccountsSettingsController');
         eventBus.on('accountsSettingsModel:changeSuccess', (input) => {
             this.view.setParams(input);
             this.view.showServerSuccess();
-        });
+        }, 'AccountsSettingsController');
     }
 }

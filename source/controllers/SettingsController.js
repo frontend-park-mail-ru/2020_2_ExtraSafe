@@ -30,14 +30,14 @@ export default class SettingsController extends BaseController {
         eventBus.on('settingsView:renderProfile', (input) => {
             this.profileSettings.view.el = input;
             this.profileSettings.view.render();
-        });
+        }, 'SettingsController');
         eventBus.on('settingsView:renderAccounts', (input) => {
             this.accountsSettings.view.el = input;
             this.accountsSettings.view.render();
-        });
+        }, 'SettingsController');
         eventBus.on('settingsView:renderSecurity', (input) => {
             this.securitySettings.view.el = input;
             this.securitySettings.view.render();
-        });
+        }, 'SettingsController');
     }
 }

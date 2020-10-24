@@ -18,12 +18,12 @@ export default class ProfileSettingsController {
 
         eventBus.on('profileSettingsView:formSubmit', () => {
             this.model.changeParams();
-        });
+        }, 'ProfileSettingsController');
         eventBus.on('profileSettingsModel:changeSuccess', () => {
             this.view.showServerSuccess();
-        });
+        }, 'ProfileSettingsController');
         eventBus.on('profileSettingsModel:changeFailed', (input) => {
             this.view.showServerError(input);
-        });
+        }, 'ProfileSettingsController');
     }
 }

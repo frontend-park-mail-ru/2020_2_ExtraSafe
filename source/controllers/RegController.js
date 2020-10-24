@@ -20,12 +20,12 @@ export default class RegController extends BaseController {
 
         eventBus.on('regView:formSubmit', () => {
             this.model.registrationRequest();
-        });
+        }, 'RegController');
         eventBus.on('regModel:regSuccess', () => {
             this.router.open('/');
-        });
+        }, 'RegController');
         eventBus.on('regModel:regFailed', (input) => {
             Rendering.printServerErrors(input);
-        });
+        }, 'RegController');
     }
 }

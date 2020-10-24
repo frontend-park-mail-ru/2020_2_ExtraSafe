@@ -22,8 +22,8 @@ export default class Router {
         this.root.addEventListener('click', this.catchMouseClick);
         eventBus.on('network:logout', () => {
             this.isAuth = false;
-            this.open('/login');
-        });
+            this.renderIfNotAuth('/login');
+        }, 'Router');
     }
 
     /**
@@ -51,9 +51,14 @@ export default class Router {
     renderIfAuth(route) {
         if (route === '/login' || route === '/reg') {
             window.history.replaceState({}, '', '/');
-            this.routesMap.get('/').view.render();
+
+            const page = this.routesMap.get('/');
+            eventBus.emit('router:render', page);
+            page.view.render();
         } else {
-            this.routesMap.get(route).view.render();
+            const page = this.routesMap.get(route);
+            eventBus.emit('router:render', page);
+            page.view.render();
         }
     }
 
@@ -63,10 +68,15 @@ export default class Router {
      */
     renderIfNotAuth(route) {
         if (route === '/login' || route === '/reg') {
-            this.routesMap.get(route).view.render();
+            const page = this.routesMap.get(route);
+            eventBus.emit('router:render', page);
+            page.view.render();
         } else {
             window.history.replaceState({}, '', '/login');
-            this.routesMap.get('/login').view.render();
+
+            const page = this.routesMap.get('/login');
+            eventBus.emit('router:render', page);
+            page.view.render();
         }
     }
 
@@ -92,7 +102,10 @@ export default class Router {
             }
         } else {
             window.history.replaceState({}, '', '/');
-            this.routesMap.get('/').view.render();
+
+            const page = this.routesMap.get('/');
+            eventBus.emit('router:render', page);
+            page.view.render();
         }
     }
 

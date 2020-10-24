@@ -16,7 +16,7 @@ class UserSession {
         eventBus.on('network:logout', (input) => {
             this.resetData();
             this.resetAccounts();
-        });
+        }, 'UserSession');
     };
 
     /**

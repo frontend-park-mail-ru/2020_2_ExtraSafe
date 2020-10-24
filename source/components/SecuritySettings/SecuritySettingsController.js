@@ -18,12 +18,12 @@ export default class SecuritySettingsController {
 
         eventBus.on('securitySettingsView:formSubmit', () => {
             this.model.changeParams();
-        });
+        }, 'SecuritySettingsController');
         eventBus.on('securitySettingsModel:changeSuccess', () => {
             this.view.showServerSuccess();
-        });
+        }, 'SecuritySettingsController');
         eventBus.on('securitySettingsModel:changeFailed', (input) => {
             this.view.showServerError(input);
-        });
+        }, 'SecuritySettingsController');
     }
 }

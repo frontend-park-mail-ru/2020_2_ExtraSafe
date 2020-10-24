@@ -1,5 +1,6 @@
 import Network from '../../utils/network.js';
 import eventBus from '../../utils/eventBus.js';
+import userSession from '../../utils/userSession.js';
 
 /**
  * Accounts settings model
@@ -21,6 +22,7 @@ export default class AccountsSettingsModel {
         Network.accountsSet(data).then((response) => {
             return response.json();
         }).then((responseBody) => {
+            userSession.setAccounts(responseBody);
             eventBus.emit('accountsSettingsModel:changeSuccess', responseBody);
             return responseBody;
         });
