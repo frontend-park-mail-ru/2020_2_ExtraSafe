@@ -1,10 +1,16 @@
 import Network from '../utils/network.js';
-import eventBus from '../utils/eventBus.js';
 
 /**
  * Login model
  */
 export default class LoginModel {
+    /**
+     * Login model constructor
+     * @param {EventBus} eventBus
+     */
+    constructor(eventBus) {
+        this.eventBus = eventBus;
+    }
     /**
      * Request to server
      */
@@ -16,12 +22,12 @@ export default class LoginModel {
 
         Network.loginRequest(user).then((response) => {
             if (response.ok) {
-                eventBus.emit('loginModel:loginSuccess', null);
+                this.eventBus.emit('loginModel:loginSuccess', null);
             }
             return response.json();
         }).then((responseBody) => {
             if (responseBody.status > 200) {
-                eventBus.emit('loginModel:loginFailed', responseBody.codes);
+                this.eventBus.emit('loginModel:loginFailed', responseBody.codes);
             }
             return responseBody;
         });

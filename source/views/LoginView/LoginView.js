@@ -1,6 +1,5 @@
 import BaseView from '../BaseView/BaseView.js';
 import Navbar from '../../components/Navbar/Navbar.js';
-import eventBus from '../../utils/eventBus.js';
 import './LoginView.tmpl.js';
 
 /**
@@ -10,9 +9,10 @@ export default class LoginView extends BaseView {
     /**
      * LoginView view constructor.
      * @param {HTMLElement} el - Root application div.
+     * @param {EventBus} eventBus
      */
-    constructor(el) {
-        super(el);
+    constructor(el, eventBus) {
+        super(el, eventBus);
     }
 
     /**
@@ -21,7 +21,7 @@ export default class LoginView extends BaseView {
     addEventListeners() {
         document.getElementById('loginForm')
             .addEventListener('submit', () => {
-                eventBus.emit('loginView:formSubmit', null);
+                this.eventBus.emit('loginView:formSubmit', null);
             }, false);
     }
 
@@ -43,6 +43,10 @@ export default class LoginView extends BaseView {
                             {
                                 name: 'autofocus',
                             },
+                            {
+                                name: 'autocomplete',
+                                value: 'username',
+                            },
                         ],
                     },
                 ],
@@ -56,6 +60,12 @@ export default class LoginView extends BaseView {
                         id: 'password',
                         placeholder: 'Введите пароль',
                         hasError: true,
+                        params: [
+                            {
+                                name: 'autocomplete',
+                                value: 'current-password',
+                            },
+                        ],
                     },
                 ],
             },

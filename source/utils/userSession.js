@@ -1,5 +1,5 @@
 import network from './network.js';
-import eventBus from './eventBus.js';
+import globalEventBus from './globalEventBus.js';
 
 /**
  * User session
@@ -13,10 +13,10 @@ class UserSession {
         this.accounts = {};
         this.resetData();
         this.resetAccounts();
-        eventBus.on('network:logout', (input) => {
+        globalEventBus.on('network:logout', (input) => {
             this.resetData();
             this.resetAccounts();
-        }, 'UserSession');
+        });
     };
 
     /**
@@ -28,7 +28,7 @@ class UserSession {
         this.data.username = val.username;
         this.data.fullName = val.fullName;
         this.data.avatar = network.serverAddr + '/avatar/' + val.avatar;
-        eventBus.emit('userSession:set', this.data);
+        globalEventBus.emit('userSession:set', this.data);
     }
 
     /**
@@ -54,7 +54,7 @@ class UserSession {
         this.accounts.bitbucket = val.bitbucket;
         this.accounts.vkontakte = val.vkontakte;
         this.accounts.facebook = val.facebook;
-        eventBus.emit('userSession:setAccounts', this.data);
+        globalEventBus.emit('userSession:setAccounts', this.accounts);
     }
 
     /**

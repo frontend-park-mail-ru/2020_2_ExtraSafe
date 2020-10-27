@@ -1,4 +1,3 @@
-import eventBus from '../utils/eventBus.js';
 import BaseController from './BaseController.js';
 import RegView from '../views/RegView/RegView.js';
 import RegModel from '../models/RegModel.js';
@@ -15,17 +14,30 @@ export default class RegController extends BaseController {
      */
     constructor(el, router) {
         super(el, router);
-        this.view = new RegView(el);
-        this.model = new RegModel();
+        this.view = new RegView(el, this.eventBus);
+        this.model = new RegModel(this.eventBus);
+    }
 
-        eventBus.on('regView:formSubmit', () => {
+    /**
+     * Add all event listeners
+     */
+    addEventListeners() {
+        this.eventBus.on('regView:formSubmit', () => {
             this.model.registrationRequest();
-        }, 'RegController');
-        eventBus.on('regModel:regSuccess', () => {
+        });
+        this.eventBus.on('regModel:regSuccess', () => {
             this.router.open('/');
-        }, 'RegController');
-        eventBus.on('regModel:regFailed', (input) => {
+        });
+        this.eventBus.on('regModel:regFailed', (input) => {
             Rendering.printServerErrors(input);
-        }, 'RegController');
+        });
+    }
+
+    /**
+     * Render view
+     */
+    render() {
+        super.render();
+        this.view.render();
     }
 }

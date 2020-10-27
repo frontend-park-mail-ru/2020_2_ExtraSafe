@@ -1,6 +1,6 @@
 import BaseView from '../BaseView/BaseView.js';
 import Navbar from '../../components/Navbar/Navbar.js';
-import eventBus from '../../utils/eventBus.js';
+
 import './SettingsView.tmpl.js';
 
 /**
@@ -11,9 +11,10 @@ export default class SettingsView extends BaseView {
      * Settings view constructor.
      * @constructor
      * @param {HTMLElement} el - Root application div.
+     * @param {EventBus} eventBus
      */
-    constructor(el) {
-        super(el);
+    constructor(el, eventBus) {
+        super(el, eventBus);
     }
 
     /**
@@ -23,7 +24,7 @@ export default class SettingsView extends BaseView {
         this.profileLink.className = 'active-profile-nav';
         this.accountsLink.className = 'profile-nav';
         this.securityLink.className = 'profile-nav';
-        eventBus.emit('settingsView:renderProfile', this.settingsBody);
+        this.eventBus.emit('settingsView:renderProfile', this.settingsBody);
     }
 
     /**
@@ -33,7 +34,7 @@ export default class SettingsView extends BaseView {
         this.profileLink.className = 'profile-nav';
         this.accountsLink.className = 'active-profile-nav';
         this.securityLink.className = 'profile-nav';
-        eventBus.emit('settingsView:renderAccounts', this.settingsBody);
+        this.eventBus.emit('settingsView:renderAccounts', this.settingsBody);
     }
 
     /**
@@ -43,7 +44,7 @@ export default class SettingsView extends BaseView {
         this.profileLink.className = 'profile-nav';
         this.accountsLink.className = 'profile-nav';
         this.securityLink.className = 'active-profile-nav';
-        eventBus.emit('settingsView:renderSecurity', this.settingsBody);
+        this.eventBus.emit('settingsView:renderSecurity', this.settingsBody);
     }
 
     /**

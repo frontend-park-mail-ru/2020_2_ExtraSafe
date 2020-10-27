@@ -1,10 +1,16 @@
 import Network from '../utils/network.js';
-import eventBus from '../utils/eventBus.js';
 
 /**
  * Reg model
  */
 export default class RegModel {
+    /**
+     * Reg model constructor
+     * @param {EventBus} eventBus
+     */
+    constructor(eventBus) {
+        this.eventBus = eventBus;
+    }
     /**
      * Request to server
      */
@@ -17,12 +23,12 @@ export default class RegModel {
 
         Network.regRequest(user).then((response) => {
             if (response.ok) {
-                eventBus.emit('regModel:regSuccess', null);
+                this.eventBus.emit('regModel:regSuccess', null);
             }
             return response.json();
         }).then((responseBody) => {
             if (responseBody.status > 200) {
-                eventBus.emit('regModel:regFailed', responseBody.codes);
+                this.eventBus.emit('regModel:regFailed', responseBody.codes);
             }
             return responseBody;
         });

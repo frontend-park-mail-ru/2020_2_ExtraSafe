@@ -1,5 +1,4 @@
 import BaseController from './BaseController.js';
-import eventBus from '../utils/eventBus.js';
 import SettingsView from '../views/SettingsView/SettingsView.js';
 import SettingsModel from '../models/SettingsModel.js';
 import ProfileSettingsController from '../components/ProfileSettings/ProfileSettingsController.js';
@@ -20,24 +19,37 @@ export default class SettingsController extends BaseController {
      */
     constructor(el, router) {
         super(el, router);
-        this.view = new SettingsView(el);
-        this.model = new SettingsModel();
+        this.view = new SettingsView(el, this.eventBus);
+        this.model = new SettingsModel(this.eventBus);
 
-        this.profileSettings = new ProfileSettingsController(el);
-        this.accountsSettings = new AccountsSettingsController(el);
-        this.securitySettings = new SecuritySettingsController(el);
+        this.profileSettings = new ProfileSettingsController(el, router);
+        this.accountsSettings = new AccountsSettingsController(el, router);
+        this.securitySettings = new SecuritySettingsController(el, router);
+    }
 
-        eventBus.on('settingsView:renderProfile', (input) => {
+    /**
+     * Add all event listeners
+     */
+    addEventListeners() {
+        this.eventBus.on('settingsView:renderProfile', (input) => {
             this.profileSettings.view.el = input;
-            this.profileSettings.view.render();
-        }, 'SettingsController');
-        eventBus.on('settingsView:renderAccounts', (input) => {
+            this.profileSettings.render();
+        });
+        this.eventBus.on('settingsView:renderAccounts', (input) => {
             this.accountsSettings.view.el = input;
-            this.accountsSettings.view.render();
-        }, 'SettingsController');
-        eventBus.on('settingsView:renderSecurity', (input) => {
+            this.accountsSettings.render();
+        });
+        this.eventBus.on('settingsView:renderSecurity', (input) => {
             this.securitySettings.view.el = input;
-            this.securitySettings.view.render();
-        }, 'SettingsController');
+            this.securitySettings.render();
+        });
+    }
+
+    /**
+     * Render view
+     */
+    render() {
+        super.render();
+        this.view.render();
     }
 }

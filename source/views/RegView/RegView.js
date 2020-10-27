@@ -3,7 +3,6 @@ import Rendering from '../../utils/rendering.js';
 import Validation from '../../utils/validation.js';
 import Navbar from '../../components/Navbar/Navbar.js';
 import './RegView.tmpl.js';
-import eventBus from '../../utils/eventBus.js';
 
 /**
  * Class Reg view.
@@ -12,9 +11,10 @@ export default class RegView extends BaseView {
     /**
      * RegView view constructor.
      * @param {HTMLElement} el - Root application div.
+     * @param {EventBus} eventBus
      */
-    constructor(el) {
-        super(el);
+    constructor(el, eventBus) {
+        super(el, eventBus);
     }
 
     /**
@@ -57,7 +57,7 @@ export default class RegView extends BaseView {
         document.getElementById('regForm')
             .addEventListener('submit', () => {
                 if (this.updateAllErrors()) {
-                    eventBus.emit('regView:formSubmit', null);
+                    this.eventBus.emit('regView:formSubmit', null);
                 }
             }, false);
     }
@@ -76,7 +76,15 @@ export default class RegView extends BaseView {
                         id: 'email',
                         placeholder: 'mymailbox@mail.ru',
                         hasError: true,
-                        params: [{name: 'autofocus'}],
+                        params: [
+                            {
+                                name: 'autofocus',
+                            },
+                            {
+                                name: 'autocomplete',
+                                value: 'username',
+                            },
+                        ],
                     },
                 ],
             },
@@ -89,6 +97,12 @@ export default class RegView extends BaseView {
                         id: 'username',
                         placeholder: 'Username',
                         hasError: true,
+                        params: [
+                            {
+                                name: 'autocomplete',
+                                value: 'username',
+                            },
+                        ],
                     },
                 ],
             },
@@ -101,12 +115,24 @@ export default class RegView extends BaseView {
                         id: 'password',
                         placeholder: 'Придумайте пароль',
                         hasError: true,
+                        params: [
+                            {
+                                name: 'autocomplete',
+                                value: 'new-password',
+                            },
+                        ],
                     },
                     {
                         type: 'password',
                         id: 'repeatPassword',
                         placeholder: 'Повторите пароль',
                         hasError: true,
+                        params: [
+                            {
+                                name: 'autocomplete',
+                                value: 'new-password',
+                            },
+                        ],
                     },
                 ],
             },

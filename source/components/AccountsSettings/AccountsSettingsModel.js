@@ -1,11 +1,17 @@
 import Network from '../../utils/network.js';
-import eventBus from '../../utils/eventBus.js';
 import userSession from '../../utils/userSession.js';
 
 /**
  * Accounts settings model
  */
 export default class AccountsSettingsModel {
+    /**
+     * Accounts settings model constructor
+     * @param {EventBus} eventBus
+     */
+    constructor(eventBus) {
+        this.eventBus = eventBus;
+    }
     /**
      * Change user accounts on server
      */
@@ -23,7 +29,7 @@ export default class AccountsSettingsModel {
             return response.json();
         }).then((responseBody) => {
             userSession.setAccounts(responseBody);
-            eventBus.emit('accountsSettingsModel:changeSuccess', responseBody);
+            this.eventBus.emit('accountsSettingsModel:changeSuccess', null);
             return responseBody;
         });
     }

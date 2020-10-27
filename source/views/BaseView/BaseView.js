@@ -7,9 +7,11 @@ export default class BaseView {
     /**
      * Constructor for a BaseView.
      * @param {HTMLElement} el
+     * @param {EventBus} eventBus
      */
-    constructor(el) {
+    constructor(el, eventBus) {
         this.el = el;
+        this.eventBus = eventBus;
     }
 
     /**

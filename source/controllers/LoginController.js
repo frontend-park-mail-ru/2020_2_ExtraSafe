@@ -1,4 +1,3 @@
-import eventBus from '../utils/eventBus.js';
 import LoginModel from '../models/LoginModel.js';
 import LoginView from '../views/LoginView/LoginView.js';
 import BaseController from './BaseController.js';
@@ -18,17 +17,30 @@ export default class LoginController extends BaseController {
      */
     constructor(el, router) {
         super(el, router);
-        this.view = new LoginView(el);
-        this.model = new LoginModel();
+        this.view = new LoginView(el, this.eventBus);
+        this.model = new LoginModel(this.eventBus);
+    }
 
-        eventBus.on('loginView:formSubmit', () => {
+    /**
+     * Add all event listeners
+     */
+    addEventListeners() {
+        this.eventBus.on('loginView:formSubmit', () => {
             this.model.requestAuthorization();
-        }, 'LoginController');
-        eventBus.on('loginModel:loginSuccess', () => {
+        });
+        this.eventBus.on('loginModel:loginSuccess', () => {
             this.router.open('/');
-        }, 'LoginController');
-        eventBus.on('loginModel:loginFailed', (input) => {
+        });
+        this.eventBus.on('loginModel:loginFailed', (input) => {
             Rendering.printServerErrors(input);
-        }, 'LoginController');
+        });
+    }
+
+    /**
+     * Render view
+     */
+    render() {
+        super.render();
+        this.view.render();
     }
 }

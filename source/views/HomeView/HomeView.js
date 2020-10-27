@@ -10,9 +10,10 @@ export default class HomeView extends BaseView {
      * Home view constructor
      * @constructor
      * @param {HTMLElement} el - Root application div.
+     * @param {EventBus} eventBus
      */
-    constructor(el) {
-        super(el);
+    constructor(el, eventBus) {
+        super(el, eventBus);
     }
 
     /**

@@ -1,7 +1,6 @@
 import BaseView from '../../views/BaseView/BaseView.js';
 import './AccountsSettingsView.tmpl.js';
 import userSession from '../../utils/userSession.js';
-import eventBus from '../../utils/eventBus.js';
 
 /**
  * Accounts settings view
@@ -11,9 +10,10 @@ export default class AccountsSettingsView extends BaseView {
      * Accounts settings view constructor.
      * @constructor
      * @param {HTMLElement} el - Root application div.
+     * @param {EventBus} eventBus
      */
-    constructor(el) {
-        super(el);
+    constructor(el, eventBus) {
+        super(el, eventBus);
     }
 
     /**
@@ -44,8 +44,11 @@ export default class AccountsSettingsView extends BaseView {
      */
     addEventListeners() {
         document.getElementById('accountsForm').addEventListener('submit', () => {
-            eventBus.emit('accountsSettingsView:formSubmit', null);
+            this.eventBus.emit('accountsSettingsView:formSubmit', null);
         }, false);
+        this.eventBus.on('userSession:setAccounts', (input) => {
+            this.setParams(input);
+        });
     }
 
     /**

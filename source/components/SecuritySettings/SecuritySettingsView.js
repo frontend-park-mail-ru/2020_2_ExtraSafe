@@ -1,6 +1,5 @@
 import BaseView from '../../views/BaseView/BaseView.js';
 import './SecuritySettingsView.tmpl.js';
-import eventBus from '../../utils/eventBus.js';
 import Rendering from '../../utils/rendering.js';
 import Validation from '../../utils/validation.js';
 
@@ -12,9 +11,10 @@ export default class SecuritySettingsView extends BaseView {
      * Security settings view constructor.
      * @constructor
      * @param {HTMLElement} el - Root application div.
+     * @param {EventBus} eventBus
      */
-    constructor(el) {
-        super(el);
+    constructor(el, eventBus) {
+        super(el, eventBus);
     }
 
     /**
@@ -68,7 +68,7 @@ export default class SecuritySettingsView extends BaseView {
 
         document.getElementById('securityForm').addEventListener('submit', () => {
             if (this.updateAllErrors()) {
-                eventBus.emit('securitySettingsView:formSubmit', null);
+                this.eventBus.emit('securitySettingsView:formSubmit', null);
             }
         }, false);
     }

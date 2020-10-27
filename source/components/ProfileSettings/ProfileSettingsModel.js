@@ -1,11 +1,17 @@
 import Network from '../../utils/network.js';
 import userSession from '../../utils/userSession.js';
-import eventBus from '../../utils/eventBus.js';
 
 /**
  * Profile settings model
  */
 export default class ProfileSettingsModel {
+    /**
+     * Profile settings model constructor
+     * @param {EventBus} eventBus
+     */
+    constructor(eventBus) {
+        this.eventBus = eventBus;
+    }
     /**
      * Change user profile
      */
@@ -20,10 +26,10 @@ export default class ProfileSettingsModel {
             return response.json();
         }).then((responseBody) => {
             if (responseBody.status > 200) {
-                eventBus.emit('profileSettingsModel:changeFailed', responseBody.codes);
+                this.eventBus.emit('profileSettingsModel:changeFailed', responseBody.codes);
             } else {
                 userSession.setData(responseBody);
-                eventBus.emit('profileSettingsModel:changeSuccess', null);
+                this.eventBus.emit('profileSettingsModel:changeSuccess', null);
             }
             return responseBody;
         });

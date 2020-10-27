@@ -1,29 +1,44 @@
-import eventBus from '../../utils/eventBus.js';
 import SecuritySettingsView from './SecuritySettingsView.js';
 import SecuritySettingsModel from './SecuritySettingsModel.js';
+import BaseController from '../../controllers/BaseController.js';
 
 /**
  * Security settings controller
  * @typedef {Object} AccountsSettingsController
  */
-export default class SecuritySettingsController {
+export default class SecuritySettingsController extends BaseController {
     /**
      * Security settings controller constructor
      * @constructor
      * @param {HTMLElement} el
+     * @param {Router} router
      */
-    constructor(el) {
-        this.view = new SecuritySettingsView(el);
-        this.model = new SecuritySettingsModel();
+    constructor(el, router) {
+        super(el, router);
+        this.view = new SecuritySettingsView(el, this.eventBus);
+        this.model = new SecuritySettingsModel(this.eventBus);
+    }
 
-        eventBus.on('securitySettingsView:formSubmit', () => {
+    /**
+     * Add all event listeners
+     */
+    addEventListeners() {
+        this.eventBus.on('securitySettingsView:formSubmit', () => {
             this.model.changeParams();
-        }, 'SecuritySettingsController');
-        eventBus.on('securitySettingsModel:changeSuccess', () => {
+        });
+        this.eventBus.on('securitySettingsModel:changeSuccess', () => {
             this.view.showServerSuccess();
-        }, 'SecuritySettingsController');
-        eventBus.on('securitySettingsModel:changeFailed', (input) => {
+        });
+        this.eventBus.on('securitySettingsModel:changeFailed', (input) => {
             this.view.showServerError(input);
-        }, 'SecuritySettingsController');
+        });
+    }
+
+    /**
+     * Render view
+     */
+    render() {
+        this.addEventListeners();
+        this.view.render();
     }
 }

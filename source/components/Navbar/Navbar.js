@@ -1,7 +1,7 @@
 import UserSession from '../../utils/userSession.js';
-import EventBus from '../../utils/eventBus.js';
 import Network from '../../utils/network.js';
 import './Navbar.tmpl.js';
+import globalEventBus from '../../utils/globalEventBus.js';
 
 /**
  * Navbar
@@ -16,9 +16,9 @@ class Navbar {
         this.setAvatarURL(UserSession.data.avatar);
         this.addEventListeners();
         this.navbarHide();
-        EventBus.on('userSession:set', (input) => {
+        globalEventBus.on('userSession:set', (input) => {
             this.setAvatarURL(input.avatar);
-        }, 'Navbar');
+        });
     }
 
     /**

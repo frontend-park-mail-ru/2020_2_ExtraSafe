@@ -2,7 +2,6 @@ import BaseView from '../../views/BaseView/BaseView.js';
 import Rendering from '../../utils/rendering.js';
 import Validation from '../../utils/validation.js';
 import userSession from '../../utils/userSession.js';
-import eventBus from '../../utils/eventBus.js';
 import './ProfileSettingsView.tmpl.js';
 
 /**
@@ -13,9 +12,10 @@ export default class ProfileSettingsView extends BaseView {
      * Profile settings view constructor.
      * @constructor
      * @param {HTMLElement} el - Root application div.
+     * @param {EventBus} eventBus
      */
-    constructor(el) {
-        super(el);
+    constructor(el, eventBus) {
+        super(el, eventBus);
     }
 
     /**
@@ -85,18 +85,13 @@ export default class ProfileSettingsView extends BaseView {
         document.getElementById('profileForm')
             .addEventListener('submit', () => {
                 if (this.updateAllErrors()) {
-                    eventBus.emit('profileSettingsView:formSubmit', null);
+                    this.eventBus.emit('profileSettingsView:formSubmit', null);
                 }
             }, false);
 
-        eventBus.on('userSession:set', (input) => {
+        this.eventBus.on('userSession:set', (input) => {
             this.setParams(input);
-        }, 'ProfileSettingsView');
-        eventBus.on('router:render', (input) => {
-            if (input !== this) {
-                eventBus.offObject('ProfileSettingsView');
-            }
-        }, 'ProfileSettingsView');
+        });
     }
 
     /**

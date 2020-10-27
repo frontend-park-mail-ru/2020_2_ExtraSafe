@@ -1,6 +1,6 @@
 import UserSession from './userSession.js';
 import Network from './network.js';
-import eventBus from './eventBus.js';
+import globalEventBus from './globalEventBus.js';
 
 /**
  * Router
@@ -15,15 +15,16 @@ export default class Router {
     constructor(root) {
         this.root = root;
         this.routesMap = new Map();
+        this.currentPage = undefined;
         this.isAuth = false;
 
         // When clicking on the link, correctly process
         this.catchMouseClick = this.catchMouseClick.bind(this);
         this.root.addEventListener('click', this.catchMouseClick);
-        eventBus.on('network:logout', () => {
+        globalEventBus.on('network:logout', () => {
             this.isAuth = false;
             this.renderIfNotAuth('/login');
-        }, 'Router');
+        });
     }
 
     /**
@@ -53,12 +54,12 @@ export default class Router {
             window.history.replaceState({}, '', '/');
 
             const page = this.routesMap.get('/');
-            eventBus.emit('router:render', page);
-            page.view.render();
+            this.currentPage = '/';
+            page.render();
         } else {
             const page = this.routesMap.get(route);
-            eventBus.emit('router:render', page);
-            page.view.render();
+            this.currentPage = route;
+            page.render();
         }
     }
 
@@ -69,14 +70,14 @@ export default class Router {
     renderIfNotAuth(route) {
         if (route === '/login' || route === '/reg') {
             const page = this.routesMap.get(route);
-            eventBus.emit('router:render', page);
-            page.view.render();
+            this.currentPage = route;
+            page.render();
         } else {
             window.history.replaceState({}, '', '/login');
 
             const page = this.routesMap.get('/login');
-            eventBus.emit('router:render', page);
-            page.view.render();
+            this.currentPage = '/login';
+            page.render();
         }
     }
 
@@ -104,8 +105,7 @@ export default class Router {
             window.history.replaceState({}, '', '/');
 
             const page = this.routesMap.get('/');
-            eventBus.emit('router:render', page);
-            page.view.render();
+            page.render();
         }
     }
 

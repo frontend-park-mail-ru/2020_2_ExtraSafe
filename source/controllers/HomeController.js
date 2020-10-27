@@ -16,7 +16,20 @@ export default class HomeController extends BaseController {
      */
     constructor(el, router) {
         super(el, router);
-        this.view = new HomeView(el);
-        this.model = new HomeModel();
+        this.view = new HomeView(el, this.eventBus);
+        this.model = new HomeModel(this.eventBus);
+    }
+
+    /**
+     * Add all event listeners
+     */
+    addEventListeners() {}
+
+    /**
+     * Render view
+     */
+    render() {
+        super.render();
+        this.view.render();
     }
 }

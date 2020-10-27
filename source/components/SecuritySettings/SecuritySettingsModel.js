@@ -1,10 +1,16 @@
 import Network from '../../utils/network.js';
-import eventBus from '../../utils/eventBus.js';
 
 /**
  * Security settings model
  */
 export default class SecuritySettingsModel {
+    /**
+     * Security settings model constructor
+     * @param {EventBus} eventBus
+     */
+    constructor(eventBus) {
+        this.eventBus = eventBus;
+    }
     /**
      * Change user password
      */
@@ -18,9 +24,9 @@ export default class SecuritySettingsModel {
             return response.json();
         }).then((responseBody) => {
             if (responseBody.status > 200) {
-                eventBus.emit('securitySettingsModel:changeFailed', responseBody.codes);
+                this.eventBus.emit('securitySettingsModel:changeFailed', responseBody.codes);
             } else {
-                eventBus.emit('securitySettingsModel:changeSuccess', null);
+                this.eventBus.emit('securitySettingsModel:changeSuccess', null);
             }
             return responseBody;
         });
