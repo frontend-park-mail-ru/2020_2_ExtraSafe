@@ -194,20 +194,9 @@
     display: flex;
     flex-direction: row;
     background: var(--light-grey);
-    border-radius: 0 5px 0 0;
-}
-
-/* первая цветная метка */
-.card__content__task__color-label_first {
-    display: flex;
-
-    width: 30px;
-    height: 7px;
-    top: -0.1px;
-
-    border-radius: 5px 0 0 0;
-
-    background: cornflowerblue;
+    border-radius: 5px 0 5px 0;
+    overflow: auto;
+    width: fit-content;
 }
 
 /* не первая и не последняя цветная метка */
@@ -221,32 +210,6 @@
     border-radius: 0 0 0 0;
 
     background: darkolivegreen;
-}
-
-/* последняя цветная метка */
-.card__content__task__color-label_last {
-    display: flex;
-
-    width: 30px;
-    height: 7px;
-    top: -0.1px;
-
-    border-radius: 0 0 5px 0;
-
-    background: gold;
-}
-
-/* когда цветная метка всего одна */
-.card__content__task__color-label_first-and-last {
-    display: flex;
-
-    width: 30px;
-    height: 7px;
-    top: -0.1px;
-
-    border-radius: 5px 0 5px 0;
-
-    background: lightblue;
 }
 
 /* текст (описание) задачи */
