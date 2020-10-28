@@ -23,6 +23,8 @@
     font-size: 14px;
     line-height: 16px;
     color: white;
+
+    cursor: pointer;
 }
 
 .login-reg-a {
