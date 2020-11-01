@@ -1,26 +1,29 @@
 import UserSession from './userSession.js';
 import Network from './network.js';
-import eventBus from './eventBus.js';
+import globalEventBus from './globalEventBus.js';
 
 /**
  * Router
+ * @typedef {Object} Router
  */
 export default class Router {
     /**
      * Router constructor
+     * @constructor
      * @param {object} root
      */
     constructor(root) {
         this.root = root;
         this.routesMap = new Map();
+        this.currentPage = undefined;
         this.isAuth = false;
 
         // When clicking on the link, correctly process
         this.catchMouseClick = this.catchMouseClick.bind(this);
         this.root.addEventListener('click', this.catchMouseClick);
-        eventBus.on('network:logout', (input) => {
+        globalEventBus.on('network:logout', () => {
             this.isAuth = false;
-            this.open('/login');
+            this.renderIfNotAuth('/login');
         });
     }
 
@@ -36,6 +39,7 @@ export default class Router {
                 return false;
             } else {
                 UserSession.setData(responseBody);
+                UserSession.setAccounts(responseBody);
                 return true;
             }
         });
@@ -48,9 +52,14 @@ export default class Router {
     renderIfAuth(route) {
         if (route === '/login' || route === '/reg') {
             window.history.replaceState({}, '', '/');
-            this.routesMap.get('/').render();
+
+            const page = this.routesMap.get('/');
+            this.currentPage = '/';
+            page.render();
         } else {
-            this.routesMap.get(route).render();
+            const page = this.routesMap.get(route);
+            this.currentPage = route;
+            page.render();
         }
     }
 
@@ -60,10 +69,15 @@ export default class Router {
      */
     renderIfNotAuth(route) {
         if (route === '/login' || route === '/reg') {
-            this.routesMap.get(route).render();
+            const page = this.routesMap.get(route);
+            this.currentPage = route;
+            page.render();
         } else {
             window.history.replaceState({}, '', '/login');
-            this.routesMap.get('/login').render();
+
+            const page = this.routesMap.get('/login');
+            this.currentPage = '/login';
+            page.render();
         }
     }
 
@@ -89,7 +103,9 @@ export default class Router {
             }
         } else {
             window.history.replaceState({}, '', '/');
-            this.routesMap.get('/').render();
+
+            const page = this.routesMap.get('/');
+            page.render();
         }
     }
 
@@ -115,7 +131,7 @@ export default class Router {
     /**
      * Add route function
      * @param {string} route
-     * @param {function} handler
+     * @param {BaseController} handler
      */
     addRoute(route, handler) {
     // handler is a callable function or method

@@ -1,36 +1,21 @@
-import BaseView from '../BaseView/BaseView.js';
-import Navbar from '../../components/Navbar/Navbar.js';
+import BaseView from '../../views/BaseView/BaseView.js';
 import Rendering from '../../utils/rendering.js';
 import Validation from '../../utils/validation.js';
-import Network from '../../utils/network.js';
 import userSession from '../../utils/userSession.js';
-import eventBus from '../../utils/eventBus.js';
-import './ProfileView.tmpl.js';
+import './ProfileSettingsView.tmpl.js';
 
 /**
- * Class Profile view.
+ * Profile settings view class
  */
-export default class ProfileView extends BaseView {
+export default class ProfileSettingsView extends BaseView {
     /**
-     * ProfileView view constructor.
+     * Profile settings view constructor.
      * @constructor
-     * @param {object} el - Root application div.
-     * @param {*} router
-     * @param {*} args
+     * @param {HTMLElement} el - Root application div.
+     * @param {EventBus} eventBus
      */
-    constructor(el, router, args) {
-        super(el, router, {});
-        this.args = args;
-    }
-
-    /**
-     * Validate all fields and
-     * send request to server
-     */
-    formSubmit() {
-        if (this.updateAllErrors()) {
-            this.changeParams();
-        }
+    constructor(el, eventBus) {
+        super(el, eventBus);
     }
 
     /**
@@ -45,33 +30,6 @@ export default class ProfileView extends BaseView {
     }
 
     /**
-     * Change user profile
-     */
-    changeParams() {
-        const formData = new FormData();
-        formData.append('username', document.getElementById('username').value);
-        formData.append('email', document.getElementById('email').value);
-        formData.append('fullName', document.getElementById('fullName').value);
-        formData.append('avatar', document.getElementById('imageInput').files[0]);
-
-        Network.profileSet(formData).then((response) => {
-            return response.json();
-        }).then((responseBody) => {
-            if (responseBody.status > 200) {
-                Rendering.printServerErrors(responseBody.codes);
-            } else {
-                userSession.setData(responseBody);
-                const profileSuccess = document.getElementById('emailError');
-                profileSuccess.className = 'changes-success';
-                profileSuccess.innerHTML = 'Данные изменены';
-                profileSuccess.hidden = false;
-            }
-
-            return responseBody;
-        });
-    }
-
-    /**
      * render all error divs
      * @return {boolean} - error
      */
@@ -81,6 +39,24 @@ export default class ProfileView extends BaseView {
         const fullNameError = Rendering.renderInputError('fullName', Validation.validateFullName());
         const emailError = Rendering.renderInputError('email', Validation.validateEmail());
         return usernameError && fullNameError && emailError && avatarError;
+    }
+
+    /**
+     * show server error
+     * @param {errorsDescription} error
+     */
+    showServerError(error) {
+        Rendering.printServerErrors(error);
+    }
+
+    /**
+     * show server success
+     */
+    showServerSuccess() {
+        const profileSuccess = document.getElementById('emailError');
+        profileSuccess.className = 'changes-success';
+        profileSuccess.innerHTML = 'Данные изменены';
+        profileSuccess.hidden = false;
     }
 
     /**
@@ -103,14 +79,17 @@ export default class ProfileView extends BaseView {
             }, false);
 
 
-        document.getElementById('profileForm')
-            .addEventListener('submit', this.formSubmit.bind(this), false);
-
         document.getElementById('imageInput')
             .addEventListener('change', Rendering.updateProfileImg.bind(Rendering), false);
 
+        document.getElementById('profileForm')
+            .addEventListener('submit', () => {
+                if (this.updateAllErrors()) {
+                    this.eventBus.emit('profileSettingsView:formSubmit', null);
+                }
+            }, false);
 
-        eventBus.on('userSession:set', (input) => {
+        this.eventBus.on('userSession:set', (input) => {
             this.setParams(input);
         });
     }
@@ -181,9 +160,8 @@ export default class ProfileView extends BaseView {
      * Render Profile view.
      */
     render() {
-        Navbar.navbarShow();
         const templateInput = this.templateJSONSetup();
-        this.el.innerHTML = window.fest['views/ProfileView/ProfileView.tmpl'](templateInput);
+        this.el.innerHTML = window.fest['components/ProfileSettings/ProfileSettingsView.tmpl'](templateInput);
         this.setParams(userSession.data);
         this.addEventListeners();
     }

@@ -1,7 +1,7 @@
 /**
  * Event bus
  */
-class EventBus {
+export default class EventBus {
     /**
      * event bus constructor
      */
@@ -33,9 +33,16 @@ class EventBus {
     }
 
     /**
+     * Unsubscribe from all events
+     */
+    offAll() {
+        this.listeners = {};
+    }
+
+    /**
      * emit the event
      * @param {string} event
-     * @param {callbackInput} data
+     * @param {*} data
      */
     emit(event, data) {
         if (!this.listeners.hasOwnProperty(event)) {
@@ -46,5 +53,3 @@ class EventBus {
         });
     }
 }
-
-export default new EventBus();

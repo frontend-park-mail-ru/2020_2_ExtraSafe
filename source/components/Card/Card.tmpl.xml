@@ -1,0 +1,25 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
+    <div class="card__container">
+
+        <div class="card__title__container">
+            <div class="card__title_text">
+                <fest:value>json.cardName</fest:value>
+            </div>
+            <img src="../../img/icons/dots.svg" class="card__title_dots-icon" alt="dots"/>
+        </div>
+
+        <div class="card__content__container">
+            <fest:for iterate="json.tasks" index="i" value="v">
+                <fest:include context="v" src="../Task/Task.tmpl.xml"/>
+            </fest:for>
+        </div>
+
+        <div class="card__content__add-new-task__container ">
+            <img src="../../img/icons/add.svg" class="card__content__add-new-task_icon" alt="add new task"/>
+            <div class="card__content__add-new-task_text">
+                Добавить задачу
+            </div>
+        </div>
+
+    </div>
+</fest:template>

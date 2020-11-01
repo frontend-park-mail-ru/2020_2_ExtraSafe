@@ -3,23 +3,21 @@ import Navbar from '../../components/Navbar/Navbar.js';
 import './HomeView.tmpl.js';
 
 /**
- * Class Home view.
+ * Home view
  */
 export default class HomeView extends BaseView {
     /**
-     * LoginView view constructor.
+     * Home view constructor
      * @constructor
-     * @param {object} el - Root application div.
-     * @param {*} router
-     * @param {*} args
+     * @param {HTMLElement} el - Root application div.
+     * @param {EventBus} eventBus
      */
-    constructor(el, router, args) {
-        super(el, router, {});
-        this.args = args;
+    constructor(el, eventBus) {
+        super(el, eventBus);
     }
 
     /**
-     * Render Login view.
+     * Render Home view.
      */
     render() {
         Navbar.navbarShow();

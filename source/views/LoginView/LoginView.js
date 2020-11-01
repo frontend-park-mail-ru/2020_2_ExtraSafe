@@ -1,6 +1,4 @@
 import BaseView from '../BaseView/BaseView.js';
-import Rendering from '../../utils/rendering.js';
-import Network from '../../utils/network.js';
 import Navbar from '../../components/Navbar/Navbar.js';
 import './LoginView.tmpl.js';
 
@@ -10,37 +8,11 @@ import './LoginView.tmpl.js';
 export default class LoginView extends BaseView {
     /**
      * LoginView view constructor.
-     * @constructor
-     * @param {object} el - Root application div.
-     * @param {*} router
-     * @param {*} args
+     * @param {HTMLElement} el - Root application div.
+     * @param {EventBus} eventBus
      */
-    constructor(el, router, args) {
-        super(el, router, {});
-        this.args = args;
-    }
-
-    /**
-     * Request to server
-     */
-    requestAuthorization() {
-        const user = {
-            email: document.getElementById('email').value,
-            password: document.getElementById('password').value,
-        };
-
-        Network.loginRequest(user).then((response) => {
-            if (response.ok) {
-                // this.router.isAuth = true;
-                this.router.open('/');
-            }
-            return response.json();
-        }).then((responseBody) => {
-            if (responseBody.status > 200) {
-                Rendering.printServerErrors(responseBody.codes);
-            }
-            return responseBody;
-        });
+    constructor(el, eventBus) {
+        super(el, eventBus);
     }
 
     /**
@@ -48,7 +20,9 @@ export default class LoginView extends BaseView {
      */
     addEventListeners() {
         document.getElementById('loginForm')
-            .addEventListener('submit', this.requestAuthorization.bind(this), false);
+            .addEventListener('submit', () => {
+                this.eventBus.emit('loginView:formSubmit', null);
+            }, false);
     }
 
     /**
@@ -69,6 +43,10 @@ export default class LoginView extends BaseView {
                             {
                                 name: 'autofocus',
                             },
+                            {
+                                name: 'autocomplete',
+                                value: 'username',
+                            },
                         ],
                     },
                 ],
@@ -82,6 +60,12 @@ export default class LoginView extends BaseView {
                         id: 'password',
                         placeholder: 'Введите пароль',
                         hasError: true,
+                        params: [
+                            {
+                                name: 'autocomplete',
+                                value: 'current-password',
+                            },
+                        ],
                     },
                 ],
             },

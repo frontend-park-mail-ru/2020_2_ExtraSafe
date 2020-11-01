@@ -1,4 +1,4 @@
-import eventBus from './eventBus.js';
+import globalEventBus from './globalEventBus.js';
 
 /**
  * Network
@@ -129,7 +129,7 @@ class Network {
         const url = this.serverAddr + '/logout/';
         return fetch(url, this.requestGet).then((response) => {
             if (response.ok) {
-                eventBus.emit('network:logout', null);
+                globalEventBus.emit('network:logout', null);
             }
         });
     }

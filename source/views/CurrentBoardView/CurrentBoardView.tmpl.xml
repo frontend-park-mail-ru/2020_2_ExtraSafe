@@ -1,0 +1,46 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
+    <div class="board-info__container">
+        <div class="board-info__left-side__container">
+            <div class="board-info__left-side__name-favorite__container">
+
+                <div class="board-info__left-side__name-favorite__board-name">
+                    <fest:value>json.boardName</fest:value>
+                </div>
+
+                <img src="../../img/icons/favorite.svg" class="board-info__left-side__name-favorite__favorite-icon"
+                     alt="favorite"/>
+            </div>
+
+            <div class="board-info__left-side__collaborators">
+                <fest:for iterate="json.boardCollaborators" index="i" value="v">
+                    <img src="{v.src}" class="board-info__left-side__collaborator" alt="collaborator"/>
+                </fest:for>
+            </div>
+        </div>
+
+        <div class="board-info__right-side__container">
+            <img src="../../img/icons/board_settings.svg" class="board-info__right-side__settings-icon" alt="settings"/>
+        </div>
+
+    </div>
+
+    <div class="scroll__cards__container">
+
+        <fest:for iterate="json.cards" index="i" value="v">
+            <fest:include context="v" src="../../components/Card/Card.tmpl.xml"/>
+        </fest:for>
+
+        <div class="new-card__container">
+            <div class="new-card__content__container">
+                <div class="new-card__title__container">
+                    <img src="../../img/icons/add_white.svg" class="new-card__title__icon_add-new" alt="add"/>
+
+                    <div class="new-card__title__text_add-new">
+                        Добавить колонку
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</fest:template>

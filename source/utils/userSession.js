@@ -1,5 +1,5 @@
 import network from './network.js';
-import eventBus from './eventBus.js';
+import globalEventBus from './globalEventBus.js';
 
 /**
  * User session
@@ -10,9 +10,12 @@ class UserSession {
      */
     constructor() {
         this.data = {};
+        this.accounts = {};
         this.resetData();
-        eventBus.on('network:logout', (input) => {
+        this.resetAccounts();
+        globalEventBus.on('network:logout', (input) => {
             this.resetData();
+            this.resetAccounts();
         });
     };
 
@@ -25,7 +28,7 @@ class UserSession {
         this.data.username = val.username;
         this.data.fullName = val.fullName;
         this.data.avatar = network.serverAddr + '/avatar/' + val.avatar;
-        eventBus.emit('userSession:set', this.data);
+        globalEventBus.emit('userSession:set', this.data);
     }
 
     /**
@@ -37,6 +40,34 @@ class UserSession {
             username: '',
             fullName: '',
             avatar: `default/default_avatar.png`,
+        });
+    }
+
+    /**
+     * Set data
+     * @param {json} val
+     */
+    setAccounts(val) {
+        this.accounts.telegram = val.telegram;
+        this.accounts.instagram = val.instagram;
+        this.accounts.github = val.github;
+        this.accounts.bitbucket = val.bitbucket;
+        this.accounts.vkontakte = val.vkontakte;
+        this.accounts.facebook = val.facebook;
+        globalEventBus.emit('userSession:setAccounts', this.accounts);
+    }
+
+    /**
+     * reset data to default values
+     */
+    resetAccounts() {
+        this.setAccounts({
+            telegram: '',
+            instagram: '',
+            github: '',
+            bitbucket: '',
+            vkontakte: '',
+            facebook: '',
         });
     }
 }
