@@ -5,10 +5,14 @@
     justify-content: space-evenly;
 
     width: 100%;
-    max-width: 836px;
-    flex-basis: 599px;
+    max-width: 840px;
+    flex-basis: 600px;
 
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+
+    background: white;
+
+    border-radius: 5px;
 }
 
 .navigation {
@@ -17,7 +21,6 @@
     align-items: start;
     justify-content: flex-start;
 
-    margin-left: 5px;
     width: 100%;
     max-width: 160px;
     height: 100%;
@@ -25,6 +28,8 @@
     border-right-style: solid;
     border-right-color: var(--input-border-color);
     border-width: 1px;
+
+    border-radius: 5px 0 0 5px;
 
     background-color: white;
 
@@ -65,7 +70,7 @@
     align-items: center;
     justify-content: space-evenly;
     width: 100%;
-    max-width: 676px;
+    max-width: 680px;
     height: 100%;
     background-color: white;
     border-radius: 0 5px 5px 0;
