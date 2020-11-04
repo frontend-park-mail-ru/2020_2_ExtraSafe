@@ -41,8 +41,17 @@
     font-weight: normal;
     font-size: 24px;
     line-height: 28px;
+    border: none;
+    background: none;
+    padding: 0 0 0 0;
+    margin-left: 20px;
 
     cursor: default;
+}
+.board-info__left-side__name-favorite__board-name:focus {
+    border-bottom-style: solid;
+    border-width: 1.5px;
+    outline: none;
 }
 
 .board-info__left-side__name-favorite__favorite-icon {
@@ -156,8 +165,19 @@
     line-height: 20px;
     text-indent: 15px;
     color: var(--light-grey);
+    border: none;
+    background: none;
+    padding: 0 0 0 0;
+    margin-left: 20px;
 
     cursor: pointer;
+}
+.card__title_text:focus {
+    border: none;
+    border-radius: 0;
+    border-bottom-style: solid;
+    border-bottom-color: white;
+    border-width: 1.5px;
 }
 
 /* иконка троеточия */
@@ -214,8 +234,6 @@
 
 /* текст (описание) задачи */
 .card__content__task_description {
-    display: flex;
-
     padding: 10px;
 
     font-family: Roboto, sans-serif;
@@ -224,6 +242,7 @@
     font-size: 15px;
     line-height: 17px;
     text-align: left;
+    min-height: 17px;
 }
 
 /* информация о задаче: дедлайн, количество выполненных подзадач, коллабораторы */
@@ -329,8 +348,8 @@
     flex-direction: row;
     justify-content: center;
 
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 14px;
+    margin-bottom: 13px;
 
     gap: 10px;
 

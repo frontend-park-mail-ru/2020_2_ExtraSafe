@@ -1,37 +1,45 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
-    <div class="card__content__task">
+    <div class="card__content__task" id="{json.taskID}">
 
-        <div class="card__content__task__color-labels">
-            <fest:for iterate="json.colorTags" index="i" value="v">
-                <div class="card__content__task__color-label" style="background: {v}"/>
-            </fest:for>
+<!--        <div class="card__content__task__color-labels">-->
+<!--            <fest:for iterate="json.colorTags" index="i" value="v">-->
+<!--                <div class="card__content__task__color-label" style="background: {v}"/>-->
+<!--            </fest:for>-->
+<!--        </div>-->
+
+        <div class="card__content__task_description" id="{json.taskNameID}" role="textarea">
+            <fest:attributes>
+                <fest:if test="json.contentEditable">
+                    <fest:attribute name="contenteditable">
+                        <fest:value>json.contentEditable</fest:value>
+                    </fest:attribute>
+                    <fest:attribute name="style">word-break: break-word</fest:attribute>
+                </fest:if>
+            </fest:attributes>
+            <fest:value>json.taskName</fest:value>
         </div>
 
-        <div class="card__content__task_description">
-            <fest:value>json.taskDescription</fest:value>
-        </div>
+<!--        <div class="card__content__task__footer_container">-->
 
-        <div class="card__content__task__footer_container">
+<!--            <div class="card__content__task__footer__task-info">-->
+<!--                <div class="card__content__task__footer__task-info_date">-->
+<!--                    <fest:value>json.taskDeadline</fest:value>-->
+<!--                </div>-->
 
-            <div class="card__content__task__footer__task-info">
-                <div class="card__content__task__footer__task-info_date">
-                    <fest:value>json.taskDeadline</fest:value>
-                </div>
+<!--                <div class="card__content__task__footer__task-info_progress">-->
+<!--                    <img src="../../img/icons/check.svg" class="card__content__task__footer__task-info__progress_icon"/>-->
+<!--                    <div class="card__content__task__footer__task-info__progress_count">-->
+<!--                        <fest:value>json.completedJobs</fest:value>/<fest:value>json.jobsCount</fest:value>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
 
-                <div class="card__content__task__footer__task-info_progress">
-                    <img src="../../img/icons/check.svg" class="card__content__task__footer__task-info__progress_icon"/>
-                    <div class="card__content__task__footer__task-info__progress_count">
-                        <fest:value>json.completedJobs</fest:value>/<fest:value>json.jobsCount</fest:value>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card__content__task__footer_collaborators">
-                <fest:for iterate="json.taskCollaborators" index="i" value="v">
-                    <img src="{v.src}" class="card__content__task__footer_collaborator"/>
-                </fest:for>
-            </div>
-        </div>
+<!--            <div class="card__content__task__footer_collaborators">-->
+<!--                <fest:for iterate="json.taskCollaborators" index="i" value="v">-->
+<!--                    <img src="{v.src}" class="card__content__task__footer_collaborator"/>-->
+<!--                </fest:for>-->
+<!--            </div>-->
+<!--        </div>-->
 
     </div>
 </fest:template>
