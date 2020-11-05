@@ -18,10 +18,24 @@ export default class TaskDetailedController extends BaseController {
     }
 
     /**
+     * Add all event listeners
+     */
+    addEventListeners() {
+        this.eventBus.on('taskDetailedView:updateTaskDescription', (newDescription) => {
+            this.model.updateTaskDescription(newDescription);
+        });
+        this.eventBus.on('taskDetailedView:updateTaskName', (newTaskName) => {
+            this.model.updateTaskName(newTaskName);
+        });
+    }
+
+    /**
      * Render task detailed view
      * @param {JSON} json
      */
     render(json) {
-        this.view.render();
+        this.model.task = json;
+        this.view.render(json);
+        this.addEventListeners();
     }
 }
