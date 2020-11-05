@@ -43,4 +43,89 @@
         </div>
 
     </div>
+
+
+    <!-- НАЧАЛО верстки изменения задачи -->
+
+   <!-- <div class="default-container">
+        <div class="edit-task__container">
+
+            <div class="edit-task__name__container">
+                <div class="edit-task__name_text" contenteditable="true"></div>
+            </div>
+
+            <div class="edit-task__all-info__container">
+
+                <div class="edit-task__info-collaborators-and-tag__container">
+                    <div class="edit-task__info-collaborators__container">
+                        <div class="edit-task__info_text">
+                            Участники
+                        </div>
+
+                        <div class="edit-task__info__elements">
+                            <img src="../source/img/egor.jpg" class="edit-task__info_collaborator" alt="collaborator">
+                            <img src="../source/img/egor.jpg" class="edit-task__info_collaborator" alt="collaborator">
+                            <img src="../source/img/egor.jpg" class="edit-task__info_collaborator" alt="collaborator">
+                        </div>
+                    </div>
+
+                    <div class="edit-task__info-tags__container">
+                        <div class="edit-task__info_text">
+                            Метки
+                        </div>
+
+                        <div class="edit-task__info__elements">
+                            <div class="edit-task__info__tag" style="background: #FF8080">
+                                <div class="edit-task__info__tag_text">
+                                    frontend
+                                </div>
+                            </div>
+
+                            <div class="edit-task__info__tag" style="background: #FFE380">
+                                <div class="edit-task__info__tag_text">
+                                    backend
+                                </div>
+                            </div>
+
+                            <div class="edit-task__info__tag" style="background: #B5F2EA">
+                                <div class="edit-task__info__tag_text">
+                                    product
+                                </div>
+                            </div>
+
+                            <div class="edit-task__info__tag" style="background: #C6D8FF">
+                                <div class="edit-task__info__tag_text">
+                                    faster
+                                </div>
+                            </div>
+
+                            <img src="../source/img/egor.jpg" class="edit-task__info_collaborator" alt="collaborator">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="edit-task__description__container">
+                    <div class="edit-task__description__title">
+                        Описание
+                    </div>
+
+                    <div class="edit-task__description__body">
+                        <div class="edit-task__description__body_text" contenteditable="true"></div>
+
+                        <div class="edit-task__description__footer">
+                            <button class="edit-task__description__save-button">
+                                Сохранить
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <img src="../source/img/icons/close.svg" class="edit-task__close" alt="close">
+        </div>
+    </div>-->
+
+    <!-- КОНЕЦ верстки изменения задачи -->
+
 </fest:template>
