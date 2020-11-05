@@ -76,6 +76,9 @@ export default class CurrentBoardView extends BaseView {
                 taskEl.addEventListener('focusout', () => {
                     this.updateTaskName(cardID, taskID);
                 }, false);
+                taskEl.addEventListener('click', () => {
+                    this.eventBus.emit('currentBoardView:openTaskDetailed', task);
+                }, false);
             }
         }
     }
