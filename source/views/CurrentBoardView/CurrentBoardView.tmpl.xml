@@ -7,15 +7,15 @@
                     <fest:value>json.boardName</fest:value>
                 </div>
 
-                <img src="../../img/icons/favorite.svg" class="board-info__left-side__name-favorite__favorite-icon"
-                     alt="favorite"/>
+<!--                <img src="../../img/icons/favorite.svg" class="board-info__left-side__name-favorite__favorite-icon"-->
+<!--                     alt="favorite"/>-->
             </div>
 
-            <div class="board-info__left-side__collaborators">
-                <fest:for iterate="json.boardCollaborators" index="i" value="v">
-                    <img src="{v.src}" class="board-info__left-side__collaborator" alt="collaborator"/>
-                </fest:for>
-            </div>
+<!--            <div class="board-info__left-side__collaborators">-->
+<!--                <fest:for iterate="json.boardCollaborators" index="i" value="v">-->
+<!--                    <img src="{v.src}" class="board-info__left-side__collaborator" alt="collaborator"/>-->
+<!--                </fest:for>-->
+<!--            </div>-->
         </div>
 
         <div class="board-info__right-side__container">

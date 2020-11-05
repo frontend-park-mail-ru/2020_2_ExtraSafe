@@ -49,7 +49,7 @@ export default class CurrentBoardView extends BaseView {
      */
     updateCardName(cardID) {
         const cardJSON = this.cards[cardID].templateJSON;
-        cardJSON.cardName = document.getElementById(cardJSON.cardNameID).value;
+        cardJSON.cardName = document.getElementById(cardJSON.cardNameID).innerHTML;
     }
 
     /**

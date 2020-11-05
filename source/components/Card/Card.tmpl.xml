@@ -2,7 +2,9 @@
     <div class="card__container" id="{json.cardID}">
 
         <div class="card__title__container">
-            <input class="card__title_text" id="{json.cardNameID}" value="{json.cardName}"/>
+            <div class="card__title_text" id="{json.cardNameID}" contenteditable="true">
+                <fest:value>json.cardName</fest:value>
+            </div>
             <img src="../../img/icons/dots.svg" class="card__title_dots-icon" alt="dots"/>
         </div>
 
