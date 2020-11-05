@@ -1,8 +1,8 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
-    <div class="card__container">
+    <div class="card__container" id="{json.cardID}">
 
         <div class="card__title__container">
-            <div class="card__title_text">
+            <div class="card__title_text" id="{json.cardNameID}" contenteditable="true">
                 <fest:value>json.cardName</fest:value>
             </div>
             <img src="../../img/icons/dots.svg" class="card__title_dots-icon" alt="dots"/>
@@ -14,7 +14,7 @@
             </fest:for>
         </div>
 
-        <div class="card__content__add-new-task__container ">
+        <div class="card__content__add-new-task__container" id="{json.addTaskID}" >
             <img src="../../img/icons/add.svg" class="card__content__add-new-task_icon" alt="add new task"/>
             <div class="card__content__add-new-task_text">
                 Добавить задачу

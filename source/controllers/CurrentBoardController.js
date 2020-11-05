@@ -1,6 +1,7 @@
 import BaseController from './BaseController.js';
 import CurrentBoardView from '../views/CurrentBoardView/CurrentBoardView.js';
 import CurrentBoardModel from '../models/CurrentBoardModel.js';
+import TaskDetailedController from '../components/TaskDetailed/TaskDetailedController.js';
 
 /**
  * Current board controller
@@ -23,7 +24,11 @@ export default class CurrentBoardController extends BaseController {
     /**
      * Add all event listeners
      */
-    addEventListeners() {}
+    addEventListeners() {
+        this.eventBus.on('currentBoardView:openTaskDetailed', (task) => {
+            this.taskDetailed.render(task);
+        });
+    }
 
     /**
      * Render view
@@ -31,5 +36,6 @@ export default class CurrentBoardController extends BaseController {
     render() {
         super.render();
         this.view.render();
+        this.taskDetailed = new TaskDetailedController(document.getElementById('taskDetailed'), this.router);
     }
 }
