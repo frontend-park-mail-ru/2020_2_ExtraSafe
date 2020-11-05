@@ -97,6 +97,7 @@
 
 .edit-task__info-collaborators-and-tags__container {
     display: flex;
+    justify-content: flex-end;
     flex-direction: row;
     width: 100%;
     max-width: 540px;
