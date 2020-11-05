@@ -11,6 +11,12 @@ class Validation {
         this.passwordRegExp = new RegExp('^[a-zA-Z0-9~!@#$%^&*-_+=`|(){}:;"\'<>,.?/]+$');
         this.usernameRegExp = new RegExp('^[a-zA-Z0-9_]+$');
         this.fullNameRegExp = new RegExp('^[a-zA-Zа-яА-Я _]+$');
+        this.githubRegExp = new RegExp('^[a-z\\d](?:[a-z\\d]|-(?=[a-z\\d])){0,38}$');
+        this.telegramRegExp = new RegExp('^[a-zA-Z0-9_]{5,32}$');
+        this.instagramRegExp = new RegExp('^[a-zA-Z0-9_.]{2,40}$');
+        // this.vkRegExp = new RegExp('');
+        // this.bitbucketRegExp = new RegExp('');
+        this.facebookRegExp = new RegExp('^[a-z\\d.]{5,}$');
         // this.lowerCaseRegExp = new RegExp('[a-z]+');
         // this.upperCaseRegExp = new RegExp('[A-Z]+');
         // this.numbersRegExp = new RegExp('[0-9]+');
@@ -155,6 +161,70 @@ class Validation {
                 };
             }
         } catch (err) {}
+        return {result: true};
+    }
+
+    /**
+     * validate telegram username
+     * @return {{result: boolean}|{result: boolean, message: string}}
+     */
+    validateTelegram() {
+        const telegram = document.getElementById('telegram').value;
+        if (!this.telegramRegExp.test(telegram)) {
+            return {
+                result: false,
+                message: 'некорректное имя пользователя',
+            };
+        }
+
+        return {result: true};
+    }
+
+    /**
+     * validate instagram username
+     * @return {{result: boolean}|{result: boolean, message: string}}
+     */
+    validateInstagram() {
+        const instagram = document.getElementById('instagram').value;
+        if (!this.instagramRegExp.test(instagram)) {
+            return {
+                result: false,
+                message: 'некорректное имя пользователя',
+            };
+        }
+
+        return {result: true};
+    }
+
+    /**
+     * validate github username
+     * @return {{result: boolean}|{result: boolean, message: string}}
+     */
+    validateGithub() {
+        const github = document.getElementById('github').value;
+        if (!this.githubRegExp.test(github)) {
+            return {
+                result: false,
+                message: 'некорректное имя пользователя',
+            };
+        }
+
+        return {result: true};
+    }
+
+    /**
+     * validate telegram username
+     * @return {{result: boolean}|{result: boolean, message: string}}
+     */
+    validateFacebook() {
+        const facebook = document.getElementById('facebook').value;
+        if (!this.facebookRegExp.test(facebook)) {
+            return {
+                result: false,
+                message: 'некорректное имя пользователя',
+            };
+        }
+
         return {result: true};
     }
 }
