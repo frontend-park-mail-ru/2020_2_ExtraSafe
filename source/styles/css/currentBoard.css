@@ -111,6 +111,8 @@
     display: flex;
     flex-wrap: nowrap;
 
+    overflow: hidden;
+
     margin: 20px 35px 0 35px;
 
     overflow-x: auto;
