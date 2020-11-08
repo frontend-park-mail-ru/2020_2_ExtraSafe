@@ -19,6 +19,7 @@ export default class TaskModel {
             taskID: `${cardNumber}Task${taskNumber}`,
             taskNameID: `${cardNumber}Task${taskNumber}Name`,
             contentEditable: task.contentEditable,
+            isInitialized: task.isInitialized,
         };
         this.taskJSON = {
             boardID: task.boardID,
@@ -37,6 +38,7 @@ export default class TaskModel {
     updateTaskName(newName) {
         this.task.taskName = newName;
         this.task.contentEditable = 'false';
+        this.task.isInitialized = true;
 
         this.eventBus.emit('taskModel:taskNameUpdated', this.task);
     }

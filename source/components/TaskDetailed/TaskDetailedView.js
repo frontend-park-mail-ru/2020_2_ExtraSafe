@@ -17,8 +17,9 @@ export default class TaskDetailedView extends BaseView {
 
     /**
      * add all event listeners
+     * @param {JSON} json
      */
-    addEventListeners() {
+    addEventListeners(json) {
         document.getElementById('closeTask').addEventListener('click', () => {
             this.el.style.display = 'none';
             globalEventBus.emit('taskDetailedView:closed', null);
@@ -28,8 +29,14 @@ export default class TaskDetailedView extends BaseView {
             this.eventBus.emit('taskDetailedView:updateTaskDescription', description);
         });
         document.getElementById('taskName').addEventListener('focusout', () => {
-            const taskName = document.getElementById('taskName').innerHTML;
-            this.eventBus.emit('taskDetailedView:updateTaskName', taskName);
+            const el = document.getElementById('taskName');
+            const taskName = el.innerHTML;
+            // TODO: сделать проверку на название из пробелов
+            if (taskName === '') {
+                el.innerHTML = json.taskName;
+            } else {
+                this.eventBus.emit('taskDetailedView:updateTaskName', taskName);
+            }
         });
         document.getElementById('deleteTask').addEventListener('click', () => {
             this.el.style.display = 'none';
@@ -44,6 +51,6 @@ export default class TaskDetailedView extends BaseView {
     render(json) {
         this.el.style.display = 'flex';
         this.el.innerHTML = window.fest['components/TaskDetailed/TaskDetailedView.tmpl'](json);
-        this.addEventListeners();
+        this.addEventListeners(json);
     }
 }

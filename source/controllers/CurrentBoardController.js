@@ -26,7 +26,7 @@ export default class CurrentBoardController extends BaseController {
      */
     addEventListeners() {
         this.eventBus.on('currentBoardView:addNewCard', (cardsDiv) => {
-            this.model.addNewCard(cardsDiv, this.router);
+            this.model.addNewCard(cardsDiv);
         });
         this.eventBus.on('currentBoardModel:cardAdded', (newCard) => {
             this.view.renderCard(newCard);
@@ -49,6 +49,6 @@ export default class CurrentBoardController extends BaseController {
     render() {
         super.render();
         this.view.render();
-        this.taskDetailed = new TaskDetailedController(document.getElementById('taskDetailed'), this.router);
+        this.taskDetailed = new TaskDetailedController(document.getElementById('taskDetailed'));
     }
 }

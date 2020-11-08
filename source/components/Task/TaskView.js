@@ -24,7 +24,13 @@ export default class TaskView extends BaseView {
         const taskEl = document.getElementById(taskJSON.taskNameID);
         taskEl.addEventListener('focusout', () => {
             const newName = taskEl.innerHTML;
-            this.eventBus.emit('taskView:updateTaskName', newName);
+            // TODO: сделать проверку на название из пробелов
+            if (newName === '') {
+                // TODO: добавить удаление объекта
+                document.getElementById(taskJSON.taskID).remove();
+            } else {
+                this.eventBus.emit('taskView:updateTaskName', newName);
+            }
         }, false);
         if (taskJSON.contentEditable === 'false') {
             taskEl.addEventListener('click', () => {

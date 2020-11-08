@@ -21,6 +21,7 @@ export default class CardModel {
             addTaskID: `addTask${cardNumber}`,
             tasksDiv: `tasksDiv${cardNumber}`,
             tasks: [],
+            isInitialized: card.isInitialized,
         };
         this.cardJSON = {
             boardID: card.boardID,
@@ -35,6 +36,7 @@ export default class CardModel {
             taskName: '',
             taskDescription: '',
             contentEditable: 'true',
+            isInitialized: false,
         };
     }
 
@@ -52,6 +54,7 @@ export default class CardModel {
                 cardID: this.card.cardID,
                 taskDescription: task.description,
                 contentEditable: 'false',
+                isInitialized: true,
             };
             this.addNewTask(this.tasksDiv, taskObj);
         }
@@ -63,6 +66,7 @@ export default class CardModel {
      */
     updateCardName(newName) {
         this.card.cardName = newName;
+        this.card.isInitialized = true;
     }
 
     /**

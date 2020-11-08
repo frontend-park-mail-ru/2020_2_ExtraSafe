@@ -22,7 +22,17 @@ export default class CardView extends BaseView {
     addEventListeners(cardJSON) {
         document.getElementById(cardJSON.cardNameID).addEventListener('focusout', (event) => {
             const newName = event.target.innerHTML;
-            this.eventBus.emit('cardView:updateCardName', newName);
+            // TODO: сделать проверку на название из пробелов
+            if (newName === '') {
+                if (cardJSON.isInitialized) {
+                    event.target.innerHTML = cardJSON.cardName;
+                } else {
+                    // TODO: добавить удаление объекта
+                    document.getElementById(cardJSON.cardID).remove();
+                }
+            } else {
+                this.eventBus.emit('cardView:updateCardName', newName);
+            }
         });
         document.getElementById(cardJSON.addTaskID).addEventListener('click', () => {
             this.eventBus.emit('cardView:addNewTask', this.tasksDiv);

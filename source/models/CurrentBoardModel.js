@@ -21,6 +21,7 @@ export default class CurrentBoardModel {
             boardID: '',
             cardID: '',
             cardName: '',
+            isInitialized: false,
         };
     }
 
@@ -51,6 +52,7 @@ export default class CurrentBoardModel {
                 boardID: this.board.boardID,
                 cardID: card.cardID,
                 cardName: card.name,
+                isInitialized: true,
             };
             const newCard = this.addNewCard(this.cardsDiv, cardObj);
             newCard.addTasksFromJSON(card.tasks);
@@ -90,26 +92,6 @@ export default class CurrentBoardModel {
     updateCardName(cardID, newName) {
         const id = getIDFromString(cardID) - 1;
         this.board.cards[id].taskName = newName;
-    }
-
-    /**
-     * add new task
-     * @param {string} cardID
-     */
-    addNewTask(cardID) {
-        const id = ++this.board.cards[cardID].tasksCount;
-        const taskID = `${cardID}Task${id}`;
-        const taskNameID = `${taskID}Name`;
-
-        const newTaskJSON = {
-            taskName: '',
-            taskID: taskID,
-            taskNameID: taskNameID,
-            contentEditable: 'true',
-        };
-        this.board.cards[getIDFromString(cardID)].tasks.push(newTaskJSON);
-
-        this.eventBus.emit('currentBoardModel:taskAdded', newTaskJSON);
     }
 
     /**

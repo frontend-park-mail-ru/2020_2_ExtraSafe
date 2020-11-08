@@ -26,6 +26,7 @@ export default class HomeController extends BaseController {
     addEventListeners() {
         this.eventBus.on('homeView:addBoard', (boardsDiv) => {
             this.model.addNewBoard(boardsDiv);
+            // TODO: открыть страницу новой доски, но только при создании пользователем
         });
         this.eventBus.on('homeModel:boardAdded', (board) => {
             this.view.renderBoard(board);
