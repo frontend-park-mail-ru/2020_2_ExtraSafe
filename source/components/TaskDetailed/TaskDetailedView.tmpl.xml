@@ -49,7 +49,7 @@
 <!--                    </div>-->
 <!--                </div>-->
 
-                <img src="../../img/icons/bin.svg" class="edit-task__delete-task_icon" alt="delete task"/>
+                <img src="../../img/icons/bin.svg" class="edit-task__delete-task_icon" id="deleteTask" alt="delete task"/>
             </div>
 
             <div class="edit-task__description__container">

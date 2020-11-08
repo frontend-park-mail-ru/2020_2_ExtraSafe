@@ -26,6 +26,7 @@ export default class TaskDetailedController extends BaseController {
         });
         this.eventBus.on('taskDetailedView:updateTaskName', (newTaskName) => {
             this.model.updateTaskName(newTaskName);
+            this.eventBus.emit('taskDetailedController:taskNameUpdated', null);
         });
     }
 
