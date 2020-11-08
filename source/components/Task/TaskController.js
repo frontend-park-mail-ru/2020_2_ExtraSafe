@@ -2,7 +2,6 @@ import BaseController from '../../controllers/BaseController.js';
 import TaskView from './TaskView.js';
 import TaskModel from './TaskModel.js';
 import TaskDetailedController from '../TaskDetailed/TaskDetailedController.js';
-import globalEventBus from '../../utils/globalEventBus.js';
 
 /**
  * Task controller
@@ -20,7 +19,7 @@ export default class TaskController extends BaseController {
     constructor(el, router, cardNumber) {
         super(el, router);
         this.view = new TaskView(el, this.eventBus);
-        this.model = new TaskModel(this.eventBus, cardNumber);
+        this.model = new TaskModel(this.eventBus, cardNumber, el.id);
         const taskDetailedDiv = document.getElementById('taskDetailed');
         this.taskDetailed = new TaskDetailedController(taskDetailedDiv, router);
     }
@@ -41,8 +40,15 @@ export default class TaskController extends BaseController {
         this.taskDetailed.eventBus.on('taskDetailedController:taskNameUpdated', () => {
             this.view.updateTaskName(this.model.task);
         });
+        this.taskDetailed.eventBus.on('taskDetailedView:deleteTask', () => {
+            this.view.deleteTask(this.model.task);
+            delete this;
+        });
     }
 
+    /**
+     * Render task
+     */
     render() {
         this.view.render(this.model.task);
         this.addEventListeners();

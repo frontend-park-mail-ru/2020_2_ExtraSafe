@@ -31,6 +31,10 @@ export default class TaskDetailedView extends BaseView {
             const taskName = document.getElementById('taskName').innerHTML;
             this.eventBus.emit('taskDetailedView:updateTaskName', taskName);
         });
+        document.getElementById('deleteTask').addEventListener('click', () => {
+            this.el.style.display = 'none';
+            this.eventBus.emit('taskDetailedView:deleteTask', null);
+        });
     }
 
     /**

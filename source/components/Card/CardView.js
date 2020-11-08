@@ -15,6 +15,10 @@ export default class CardView extends BaseView {
         super(el, eventBus);
     }
 
+    /**
+     * Add all event listeners
+     * @param {JSON} cardJSON
+     */
     addEventListeners(cardJSON) {
         document.getElementById(cardJSON.cardNameID).addEventListener('focusout', (event) => {
             const newName = event.target.innerHTML;
@@ -28,14 +32,22 @@ export default class CardView extends BaseView {
         });
     }
 
+    /**
+     * Render task
+     * @param {TaskController} task
+     */
     renderTask(task) {
         task.render();
     }
 
+    /**
+     * Render card
+     * @param {JSON} cardJSON
+     */
     render(cardJSON) {
         const html = window.fest['components/Card/Card.tmpl'](cardJSON);
         this.el.appendChild(...rendering.createElementsFromTmpl(html));
-        this.tasksDiv = document.getElementById('tasksDiv');
+        this.tasksDiv = document.getElementById(cardJSON.tasksDiv);
         this.addEventListeners(cardJSON);
         document.getElementById(cardJSON.cardNameID).focus();
     }

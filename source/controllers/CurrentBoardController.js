@@ -2,7 +2,6 @@ import BaseController from './BaseController.js';
 import CurrentBoardView from '../views/CurrentBoardView/CurrentBoardView.js';
 import CurrentBoardModel from '../models/CurrentBoardModel.js';
 import TaskDetailedController from '../components/TaskDetailed/TaskDetailedController.js';
-import globalEventBus from '../utils/globalEventBus.js';
 
 /**
  * Current board controller

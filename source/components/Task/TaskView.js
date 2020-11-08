@@ -16,6 +16,10 @@ export default class TaskView extends BaseView {
         super(el, eventBus);
     }
 
+    /**
+     * Add all event listeners
+     * @param {JSON} taskJSON
+     */
     addEventListeners(taskJSON) {
         const taskEl = document.getElementById(taskJSON.taskNameID);
         taskEl.addEventListener('focusout', () => {
@@ -37,10 +41,26 @@ export default class TaskView extends BaseView {
         }, false);
     }
 
+    /**
+     * Update task name view
+     * @param {JSON} taskJSON
+     */
     updateTaskName(taskJSON) {
         document.getElementById(taskJSON.taskNameID).innerHTML = taskJSON.taskName;
     }
 
+    /**
+     * Delete task view
+     * @param {JSON} taskJSON
+     */
+    deleteTask(taskJSON) {
+        document.getElementById(taskJSON.taskID).remove();
+    }
+
+    /**
+     * Render task
+     * @param {JSON} taskJSON
+     */
     render(taskJSON) {
         const html = window.fest['components/Task/Task.tmpl'](taskJSON);
         this.el.appendChild(...rendering.createElementsFromTmpl(html));

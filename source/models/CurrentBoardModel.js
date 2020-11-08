@@ -1,8 +1,8 @@
+import CardController from '../components/Card/CardController.js';
+
 /**
  * Current board model
  */
-import CardController from '../components/Card/CardController.js';
-
 export default class CurrentBoardModel {
     /**
      * Current board model constructor
@@ -20,8 +20,8 @@ export default class CurrentBoardModel {
 
     /**
      * Add new card
-     * @param cardsDiv
-     * @param router
+     * @param {HTMLElement} cardsDiv
+     * @param {Router} router
      */
     addNewCard(cardsDiv, router) {
         const newCard = new CardController(cardsDiv, router, this.board.cards.length);

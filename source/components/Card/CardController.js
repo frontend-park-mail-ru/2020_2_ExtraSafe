@@ -25,9 +25,6 @@ export default class CardController extends BaseController {
      * Add all event listeners
      */
     addEventListeners() {
-        // this.eventBus.on('currentBoardModel:cardAdded', (newCardJSON) => {
-        //     this.view.renderCard(newCardJSON);
-        // });
         this.eventBus.on('cardView:updateCardName', (newName) => {
             this.model.updateCardName(newName);
         });
@@ -39,6 +36,9 @@ export default class CardController extends BaseController {
         });
     }
 
+    /**
+     * Render card
+     */
     render() {
         this.view.render(this.model.card);
         this.addEventListeners();

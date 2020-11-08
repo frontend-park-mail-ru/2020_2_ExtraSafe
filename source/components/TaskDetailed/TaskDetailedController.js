@@ -1,7 +1,6 @@
 import BaseController from '../../controllers/BaseController.js';
 import TaskDetailedModel from './TaskDetailedModel.js';
 import TaskDetailedView from './TaskDetailedView.js';
-import globalEventBus from '../../utils/globalEventBus.js';
 
 /**
  * Task detailed controller
