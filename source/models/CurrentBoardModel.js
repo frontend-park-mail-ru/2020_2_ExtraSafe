@@ -1,4 +1,5 @@
 import CardController from '../components/Card/CardController.js';
+import network from '../utils/network.js';
 
 /**
  * Current board model
@@ -19,15 +20,51 @@ export default class CurrentBoardModel {
     }
 
     /**
+     * send request to server to get data of board
+     */
+    getBoardData() {
+        network.boardGet('1').then((response) => {
+            return response.json();
+        }).then((responseBody) => {
+            if (responseBody.status > 200) {
+                this.eventBus.emit('currentBoardModel:getBoardFailed', responseBody.codes);
+            } else {
+                this.eventBus.emit('currentBoardModel:getBoardSuccess', responseBody);
+            }
+            return responseBody;
+        });
+    }
+
+    /**
+     *
+     * @param cardsJSON
+     */
+    addCardsFromJSON(cardsJSON) {
+        for (const card of cardsJSON) {
+            const newCard = this.addNewCard(this.cardsDiv, card.cardID, card.name);
+            newCard.addTasksFromJSON(card.tasks);
+        }
+    }
+
+    setBoardData(responseJSON) {
+        this.board.boardID = responseJSON.boardID;
+        this.board.boardName = responseJSON.name;
+        this.addCardsFromJSON(responseJSON.cards);
+        this.eventBus.emit('currentBoardModel:boardDataSet', this.board);
+    }
+
+    /**
      * Add new card
      * @param {HTMLElement} cardsDiv
-     * @param {Router} router
+     * @param {string} cardID
+     * @param {string} cardName
      */
-    addNewCard(cardsDiv, router) {
-        const newCard = new CardController(cardsDiv, router, this.board.cards.length);
+    addNewCard(cardsDiv, cardID = '', cardName = '') {
+        const newCard = new CardController(cardsDiv, this.board.cards.length, cardID, cardName);
         this.board.cards.push(newCard);
 
         this.eventBus.emit('currentBoardModel:cardAdded', newCard);
+        return newCard;
     }
 
     /**

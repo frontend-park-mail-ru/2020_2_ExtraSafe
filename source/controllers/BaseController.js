@@ -12,7 +12,7 @@ export default class BaseController {
      * @param {HTMLElement} el
      * @param {Router} router
      */
-    constructor(el, router) {
+    constructor(el, router = undefined) {
         this.el = el;
         this.router = router;
         this.eventBus = new EventBus();

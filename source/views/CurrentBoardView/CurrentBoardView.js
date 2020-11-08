@@ -64,6 +64,10 @@ export default class CurrentBoardView extends BaseView {
         }
     }
 
+    updateBoardName(boardJSON) {
+        document.getElementById('boardName').innerHTML = boardJSON.boardName;
+    }
+
     /**
      * add all event listeners
      */
@@ -95,5 +99,6 @@ export default class CurrentBoardView extends BaseView {
         const templateInput = this.templateJSONSetup();
         this.el.innerHTML = window.fest['views/CurrentBoardView/CurrentBoardView.tmpl'](templateInput);
         this.addEventListeners();
+        this.eventBus.emit('currentBoardView:addCardsFromServer', this.cardsDiv);
     }
 }

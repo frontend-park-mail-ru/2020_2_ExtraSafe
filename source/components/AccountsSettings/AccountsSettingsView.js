@@ -1,8 +1,8 @@
 import BaseView from '../../views/BaseView/BaseView.js';
 import './AccountsSettingsView.tmpl.js';
 import userSession from '../../utils/userSession.js';
-import Rendering from '../../utils/rendering';
-import Validation from '../../utils/validation';
+import Rendering from '../../utils/rendering.js';
+import Validation from '../../utils/validation.js';
 
 /**
  * Accounts settings view

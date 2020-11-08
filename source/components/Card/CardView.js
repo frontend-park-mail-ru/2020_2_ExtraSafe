@@ -50,5 +50,6 @@ export default class CardView extends BaseView {
         this.tasksDiv = document.getElementById(cardJSON.tasksDiv);
         this.addEventListeners(cardJSON);
         document.getElementById(cardJSON.cardNameID).focus();
+        this.eventBus.emit('cardView:addTasksFromServer', this.tasksDiv);
     }
 }
