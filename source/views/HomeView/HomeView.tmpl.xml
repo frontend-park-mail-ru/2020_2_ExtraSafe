@@ -46,7 +46,21 @@
                     </div>
                 </div>
 
-                <div class="boards__container" id="boardsDiv"/>
+                <div class="boards__container">
+                    <div id="boardsDiv" style="display: contents"/>
+
+<!--                    TODO: сверстать добавление доски-->
+                    <div class="board__container">
+                        <div class="board__title__container" id="addBoard" style="justify-content: center">
+                            <img src="../../img/icons/add_white.svg" class="new-card__title__icon_add-new" alt="add"/>
+
+                            <div class="board__title_text">
+                                Добавить доску
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

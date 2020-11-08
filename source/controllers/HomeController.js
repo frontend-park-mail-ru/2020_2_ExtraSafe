@@ -23,7 +23,14 @@ export default class HomeController extends BaseController {
     /**
      * Add all event listeners
      */
-    addEventListeners() {}
+    addEventListeners() {
+        this.eventBus.on('homeView:addBoard', (boardsDiv) => {
+            this.model.addNewBoard(boardsDiv);
+        });
+        this.eventBus.on('homeModel:boardAdded', (board) => {
+            this.view.renderBoard(board);
+        });
+    }
 
     /**
      * Render view

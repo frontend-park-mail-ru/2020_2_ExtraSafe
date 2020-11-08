@@ -17,10 +17,29 @@ export default class HomeView extends BaseView {
     }
 
     /**
+     * Render board view
+     * @param {BoardController} board
+     */
+    renderBoard(board) {
+        board.render();
+    }
+
+    /**
+     * Add all event listeners
+     */
+    addEventListeners() {
+        document.getElementById('addBoard').addEventListener('click', () => {
+            this.eventBus.emit('homeView:addBoard', this.boardsDiv);
+        });
+    }
+
+    /**
      * Render Home view.
      */
     render() {
         Navbar.navbarShow();
         this.el.innerHTML = window.fest['views/HomeView/HomeView.tmpl']();
+        this.boardsDiv = document.getElementById('boardsDiv');
+        this.addEventListeners();
     }
 }
