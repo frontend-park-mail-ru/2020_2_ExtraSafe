@@ -16,7 +16,7 @@ export default class TaskView extends BaseView {
         super(el, eventBus);
     }
 
-    addEventListeners(taskJSON){
+    addEventListeners(taskJSON) {
         const taskEl = document.getElementById(taskJSON.taskNameID);
         taskEl.addEventListener('focusout', () => {
             const newName = taskEl.innerHTML;

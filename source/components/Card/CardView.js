@@ -15,7 +15,7 @@ export default class CardView extends BaseView {
         super(el, eventBus);
     }
 
-    addEventListeners(cardJSON){
+    addEventListeners(cardJSON) {
         document.getElementById(cardJSON.cardNameID).addEventListener('focusout', (event) => {
             const newName = event.target.innerHTML;
             this.eventBus.emit('cardView:updateCardName', newName);
