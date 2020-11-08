@@ -5,7 +5,7 @@ import TaskDetailedController from '../TaskDetailed/TaskDetailedController.js';
 
 /**
  * Task controller
- * @typedef {Object} CardController
+ * @typedef {Object} TaskController
  * @extends BaseController
  */
 export default class TaskController extends BaseController {
