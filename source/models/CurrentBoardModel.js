@@ -36,8 +36,8 @@ export default class CurrentBoardModel {
     }
 
     /**
-     *
-     * @param cardsJSON
+     * create cards from server
+     * @param {[JSON]}cardsJSON
      */
     addCardsFromJSON(cardsJSON) {
         for (const card of cardsJSON) {
@@ -46,6 +46,10 @@ export default class CurrentBoardModel {
         }
     }
 
+    /**
+     * set board params received from server
+     * @param {JSON} responseJSON
+     */
     setBoardData(responseJSON) {
         this.board.boardID = responseJSON.boardID;
         this.board.boardName = responseJSON.name;
@@ -58,6 +62,7 @@ export default class CurrentBoardModel {
      * @param {HTMLElement} cardsDiv
      * @param {string} cardID
      * @param {string} cardName
+     * @return {CardController}
      */
     addNewCard(cardsDiv, cardID = '', cardName = '') {
         const newCard = new CardController(cardsDiv, this.board.cards.length, cardID, cardName);

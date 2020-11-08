@@ -64,6 +64,10 @@ export default class CurrentBoardView extends BaseView {
         }
     }
 
+    /**
+     * update board name
+     * @param {JSON} boardJSON
+     */
     updateBoardName(boardJSON) {
         document.getElementById('boardName').innerHTML = boardJSON.boardName;
     }

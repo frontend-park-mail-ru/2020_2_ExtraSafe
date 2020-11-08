@@ -41,8 +41,8 @@ export default class CardController extends BaseController {
     }
 
     /**
-     *
-     * @param tasksJSON
+     * create tasks from server
+     * @param {JSON} tasksJSON
      */
     addTasksFromJSON(tasksJSON) {
         this.model.addTasksFromJSON(tasksJSON);
