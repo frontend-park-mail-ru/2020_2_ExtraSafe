@@ -1,4 +1,5 @@
 import TaskController from '../Task/TaskController.js';
+import network from '../../utils/network.js';
 
 /**
  * Card model
@@ -8,13 +9,12 @@ export default class CardModel {
      * Card model constructor
      * @param {EventBus} eventBus
      * @param {number} cardNumber
-     * @param {string} cardID
-     * @param {string} cardName
+     * @param {object} card
      */
-    constructor(eventBus, cardNumber, cardID = '', cardName = '') {
+    constructor(eventBus, cardNumber, card) {
         this.eventBus = eventBus;
         this.card = {
-            cardName: cardName,
+            cardName: card.cardName,
             cardID: `card${cardNumber}`,
             cardNameID: `cardName${cardNumber}`,
             cardSettingsID: `cardSettings${cardNumber}`,
@@ -23,10 +23,18 @@ export default class CardModel {
             tasks: [],
         };
         this.cardJSON = {
-            cardID: cardID,
-            name: '',
+            boardID: card.boardID,
+            cardID: card.cardID,
+            name: card.cardName,
             order: undefined,
-            tasks: [],
+        };
+        this.newTask = {
+            boardID: card.boardID,
+            taskID: '',
+            cardID: card.cardID,
+            taskName: '',
+            taskDescription: '',
+            contentEditable: 'true',
         };
     }
 
@@ -35,8 +43,17 @@ export default class CardModel {
      * @param {[JSON]} tasksJSON
      */
     addTasksFromJSON(tasksJSON) {
+        // TODO - сделать обработку ситуации, когда нет тасков
         for (const task of tasksJSON) {
-            this.addNewTask(this.tasksDiv, task.taskID, task.name, task.description, 'false');
+            const taskObj = {
+                boardID: this.cardJSON.boardID,
+                taskID: task.taskID,
+                taskName: task.name,
+                cardID: this.card.cardID,
+                taskDescription: task.description,
+                contentEditable: 'false',
+            };
+            this.addNewTask(this.tasksDiv, taskObj);
         }
     }
 
@@ -49,19 +66,63 @@ export default class CardModel {
     }
 
     /**
+     * delete card on server
+     */
+    deleteCard() {
+        network.cardDelete(this.cardJSON.cardID);
+    }
+
+    /**
      * Add new task data
      * @param {HTMLElement} tasksDiv
-     * @param {string} taskID
-     * @param {string} taskName
-     * @param {string} taskDescription
-     * @param {string} contentEditable
+     * @param {object} task
      */
-    addNewTask(tasksDiv, taskID = '', taskName = '', taskDescription = '',
-        contentEditable = 'true') {
-        const newTask = new TaskController(tasksDiv, this.card.tasks.length, taskID, taskName, taskDescription,
-            contentEditable);
+    addNewTask(tasksDiv, task = this.newTask) {
+        const newTask = new TaskController(tasksDiv, this.card.tasks.length, task);
         this.card.tasks.push(newTask);
 
         this.eventBus.emit('cardModel:taskAdded', newTask);
+    }
+
+    /**
+     * send request to server with new card
+     */
+    createCardForServer() {
+        const data = {
+            boardID: this.cardJSON.boardID,
+            cardID: this.cardJSON.cardID,
+            name: this.card.cardName,
+        };
+        network.cardCreate(data, this.cardJSON.boardID).then((response) => {
+            return response.json();
+        }).then((responseBody) => {
+            if (responseBody.status > 200) {
+                this.eventBus.emit('cardModel:createCardFailed', responseBody.codes);
+            } else {
+                this.eventBus.emit('cardModel:createCardSuccess', responseBody);
+            }
+            return responseBody;
+        });
+    }
+
+    /**
+     * send request to server with update card
+     */
+    updateCardForServer() {
+        const data = {
+            boardID: this.cardJSON.boardID,
+            cardID: this.cardJSON.cardID,
+            name: this.card.cardName,
+        };
+        network.cardSet(data).then((response) => {
+            return response.json();
+        }).then((responseBody) => {
+            if (responseBody.status > 200) {
+                this.eventBus.emit('cardModel:setCardFailed', responseBody.codes);
+            } else {
+                this.eventBus.emit('cardModel:setCardSuccess', responseBody);
+            }
+            return responseBody;
+        });
     }
 }

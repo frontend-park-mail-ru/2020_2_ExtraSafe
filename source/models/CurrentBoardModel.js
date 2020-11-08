@@ -17,6 +17,11 @@ export default class CurrentBoardModel {
             boardCollaborators: [],
             cards: [],
         };
+        this.newCard = {
+            boardID: '',
+            cardID: '',
+            cardName: '',
+        };
     }
 
     /**
@@ -40,8 +45,14 @@ export default class CurrentBoardModel {
      * @param {[JSON]}cardsJSON
      */
     addCardsFromJSON(cardsJSON) {
+        // TODO - сделать обработку ситуации, когда нет карточек
         for (const card of cardsJSON) {
-            const newCard = this.addNewCard(this.cardsDiv, card.cardID, card.name);
+            const cardObj = {
+                boardID: this.board.boardID,
+                cardID: card.cardID,
+                cardName: card.name,
+            };
+            const newCard = this.addNewCard(this.cardsDiv, cardObj);
             newCard.addTasksFromJSON(card.tasks);
         }
     }
@@ -60,12 +71,11 @@ export default class CurrentBoardModel {
     /**
      * Add new card
      * @param {HTMLElement} cardsDiv
-     * @param {string} cardID
-     * @param {string} cardName
+     * @param {object} card
      * @return {CardController}
      */
-    addNewCard(cardsDiv, cardID = '', cardName = '') {
-        const newCard = new CardController(cardsDiv, this.board.cards.length, cardID, cardName);
+    addNewCard(cardsDiv, card = this.newCard) {
+        const newCard = new CardController(cardsDiv, this.board.cards.length, card);
         this.board.cards.push(newCard);
 
         this.eventBus.emit('currentBoardModel:cardAdded', newCard);

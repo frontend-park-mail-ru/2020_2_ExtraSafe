@@ -14,17 +14,12 @@ export default class TaskController extends BaseController {
      * @constructor
      * @param {HTMLElement} el
      * @param {number} taskNumber
-     * @param {string} taskID
-     * @param {string} taskName
-     * @param {string} taskDescription
-     * @param {string} contentEditable
+     * @param {object} task
      */
-    constructor(el, taskNumber, taskID = '', taskName = '',
-        taskDescription = '', contentEditable = 'true') {
+    constructor(el, taskNumber, task) {
         super(el);
         this.view = new TaskView(el, this.eventBus);
-        this.model = new TaskModel(this.eventBus, taskNumber, el.id, taskID,
-            taskName, taskDescription, contentEditable);
+        this.model = new TaskModel(this.eventBus, taskNumber, el.id, task);
         const taskDetailedDiv = document.getElementById('taskDetailed');
         this.taskDetailed = new TaskDetailedController(taskDetailedDiv);
     }
@@ -47,7 +42,24 @@ export default class TaskController extends BaseController {
         });
         this.taskDetailed.eventBus.on('taskDetailedView:deleteTask', () => {
             this.view.deleteTask(this.model.task);
+            this.model.deleteTask();
             delete this;
+        });
+        this.eventBus.on('taskModel:createTaskFailed', (errorCodes) => {
+            for (const code of errorCodes) {
+                console.log(code);
+            }
+        });
+        this.eventBus.on('taskModel:createTaskSuccess', (data) => {
+            console.log(data);
+        });
+        this.eventBus.on('taskModel:setTaskFailed', (errorCodes) => {
+            for (const code of errorCodes) {
+                console.log(code);
+            }
+        });
+        this.eventBus.on('taskModel:setTaskSuccess', (data) => {
+            console.log(data);
         });
     }
 

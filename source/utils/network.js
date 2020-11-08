@@ -196,10 +196,11 @@ class Network {
     /**
      * request to create card
      * @param {requestData} data
+     * @param {string} boardID
      * @return {Promise<Response>}
      */
-    cardCreate(data) {
-        const url = this.serverAddr + '/card/';
+    cardCreate(data, boardID) {
+        const url = this.serverAddr + '/card/' + boardID + '/';
         this.requestPost.body = JSON.stringify(data);
 
         return fetch(url, this.requestPost);
@@ -242,10 +243,11 @@ class Network {
     /**
      * request to create task
      * @param {requestData} data
+     * @param {string} boardID
      * @return {Promise<Response>}
      */
-    taskCreate(data) {
-        const url = this.serverAddr + '/task/';
+    taskCreate(data, boardID) {
+        const url = this.serverAddr + '/task/' + boardID + '/';
         this.requestPost.body = JSON.stringify(data);
 
         return fetch(url, this.requestPost);

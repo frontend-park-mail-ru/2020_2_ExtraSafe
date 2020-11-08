@@ -13,13 +13,12 @@ export default class CardController extends BaseController {
      * @constructor
      * @param {HTMLElement} el
      * @param {number} cardNumber
-     * @param {string} cardID
-     * @param {string} cardName
+     * @param {object} card
      */
-    constructor(el, cardNumber, cardID = '', cardName = '') {
+    constructor(el, cardNumber, card) {
         super(el);
         this.view = new CardView(el, this.eventBus);
-        this.model = new CardModel(this.eventBus, cardNumber, cardID, cardName);
+        this.model = new CardModel(this.eventBus, cardNumber, card);
     }
 
     /**
@@ -37,6 +36,26 @@ export default class CardController extends BaseController {
         });
         this.eventBus.on('cardView:addTasksFromServer', (tasksDiv) => {
             this.model.tasksDiv = tasksDiv;
+        });
+        this.eventBus.on('cardView:deleteCard', () => {
+            this.model.deleteCard();
+            delete this;
+        });
+        this.eventBus.on('cardModel:createCardFailed', (errorCodes) => {
+            for (const code of errorCodes) {
+                console.log(code);
+            }
+        });
+        this.eventBus.on('cardModel:createCardSuccess', (data) => {
+            console.log(data);
+        });
+        this.eventBus.on('cardModel:setCardFailed', (errorCodes) => {
+            for (const code of errorCodes) {
+                console.log(code);
+            }
+        });
+        this.eventBus.on('cardModel:setCardSuccess', (data) => {
+            console.log(data);
         });
     }
 

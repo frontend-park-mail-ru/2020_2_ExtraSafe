@@ -29,6 +29,7 @@ export default class CardView extends BaseView {
         });
         document.getElementById(cardJSON.cardSettingsID).addEventListener('click', () => {
             document.getElementById(cardJSON.cardID).remove();
+            this.eventBus.emit('cardView:deleteCard', null);
         });
     }
 
