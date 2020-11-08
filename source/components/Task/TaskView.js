@@ -26,6 +26,11 @@ export default class TaskView extends BaseView {
             const newName = taskEl.innerHTML;
             this.eventBus.emit('taskView:updateTaskName', newName);
         }, false);
+        if (taskJSON.contentEditable === 'false') {
+            taskEl.addEventListener('click', () => {
+                this.eventBus.emit('taskView:openTaskDetailed', taskJSON);
+            }, false);
+        }
     }
 
     /**

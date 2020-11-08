@@ -23,6 +23,19 @@ class Network {
                 'Content-Type': 'application/json',
             },
         };
+        this.requestPut = {
+            mode: 'cors',
+            credentials: 'include',
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        };
+        this.requestDelete = {
+            mode: 'cors',
+            credentials: 'include',
+            method: 'DELETE',
+        };
         this.requestFormData = {
             mode: 'cors',
             credentials: 'include',
@@ -132,6 +145,144 @@ class Network {
                 globalEventBus.emit('network:logout', null);
             }
         });
+    }
+
+    /**
+     * request to create board
+     * @param {requestData} data
+     * @return {Promise<Response>}
+     */
+    boardCreate(data) {
+        const url = this.serverAddr + '/board/';
+        this.requestPost.body = JSON.stringify(data);
+
+        return fetch(url, this.requestPost);
+    }
+
+    /**
+     * request to get data for board by id
+     * @param {string}boardID
+     * @return {Promise<Response>}
+     */
+    boardGet(boardID) {
+        const url = this.serverAddr + '/board/' + boardID + '/';
+
+        return fetch(url, this.requestGet);
+    }
+
+    /**
+     * request to change data for board
+     * @param {requestData} data
+     * @return {Promise<Response>}
+     */
+    boardSet(data) {
+        const url = this.serverAddr + '/board/' + data.boardID + '/';
+        this.requestPost.body = JSON.stringify(data);
+
+        return fetch(url, this.requestPut);
+    }
+
+    /**
+     * request to get data for board by id
+     * @param {string}boardID
+     * @return {Promise<Response>}
+     */
+    boardDelete(boardID) {
+        const url = this.serverAddr + '/board/' + boardID + '/';
+
+        return fetch(url, this.requestDelete);
+    }
+
+    /**
+     * request to create card
+     * @param {requestData} data
+     * @return {Promise<Response>}
+     */
+    cardCreate(data) {
+        const url = this.serverAddr + '/card/';
+        this.requestPost.body = JSON.stringify(data);
+
+        return fetch(url, this.requestPost);
+    }
+
+    /**
+     * request to get data for card by id
+     * @param {string}cardID
+     * @return {Promise<Response>}
+     */
+    cardGet(cardID) {
+        const url = this.serverAddr + '/card/' + cardID + '/';
+
+        return fetch(url, this.requestGet);
+    }
+
+    /**
+     * request to change data for card
+     * @param {requestData} data
+     * @return {Promise<Response>}
+     */
+    cardSet(data) {
+        const url = this.serverAddr + '/card/' + data.cardID + '/';
+        this.requestPost.body = JSON.stringify(data);
+
+        return fetch(url, this.requestPut);
+    }
+
+    /**
+     * request to delete card
+     * @param {string}cardID
+     * @return {Promise<Response>}
+     */
+    cardDelete(cardID) {
+        const url = this.serverAddr + '/card/' + cardID + '/';
+
+        return fetch(url, this.requestDelete);
+    }
+
+    /**
+     * request to create task
+     * @param {requestData} data
+     * @return {Promise<Response>}
+     */
+    taskCreate(data) {
+        const url = this.serverAddr + '/task/';
+        this.requestPost.body = JSON.stringify(data);
+
+        return fetch(url, this.requestPost);
+    }
+
+    /**
+     * request to get data for task by id
+     * @param {string}taskID
+     * @return {Promise<Response>}
+     */
+    taskGet(taskID) {
+        const url = this.serverAddr + '/task/' + taskID + '/';
+
+        return fetch(url, this.requestGet);
+    }
+
+    /**
+     * request to change data for task
+     * @param {requestData} data
+     * @return {Promise<Response>}
+     */
+    taskSet(data) {
+        const url = this.serverAddr + '/task/' + data.taskID + '/';
+        this.requestPost.body = JSON.stringify(data);
+
+        return fetch(url, this.requestPut);
+    }
+
+    /**
+     * request to delete task
+     * @param {string}taskID
+     * @return {Promise<Response>}
+     */
+    taskDelete(taskID) {
+        const url = this.serverAddr + '/task/' + taskID + '/';
+
+        return fetch(url, this.requestDelete);
     }
 }
 

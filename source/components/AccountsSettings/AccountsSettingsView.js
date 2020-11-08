@@ -1,6 +1,8 @@
 import BaseView from '../../views/BaseView/BaseView.js';
 import './AccountsSettingsView.tmpl.js';
 import userSession from '../../utils/userSession.js';
+import Rendering from '../../utils/rendering.js';
+import Validation from '../../utils/validation.js';
 
 /**
  * Accounts settings view
@@ -30,6 +32,18 @@ export default class AccountsSettingsView extends BaseView {
     }
 
     /**
+     * render all error divs
+     * @return {boolean} - error
+     */
+    updateAllErrors() {
+        const instagramError = Rendering.renderInputError('instagram', Validation.validateInstagram());
+        const telegramError = Rendering.renderInputError('telegram', Validation.validateTelegram());
+        const githubError = Rendering.renderInputError('github', Validation.validateGithub());
+        const facebookError = Rendering.renderInputError('facebook', Validation.validateFacebook());
+        return instagramError && telegramError && githubError && facebookError;
+    }
+
+    /**
      * show server success
      */
     showServerSuccess() {
@@ -43,9 +57,12 @@ export default class AccountsSettingsView extends BaseView {
      * add all event listeners
      */
     addEventListeners() {
-        document.getElementById('accountsForm').addEventListener('submit', () => {
-            this.eventBus.emit('accountsSettingsView:formSubmit', null);
-        }, false);
+        document.getElementById('accountsForm')
+            .addEventListener('submit', () => {
+                if (this.updateAllErrors()) {
+                    this.eventBus.emit('accountsSettingsView:formSubmit', null);
+                }
+            }, false);
         this.eventBus.on('userSession:setAccounts', (input) => {
             this.setParams(input);
         });

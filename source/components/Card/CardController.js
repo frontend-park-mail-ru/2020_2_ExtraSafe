@@ -12,13 +12,14 @@ export default class CardController extends BaseController {
      * Card controller constructor
      * @constructor
      * @param {HTMLElement} el
-     * @param {Router} router
      * @param {number} cardNumber
+     * @param {string} cardID
+     * @param {string} cardName
      */
-    constructor(el, router, cardNumber) {
-        super(el, router);
+    constructor(el, cardNumber, cardID = '', cardName = '') {
+        super(el);
         this.view = new CardView(el, this.eventBus);
-        this.model = new CardModel(this.eventBus, cardNumber);
+        this.model = new CardModel(this.eventBus, cardNumber, cardID, cardName);
     }
 
     /**
@@ -29,18 +30,29 @@ export default class CardController extends BaseController {
             this.model.updateCardName(newName);
         });
         this.eventBus.on('cardView:addNewTask', (tasksDiv) => {
-            this.model.addNewTask(tasksDiv, this.router);
+            this.model.addNewTask(tasksDiv);
         });
         this.eventBus.on('cardModel:taskAdded', (newTask) => {
             this.view.renderTask(newTask);
         });
+        this.eventBus.on('cardView:addTasksFromServer', (tasksDiv) => {
+            this.model.tasksDiv = tasksDiv;
+        });
+    }
+
+    /**
+     * create tasks from server
+     * @param {JSON} tasksJSON
+     */
+    addTasksFromJSON(tasksJSON) {
+        this.model.addTasksFromJSON(tasksJSON);
     }
 
     /**
      * Render card
      */
     render() {
-        this.view.render(this.model.card);
         this.addEventListeners();
+        this.view.render(this.model.card);
     }
 }

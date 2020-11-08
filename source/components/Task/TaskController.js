@@ -13,15 +13,20 @@ export default class TaskController extends BaseController {
      * Task controller constructor
      * @constructor
      * @param {HTMLElement} el
-     * @param {Router} router
-     * @param {number} cardNumber
+     * @param {number} taskNumber
+     * @param {string} taskID
+     * @param {string} taskName
+     * @param {string} taskDescription
+     * @param {string} contentEditable
      */
-    constructor(el, router, cardNumber) {
-        super(el, router);
+    constructor(el, taskNumber, taskID = '', taskName = '',
+        taskDescription = '', contentEditable = 'true') {
+        super(el);
         this.view = new TaskView(el, this.eventBus);
-        this.model = new TaskModel(this.eventBus, cardNumber, el.id);
+        this.model = new TaskModel(this.eventBus, taskNumber, el.id, taskID,
+            taskName, taskDescription, contentEditable);
         const taskDetailedDiv = document.getElementById('taskDetailed');
-        this.taskDetailed = new TaskDetailedController(taskDetailedDiv, router);
+        this.taskDetailed = new TaskDetailedController(taskDetailedDiv);
     }
 
     /**

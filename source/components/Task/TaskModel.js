@@ -7,14 +7,26 @@ export default class TaskModel {
      * @param {EventBus} eventBus
      * @param {number} taskNumber
      * @param {string} cardNumber
+     * @param {string} taskID
+     * @param {string} taskName
+     * @param {string} taskDescription
+     * @param {string} contentEditable
      */
-    constructor(eventBus, taskNumber, cardNumber) {
+    constructor(eventBus, taskNumber, cardNumber, taskID = '', taskName = '',
+        taskDescription = '', contentEditable = 'true') {
         this.eventBus = eventBus;
         this.task = {
-            taskName: '',
+            taskName: taskName,
+            taskDescription: taskDescription,
             taskID: `${cardNumber}Task${taskNumber}`,
             taskNameID: `${cardNumber}Task${taskNumber}Name`,
-            contentEditable: 'true',
+            contentEditable: contentEditable,
+        };
+        this.taskJSON = {
+            taskID: taskID,
+            name: '',
+            description: '',
+            order: undefined,
         };
     }
 

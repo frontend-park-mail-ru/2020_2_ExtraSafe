@@ -11,8 +11,8 @@ export default class TaskDetailedController extends BaseController {
      * @param {HTMLElement} el
      * @param {Router} router
      */
-    constructor(el, router) {
-        super(el, router);
+    constructor(el) {
+        super(el);
         this.model = new TaskDetailedModel(this.eventBus);
         this.view = new TaskDetailedView(el, this.eventBus);
     }

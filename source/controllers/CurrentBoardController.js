@@ -31,6 +31,16 @@ export default class CurrentBoardController extends BaseController {
         this.eventBus.on('currentBoardModel:cardAdded', (newCard) => {
             this.view.renderCard(newCard);
         });
+        this.eventBus.on('currentBoardView:addCardsFromServer', (cardsDiv) => {
+            this.model.cardsDiv = cardsDiv;
+            this.model.getBoardData();
+        });
+        this.eventBus.on('currentBoardModel:getBoardSuccess', (responseJSON) => {
+            this.model.setBoardData(responseJSON);
+        });
+        this.eventBus.on('currentBoardModel:boardDataSet', (boardJSON) => {
+            this.view.updateBoardName(boardJSON);
+        });
     }
 
     /**
