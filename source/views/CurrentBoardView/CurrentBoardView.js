@@ -2,6 +2,7 @@ import BaseView from '../BaseView/BaseView.js';
 import Navbar from '../../components/Navbar/Navbar.js';
 import './CurrentBoardView.tmpl.js';
 import '../../components/Card/Card.tmpl.js';
+import rendering from '../../utils/rendering.js';
 
 /**
  * Class Current board view.
@@ -18,15 +19,25 @@ export default class CurrentBoardView extends BaseView {
     }
 
     /**
+     * Render card
+     * @param {CardController} newCard
+     */
+    renderCard(newCard) {
+        newCard.render();
+    }
+
+    /**
      * Render cards
      * @param {Object} cards
      */
     renderCards(cards) {
-        this.cardsDiv.innerHTML = '';
+        // this.cardsDiv.innerHTML = '';
 
         // eslint-disable-next-line no-unused-vars
         for (const [cardID, card] of Object.entries(cards)) {
-            this.cardsDiv.innerHTML += window.fest['components/Card/Card.tmpl'](card.templateJSON);
+            // this.cardsDiv.innerHTML += window.fest['components/Card/Card.tmpl'](card.templateJSON);
+            const html = window.fest['components/Card/Card.tmpl'](card.templateJSON);
+            this.cardsDiv.appendChild(...rendering.createElementsFromTmpl(html));
         }
 
         for (const [cardID, card] of Object.entries(cards)) {
@@ -54,26 +65,13 @@ export default class CurrentBoardView extends BaseView {
     }
 
     /**
-     * Function called on taskNameUpdated event
-     * @param {JSON} task
-     */
-    onTaskNameUpdated(task) {
-        const taskEl = document.getElementById(task.taskNameID);
-        taskEl.contentEditable = 'false';
-        taskEl.style.wordBreak = 'break-word';
-        taskEl.addEventListener('click', () => {
-            this.eventBus.emit('currentBoardView:openTaskDetailed', task);
-        }, false);
-    }
-
-    /**
      * add all event listeners
      */
     addEventListeners() {
         this.cardsDiv = document.getElementById('cardsDiv');
         document.getElementById('addCardButton')
             .addEventListener('click', () => {
-                this.eventBus.emit('currentBoardView:addNewCard', null);
+                this.eventBus.emit('currentBoardView:addNewCard', this.cardsDiv);
             }, false);
     }
 

@@ -5,10 +5,10 @@
             <div class="card__title_text" id="{json.cardNameID}" contenteditable="true">
                 <fest:value>json.cardName</fest:value>
             </div>
-            <img src="../../img/icons/dots.svg" class="card__title_dots-icon" alt="dots"/>
+            <img src="../../img/icons/dots.svg" class="card__title_dots-icon" id="{json.cardSettingsID}" alt="dots"/>
         </div>
 
-        <div class="card__content__container">
+        <div class="card__content__container" id="tasksDiv">
             <fest:for iterate="json.tasks" index="i" value="v">
                 <fest:include context="v" src="../Task/Task.tmpl.xml"/>
             </fest:for>

@@ -48,6 +48,17 @@ class Rendering {
         const profileAvatar = document.getElementById('profileAvatar');
         profileAvatar.src = URL.createObjectURL(event.target.files[0]);
     }
+
+    /**
+     * create elements from template
+     * @param {string} html
+     * @return {HTMLCollection}
+     */
+    createElementsFromTmpl(html) {
+        const el = document.createElement('div');
+        el.innerHTML = html;
+        return el.children;
+    }
 }
 
 export default new Rendering();
