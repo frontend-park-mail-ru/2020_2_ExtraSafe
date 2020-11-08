@@ -33,6 +33,7 @@ export default class TaskController extends BaseController {
         });
         this.eventBus.on('taskModel:taskNameUpdated', (taskJSON) => {
             this.view.onTaskNameUpdated(taskJSON);
+            this.model.createTaskForServer();
         });
         this.eventBus.on('taskView:openTaskDetailed', (task) => {
             this.taskDetailed.render(task);
@@ -44,6 +45,9 @@ export default class TaskController extends BaseController {
             this.view.deleteTask(this.model.task);
             this.model.deleteTask();
             delete this;
+        });
+        this.taskDetailed.eventBus.on('taskDetailedView:closed', () => {
+            this.model.updateTaskForServer();
         });
         this.eventBus.on('taskModel:createTaskFailed', (errorCodes) => {
             for (const code of errorCodes) {
@@ -67,7 +71,7 @@ export default class TaskController extends BaseController {
      * Render task
      */
     render() {
-        this.view.render(this.model.task);
         this.addEventListeners();
+        this.view.render(this.model.task);
     }
 }

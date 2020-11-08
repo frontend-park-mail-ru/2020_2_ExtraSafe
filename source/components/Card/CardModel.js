@@ -66,6 +66,11 @@ export default class CardModel {
      */
     updateCardName(newName) {
         this.card.cardName = newName;
+        if (this.card.isInitialized) {
+            this.updateCardForServer();
+        } else {
+            this.createCardForServer();
+        }
         this.card.isInitialized = true;
     }
 
