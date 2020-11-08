@@ -1,6 +1,5 @@
 import BaseView from '../../views/BaseView/BaseView.js';
 import './TaskDetailedView.tmpl.js';
-import globalEventBus from '../../utils/globalEventBus.js';
 
 /**
  * Task detailed view
@@ -22,7 +21,7 @@ export default class TaskDetailedView extends BaseView {
     addEventListeners(json) {
         document.getElementById('closeTask').addEventListener('click', () => {
             this.el.style.display = 'none';
-            globalEventBus.emit('taskDetailedView:closed', null);
+            this.eventBus.emit('taskDetailedView:closed', null);
         });
         document.getElementById('saveTaskDescription').addEventListener('click', () => {
             const description = document.getElementById('taskDescription').innerHTML;

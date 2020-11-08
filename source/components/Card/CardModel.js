@@ -51,7 +51,7 @@ export default class CardModel {
                 boardID: this.cardJSON.boardID,
                 taskID: task.taskID,
                 taskName: task.name,
-                cardID: this.card.cardID,
+                cardID: this.cardJSON.cardID,
                 taskDescription: task.description,
                 contentEditable: 'false',
                 isInitialized: true,

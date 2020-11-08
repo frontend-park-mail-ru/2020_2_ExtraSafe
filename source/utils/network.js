@@ -177,7 +177,7 @@ class Network {
      */
     boardSet(data) {
         const url = this.serverAddr + '/board/' + data.boardID + '/';
-        this.requestPost.body = JSON.stringify(data);
+        this.requestPut.body = JSON.stringify(data);
 
         return fetch(url, this.requestPut);
     }
@@ -224,7 +224,7 @@ class Network {
      */
     cardSet(data) {
         const url = this.serverAddr + '/card/' + data.cardID + '/';
-        this.requestPost.body = JSON.stringify(data);
+        this.requestPut.body = JSON.stringify(data);
 
         return fetch(url, this.requestPut);
     }
@@ -271,7 +271,7 @@ class Network {
      */
     taskSet(data) {
         const url = this.serverAddr + '/task/' + data.taskID + '/';
-        this.requestPost.body = JSON.stringify(data);
+        this.requestPut.body = JSON.stringify(data);
 
         return fetch(url, this.requestPut);
     }

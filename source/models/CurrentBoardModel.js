@@ -18,8 +18,8 @@ export default class CurrentBoardModel {
             cards: [],
         };
         this.newCard = {
-            boardID: '',
-            cardID: '',
+            boardID: 1,
+            cardID: 0,
             cardName: '',
             isInitialized: false,
         };

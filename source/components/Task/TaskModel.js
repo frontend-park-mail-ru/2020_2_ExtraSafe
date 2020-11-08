@@ -77,11 +77,12 @@ export default class TaskModel {
      */
     updateTaskForServer() {
         const data = {
-            taskID: 0,
+            taskID: this.taskJSON.taskID,
             cardID: this.taskJSON.cardID,
             name: this.task.taskName,
             description: this.task.taskDescription,
         };
+        console.log(data);
         network.taskSet(data).then((response) => {
             return response.json();
         }).then((responseBody) => {
