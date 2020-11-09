@@ -1,5 +1,6 @@
 import BaseView from '../../views/BaseView/BaseView.js';
 import rendering from '../../utils/rendering.js';
+import './Card.tmpl.js';
 
 /**
  * Class Card view.

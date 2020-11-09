@@ -15,11 +15,12 @@ export default class CurrentBoardController extends BaseController {
      * @param {HTMLElement} el
      * @param {Router} router
      * @param {string} boardName
+     * @param {string} boardID
      */
-    constructor(el, router, boardName) {
+    constructor(el, router, boardName= '', boardID= '') {
         super(el, router);
         this.view = new CurrentBoardView(el, this.eventBus);
-        this.model = new CurrentBoardModel(this.eventBus, boardName);
+        this.model = new CurrentBoardModel(this.eventBus, boardName, boardID);
     }
 
     /**

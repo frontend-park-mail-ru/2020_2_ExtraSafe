@@ -9,17 +9,18 @@ export default class CurrentBoardModel {
      * Current board model constructor
      * @param {EventBus} eventBus
      * @param {string} boardName
+     * @param {string} boardID
      */
-    constructor(eventBus, boardName) {
+    constructor(eventBus, boardName, boardID) {
         this.eventBus = eventBus;
         this.board = {
-            boardID: '',
+            boardID: boardID,
             boardName: boardName,
             boardCollaborators: [],
             cards: [],
         };
         this.newCard = {
-            boardID: 1,
+            boardID: boardID,
             cardID: 0,
             cardName: '',
             isInitialized: false,
@@ -30,7 +31,7 @@ export default class CurrentBoardModel {
      * send request to server to get data of board
      */
     getBoardData() {
-        network.boardGet('1').then((response) => {
+        network.boardGet(this.board.boardID).then((response) => {
             return response.json();
         }).then((responseBody) => {
             if (responseBody.status > 200) {
@@ -72,7 +73,10 @@ export default class CurrentBoardModel {
      * @param {[JSON]}cardsJSON
      */
     addCardsFromJSON(cardsJSON) {
-        // TODO - сделать обработку ситуации, когда нет карточек
+        if (!(Array.isArray(cardsJSON) && cardsJSON.length)) {
+            return;
+        }
+
         for (const card of cardsJSON) {
             const cardObj = {
                 boardID: this.board.boardID,

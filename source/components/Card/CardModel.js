@@ -45,7 +45,10 @@ export default class CardModel {
      * @param {[JSON]} tasksJSON
      */
     addTasksFromJSON(tasksJSON) {
-        // TODO - сделать обработку ситуации, когда нет тасков
+        if (!(Array.isArray(tasksJSON) && tasksJSON.length)) {
+            return;
+        }
+
         for (const task of tasksJSON) {
             const taskObj = {
                 boardID: this.cardJSON.boardID,
