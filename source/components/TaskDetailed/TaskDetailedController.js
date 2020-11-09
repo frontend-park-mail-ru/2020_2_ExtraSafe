@@ -9,7 +9,6 @@ export default class TaskDetailedController extends BaseController {
     /**
      * Task detailed controller constructor
      * @param {HTMLElement} el
-     * @param {Router} router
      */
     constructor(el) {
         super(el);

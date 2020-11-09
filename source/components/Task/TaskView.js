@@ -76,6 +76,8 @@ export default class TaskView extends BaseView {
         const html = window.fest['components/Task/Task.tmpl'](taskJSON);
         this.el.appendChild(...rendering.createElementsFromTmpl(html));
         this.addEventListeners(taskJSON);
-        document.getElementById(taskJSON.taskNameID).focus();
+        if (!taskJSON.isInitialized) {
+            document.getElementById(taskJSON.taskNameID).focus();
+        }
     }
 }

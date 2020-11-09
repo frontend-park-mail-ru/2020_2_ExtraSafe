@@ -43,24 +43,6 @@ export default class CurrentBoardModel {
     }
 
     /**
-     * create cards from server
-     * @param {[JSON]}cardsJSON
-     */
-    addCardsFromJSON(cardsJSON) {
-        // TODO - сделать обработку ситуации, когда нет карточек
-        for (const card of cardsJSON) {
-            const cardObj = {
-                boardID: this.board.boardID,
-                cardID: card.cardID,
-                cardName: card.name,
-                isInitialized: true,
-            };
-            const newCard = this.addNewCard(this.cardsDiv, cardObj);
-            newCard.addTasksFromJSON(card.tasks);
-        }
-    }
-
-    /**
      * set board params received from server
      * @param {JSON} responseJSON
      */
@@ -86,35 +68,50 @@ export default class CurrentBoardModel {
     }
 
     /**
-     * Update card name
-     * @param {string} cardID
-     * @param {string} newName
+     * create cards from server
+     * @param {[JSON]}cardsJSON
      */
-    updateCardName(cardID, newName) {
-        const id = getIDFromString(cardID) - 1;
-        this.board.cards[id].taskName = newName;
+    addCardsFromJSON(cardsJSON) {
+        // TODO - сделать обработку ситуации, когда нет карточек
+        for (const card of cardsJSON) {
+            const cardObj = {
+                boardID: this.board.boardID,
+                cardID: card.cardID,
+                cardName: card.name,
+                isInitialized: true,
+            };
+            const newCard = this.addNewCard(this.cardsDiv, cardObj);
+            newCard.addTasksFromJSON(card.tasks);
+        }
     }
 
     /**
-     * Update task name
-     * @param {string} cardID
-     * @param {string} taskID
-     * @param {string} newName
+     * Update board name
+     * @param {string} boardName
      */
-    updateTaskName(cardID, taskID, newName) {
-        const taskJSON = this.board.cards[getIDFromString(cardID)].tasks[getIDFromString(taskID)];
-        taskJSON.taskName = newName;
-        taskJSON.contentEditable = 'false';
+    updateBoardName(boardName) {
+        this.board.boardName = boardName;
 
-        this.eventBus.emit('currentBoardModel:taskNameUpdated', taskJSON);
+        const data = {
+            boardName: boardName,
+            boardID: this.board.boardID,
+        };
+        network.boardSet(data).then((response) => {
+            return response.json();
+        }).then((responseBody) => {
+            if (responseBody.status > 200) {
+                this.eventBus.emit('currentBoardModel:boardSetFailed', responseBody.codes);
+            } else {
+                this.eventBus.emit('currentBoardModel:boardSetSuccess', responseBody);
+            }
+            return responseBody;
+        });
     }
-}
 
-/**
- * Get number id from string id
- * @param {string} string
- * @return {number}
- */
-function getIDFromString(string) {
-    return parseInt(string.replace(/\D/g, ''));
+    /**
+     * Delete board
+     */
+    deleteBoard() {
+        network.boardDelete(this.board.boardID);
+    }
 }

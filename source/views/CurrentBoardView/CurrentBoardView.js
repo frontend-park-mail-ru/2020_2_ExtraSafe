@@ -1,7 +1,6 @@
 import BaseView from '../BaseView/BaseView.js';
 import Navbar from '../../components/Navbar/Navbar.js';
 import './CurrentBoardView.tmpl.js';
-import '../../components/Card/Card.tmpl.js';
 
 /**
  * Class Current board view.
@@ -42,6 +41,12 @@ export default class CurrentBoardView extends BaseView {
             .addEventListener('click', () => {
                 this.eventBus.emit('currentBoardView:addNewCard', this.cardsDiv);
             }, false);
+        document.getElementById('boardName').addEventListener('focusout', (event) => {
+            this.eventBus.emit('currentBoardView:boardNameUpdate', event.target.innerHTML);
+        });
+        document.getElementById('boardSettings').addEventListener('click', () => {
+            this.eventBus.emit('currentBoardView:deleteBoard', null);
+        });
     }
 
     /**

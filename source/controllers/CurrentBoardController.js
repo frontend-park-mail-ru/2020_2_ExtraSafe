@@ -42,6 +42,21 @@ export default class CurrentBoardController extends BaseController {
         this.eventBus.on('currentBoardModel:boardDataSet', (boardJSON) => {
             this.view.updateBoardName(boardJSON);
         });
+        this.eventBus.on('currentBoardView:boardNameUpdate', (boardName) => {
+            this.model.updateBoardName(boardName);
+        });
+        this.eventBus.on('currentBoardView:deleteBoard', () => {
+            this.model.deleteBoard();
+            this.router.open('/');
+        });
+        this.eventBus.on('currentBoardModel:boardSetFailed', (errorCodes) => {
+            for (const code of errorCodes) {
+                console.log(code);
+            }
+        });
+        this.eventBus.on('currentBoardModel:boardSetSuccess', (data) => {
+            console.log(data);
+        });
     }
 
     /**
