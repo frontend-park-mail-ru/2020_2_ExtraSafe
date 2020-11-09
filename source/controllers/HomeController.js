@@ -1,6 +1,7 @@
 import BaseController from './BaseController.js';
 import HomeView from '../views/HomeView/HomeView.js';
 import HomeModel from '../models/HomeModel.js';
+import AddBoardPopup from '../components/AddBoardPopup/AddBoardPopup.js';
 
 /**
  * Home controller
@@ -24,9 +25,17 @@ export default class HomeController extends BaseController {
      * Add all event listeners
      */
     addEventListeners() {
-        this.eventBus.on('homeView:addBoard', (boardsDiv) => {
-            this.model.addNewBoard(boardsDiv);
-            // TODO: открыть страницу новой доски, но только при создании пользователем
+        this.eventBus.on('homeView:addBoard', () => {
+            this.addBoardPopup.render();
+        });
+        this.eventBus.on('homeModel:boardCreateFailed', (errorCodes) => {
+            for (const code of errorCodes) {
+                console.log(code);
+            }
+        });
+        this.eventBus.on('homeModel:boardCreateSuccess', (data) => {
+            console.log(data);
+            // TODO: запрос на новые доски
         });
         this.eventBus.on('homeModel:boardAdded', (board) => {
             this.view.renderBoard(board);
@@ -42,5 +51,10 @@ export default class HomeController extends BaseController {
     render() {
         super.render();
         this.view.render();
+
+        this.addBoardPopup = new AddBoardPopup(document.getElementById('addBoardPopup'));
+        this.addBoardPopup.eventBus.on('addBoardPopup:addBoard', (boardName) => {
+            this.model.addNewBoardOnServer(boardName);
+        });
     }
 }

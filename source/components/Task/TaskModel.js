@@ -66,6 +66,7 @@ export default class TaskModel {
             if (responseBody.status > 200) {
                 this.eventBus.emit('taskModel:createTaskFailed', responseBody.codes);
             } else {
+                this.taskJSON.taskID = responseBody.taskID;
                 this.eventBus.emit('taskModel:createTaskSuccess', responseBody);
             }
             return responseBody;

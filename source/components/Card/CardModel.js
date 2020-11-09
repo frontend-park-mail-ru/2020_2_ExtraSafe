@@ -111,6 +111,7 @@ export default class CardModel {
             if (responseBody.status > 200) {
                 this.eventBus.emit('cardModel:createCardFailed', responseBody.codes);
             } else {
+                this.cardJSON.cardID = responseBody.cardID;
                 this.eventBus.emit('cardModel:createCardSuccess', responseBody);
             }
             return responseBody;

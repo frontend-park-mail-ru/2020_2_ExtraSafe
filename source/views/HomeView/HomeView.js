@@ -29,7 +29,7 @@ export default class HomeView extends BaseView {
      */
     addEventListeners() {
         document.getElementById('addBoard').addEventListener('click', () => {
-            this.eventBus.emit('homeView:addBoard', this.boardsDiv);
+            this.eventBus.emit('homeView:addBoard', null);
         });
     }
 
