@@ -17,7 +17,7 @@ export default class HomeController extends BaseController {
     constructor(el, router) {
         super(el, router);
         this.view = new HomeView(el, this.eventBus);
-        this.model = new HomeModel(this.eventBus);
+        this.model = new HomeModel(this.eventBus, router);
     }
 
     /**
@@ -30,6 +30,9 @@ export default class HomeController extends BaseController {
         });
         this.eventBus.on('homeModel:boardAdded', (board) => {
             this.view.renderBoard(board);
+        });
+        this.eventBus.on('homeView:addBoardsFromServer', (boardsDiv) => {
+            this.model.addBoardsFromData(boardsDiv);
         });
     }
 

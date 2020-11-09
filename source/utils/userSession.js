@@ -11,6 +11,7 @@ class UserSession {
     constructor() {
         this.data = {};
         this.accounts = {};
+        this.boards = [];
         this.resetData();
         this.resetAccounts();
         globalEventBus.on('network:logout', (input) => {
@@ -44,17 +45,26 @@ class UserSession {
     }
 
     /**
-     * Set data
+     * Set accounts
      * @param {json} val
      */
     setAccounts(val) {
-        this.accounts.telegram = val.telegram;
-        this.accounts.instagram = val.instagram;
-        this.accounts.github = val.github;
-        this.accounts.bitbucket = val.bitbucket;
-        this.accounts.vkontakte = val.vkontakte;
-        this.accounts.facebook = val.facebook;
+        this.accounts.telegram = val.links.telegram;
+        this.accounts.instagram = val.links.instagram;
+        this.accounts.github = val.links.github;
+        this.accounts.bitbucket = val.links.bitbucket;
+        this.accounts.vkontakte = val.links.vkontakte;
+        this.accounts.facebook = val.links.facebook;
         globalEventBus.emit('userSession:setAccounts', this.accounts);
+    }
+
+    /**
+     * Set boards
+     * @param {json} val
+     */
+    setBoards(val) {
+        this.boards = val.boards;
+        globalEventBus.emit('userSession:setBoards', this.boards);
     }
 
     /**
@@ -62,12 +72,14 @@ class UserSession {
      */
     resetAccounts() {
         this.setAccounts({
-            telegram: '',
-            instagram: '',
-            github: '',
-            bitbucket: '',
-            vkontakte: '',
-            facebook: '',
+            links: {
+                telegram: '',
+                instagram: '',
+                github: '',
+                bitbucket: '',
+                vkontakte: '',
+                facebook: '',
+            },
         });
     }
 }

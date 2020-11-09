@@ -45,24 +45,12 @@ export default class CurrentBoardView extends BaseView {
     }
 
     /**
-     * setup template input data
-     * @return {JSON} templateData
-     */
-    templateJSONSetup() {
-        return {
-            boardName: 'Лучшая тестовая доска',
-            boardCollaborators: [],
-            cards: [],
-        };
-    }
-
-    /**
      * Render Current Board view.
+     * @param {JSON} boardJSON
      */
-    render() {
+    render(boardJSON) {
         Navbar.navbarShow();
-        const templateInput = this.templateJSONSetup();
-        this.el.innerHTML = window.fest['views/CurrentBoardView/CurrentBoardView.tmpl'](templateInput);
+        this.el.innerHTML = window.fest['views/CurrentBoardView/CurrentBoardView.tmpl'](boardJSON);
         this.addEventListeners();
         this.eventBus.emit('currentBoardView:addCardsFromServer', this.cardsDiv);
     }

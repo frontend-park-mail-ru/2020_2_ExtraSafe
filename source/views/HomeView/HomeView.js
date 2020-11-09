@@ -41,5 +41,6 @@ export default class HomeView extends BaseView {
         this.el.innerHTML = window.fest['views/HomeView/HomeView.tmpl']();
         this.boardsDiv = document.getElementById('boardsDiv');
         this.addEventListeners();
+        this.eventBus.emit('homeView:addBoardsFromServer', this.boardsDiv);
     }
 }

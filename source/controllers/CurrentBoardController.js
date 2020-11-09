@@ -14,11 +14,12 @@ export default class CurrentBoardController extends BaseController {
      * @constructor
      * @param {HTMLElement} el
      * @param {Router} router
+     * @param {string} boardName
      */
-    constructor(el, router) {
+    constructor(el, router, boardName) {
         super(el, router);
         this.view = new CurrentBoardView(el, this.eventBus);
-        this.model = new CurrentBoardModel(this.eventBus);
+        this.model = new CurrentBoardModel(this.eventBus, boardName);
     }
 
     /**
@@ -48,7 +49,7 @@ export default class CurrentBoardController extends BaseController {
      */
     render() {
         super.render();
-        this.view.render();
+        this.view.render(this.model.board);
         this.taskDetailed = new TaskDetailedController(document.getElementById('taskDetailed'));
     }
 }

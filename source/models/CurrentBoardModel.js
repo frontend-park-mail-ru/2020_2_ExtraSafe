@@ -8,12 +8,13 @@ export default class CurrentBoardModel {
     /**
      * Current board model constructor
      * @param {EventBus} eventBus
+     * @param {string} boardName
      */
-    constructor(eventBus) {
+    constructor(eventBus, boardName) {
         this.eventBus = eventBus;
         this.board = {
             boardID: '',
-            boardName: 'Лучшая тестовая доска',
+            boardName: boardName,
             boardCollaborators: [],
             cards: [],
         };

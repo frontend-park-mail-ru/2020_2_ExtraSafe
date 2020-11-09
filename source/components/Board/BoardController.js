@@ -12,12 +12,13 @@ export default class BoardController extends BaseController {
      * Board controller constructor
      * @constructor
      * @param {HTMLElement} el
+     * @param {Router} router
      * @param {number} boardNumber
      * @param {string} boardID
      * @param {string} boardName
      */
-    constructor(el, boardNumber, boardID = '', boardName = '') {
-        super(el);
+    constructor(el, router, boardNumber, boardID = '', boardName = '') {
+        super(el, router);
         this.view = new BoardView(el, this.eventBus);
         this.model = new BoardModel(this.eventBus, boardNumber, boardID, boardName);
     }
@@ -27,7 +28,7 @@ export default class BoardController extends BaseController {
      */
     addEventListeners() {
         this.eventBus.on('boardView:openBoard', () => {
-            // TODO: this.router.open(this.model.boardJSON.boardID);
+            this.router.open(`/board/${this.model.boardJSON.boardID}`);
         });
     }
 
