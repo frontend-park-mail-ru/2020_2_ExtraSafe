@@ -1,6 +1,6 @@
 import EventBus from '../../utils/eventBus.js';
 import rendering from '../../utils/rendering.js';
-import './AddBoardPopup.tmpl.js';
+import addBoardPopupTemplate from './AddBoardPopup.tmpl.xml';
 
 /**
  * AddBoardPopUp class
@@ -46,7 +46,7 @@ export default class AddBoardPopup {
      * Render popup
      */
     render() {
-        const html = window.fest['components/AddBoardPopup/AddBoardPopup.tmpl']();
+        const html = addBoardPopupTemplate();
         this.el.appendChild(...rendering.createElementsFromTmpl(html));
         this.el.style.display = 'flex';
         this.addEventListeners();

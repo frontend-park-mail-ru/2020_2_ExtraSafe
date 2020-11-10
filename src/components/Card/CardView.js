@@ -1,6 +1,6 @@
 import BaseView from '../../views/BaseView/BaseView.js';
 import rendering from '../../utils/rendering.js';
-import './Card.tmpl.js';
+import cardTemplate from './Card.tmpl.xml';
 
 /**
  * Class Card view.
@@ -57,7 +57,7 @@ export default class CardView extends BaseView {
      * @param {JSON} cardJSON
      */
     render(cardJSON) {
-        const html = window.fest['components/Card/Card.tmpl'](cardJSON);
+        const html = cardTemplate(cardJSON);
         this.el.appendChild(...rendering.createElementsFromTmpl(html));
         this.tasksDiv = document.getElementById(cardJSON.tasksDiv);
         this.addEventListeners(cardJSON);

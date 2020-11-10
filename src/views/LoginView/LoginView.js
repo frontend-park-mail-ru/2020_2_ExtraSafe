@@ -1,6 +1,6 @@
 import BaseView from '../BaseView/BaseView.js';
 import Navbar from '../../components/Navbar/Navbar.js';
-import './LoginView.tmpl.js';
+import loginViewTemplate from './LoginView.tmpl.xml';
 
 /**
  * Class Login view.
@@ -82,7 +82,7 @@ export default class LoginView extends BaseView {
     render() {
         Navbar.navbarHide();
         const templateInput = this.templateJSONSetup();
-        this.el.innerHTML = window.fest['views/LoginView/LoginView.tmpl'](templateInput);
+        this.el.innerHTML = loginViewTemplate(templateInput);
         this.addEventListeners();
     }
 }

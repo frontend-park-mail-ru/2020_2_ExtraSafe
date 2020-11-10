@@ -1,6 +1,6 @@
 import BaseView from '../BaseView/BaseView.js';
 import Navbar from '../../components/Navbar/Navbar.js';
-import './HomeView.tmpl.js';
+import homeViewTemplate from './HomeView.tmpl.xml';
 
 /**
  * Home view
@@ -38,7 +38,7 @@ export default class HomeView extends BaseView {
      */
     render() {
         Navbar.navbarShow();
-        this.el.innerHTML = window.fest['views/HomeView/HomeView.tmpl']();
+        this.el.innerHTML = homeViewTemplate();
         this.boardsDiv = document.getElementById('boardsDiv');
         this.addEventListeners();
         this.eventBus.emit('homeView:addBoardsFromServer', this.boardsDiv);

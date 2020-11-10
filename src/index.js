@@ -6,6 +6,14 @@ import HomeController from './controllers/HomeController.js';
 import CurrentBoardController from './controllers/CurrentBoardController.js';
 import globalEventBus from './utils/globalEventBus.js';
 
+import './styles/css/currentBoard.css';
+import './styles/css/editTask.css';
+import './styles/css/home.css';
+import './styles/css/login-reg.css';
+import './styles/css/main.css';
+import './styles/css/navbar.css';
+import './styles/css/profile.css';
+
 const appDiv = document.getElementById('application');
 const contentDiv = document.getElementById('content');
 

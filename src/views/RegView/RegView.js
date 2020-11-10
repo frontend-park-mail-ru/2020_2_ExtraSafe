@@ -2,7 +2,7 @@ import BaseView from '../BaseView/BaseView.js';
 import Rendering from '../../utils/rendering.js';
 import Validation from '../../utils/validation.js';
 import Navbar from '../../components/Navbar/Navbar.js';
-import './RegView.tmpl.js';
+import regViewTemplate from './RegView.tmpl.xml';
 
 /**
  * Class Reg view.
@@ -149,7 +149,7 @@ export default class RegView extends BaseView {
     render() {
         Navbar.navbarHide();
         const templateInput = this.templateJSONSetup();
-        this.el.innerHTML = window.fest['views/RegView/RegView.tmpl'](templateInput);
+        this.el.innerHTML = regViewTemplate(templateInput);
         this.addEventListeners();
     }
 }

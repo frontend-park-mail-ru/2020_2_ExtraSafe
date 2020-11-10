@@ -1,7 +1,7 @@
 import BaseView from '../../views/BaseView/BaseView.js';
-import './SecuritySettingsView.tmpl.js';
 import Rendering from '../../utils/rendering.js';
 import Validation from '../../utils/validation.js';
+import securitySettingsViewTemplate from './SecuritySettingsView.tmpl.xml';
 
 /**
  * Security settings view
@@ -124,7 +124,7 @@ export default class SecuritySettingsView extends BaseView {
      */
     render() {
         const templateInput = this.templateJSONSetup();
-        this.el.innerHTML = window.fest['components/SecuritySettings/SecuritySettingsView.tmpl'](templateInput);
+        this.el.innerHTML = securitySettingsViewTemplate(templateInput);
         this.addEventListeners();
     }
 }

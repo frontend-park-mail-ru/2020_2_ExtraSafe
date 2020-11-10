@@ -1,6 +1,5 @@
 # Build files
 dist
-*.tmpl.js
 
 # Temporary files
 temp

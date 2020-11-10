@@ -1,8 +1,8 @@
 import BaseView from '../../views/BaseView/BaseView.js';
-import './AccountsSettingsView.tmpl.js';
 import userSession from '../../utils/userSession.js';
 import Rendering from '../../utils/rendering.js';
 import Validation from '../../utils/validation.js';
+import accountsSettingsViewTemplate from './AccountsSettingsView.tmpl.xml';
 
 /**
  * Accounts settings view
@@ -175,7 +175,7 @@ export default class AccountsSettingsView extends BaseView {
      */
     render() {
         const templateInput = this.templateJSONSetup();
-        this.el.innerHTML = window.fest['components/AccountsSettings/AccountsSettingsView.tmpl'](templateInput);
+        this.el.innerHTML = accountsSettingsViewTemplate(templateInput);
         this.setParams(userSession.accounts);
         this.addEventListeners();
     }

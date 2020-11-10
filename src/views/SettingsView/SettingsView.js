@@ -1,7 +1,6 @@
 import BaseView from '../BaseView/BaseView.js';
 import Navbar from '../../components/Navbar/Navbar.js';
-
-import './SettingsView.tmpl.js';
+import settingsViewTemplate from './SettingsView.tmpl.xml';
 
 /**
  * Settings view class
@@ -61,7 +60,7 @@ export default class SettingsView extends BaseView {
      */
     render() {
         Navbar.navbarShow();
-        this.el.innerHTML = window.fest['views/SettingsView/SettingsView.tmpl']();
+        this.el.innerHTML = settingsViewTemplate();
 
         this.profileLink = document.getElementById('profileLink');
         this.accountsLink = document.getElementById('accountsLink');

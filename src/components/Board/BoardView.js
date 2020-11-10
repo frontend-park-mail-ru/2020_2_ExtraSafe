@@ -1,6 +1,6 @@
 import BaseView from '../../views/BaseView/BaseView.js';
 import rendering from '../../utils/rendering.js';
-import './Board.tmpl.js';
+import boardTemplate from './Board.tmpl.xml';
 
 /**
  * Board view
@@ -31,7 +31,7 @@ export default class BoardView extends BaseView {
      * @param {JSON} boardJSON
      */
     render(boardJSON) {
-        const html = window.fest['components/Board/Board.tmpl'](boardJSON);
+        const html = boardTemplate(boardJSON);
         this.el.appendChild(...rendering.createElementsFromTmpl(html));
         this.addEventListeners(boardJSON);
     }

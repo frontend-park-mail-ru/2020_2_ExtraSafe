@@ -1,6 +1,6 @@
 import BaseView from '../BaseView/BaseView.js';
 import Navbar from '../../components/Navbar/Navbar.js';
-import './CurrentBoardView.tmpl.js';
+import currentBoardTemplate from './CurrentBoardView.tmpl.xml';
 
 /**
  * Class Current board view.
@@ -55,7 +55,7 @@ export default class CurrentBoardView extends BaseView {
      */
     render(boardJSON) {
         Navbar.navbarShow();
-        this.el.innerHTML = window.fest['views/CurrentBoardView/CurrentBoardView.tmpl'](boardJSON);
+        this.el.innerHTML = currentBoardTemplate(boardJSON);
         this.addEventListeners();
         this.eventBus.emit('currentBoardView:addCardsFromServer', this.cardsDiv);
     }

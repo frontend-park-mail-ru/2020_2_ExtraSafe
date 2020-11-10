@@ -1,7 +1,7 @@
 import UserSession from '../../utils/userSession.js';
 import Network from '../../utils/network.js';
-import './Navbar.tmpl.js';
 import globalEventBus from '../../utils/globalEventBus.js';
+import navbarTemplate from './Navbar.tmpl.xml';
 
 /**
  * Navbar
@@ -12,7 +12,7 @@ class Navbar {
      */
     constructor() {
         this.el = document.getElementById('navbar');
-        this.el.innerHTML = window.fest['components/Navbar/Navbar.tmpl']();
+        this.el.innerHTML = navbarTemplate();
         this.setAvatarURL(UserSession.data.avatar);
         this.addEventListeners();
         this.navbarHide();

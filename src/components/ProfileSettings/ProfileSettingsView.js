@@ -2,7 +2,7 @@ import BaseView from '../../views/BaseView/BaseView.js';
 import Rendering from '../../utils/rendering.js';
 import Validation from '../../utils/validation.js';
 import userSession from '../../utils/userSession.js';
-import './ProfileSettingsView.tmpl.js';
+import profileSettingsViewTemplate from './ProfileSettingsView.tmpl.xml';
 
 /**
  * Profile settings view class
@@ -161,7 +161,7 @@ export default class ProfileSettingsView extends BaseView {
      */
     render() {
         const templateInput = this.templateJSONSetup();
-        this.el.innerHTML = window.fest['components/ProfileSettings/ProfileSettingsView.tmpl'](templateInput);
+        this.el.innerHTML = profileSettingsViewTemplate(templateInput);
         this.setParams(userSession.data);
         this.addEventListeners();
     }

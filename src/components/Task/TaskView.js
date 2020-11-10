@@ -1,6 +1,6 @@
 import BaseView from '../../views/BaseView/BaseView.js';
 import rendering from '../../utils/rendering.js';
-import './Task.tmpl.js';
+import taskTemplate from './Task.tmpl.xml';
 
 /**
  * Class Task view.
@@ -73,7 +73,7 @@ export default class TaskView extends BaseView {
      * @param {JSON} taskJSON
      */
     render(taskJSON) {
-        const html = window.fest['components/Task/Task.tmpl'](taskJSON);
+        const html = taskTemplate(taskJSON);
         this.el.appendChild(...rendering.createElementsFromTmpl(html));
         this.addEventListeners(taskJSON);
         if (!taskJSON.isInitialized) {

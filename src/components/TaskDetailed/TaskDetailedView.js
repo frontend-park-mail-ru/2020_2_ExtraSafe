@@ -1,5 +1,5 @@
 import BaseView from '../../views/BaseView/BaseView.js';
-import './TaskDetailedView.tmpl.js';
+import taskDetailedViewTemplate from './TaskDetailedView.tmpl.xml';
 
 /**
  * Task detailed view
@@ -49,7 +49,7 @@ export default class TaskDetailedView extends BaseView {
      */
     render(json) {
         this.el.style.display = 'flex';
-        this.el.innerHTML = window.fest['components/TaskDetailed/TaskDetailedView.tmpl'](json);
+        this.el.innerHTML = taskDetailedViewTemplate(json);
         this.addEventListeners(json);
     }
 }
