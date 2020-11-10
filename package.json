@@ -2,14 +2,18 @@
   "name": "tabutask",
   "version": "1.0.0",
   "description": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/frontend-park-mail-ru/2020_2_ExtraSafe"
+  },
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint .",
     "lint-fix": "eslint --fix .",
-    "start": "node_modules/.bin/fest-build --dir=source; node server.js",
+    "start": "fest-build --dir=src; webpack; node server.js",
     "dev-start": "npm run lint && npm run start",
-    "build": "fest-build --dir=source"
+    "build": "fest-build --dir=src; webpack"
   },
   "pre-commit": [
     "lint-fix"
@@ -27,6 +31,11 @@
     "eslint": "^7.10.0",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-import": "^2.22.1",
-    "pre-commit": "^1.2.2"
+    "fest-webpack-loader": "^3.0.0",
+    "html-webpack-plugin": "^4.5.0",
+    "pre-commit": "^1.2.2",
+    "webpack": "^5.4.0",
+    "webpack-cli": "^4.2.0",
+    "xml2js": "^0.4.23"
   }
 }
