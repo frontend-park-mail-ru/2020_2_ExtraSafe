@@ -89,24 +89,25 @@ export default class Router {
     open(route) {
         window.history.replaceState({}, '', route);
 
-        if (this.routesMap.has(route)) {
-            if (!this.isAuth) {
-                this.authorize().then((response) => {
-                    this.isAuth = response;
+        // TODO: переписать для перехода на публичные доски, которых нет в userSession
+        if (!this.isAuth) {
+            this.authorize().then((response) => {
+                this.isAuth = response;
+                if (this.routesMap.has(route)) {
                     if (response === true) {
                         this.renderIfAuth(route);
                     } else {
                         this.renderIfNotAuth(route);
                     }
-                });
-            } else {
-                this.renderIfAuth(route);
-            }
-        } else {
-            window.history.replaceState({}, '', '/');
+                } else {
+                    window.history.replaceState({}, '', '/');
 
-            const page = this.routesMap.get('/');
-            page.render();
+                    const page = this.routesMap.get('/');
+                    page.render();
+                }
+            });
+        } else {
+            this.renderIfAuth(route);
         }
     }
 

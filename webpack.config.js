@@ -2,7 +2,11 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
+// TODO: разобраться с мусорным <style>
 module.exports = {
+    output: {
+        publicPath: '/',
+    },
     module: {
         rules: [
             {

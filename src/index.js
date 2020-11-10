@@ -30,6 +30,7 @@ router.addRoute('/reg', regController);
 router.addRoute('/settings', settingsController);
 router.addRoute('/', homeController);
 
+// TODO: переписать для перехода на публичные доски, которых нет в userSession
 globalEventBus.on('userSession:setBoards', (boards) => {
     for (const board of boards) {
         router.addRoute(`/board/${board.boardID}`,
