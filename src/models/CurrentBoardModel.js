@@ -118,13 +118,4 @@ export default class CurrentBoardModel {
     deleteBoard() {
         network.boardDelete(this.board.boardID);
     }
-
-    /**
-     * Change task order
-     * @param {HTMLElement} oldTasksDiv
-     * @param {HTMLElement} newTasksDiv
-     */
-    changeTaskOrder(oldTasksDiv, newTasksDiv) {
-
-    }
 }

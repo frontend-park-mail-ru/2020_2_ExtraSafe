@@ -56,9 +56,14 @@ export default class TaskView extends BaseView {
         taskEl.addEventListener('dragstart', (event) => {
             window.draggedTask = event.target;
             window.startTasksDiv = event.target.parentElement;
+            window.startTasksDivNextSibling = event.target.nextSibling;
+            window.taskDropped = false;
             event.target.style.opacity = '0.001';
         });
         taskEl.addEventListener('dragend', (event) => {
+            if (!window.taskDropped) {
+                window.startTasksDiv.insertBefore(window.draggedTask, window.startTasksDivNextSibling);
+            }
             window.draggedTask = null;
             event.target.style = '';
         });
@@ -69,7 +74,7 @@ export default class TaskView extends BaseView {
         });
         taskEl.addEventListener('drop', (event) => {
             if (event.target !== window.draggedTask) {
-                console.log('drop');
+                window.taskDropped = true;
                 window.endTasksDiv = window.draggedTask.parentElement;
                 globalEventBus.emit('taskView:taskPositionChanged', null);
             }

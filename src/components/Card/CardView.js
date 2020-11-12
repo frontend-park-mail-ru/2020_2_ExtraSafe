@@ -46,6 +46,7 @@ export default class CardView extends BaseView {
             event.preventDefault();
         });
         document.getElementById(cardJSON.addTaskID).addEventListener('drop', () => {
+            window.taskDropped = true;
             globalEventBus.emit('taskView:taskPositionChanged', null);
         });
         document.getElementById(cardJSON.cardSettingsID).addEventListener('click', () => {

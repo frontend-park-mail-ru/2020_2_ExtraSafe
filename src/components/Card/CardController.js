@@ -79,18 +79,20 @@ export default class CardController extends BaseController {
         globalEventBus.on('taskView:taskPositionChanged', () => {
             if ((window.draggedTask.parentElement === window.startTasksDiv) && (window.startTasksDiv === el)) {
                 this.model.changeTaskOrder(window.draggedTask);
+                // TODO: прикрутить сеть
             } else {
                 if (window.startTasksDiv === el) {
-                    // TODO: добавить удаления таска из массива и перестройки порядка после этого
-                    globalEventBus.emit('cardController:taskRemovedFromOldCard',
-                        this.model.card.tasks[Number.parseInt(window.draggedTask.dataset.order)]);
+                    const deletedCardData = this.model.card.tasks[Number.parseInt(window.draggedTask.dataset.order)];
+                    this.model.deleteTask(window.draggedTask);
+                    globalEventBus.emit('cardController:taskRemovedFromOldCard', [deletedCardData, this.model]);
                 }
             }
         });
-        globalEventBus.on('cardController:taskRemovedFromOldCard', (taskData) => {
+        globalEventBus.on('cardController:taskRemovedFromOldCard', ([deletedCardData, oldCardModel]) => {
             if (window.draggedTask.parentElement === el) {
-                this.model.addTask(window.draggedTask, taskData);
+                this.model.addTask(window.draggedTask, deletedCardData);
+                // TODO: прикрутить сеть
             }
-        })
+        });
     }
 }
