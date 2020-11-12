@@ -299,6 +299,15 @@ class Network {
 
         return fetch(url, this.requestPost);
     }
+
+    /**
+     * get boards from server
+     * @return {Promise<Response>}
+     */
+    getBoards() {
+        const url = this.serverAddr + '/boards/';
+        return fetch(url, this.requestGet);
+    }
 }
 
 export default new Network();

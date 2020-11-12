@@ -55,7 +55,26 @@ export default class HomeModel {
             if (responseBody.status > 200) {
                 this.eventBus.emit('homeModel:boardCreateFailed', responseBody.codes);
             } else {
+                // this.boards[this.boards.length - 1].model.boardJSON.boardID = responseBody.boardID;
+                // this.boards[this.boards.length - 1].model.boardJSON.name = responseBody.name;
+                // this.boards[this.boards.length - 1].model.board.boardName = responseBody.name;
                 this.eventBus.emit('homeModel:boardCreateSuccess', responseBody);
+            }
+            return responseBody;
+        });
+    }
+
+    /**
+     * Get boards from server
+     */
+    getBoardsFromServer() {
+        network.getBoards().then((response) => {
+            return response.json();
+        }).then((responseBody) => {
+            if (responseBody.status > 200) {
+                this.eventBus.emit('homeModel:getBoardsFromServerFailed', responseBody.codes);
+            } else {
+                this.eventBus.emit('homeModel:getBoardsFromServerSuccess', responseBody);
             }
             return responseBody;
         });
