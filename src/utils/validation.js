@@ -12,11 +12,11 @@ class Validation {
         this.usernameRegExp = new RegExp('^[a-zA-Z0-9_]+$');
         this.fullNameRegExp = new RegExp('^[a-zA-Zа-яА-Я _]+$');
         this.githubRegExp = new RegExp('^[a-z\\d](?:[a-z\\d]|-(?=[a-z\\d])){0,38}$');
-        this.telegramRegExp = new RegExp('^[a-zA-Z0-9_]{5,32}$');
-        this.instagramRegExp = new RegExp('^[a-zA-Z0-9_.]{2,40}$');
+        this.telegramRegExp = new RegExp('^[a-zA-Z0-9_]{0,32}$');
+        this.instagramRegExp = new RegExp('^[a-zA-Z0-9_.]{0,40}$');
         // this.vkRegExp = new RegExp('');
         // this.bitbucketRegExp = new RegExp('');
-        this.facebookRegExp = new RegExp('^[a-z\\d.]{5,}$');
+        this.facebookRegExp = new RegExp('^[a-z\\d.]{0,}$');
         // this.lowerCaseRegExp = new RegExp('[a-z]+');
         // this.upperCaseRegExp = new RegExp('[A-Z]+');
         // this.numbersRegExp = new RegExp('[0-9]+');

@@ -39,7 +39,7 @@ export default class Router {
                 return false;
             } else {
                 UserSession.setData(responseBody);
-                UserSession.setAccounts(responseBody);
+                UserSession.setAccounts(responseBody.links);
                 UserSession.setBoards(responseBody);
                 return true;
             }
