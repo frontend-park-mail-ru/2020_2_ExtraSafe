@@ -1,5 +1,5 @@
 import Network from '../../utils/network.js';
-import network from "../../utils/network.js";
+import network from '../../utils/network.js';
 
 /**
  * Security settings model

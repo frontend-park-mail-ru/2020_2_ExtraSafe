@@ -1,6 +1,6 @@
 import Network from '../../utils/network.js';
 import userSession from '../../utils/userSession.js';
-import network from "../../utils/network.js";
+import network from '../../utils/network.js';
 
 /**
  * Profile settings model
