@@ -35,6 +35,10 @@ export default class CurrentBoardModel {
             return response.json();
         }).then((responseBody) => {
             if (responseBody.status > 200) {
+                if (!network.ifTokenValid(responseBody)) {
+                    this.getBoardData();
+                    return;
+                }
                 this.eventBus.emit('currentBoardModel:getBoardFailed', responseBody.codes);
             } else {
                 this.eventBus.emit('currentBoardModel:getBoardSuccess', responseBody);
@@ -104,6 +108,10 @@ export default class CurrentBoardModel {
             return response.json();
         }).then((responseBody) => {
             if (responseBody.status > 200) {
+                if (!network.ifTokenValid(responseBody)) {
+                    this.updateBoardName(boardName);
+                    return;
+                }
                 this.eventBus.emit('currentBoardModel:boardSetFailed', responseBody.codes);
             } else {
                 this.eventBus.emit('currentBoardModel:boardSetSuccess', responseBody);

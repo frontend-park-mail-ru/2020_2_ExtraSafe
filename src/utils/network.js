@@ -10,6 +10,7 @@ class Network {
     constructor() {
         // this.serverAddr = 'http://tabutask.ru:8080';
         this.serverAddr = 'http://127.0.0.1:8080';
+        // this.token = '';
         this.requestGet = {
             mode: 'cors',
             credentials: 'include',
@@ -21,6 +22,7 @@ class Network {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'X-CSRF-Token': '',
             },
         };
         this.requestPut = {
@@ -29,17 +31,24 @@ class Network {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
+                'X-CSRF-Token': '',
             },
         };
         this.requestDelete = {
             mode: 'cors',
             credentials: 'include',
             method: 'DELETE',
+            headers: {
+                'X-CSRF-Token': '',
+            },
         };
         this.requestFormData = {
             mode: 'cors',
             credentials: 'include',
             method: 'POST',
+            headers: {
+                'X-CSRF-Token': '',
+            },
         };
     }
 
@@ -117,9 +126,12 @@ class Network {
      */
     accountsSet(data) {
         const url = this.serverAddr + '/accounts/';
-        this.requestPost.body = JSON.stringify(data);
+        // this.requestPost.body = JSON.stringify(data);
+        const request = this.requestPost;
+        request.body = JSON.stringify(data);
+        request.headers['X-CSRF-Token'] = '4444';
 
-        return fetch(url, this.requestPost);
+        return fetch(url, request);
     }
 
     /**
@@ -298,6 +310,30 @@ class Network {
         this.requestPost.body = JSON.stringify(data);
 
         return fetch(url, this.requestPost);
+    }
+
+    /**
+     * Check token error from server
+     * @param {JSON} responseBody
+     * @return {boolean}
+     */
+    ifTokenValid(responseBody) {
+        if (responseBody.status === 777) {
+            this.setToken(responseBody.token);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Set token to headers of requests
+     * @param {string} token
+     */
+    setToken(token) {
+        this.requestPost.headers['X-CSRF-Token'] = token;
+        this.requestPut.headers['X-CSRF-Token'] = token;
+        this.requestDelete.headers['X-CSRF-Token'] = token;
+        this.requestFormData.headers['X-CSRF-Token'] = token;
     }
 }
 

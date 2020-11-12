@@ -1,4 +1,5 @@
 import Network from '../../utils/network.js';
+import network from "../../utils/network.js";
 
 /**
  * Security settings model
@@ -24,6 +25,10 @@ export default class SecuritySettingsModel {
             return response.json();
         }).then((responseBody) => {
             if (responseBody.status > 200) {
+                if (!network.ifTokenValid(responseBody)) {
+                    this.changeParams();
+                    return;
+                }
                 this.eventBus.emit('securitySettingsModel:changeFailed', responseBody.codes);
             } else {
                 this.eventBus.emit('securitySettingsModel:changeSuccess', null);
