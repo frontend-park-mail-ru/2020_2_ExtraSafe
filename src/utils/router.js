@@ -137,6 +137,8 @@ export default class Router {
      */
     addRoute(route, handler) {
     // handler is a callable function or method
-        this.routesMap.set(route, handler);
+        if (!this.routesMap.has(route)) {
+            this.routesMap.set(route, handler);
+        }
     }
 }
