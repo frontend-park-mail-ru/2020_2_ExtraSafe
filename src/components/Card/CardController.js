@@ -49,9 +49,12 @@ export default class CardController extends BaseController {
         });
         this.eventBus.on('cardModel:createCardSuccess', (data) => {
             console.log(data);
+            this.model.cardJSON.cardID = data.cardID;
+            this.model.newTask.cardID = data.cardID;
         });
         this.eventBus.on('cardModel:setCardFailed', (errorCodes) => {
             for (const code of errorCodes) {
+                console.log('cardModel:setCardFailed');
                 console.log(code);
             }
         });

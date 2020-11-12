@@ -35,15 +35,12 @@ export default class Router {
         return Network.authRequest().then((response) => {
             return response.json();
         }).then((responseBody) => {
-            console.log(responseBody);
             if (responseBody.status > 200) {
                 return false;
             } else {
-                console.log(responseBody);
                 userSession.setData(responseBody);
                 userSession.setAccounts(responseBody.links);
                 userSession.setBoards(responseBody);
-                console.log(userSession.accounts);
                 return true;
             }
         });
@@ -140,6 +137,8 @@ export default class Router {
      */
     addRoute(route, handler) {
     // handler is a callable function or method
-        this.routesMap.set(route, handler);
+        if (!this.routesMap.has(route)) {
+            this.routesMap.set(route, handler);
+        }
     }
 }

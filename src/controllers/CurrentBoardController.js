@@ -48,6 +48,8 @@ export default class CurrentBoardController extends BaseController {
         });
         this.eventBus.on('currentBoardView:deleteBoard', () => {
             this.model.deleteBoard();
+        });
+        this.eventBus.on('currentBoardModel:boardDeleted', () => {
             this.router.open('/');
         });
         this.eventBus.on('currentBoardModel:boardSetFailed', (errorCodes) => {

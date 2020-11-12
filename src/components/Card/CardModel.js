@@ -240,8 +240,6 @@ export default class CardModel {
             });
         }
 
-        console.log(data);
-
         network.tasksOrder(data, this.cardJSON.boardID).then((response) => {});
     }
 
@@ -276,8 +274,6 @@ export default class CardModel {
                 order: task.model.taskJSON.order,
             });
         }
-
-        console.log(data);
 
         network.tasksOrder(data, this.cardJSON.boardID).then((response) => {});
     }

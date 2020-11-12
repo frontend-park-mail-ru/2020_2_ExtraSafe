@@ -24,12 +24,12 @@ export default class TaskDetailedView extends BaseView {
             this.eventBus.emit('taskDetailedView:closed', null);
         });
         document.getElementById('saveTaskDescription').addEventListener('click', () => {
-            const description = document.getElementById('taskDescription').innerHTML;
+            const description = document.getElementById('taskDescription').innerText;
             this.eventBus.emit('taskDetailedView:updateTaskDescription', description);
         });
         document.getElementById('taskName').addEventListener('focusout', () => {
             const el = document.getElementById('taskName');
-            const taskName = el.innerHTML;
+            const taskName = el.innerText;
             // TODO: сделать проверку на название из пробелов
             if (taskName === '') {
                 el.innerHTML = json.taskName;

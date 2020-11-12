@@ -31,7 +31,7 @@ export default class AddBoardPopup {
      */
     addEventListeners() {
         document.getElementById('createBoard').addEventListener('click', () => {
-            const boardName = document.getElementById('popupBoardName').innerHTML;
+            const boardName = document.getElementById('popupBoardName').innerText;
             // TODO: сделать проверку на имя из пробелов
             if (boardName !== '') {
                 this.eventBus.emit('addBoardPopup:addBoard', boardName);

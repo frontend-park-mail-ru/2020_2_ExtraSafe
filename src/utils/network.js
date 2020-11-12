@@ -8,9 +8,8 @@ class Network {
      * Constructor
      */
     constructor() {
-        // this.serverAddr = 'http://tabutask.ru:8080';
-        this.serverAddr = 'http://127.0.0.1:8080';
-        // this.token = '';
+        this.serverAddr = 'http://tabutask.ru:8080';
+        // this.serverAddr = 'http://127.0.0.1:8080';
         this.requestGet = {
             mode: 'cors',
             credentials: 'include',
@@ -326,14 +325,23 @@ class Network {
     }
 
     /**
-     * Set token to headers of requests
-     * @param {string} token
-     */
+         * Set token to headers of requests
+         * @param {string} token
+         */
     setToken(token) {
         this.requestPost.headers['X-CSRF-Token'] = token;
         this.requestPut.headers['X-CSRF-Token'] = token;
         this.requestDelete.headers['X-CSRF-Token'] = token;
         this.requestFormData.headers['X-CSRF-Token'] = token;
+    }
+
+    /**
+     * get boards from server
+     * @return {Promise<Response>}
+     */
+    getBoards() {
+        const url = this.serverAddr + '/boards/';
+        return fetch(url, this.requestGet);
     }
 }
 
