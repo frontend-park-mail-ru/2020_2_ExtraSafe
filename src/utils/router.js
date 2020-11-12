@@ -35,7 +35,6 @@ export default class Router {
         return Network.authRequest().then((response) => {
             return response.json();
         }).then((responseBody) => {
-            console.log(responseBody);
             if (responseBody.status > 200) {
                 return false;
             } else {
