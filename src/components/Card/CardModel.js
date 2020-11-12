@@ -169,7 +169,6 @@ export default class CardModel {
         this.card.tasks.splice(newElementIndex, 0, taskData);
 
         this.updateTaskOrder();
-        // TODO: вызов сети для смены порядка в случае перемещения в одной доске
     }
 
     /**
@@ -188,7 +187,6 @@ export default class CardModel {
         this.card.tasks.splice(newElementIndex, 0, taskData);
 
         this.updateTaskOrder();
-        // TODO: вызов сети для смены порядка в случае перемещения в разных досках
     }
 
     /**
@@ -207,9 +205,72 @@ export default class CardModel {
     updateTaskOrder() {
         let taskIndex = 0;
         for (const task of this.card.tasks) {
-            task.order = taskIndex;
+            task.model.task.order = taskIndex;
+            task.model.taskJSON.order = taskIndex;
             document.getElementById(task.model.task.taskID).dataset.order = taskIndex.toString();
             ++taskIndex;
         }
+    }
+
+    /**
+     * Change task order on server
+     */
+    changeTaskOrderOnServer() {
+        const data = {
+            cards: [
+                {
+                    cardID: this.cardJSON.cardID,
+                    tasks: [],
+                },
+            ],
+        };
+
+        for (const task of this.card.tasks) {
+            data.cards[0].tasks.push({
+                taskID: task.model.taskJSON.taskID,
+                order: task.model.taskJSON.order,
+            });
+        }
+
+        console.log(data);
+
+        network.tasksOrder(data, this.cardJSON.boardID).then((response) => {});
+    }
+
+    /**
+     * Change multi card task order on server
+     * @param {CardModel} oldCardModel
+     */
+    changeTaskMultiCardOrderOnServer(oldCardModel) {
+        const data = {
+            cards: [
+                {
+                    cardID: oldCardModel.cardJSON.cardID,
+                    tasks: [],
+                },
+                {
+                    cardID: this.cardJSON.cardID,
+                    tasks: [],
+                },
+            ],
+        };
+
+        for (const task of oldCardModel.card.tasks) {
+            data.cards[0].tasks.push({
+                taskID: task.model.taskJSON.taskID,
+                order: task.model.taskJSON.order,
+            });
+        }
+
+        for (const task of this.card.tasks) {
+            data.cards[1].tasks.push({
+                taskID: task.model.taskJSON.taskID,
+                order: task.model.taskJSON.order,
+            });
+        }
+
+        console.log(data);
+
+        network.tasksOrder(data, this.cardJSON.boardID).then((response) => {});
     }
 }

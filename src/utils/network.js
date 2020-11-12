@@ -286,6 +286,19 @@ class Network {
 
         return fetch(url, this.requestDelete);
     }
+
+    /**
+     * request to change tasks order
+     * @param {requestData} data
+     * @param {string} boardID
+     * @return {Promise<Response>}
+     */
+    tasksOrder(data, boardID) {
+        const url = this.serverAddr + '/task-order/' + boardID + '/';
+        this.requestPost.body = JSON.stringify(data);
+
+        return fetch(url, this.requestPost);
+    }
 }
 
 export default new Network();
