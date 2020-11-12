@@ -1,0 +1,32 @@
+@import "mixins";
+@import "colors";
+
+/* Стиль для всего body */
+body {
+  margin: 0;
+  background: $main-background-color;
+}
+
+/* Стандартный input */
+input {
+    padding: 8px 14px;
+    margin: 8px 0;
+
+    border: 1px solid $input-border-color;
+    border-radius: 5px;
+
+    :focus {
+        outline: none;
+        box-shadow: 0 0 0 2px $electric-indigo;
+    }
+}
+
+/* Контейнер с навбаром */
+.default__container__with-navbar {
+    @include default__container(calc(100vh - 40px));
+}
+
+/* Контейнер без навбара */
+.default__container__without-navbar {
+    @include default__container(100vh);
+}

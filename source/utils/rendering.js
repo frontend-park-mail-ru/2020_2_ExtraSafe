@@ -33,6 +33,7 @@ class Rendering {
      */
     printServerErrors(errors) {
         errors.forEach((element, i) => {
+            console.log(element);
             const error = {
                 result: false,
                 message: errorsDescription[element].message,
