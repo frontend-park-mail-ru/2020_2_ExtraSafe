@@ -85,6 +85,7 @@ export default class AccountsSettingsView extends BaseView {
                     {
                         type: 'text',
                         id: 'telegram',
+                        hasError: true,
                     }],
             },
 
@@ -99,6 +100,7 @@ export default class AccountsSettingsView extends BaseView {
                     {
                         type: 'text',
                         id: 'instagram',
+                        hasError: true,
                     }],
             },
 
@@ -113,6 +115,7 @@ export default class AccountsSettingsView extends BaseView {
                     {
                         type: 'text',
                         id: 'github',
+                        hasError: true,
                     }],
             },
 
@@ -127,6 +130,7 @@ export default class AccountsSettingsView extends BaseView {
                     {
                         type: 'text',
                         id: 'bitbucket',
+                        hasError: true,
                     }],
             },
 
@@ -141,6 +145,7 @@ export default class AccountsSettingsView extends BaseView {
                     {
                         type: 'text',
                         id: 'vkontakte',
+                        hasError: true,
                     }],
             },
 
