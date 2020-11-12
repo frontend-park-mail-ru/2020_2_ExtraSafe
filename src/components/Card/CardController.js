@@ -1,6 +1,7 @@
 import BaseController from '../../controllers/BaseController.js';
 import CardView from './CardView.js';
 import CardModel from './CardModel.js';
+import globalEventBus from '../../utils/globalEventBus.js';
 
 /**
  * Card controller
@@ -73,5 +74,23 @@ export default class CardController extends BaseController {
     render() {
         this.addEventListeners();
         this.view.render(this.model.card);
+
+        const el = document.getElementById(this.model.card.tasksDiv);
+        globalEventBus.on('taskView:taskPositionChanged', () => {
+            if ((window.draggedTask.parentElement === window.startTasksDiv) && (window.startTasksDiv === el)) {
+                this.model.changeTaskOrder(window.draggedTask);
+            } else {
+                if (window.startTasksDiv === el) {
+                    // TODO: добавить удаления таска из массива и перестройки порядка после этого
+                    globalEventBus.emit('cardController:taskRemovedFromOldCard',
+                        this.model.card.tasks[Number.parseInt(window.draggedTask.dataset.order)]);
+                }
+            }
+        });
+        globalEventBus.on('cardController:taskRemovedFromOldCard', (taskData) => {
+            if (window.draggedTask.parentElement === el) {
+                this.model.addTask(window.draggedTask, taskData);
+            }
+        })
     }
 }

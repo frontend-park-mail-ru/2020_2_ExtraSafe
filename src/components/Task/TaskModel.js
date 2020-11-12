@@ -20,6 +20,7 @@ export default class TaskModel {
             taskNameID: `${cardNumber}Task${taskNumber}Name`,
             contentEditable: task.contentEditable,
             isInitialized: task.isInitialized,
+            order: task.order,
         };
         this.taskJSON = {
             boardID: task.boardID,
@@ -27,7 +28,7 @@ export default class TaskModel {
             taskID: task.taskID,
             name: task.taskName,
             description: task.taskDescription,
-            order: undefined,
+            order: task.order,
         };
     }
 
@@ -59,7 +60,9 @@ export default class TaskModel {
             cardID: this.taskJSON.cardID,
             name: this.task.taskName,
             description: this.task.taskDescription,
+            order: this.task.order,
         };
+        console.log(data);
         network.taskCreate(data, this.taskJSON.boardID).then((response) => {
             return response.json();
         }).then((responseBody) => {

@@ -2,6 +2,7 @@ import BaseController from '../../controllers/BaseController.js';
 import TaskView from './TaskView.js';
 import TaskModel from './TaskModel.js';
 import TaskDetailedController from '../TaskDetailed/TaskDetailedController.js';
+import globalEventBus from '../../utils/globalEventBus.js';
 
 /**
  * Task controller
@@ -64,6 +65,14 @@ export default class TaskController extends BaseController {
         });
         this.eventBus.on('taskModel:setTaskSuccess', (data) => {
             console.log(data);
+        });
+
+        const taskEl = document.getElementById(this.model.task.taskID);
+        globalEventBus.on('cardController:taskRemovedFromOldCard', () => {
+            if (taskEl === window.draggedTask) {
+                this.model.deleteTask();
+                delete this;
+            }
         });
     }
 

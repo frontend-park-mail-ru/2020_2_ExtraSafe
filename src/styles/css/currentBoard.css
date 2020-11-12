@@ -194,6 +194,8 @@
 /* содержимое одной задачи */
 .card__content__task {
     display: flex;
+    position: relative;
+    opacity: 0.999;
     flex-direction: column;
     width: 270px;
     margin: 10px 10px 0 10px;

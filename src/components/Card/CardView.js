@@ -1,6 +1,7 @@
 import BaseView from '../../views/BaseView/BaseView.js';
 import rendering from '../../utils/rendering.js';
 import cardTemplate from './Card.tmpl.xml';
+import globalEventBus from '../../utils/globalEventBus.js';
 
 /**
  * Class Card view.
@@ -37,6 +38,15 @@ export default class CardView extends BaseView {
         });
         document.getElementById(cardJSON.addTaskID).addEventListener('click', () => {
             this.eventBus.emit('cardView:addNewTask', this.tasksDiv);
+        });
+        document.getElementById(cardJSON.addTaskID).addEventListener('dragenter', () => {
+            this.tasksDiv.appendChild(window.draggedTask);
+        });
+        document.getElementById(cardJSON.addTaskID).addEventListener('dragover', (event) => {
+            event.preventDefault();
+        });
+        document.getElementById(cardJSON.addTaskID).addEventListener('drop', () => {
+            globalEventBus.emit('taskView:taskPositionChanged', null);
         });
         document.getElementById(cardJSON.cardSettingsID).addEventListener('click', () => {
             document.getElementById(cardJSON.cardID).remove();

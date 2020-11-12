@@ -37,6 +37,7 @@ export default class CardModel {
             taskDescription: '',
             contentEditable: 'true',
             isInitialized: false,
+            order: 0,
         };
     }
 
@@ -49,6 +50,14 @@ export default class CardModel {
             return;
         }
 
+        tasksJSON.sort(function(a, b) {
+            if (a.order < b.order) {
+                return -1;
+            } else {
+                return 1;
+            }
+        });
+
         for (const task of tasksJSON) {
             const taskObj = {
                 boardID: this.cardJSON.boardID,
@@ -58,6 +67,7 @@ export default class CardModel {
                 taskDescription: task.description,
                 contentEditable: 'false',
                 isInitialized: true,
+                order: task.order,
             };
             this.addNewTask(this.tasksDiv, taskObj);
         }
@@ -92,6 +102,7 @@ export default class CardModel {
     addNewTask(tasksDiv, task = this.newTask) {
         const newTask = new TaskController(tasksDiv, this.card.tasks.length, task);
         this.card.tasks.push(newTask);
+        ++this.newTask.order;
 
         this.eventBus.emit('cardModel:taskAdded', newTask);
     }
@@ -137,5 +148,49 @@ export default class CardModel {
             }
             return responseBody;
         });
+    }
+
+    changeTaskOrder(taskHTML) {
+        const oldElementIndex = Number.parseInt(taskHTML.dataset.order);
+        const taskData = this.card.tasks[oldElementIndex];
+        this.card.tasks.splice(oldElementIndex, 1);
+
+        let newElementIndex = 0;
+        for (const taskEl of document.getElementById(this.card.tasksDiv).children) {
+            if (taskEl === taskHTML) {
+                break;
+            }
+            ++newElementIndex;
+        }
+        this.card.tasks.splice(newElementIndex, 0, taskData);
+
+        this.updateDataOrder();
+        // TODO: вызов сети для смены порядка в случае перемещения в одной доске
+    }
+
+    addTask(taskHTML, taskData) {
+        let newElementIndex = 0;
+        for (const taskEl of document.getElementById(this.card.tasksDiv).children) {
+            if (taskEl === taskHTML) {
+                break;
+            }
+            ++newElementIndex;
+        }
+        console.log(newElementIndex);
+        console.log(this.card.tasks);
+        this.card.tasks.splice(newElementIndex, 0, taskData);
+        console.log(this.card.tasks);
+
+        this.updateDataOrder();
+        // TODO: вызов сети для смены порядка в случае перемещения в разных досках
+    }
+
+    updateDataOrder() {
+        let taskIndex = 0;
+        for (const task of this.card.tasks) {
+            task.order = taskIndex;
+            document.getElementById(task.model.task.taskID).dataset.order = taskIndex;
+            ++taskIndex;
+        }
     }
 }
