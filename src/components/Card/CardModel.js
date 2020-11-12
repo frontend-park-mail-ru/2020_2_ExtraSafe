@@ -50,13 +50,13 @@ export default class CardModel {
             return;
         }
 
-        tasksJSON.sort(function(a, b) {
-            if (a.order < b.order) {
-                return -1;
-            } else {
-                return 1;
-            }
-        });
+        // tasksJSON.sort(function(a, b) {
+        //     if (a.order < b.order) {
+        //         return -1;
+        //     } else {
+        //         return 1;
+        //     }
+        // });
 
         for (const task of tasksJSON) {
             const taskObj = {
