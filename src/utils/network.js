@@ -5,7 +5,7 @@ import globalEventBus from './globalEventBus.js';
  */
 class Network {
     /**
-     * Constructor
+     * Constructor network
      */
     constructor() {
         // this.serverAddr = 'http://tabutask.ru:8080';
