@@ -62,7 +62,6 @@ export default class TaskModel {
             description: this.task.taskDescription,
             order: this.task.order,
         };
-        console.log(data);
         network.taskCreate(data, this.taskJSON.boardID).then((response) => {
             return response.json();
         }).then((responseBody) => {
@@ -85,8 +84,8 @@ export default class TaskModel {
             cardID: this.taskJSON.cardID,
             name: this.task.taskName,
             description: this.task.taskDescription,
+            order: this.task.order,
         };
-        console.log(data);
         network.taskSet(data).then((response) => {
             return response.json();
         }).then((responseBody) => {
