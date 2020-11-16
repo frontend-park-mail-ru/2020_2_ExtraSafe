@@ -1,5 +1,6 @@
 import Network from '../../utils/network.js';
 import userSession from '../../utils/userSession.js';
+import network from '../../utils/network.js';
 
 /**
  * Profile settings model
@@ -26,6 +27,10 @@ export default class ProfileSettingsModel {
             return response.json();
         }).then((responseBody) => {
             if (responseBody.status > 200) {
+                if (!network.ifTokenValid(responseBody)) {
+                    this.changeParams();
+                    return;
+                }
                 this.eventBus.emit('profileSettingsModel:changeFailed', responseBody.codes);
             } else {
                 userSession.setData(responseBody);

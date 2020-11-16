@@ -66,6 +66,10 @@ export default class TaskModel {
             return response.json();
         }).then((responseBody) => {
             if (responseBody.status > 200) {
+                if (!network.ifTokenValid(responseBody)) {
+                    this.createTaskForServer();
+                    return;
+                }
                 this.eventBus.emit('taskModel:createTaskFailed', responseBody.codes);
             } else {
                 this.taskJSON.taskID = responseBody.taskID;
@@ -90,6 +94,10 @@ export default class TaskModel {
             return response.json();
         }).then((responseBody) => {
             if (responseBody.status > 200) {
+                if (!network.ifTokenValid(responseBody)) {
+                    this.updateTaskForServer();
+                    return;
+                }
                 this.eventBus.emit('taskModel:setTaskFailed', responseBody.codes);
             } else {
                 this.eventBus.emit('taskModel:setTaskSuccess', responseBody);
