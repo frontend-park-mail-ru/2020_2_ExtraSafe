@@ -31,7 +31,6 @@ export default class HomeController extends BaseController {
         });
         this.eventBus.on('homeModel:boardCreateFailed', (errorCodes) => {
             for (const code of errorCodes) {
-                console.log('homeModel:boardCreateFailed');
                 console.log(code);
             }
         });

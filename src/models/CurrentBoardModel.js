@@ -116,6 +116,8 @@ export default class CurrentBoardModel {
      * Delete board
      */
     deleteBoard() {
-        network.boardDelete(this.board.boardID);
+        network.boardDelete(this.board.boardID).then(() => {
+            this.eventBus.emit('currentBoardModel:boardDeleted', null);
+        });
     }
 }

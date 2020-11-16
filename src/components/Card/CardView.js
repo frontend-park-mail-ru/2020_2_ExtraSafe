@@ -23,7 +23,7 @@ export default class CardView extends BaseView {
      */
     addEventListeners(cardJSON) {
         document.getElementById(cardJSON.cardNameID).addEventListener('focusout', (event) => {
-            const newName = event.target.innerHTML;
+            const newName = event.target.innerText;
             // TODO: сделать проверку на название из пробелов
             if (newName === '') {
                 if (cardJSON.isInitialized) {

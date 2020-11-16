@@ -42,7 +42,7 @@ export default class CurrentBoardView extends BaseView {
                 this.eventBus.emit('currentBoardView:addNewCard', this.cardsDiv);
             }, false);
         document.getElementById('boardName').addEventListener('focusout', (event) => {
-            this.eventBus.emit('currentBoardView:boardNameUpdate', event.target.innerHTML);
+            this.eventBus.emit('currentBoardView:boardNameUpdate', event.target.innerText);
         });
         document.getElementById('boardSettings').addEventListener('click', () => {
             this.eventBus.emit('currentBoardView:deleteBoard', null);

@@ -1,4 +1,4 @@
-import userSession from './userSession.js';
+import UserSession from './userSession.js';
 import Network from './network.js';
 import globalEventBus from './globalEventBus.js';
 
@@ -38,11 +38,9 @@ export default class Router {
             if (responseBody.status > 200) {
                 return false;
             } else {
-                console.log(responseBody);
-                userSession.setData(responseBody);
-                userSession.setAccounts(responseBody.links);
-                userSession.setBoards(responseBody);
-                console.log(userSession.accounts);
+                UserSession.setData(responseBody);
+                UserSession.setAccounts(responseBody.links);
+                UserSession.setBoards(responseBody);
                 return true;
             }
         });
