@@ -66,9 +66,7 @@ export default class CurrentBoardModel {
      * @return {CardController}
      */
     addNewCard(cardsDiv, card = this.newCard) {
-        if (card.order === -1) {
-            card.order = this.board.cards.length;
-        }
+        this.newCard.order = this.board.cards.length;
         const newCard = new CardController(cardsDiv, card);
         this.board.cards.push(newCard);
 
@@ -165,6 +163,24 @@ export default class CurrentBoardModel {
     }
 
     /**
+     * Change card order on server
+     */
+    changeCardOrderOnServer() {
+        const data = {
+            cards: [],
+        };
+
+        for (const card of this.board.cards) {
+            data.cards.push({
+                cardID: card.model.cardJSON.cardID,
+                order: card.model.cardJSON.order,
+            });
+        }
+
+        network.cardsOrder(data, this.board.boardID).then((response) => {});
+    }
+
+    /**
      * Delete card by it's ID
      * @param {string} cardID
      */
@@ -176,6 +192,7 @@ export default class CurrentBoardModel {
             }
         }
         this.updateCardOrder();
+        this.changeCardOrderOnServer();
         // TODO: обновить порядок на сервере
     }
 }
