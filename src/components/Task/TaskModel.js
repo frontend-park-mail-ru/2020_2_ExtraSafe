@@ -46,7 +46,18 @@ export default class TaskModel {
      * delete task on server
      */
     deleteTask() {
-        network.taskDelete(this.taskJSON.taskID);
+        network.taskDelete(this.taskJSON.taskID).then((response) => {
+            return response.json();
+        }).then((responseBody) => {
+            if (responseBody.status > 200) {
+                if (!network.ifTokenValid(responseBody)) {
+                    this.deleteTask();
+                    return;
+                }
+            }
+        }).catch((error) => {
+            return;
+        });
     }
 
     /**
@@ -63,6 +74,10 @@ export default class TaskModel {
             return response.json();
         }).then((responseBody) => {
             if (responseBody.status > 200) {
+                if (!network.ifTokenValid(responseBody)) {
+                    this.createTaskForServer();
+                    return;
+                }
                 this.eventBus.emit('taskModel:createTaskFailed', responseBody.codes);
             } else {
                 this.updateTaskIDs(responseBody);
@@ -87,6 +102,10 @@ export default class TaskModel {
             return response.json();
         }).then((responseBody) => {
             if (responseBody.status > 200) {
+                if (!network.ifTokenValid(responseBody)) {
+                    this.updateTaskForServer();
+                    return;
+                }
                 this.eventBus.emit('taskModel:setTaskFailed', responseBody.codes);
             } else {
                 this.eventBus.emit('taskModel:setTaskSuccess', responseBody);

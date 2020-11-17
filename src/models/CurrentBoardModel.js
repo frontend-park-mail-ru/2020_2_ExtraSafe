@@ -36,6 +36,10 @@ export default class CurrentBoardModel {
             return response.json();
         }).then((responseBody) => {
             if (responseBody.status > 200) {
+                if (!network.ifTokenValid(responseBody)) {
+                    this.getBoardData();
+                    return;
+                }
                 this.eventBus.emit('currentBoardModel:getBoardFailed', responseBody.codes);
             } else {
                 this.eventBus.emit('currentBoardModel:getBoardSuccess', responseBody);
@@ -117,6 +121,10 @@ export default class CurrentBoardModel {
             return response.json();
         }).then((responseBody) => {
             if (responseBody.status > 200) {
+                if (!network.ifTokenValid(responseBody)) {
+                    this.updateBoardName(boardName);
+                    return;
+                }
                 this.eventBus.emit('currentBoardModel:boardSetFailed', responseBody.codes);
             } else {
                 this.eventBus.emit('currentBoardModel:boardSetSuccess', responseBody);
@@ -129,8 +137,19 @@ export default class CurrentBoardModel {
      * Delete board
      */
     deleteBoard() {
-        network.boardDelete(this.board.boardID).then(() => {
-            this.eventBus.emit('currentBoardModel:boardDeleted', null);
+        network.boardDelete(this.board.boardID).then((response) => {
+            return response.json();
+        }).then((responseBody) => {
+            if (responseBody.status > 200) {
+                if (!network.ifTokenValid(responseBody)) {
+                    this.deleteBoard();
+                    return;
+                }
+            } else {
+                this.eventBus.emit('currentBoardModel:boardDeleted', null);
+            }
+        }).catch((error) => {
+            return;
         });
     }
 

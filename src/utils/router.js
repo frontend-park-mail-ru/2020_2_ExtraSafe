@@ -41,6 +41,7 @@ export default class Router {
                 UserSession.setData(responseBody);
                 UserSession.setAccounts(responseBody.links);
                 UserSession.setBoards(responseBody);
+                Network.setToken(responseBody.token);
                 return true;
             }
         });
