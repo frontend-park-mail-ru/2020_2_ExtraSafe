@@ -252,6 +252,19 @@ class Network {
     }
 
     /**
+     * request to change cards order
+     * @param {requestData} data
+     * @param {string} boardID
+     * @return {Promise<Response>}
+     */
+    cardsOrder(data, boardID) {
+        const url = this.serverAddr + '/card-order/' + boardID + '/';
+        this.requestPost.body = JSON.stringify(data);
+
+        return fetch(url, this.requestPost);
+    }
+
+    /**
      * request to create task
      * @param {requestData} data
      * @param {string} boardID
