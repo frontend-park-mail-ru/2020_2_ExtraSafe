@@ -2,6 +2,7 @@ import BaseController from './BaseController.js';
 import CurrentBoardView from '../views/CurrentBoardView/CurrentBoardView.js';
 import CurrentBoardModel from '../models/CurrentBoardModel.js';
 import TaskDetailedController from '../components/TaskDetailed/TaskDetailedController.js';
+import globalEventBus from '../utils/globalEventBus.js';
 
 /**
  * Current board controller
@@ -59,6 +60,9 @@ export default class CurrentBoardController extends BaseController {
         });
         this.eventBus.on('currentBoardModel:boardSetSuccess', (data) => {
             console.log(data);
+        });
+        globalEventBus.on('cardView:deleteCardFromArray', (cardID) => {
+            this.model.deleteCardByID(cardID);
         });
     }
 

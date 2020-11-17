@@ -1,5 +1,5 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
-    <div class="card__container" id="{json.cardID}">
+    <div class="card__container" id="{json.cardID}" data-order="{json.order}">
 
         <div class="card__title__container">
             <div class="card__title_text" id="{json.cardNameID}" contenteditable="true">

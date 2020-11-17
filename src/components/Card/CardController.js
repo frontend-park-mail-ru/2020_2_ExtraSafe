@@ -13,13 +13,12 @@ export default class CardController extends BaseController {
      * Card controller constructor
      * @constructor
      * @param {HTMLElement} el
-     * @param {number} cardNumber
      * @param {object} card
      */
-    constructor(el, cardNumber, card) {
+    constructor(el, card) {
         super(el);
         this.view = new CardView(el, this.eventBus);
-        this.model = new CardModel(this.eventBus, cardNumber, card);
+        this.model = new CardModel(this.eventBus, card);
     }
 
     /**
@@ -40,7 +39,7 @@ export default class CardController extends BaseController {
         });
         this.eventBus.on('cardView:deleteCard', () => {
             this.model.deleteCard();
-            delete this;
+            globalEventBus.emit('cardView:deleteCardFromArray', this.model.card.cardID);
         });
         this.eventBus.on('cardModel:createCardFailed', (errorCodes) => {
             for (const code of errorCodes) {
@@ -49,8 +48,6 @@ export default class CardController extends BaseController {
         });
         this.eventBus.on('cardModel:createCardSuccess', (data) => {
             console.log(data);
-            this.model.cardJSON.cardID = data.cardID;
-            this.model.newTask.cardID = data.cardID;
         });
         this.eventBus.on('cardModel:setCardFailed', (errorCodes) => {
             for (const code of errorCodes) {
@@ -68,6 +65,9 @@ export default class CardController extends BaseController {
         });
         this.eventBus.on('cardModel:changeTaskOrderOnServerSuccess', (data) => {
             console.log(data);
+        });
+        globalEventBus.on('taskView:deleteTaskFromArray', (taskID) => {
+            this.model.deleteTaskByID(taskID);
         });
     }
 
@@ -90,18 +90,18 @@ export default class CardController extends BaseController {
         globalEventBus.on('taskView:taskPositionChanged', () => {
             if ((window.draggedTask.parentElement === window.startTasksDiv) && (window.startTasksDiv === el)) {
                 this.model.changeTaskOrder(window.draggedTask);
-                this.model.changeTaskOrderOnServer();
             } else {
                 if (window.startTasksDiv === el) {
-                    const deletedCardData = this.model.card.tasks[Number.parseInt(window.draggedTask.dataset.order)];
+                    const deletedCardController = this.model.card
+                        .tasks[Number.parseInt(window.draggedTask.dataset.order)];
                     this.model.deleteTask(window.draggedTask);
-                    globalEventBus.emit('cardController:taskRemovedFromOldCard', [deletedCardData, this.model]);
+                    globalEventBus.emit('cardController:taskRemovedFromOldCard', [deletedCardController, this.model]);
                 }
             }
         });
-        globalEventBus.on('cardController:taskRemovedFromOldCard', ([deletedCardData, oldCardModel]) => {
+        globalEventBus.on('cardController:taskRemovedFromOldCard', ([deletedCardController, oldCardModel]) => {
             if (window.draggedTask.parentElement === el) {
-                this.model.addTask(window.draggedTask, deletedCardData);
+                this.model.addTask(window.draggedTask, deletedCardController);
                 this.model.changeTaskMultiCardOrderOnServer(oldCardModel);
             }
         });

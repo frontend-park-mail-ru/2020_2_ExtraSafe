@@ -29,8 +29,8 @@ export default class CardView extends BaseView {
                 if (cardJSON.isInitialized) {
                     event.target.innerHTML = cardJSON.cardName;
                 } else {
-                    // TODO: добавить удаление объекта
                     document.getElementById(cardJSON.cardID).remove();
+                    globalEventBus.emit('cardView:deleteCardFromArray', cardJSON.cardID);
                 }
             } else {
                 this.eventBus.emit('cardView:updateCardName', newName);

@@ -21,9 +21,10 @@ export default class CurrentBoardModel {
         };
         this.newCard = {
             boardID: boardID,
-            cardID: 0,
+            cardID: -1,
             cardName: '',
             isInitialized: false,
+            order: -1,
         };
     }
 
@@ -61,7 +62,10 @@ export default class CurrentBoardModel {
      * @return {CardController}
      */
     addNewCard(cardsDiv, card = this.newCard) {
-        const newCard = new CardController(cardsDiv, this.board.cards.length, card);
+        if (card.order === -1) {
+            card.order = this.board.cards.length;
+        }
+        const newCard = new CardController(cardsDiv, card);
         this.board.cards.push(newCard);
 
         this.eventBus.emit('currentBoardModel:cardAdded', newCard);
@@ -77,12 +81,21 @@ export default class CurrentBoardModel {
             return;
         }
 
+        cardsJSON.sort(function(a, b) {
+            if (a.order < b.order) {
+                return -1;
+            } else {
+                return 1;
+            }
+        });
+
         for (const card of cardsJSON) {
             const cardObj = {
                 boardID: this.board.boardID,
                 cardID: card.cardID,
                 cardName: card.name,
                 isInitialized: true,
+                order: card.order,
             };
             const newCard = this.addNewCard(this.cardsDiv, cardObj);
             newCard.addTasksFromJSON(card.tasks);
@@ -119,5 +132,31 @@ export default class CurrentBoardModel {
         network.boardDelete(this.board.boardID).then(() => {
             this.eventBus.emit('currentBoardModel:boardDeleted', null);
         });
+    }
+
+    /**
+     * Update card order in HTML
+     */
+    updateCardOrder() {
+        for (const [cardIndex, card] of this.board.cards.entries()) {
+            card.model.card.order = cardIndex;
+            card.model.cardJSON.order = cardIndex;
+            document.getElementById(card.model.card.cardID).dataset.order = cardIndex.toString();
+        }
+    }
+
+    /**
+     * Delete card by it's ID
+     * @param {string} cardID
+     */
+    deleteCardByID(cardID) {
+        for (const [cardIndex, card] of this.board.cards.entries()) {
+            if (card.model.card.cardID === cardID) {
+                console.log(card.model.card.cardID.toString());
+                this.board.cards.splice(cardIndex, 1);
+            }
+        }
+        this.updateCardOrder();
+        // TODO: обновить порядок на сервере
     }
 }

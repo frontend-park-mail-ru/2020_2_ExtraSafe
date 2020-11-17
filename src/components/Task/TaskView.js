@@ -27,8 +27,8 @@ export default class TaskView extends BaseView {
             const newName = taskNameEl.innerText;
             // TODO: сделать проверку на название из пробелов
             if (newName === '') {
-                // TODO: добавить удаление объекта
                 document.getElementById(taskJSON.taskID).remove();
+                globalEventBus.emit('taskView:deleteTaskFromArray', taskJSON.taskID);
             } else {
                 this.eventBus.emit('taskView:updateTaskName', newName);
             }

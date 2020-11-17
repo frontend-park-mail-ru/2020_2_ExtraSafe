@@ -7,17 +7,15 @@ export default class TaskModel {
     /**
      * Task model constructor
      * @param {EventBus} eventBus
-     * @param {number} taskNumber
-     * @param {string} cardNumber
      * @param {object} task
      */
-    constructor(eventBus, taskNumber, cardNumber, task) {
+    constructor(eventBus, task) {
         this.eventBus = eventBus;
         this.task = {
             taskName: task.taskName,
             taskDescription: task.taskDescription,
-            taskID: `${cardNumber}Task${taskNumber}`,
-            taskNameID: `${cardNumber}Task${taskNumber}Name`,
+            taskID: `card${task.cardID}Task${task.taskID}`,
+            taskNameID: `card${task.cardID}Task${task.taskID}Name`,
             contentEditable: task.contentEditable,
             isInitialized: task.isInitialized,
             order: task.order,
@@ -56,7 +54,6 @@ export default class TaskModel {
      */
     createTaskForServer() {
         const data = {
-            taskID: 0,
             cardID: this.taskJSON.cardID,
             name: this.task.taskName,
             description: this.task.taskDescription,
@@ -68,7 +65,7 @@ export default class TaskModel {
             if (responseBody.status > 200) {
                 this.eventBus.emit('taskModel:createTaskFailed', responseBody.codes);
             } else {
-                this.taskJSON.taskID = responseBody.taskID;
+                this.updateTaskIDs(responseBody);
                 this.eventBus.emit('taskModel:createTaskSuccess', responseBody);
             }
             return responseBody;
@@ -96,5 +93,21 @@ export default class TaskModel {
             }
             return responseBody;
         });
+    }
+
+    /**
+     * Update task IDs
+     * @param {JSON} taskIDJson
+     */
+    updateTaskIDs(taskIDJson) {
+        const taskEl = document.getElementById(this.task.taskID);
+        const taskNameEl = document.getElementById(this.task.taskNameID);
+
+        this.taskJSON.taskID = taskIDJson.taskID;
+        this.task.taskID = `card${this.taskJSON.cardID}Task${taskIDJson.taskID}`;
+        this.task.taskNameID = `card${this.taskJSON.cardID}Task${taskIDJson.taskID}Name`;
+
+        taskEl.id = this.task.taskID;
+        taskNameEl.id = this.task.taskNameID;
     }
 }
