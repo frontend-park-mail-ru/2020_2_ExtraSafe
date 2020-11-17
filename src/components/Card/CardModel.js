@@ -91,7 +91,18 @@ export default class CardModel {
      * delete card on server
      */
     deleteCard() {
-        network.cardDelete(this.cardJSON.cardID);
+        network.cardDelete(this.cardJSON.cardID).then((response) => {
+            return response.json();
+        }).then((responseBody) => {
+            if (responseBody.status > 200) {
+                if (!network.ifTokenValid(responseBody)) {
+                    this.deleteCard();
+                    return;
+                }
+            }
+        }).catch((error) => {
+            return;
+        });
     }
 
     /**

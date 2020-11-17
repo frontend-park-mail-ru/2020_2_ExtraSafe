@@ -48,7 +48,18 @@ export default class TaskModel {
      * delete task on server
      */
     deleteTask() {
-        network.taskDelete(this.taskJSON.taskID);
+        network.taskDelete(this.taskJSON.taskID).then((response) => {
+            return response.json();
+        }).then((responseBody) => {
+            if (responseBody.status > 200) {
+                if (!network.ifTokenValid(responseBody)) {
+                    this.deleteTask();
+                    return;
+                }
+            }
+        }).catch((error) => {
+            return;
+        });
     }
 
     /**
