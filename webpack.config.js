@@ -25,7 +25,7 @@ module.exports = {
             filename: 'main.css',
         }),
         new HtmlWebpackPlugin({
-            // hash: true,
+            hash: true,
             template: './src/index.html',
         }),
         new CopyPlugin({
