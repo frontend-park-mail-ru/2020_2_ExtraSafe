@@ -1,4 +1,3 @@
-import BoardController from '../components/Board/BoardController.js';
 import network from '../utils/network.js';
 
 /**
@@ -12,41 +11,8 @@ export default class HomeModel {
      */
     constructor(eventBus, router) {
         this.eventBus = eventBus;
-        this.boards = [];
         this.router = router;
-    }
-
-    /**
-     * add board from server
-     * @param {HTMLElement} boardsDiv
-     */
-    addBoardsFromData(boardsDiv) {
-        network.getBoards().then((response) => {
-            return response.json();
-        }).then((responseBody) => {
-            if (responseBody.status > 200) {
-                this.eventBus.emit('homeModel:getBoardsFromServerFailed', responseBody.codes);
-            } else {
-                for (const board of responseBody.boards) {
-                    this.addNewBoard(boardsDiv, this.router, board.boardID, board.name);
-                }
-            }
-            return responseBody;
-        });
-    }
-
-    /**
-     * Add new board data
-     * @param {HTMLElement} boardsDiv
-     * @param {Router} router
-     * @param {string} boardID
-     * @param {string} boardName
-     */
-    addNewBoard(boardsDiv, router, boardID = '', boardName = '') {
-        const newBoard = new BoardController(boardsDiv, router, this.boards.length, boardID, boardName);
-        this.boards.push(newBoard);
-
-        this.eventBus.emit('homeModel:boardAdded', newBoard);
+        this.boards = [];
     }
 
     /**
@@ -79,7 +45,7 @@ export default class HomeModel {
             if (responseBody.status > 200) {
                 this.eventBus.emit('homeModel:getBoardsFromServerFailed', responseBody.codes);
             } else {
-                this.eventBus.emit('homeModel:getBoardsFromServerSuccess', responseBody);
+                this.eventBus.emit('homeModel:getBoardsFromServerSuccess', responseBody.boards);
             }
             return responseBody;
         });

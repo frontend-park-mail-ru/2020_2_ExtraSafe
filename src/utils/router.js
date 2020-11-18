@@ -40,7 +40,7 @@ export default class Router {
             } else {
                 UserSession.setData(responseBody);
                 UserSession.setAccounts(responseBody.links);
-                UserSession.setBoards(responseBody);
+                UserSession.setBoards(responseBody.boards);
                 Network.setToken(responseBody.token);
                 return true;
             }
