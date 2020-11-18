@@ -41,6 +41,9 @@ export default class TaskDetailedView extends BaseView {
             this.el.style.display = 'none';
             this.eventBus.emit('taskDetailedView:deleteTask', null);
         });
+        document.getElementById('addTag').addEventListener('click', () => {
+            this.eventBus.emit('taskView:addTag', null);
+        });
     }
 
     /**

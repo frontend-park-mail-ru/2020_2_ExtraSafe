@@ -1,6 +1,7 @@
 import BaseView from '../../views/BaseView/BaseView.js';
 import rendering from '../../utils/rendering.js';
 import taskTemplate from './Task.tmpl.xml';
+import tagTemplate from './Tag.tmpl.xml';
 import globalEventBus from '../../utils/globalEventBus.js';
 
 /**
@@ -111,6 +112,16 @@ export default class TaskView extends BaseView {
     }
 
     /**
+     * Render new tag
+     * @param {JSON} tagJSON
+     */
+    addTag(tagJSON) {
+        const tagsHtml = tagTemplate(tagJSON);
+        this.tagsEl.appendChild(...rendering.createElementsFromTmpl(tagsHtml));
+        // TODO: добавить eventListener на клик, не здесь)
+    }
+
+    /**
      * Render task
      * @param {JSON} taskJSON
      */
@@ -121,5 +132,6 @@ export default class TaskView extends BaseView {
         if (!taskJSON.isInitialized) {
             document.getElementById(taskJSON.taskNameID).focus();
         }
+        this.tagsEl = document.getElementById(taskJSON.tagsDivID);
     }
 }

@@ -20,34 +20,22 @@
 <!--                    </div>-->
 <!--                </div>-->
 
-<!--                <div class="edit-task__info-tags__container">-->
-<!--                    <div class="edit-task__info_text">-->
-<!--                        Метки-->
-<!--                    </div>-->
+                <div class="edit-task__info-tags__container">
+                    <div class="edit-task__info_text">
+                        Метки
+                    </div>
 
-<!--                    <div class="edit-task__info__elements">-->
-<!--                        <div class="edit-task__info__tag" style="background: #FF8080">-->
-<!--                            <div class="edit-task__info__tag_text">-->
-<!--                                frontend-->
-<!--                            </div>-->
-<!--                        </div>-->
+                    <div class="edit-task__info__elements">
+                        <div id="tagsDetailedDiv" style="display: flex">
+                            <fest:for iterate="json.tags" index="i" value="v">
+                                <fest:include context="v" src="./TagDetailed.tmpl.xml"/>
+                            </fest:for>
+                        </div>
 
-<!--                        <div class="edit-task__info__tag" style="background: #FFE380">-->
-<!--                            <div class="edit-task__info__tag_text">-->
-<!--                                backend-->
-<!--                            </div>-->
-<!--                        </div>-->
-
-<!--                        <div class="edit-task__info__tag" style="background: #FFFADD">-->
-<!--                            <div class="edit-task__info__tag_text">-->
-<!--                                product-->
-<!--                            </div>-->
-<!--                        </div>-->
-
-<!--                        <img src="../../img/icons/add_tag.svg" class="edit-task__add-new-element_icon"-->
-<!--                             alt="add new tag"/>-->
-<!--                    </div>-->
-<!--                </div>-->
+                        <img src="../../img/icons/add_tag.svg" class="edit-task__add-new-element_icon"
+                             alt="add new tag" id="addTag"/>
+                    </div>
+                </div>
 
                 <img src="../../img/icons/bin.svg" class="edit-task__delete-task_icon" id="deleteTask" alt="delete task"/>
             </div>

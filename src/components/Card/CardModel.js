@@ -42,7 +42,7 @@ export default class CardModel {
     }
 
     /**
-     *
+     * Add tasks from JSON
      * @param {[JSON]} tasksJSON
      */
     addTasksFromJSON(tasksJSON) {
@@ -68,6 +68,19 @@ export default class CardModel {
                 contentEditable: 'false',
                 isInitialized: true,
                 order: task.order,
+                // TODO: убрать заглушку
+                tags: [
+                    {
+                        tagID: 0,
+                        tagName: 'front',
+                        tagColor: '#FFE380',
+                    },
+                    {
+                        tagID: 1,
+                        tagName: 'back',
+                        tagColor: '#FF8080',
+                    },
+                ],
             };
             this.addNewTask(this.tasksDiv, taskObj);
         }

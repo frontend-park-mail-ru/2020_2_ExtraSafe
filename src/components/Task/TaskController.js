@@ -66,6 +66,9 @@ export default class TaskController extends BaseController {
         this.eventBus.on('taskModel:setTaskSuccess', (data) => {
             console.log(data);
         });
+        this.eventBus.on('taskModel:tagDataAdded', (newTag) => {
+            this.view.addTag(newTag);
+        });
 
         const taskEl = document.getElementById(this.model.task.taskID);
         globalEventBus.on('cardController:taskRemovedFromOldCard', () => {
