@@ -26,11 +26,11 @@ export default class HomeController extends BaseController {
 
     /**
      * Add board data
-     * @param {string} boardID
+     * @param {number} boardID
      * @param {string} boardName
      */
-    addBoard(boardID = '', boardName = '') {
-        const newBoard = new BoardController(this.boardsDiv, this.router, this.boards.length, boardID, boardName);
+    addBoard(boardID = -1, boardName = '') {
+        const newBoard = new BoardController(this.boardsDiv, this.router, boardID, boardName);
         this.boards.push(newBoard);
 
         this.view.renderBoard(newBoard);

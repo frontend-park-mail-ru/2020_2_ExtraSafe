@@ -1,4 +1,3 @@
-import CardController from '../components/Card/CardController.js';
 import network from '../utils/network.js';
 
 /**
@@ -17,14 +16,6 @@ export default class CurrentBoardModel {
             boardID: boardID,
             boardName: boardName,
             boardCollaborators: [],
-            cards: [],
-        };
-        this.newCard = {
-            boardID: boardID,
-            cardID: -1,
-            cardName: '',
-            isInitialized: false,
-            order: -1,
         };
     }
 
@@ -42,66 +33,12 @@ export default class CurrentBoardModel {
                 }
                 this.eventBus.emit('currentBoardModel:getBoardFailed', responseBody.codes);
             } else {
+                this.board.boardID = responseBody.boardID;
+                this.board.boardName = responseBody.name;
                 this.eventBus.emit('currentBoardModel:getBoardSuccess', responseBody);
             }
             return responseBody;
         });
-    }
-
-    /**
-     * set board params received from server
-     * @param {JSON} responseJSON
-     */
-    setBoardData(responseJSON) {
-        this.board.boardID = responseJSON.boardID;
-        this.board.boardName = responseJSON.name;
-        this.addCardsFromJSON(responseJSON.cards);
-        this.eventBus.emit('currentBoardModel:boardDataSet', this.board);
-    }
-
-    /**
-     * Add new card
-     * @param {HTMLElement} cardsDiv
-     * @param {object} card
-     * @return {CardController}
-     */
-    addNewCard(cardsDiv, card = this.newCard) {
-        this.newCard.order = this.board.cards.length;
-        const newCard = new CardController(cardsDiv, card);
-        this.board.cards.push(newCard);
-
-        this.eventBus.emit('currentBoardModel:cardAdded', newCard);
-        return newCard;
-    }
-
-    /**
-     * create cards from server
-     * @param {[JSON]}cardsJSON
-     */
-    addCardsFromJSON(cardsJSON) {
-        if (!(Array.isArray(cardsJSON) && cardsJSON.length)) {
-            return;
-        }
-
-        cardsJSON.sort(function(a, b) {
-            if (a.order < b.order) {
-                return -1;
-            } else {
-                return 1;
-            }
-        });
-
-        for (const card of cardsJSON) {
-            const cardObj = {
-                boardID: this.board.boardID,
-                cardID: card.cardID,
-                cardName: card.name,
-                isInitialized: true,
-                order: card.order,
-            };
-            const newCard = this.addNewCard(this.cardsDiv, cardObj);
-            newCard.addTasksFromJSON(card.tasks);
-        }
     }
 
     /**
@@ -152,47 +89,11 @@ export default class CurrentBoardModel {
     }
 
     /**
-     * Update card order in HTML
-     */
-    updateCardOrder() {
-        for (const [cardIndex, card] of this.board.cards.entries()) {
-            card.model.card.order = cardIndex;
-            card.model.cardJSON.order = cardIndex;
-            document.getElementById(card.model.card.cardID).dataset.order = cardIndex.toString();
-        }
-    }
-
-    /**
      * Change card order on server
+     * @param {[JSON]} cards
      */
-    changeCardOrderOnServer() {
-        const data = {
-            cards: [],
-        };
-
-        for (const card of this.board.cards) {
-            data.cards.push({
-                cardID: card.model.cardJSON.cardID,
-                order: card.model.cardJSON.order,
-            });
-        }
-
+    changeCardOrderOnServer(cards) {
+        const data = {cards: cards};
         network.cardsOrder(data, this.board.boardID).then((response) => {});
-    }
-
-    /**
-     * Delete card by it's ID
-     * @param {string} cardID
-     */
-    deleteCardByID(cardID) {
-        for (const [cardIndex, card] of this.board.cards.entries()) {
-            if (card.model.card.cardID === cardID) {
-                console.log(card.model.card.cardID.toString());
-                this.board.cards.splice(cardIndex, 1);
-            }
-        }
-        this.updateCardOrder();
-        this.changeCardOrderOnServer();
-        // TODO: обновить порядок на сервере
     }
 }

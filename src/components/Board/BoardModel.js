@@ -5,22 +5,24 @@ export default class BoardModel {
     /**
      * Board model constructor
      * @param {EventBus} eventBus
-     * @param {number} boardNumber
-     * @param {string} boardID
+     * @param {number} boardID
      * @param {string} boardName
      */
-    constructor(eventBus, boardNumber, boardID, boardName) {
+    constructor(eventBus, boardID, boardName) {
         this.eventBus = eventBus;
         this.board = {
-            boardName: boardName,
-            boardID: `board${boardNumber}`,
-            removeBoardID: `removeBoard${boardNumber}`,
-        };
-        this.boardJSON = {
             boardID: boardID,
-            name: boardName,
+            boardName: boardName,
+            boardHtmlID: `board${boardID.toString()}`,
+            removeBoardID: `removeBoard${boardID.toString()}`,
             theme: 'dark',
             star: false,
         };
+        // this.boardJSON = {
+        //     boardID: boardID,
+        //     name: boardName,
+        //     theme: 'dark',
+        //     star: false,
+        // };
     }
 }

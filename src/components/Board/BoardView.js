@@ -18,21 +18,21 @@ export default class BoardView extends BaseView {
 
     /**
      * Add all event listeners
-     * @param {JSON} boardJSON
+     * @param {JSON} board
      */
-    addEventListeners(boardJSON) {
-        document.getElementById(boardJSON.boardID).addEventListener('click', () => {
+    addEventListeners(board) {
+        document.getElementById(board.boardHtmlID).addEventListener('click', () => {
             this.eventBus.emit('boardView:openBoard', null);
         });
     }
 
     /**
      * Render board
-     * @param {JSON} boardJSON
+     * @param {JSON} board
      */
-    render(boardJSON) {
-        const html = boardTemplate(boardJSON);
+    render(board) {
+        const html = boardTemplate(board);
         this.el.appendChild(...rendering.createElementsFromTmpl(html));
-        this.addEventListeners(boardJSON);
+        this.addEventListeners(board);
     }
 }
