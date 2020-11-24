@@ -25,6 +25,25 @@ export default class TaskController extends BaseController {
     }
 
     /**
+     * Update task order
+     * @param {number} taskOrder
+     */
+    updateTaskOrder(taskOrder) {
+        this.model.task.order = taskOrder;
+        this.view.updateTaskOrder(this.model.task.taskHtmlID, taskOrder);
+    }
+
+    /**
+     * Update task IDs
+     * @param {number} newTaskID
+     * @param {number} newCardID
+     */
+    updateTaskIDs(newTaskID= this.model.task.taskID, newCardID= this.model.task.cardID) {
+        this.view.updateTaskHtmlIDs(this.model.task, newTaskID, newCardID);
+        this.model.updateTaskIDs(newTaskID, newCardID);
+    }
+
+    /**
      * Add all event listeners
      */
     addEventListeners() {
@@ -38,13 +57,16 @@ export default class TaskController extends BaseController {
         this.eventBus.on('taskView:openTaskDetailed', (task) => {
             this.taskDetailed.render(task);
         });
+        this.eventBus.on('taskView:deleteTaskFromArray', () => {
+            globalEventBus.emit('taskController:deleteTaskFromArray', this.model.task.taskID);
+        });
         this.taskDetailed.eventBus.on('taskDetailedController:taskNameUpdated', () => {
             this.view.updateTaskName(this.model.task);
         });
         this.taskDetailed.eventBus.on('taskDetailedView:deleteTask', () => {
             this.view.deleteTask(this.model.task);
             this.model.deleteTask();
-            globalEventBus.emit('taskView:deleteTaskFromArray', this.model.task.taskID);
+            globalEventBus.emit('taskController:deleteTaskFromArray', this.model.task.taskID);
             delete this;
         });
         this.taskDetailed.eventBus.on('taskDetailedView:closed', () => {
@@ -55,8 +77,10 @@ export default class TaskController extends BaseController {
                 console.log(code);
             }
         });
-        this.eventBus.on('taskModel:createTaskSuccess', (data) => {
-            console.log(data);
+        this.eventBus.on('taskModel:createTaskSuccess', (responseBody) => {
+            console.log(responseBody);
+            this.view.updateTaskHtmlIDs(this.model.task, responseBody.taskID);
+            this.model.updateTaskIDs(responseBody.taskID);
         });
         this.eventBus.on('taskModel:setTaskFailed', (errorCodes) => {
             for (const code of errorCodes) {
@@ -70,12 +94,18 @@ export default class TaskController extends BaseController {
             this.view.addTag(newTag);
         });
 
-        const taskEl = document.getElementById(this.model.task.taskID);
-        globalEventBus.on('cardController:taskRemovedFromOldCard', () => {
-            if (taskEl === window.draggedTask) {
-                this.model.deleteTask();
-                delete this;
-            }
+        this.addDragAndDropEventListeners();
+    }
+
+    /**
+     * Add event listeners related to drag and drop
+     */
+    addDragAndDropEventListeners() {
+        this.eventBus.on('taskView:taskOrderChanged', (draggedTask) => {
+            globalEventBus.emit('taskController:taskOrderChanged', [this.model.task.cardID, draggedTask]);
+        });
+        this.eventBus.on('taskView:taskMovedToAnotherCard', ([draggedTask, startTasksDiv]) => {
+            globalEventBus.emit('taskController:taskMovedToAnotherCard', [draggedTask, startTasksDiv]);
         });
     }
 

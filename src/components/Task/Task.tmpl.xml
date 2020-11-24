@@ -1,5 +1,5 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
-    <div class="card__content__task" id="{json.taskID}" data-order="{json.order}" draggable="true">
+    <div class="card__content__task" id="{json.taskHtmlID}" data-order="{json.order}" draggable="true">
 
         <div class="card__content__task__color-labels" id="{json.tagsDivID}">
             <fest:for iterate="json.tags" index="i" value="v">

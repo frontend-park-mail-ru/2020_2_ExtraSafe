@@ -12,28 +12,23 @@ export default class TaskModel {
     constructor(eventBus, task) {
         this.eventBus = eventBus;
         this.task = {
-            taskName: task.taskName,
-            taskDescription: task.taskDescription,
-            taskID: `card${task.cardID}Task${task.taskID}`,
-            taskNameID: `card${task.cardID}Task${task.taskID}Name`,
-            tagsDivID: `card${task.cardID}Task${task.taskID}TagsDiv`,
-            contentEditable: task.contentEditable,
-            isInitialized: task.isInitialized,
-            order: task.order,
-            tags: task.tags,
-        };
-        this.taskJSON = {
             boardID: task.boardID,
             cardID: task.cardID,
             taskID: task.taskID,
-            name: task.taskName,
-            description: task.taskDescription,
+            taskHtmlID: `card${task.cardID}Task${task.taskID}`,
+            taskNameID: `card${task.cardID}Task${task.taskID}Name`,
+            tagsDivID: `card${task.cardID}Task${task.taskID}TagsDiv`,
+            taskName: task.taskName,
+            taskDescription: task.taskDescription,
             order: task.order,
+            tags: task.tags,
+            contentEditable: task.contentEditable,
+            isInitialized: task.isInitialized,
         };
 
         if (Array.isArray(this.task.tags) && this.task.tags.length) {
             for (const tag of this.task.tags) {
-                tag.tagHtmlID = `${this.task.taskID}Tag${tag.tagID.toString()}`;
+                tag.tagHtmlID = `${this.task.taskHtmlID}Tag${tag.tagID}`;
             }
         }
     }
@@ -51,10 +46,10 @@ export default class TaskModel {
     }
 
     /**
-     * delete task on server
+     * Delete task on server
      */
     deleteTask() {
-        network.taskDelete(this.taskJSON.taskID).then((response) => {
+        network.taskDelete(this.task.taskID).then((response) => {
             return response.json();
         }).then((responseBody) => {
             if (responseBody.status > 200) {
@@ -69,17 +64,17 @@ export default class TaskModel {
     }
 
     /**
-     * send request to server with new task
+     * Send request to server with new task
      */
     createTaskForServer() {
         const data = {
-            cardID: this.taskJSON.cardID,
+            cardID: this.task.cardID,
             name: this.task.taskName,
             description: this.task.taskDescription,
             order: this.task.order,
             tags: this.task.tags,
         };
-        network.taskCreate(data, this.taskJSON.boardID).then((response) => {
+        network.taskCreate(data, this.task.boardID).then((response) => {
             return response.json();
         }).then((responseBody) => {
             if (responseBody.status > 200) {
@@ -89,7 +84,6 @@ export default class TaskModel {
                 }
                 this.eventBus.emit('taskModel:createTaskFailed', responseBody.codes);
             } else {
-                this.updateTaskIDs(responseBody);
                 this.eventBus.emit('taskModel:createTaskSuccess', responseBody);
             }
             return responseBody;
@@ -97,12 +91,12 @@ export default class TaskModel {
     }
 
     /**
-     * send request to server with update task
+     * Send request to server with update task
      */
     updateTaskForServer() {
         const data = {
-            taskID: this.taskJSON.taskID,
-            cardID: this.taskJSON.cardID,
+            taskID: this.task.taskID,
+            cardID: this.task.cardID,
             name: this.task.taskName,
             description: this.task.taskDescription,
             order: this.task.order,
@@ -126,21 +120,15 @@ export default class TaskModel {
 
     /**
      * Update task IDs
-     * @param {JSON} taskIDJson
+     * @param {number} newTaskID
+     * @param {number} newCardID
      */
-    updateTaskIDs(taskIDJson) {
-        const taskEl = document.getElementById(this.task.taskID);
-        const taskNameEl = document.getElementById(this.task.taskNameID);
-        const taskTagsDivEl = document.getElementById(this.task.tagsDivID);
-
-        this.taskJSON.taskID = taskIDJson.taskID;
-        this.task.taskID = `card${this.taskJSON.cardID}Task${taskIDJson.taskID}`;
-        this.task.taskNameID = `${this.task.taskID}Name`;
-        this.task.tagsDivID = `${this.task.taskID}TagsDiv`;
-
-        taskEl.id = this.task.taskID;
-        taskNameEl.id = this.task.taskNameID;
-        taskTagsDivEl.id = this.task.tagsDivID;
+    updateTaskIDs(newTaskID= this.task.taskID, newCardID = this.task.cardID) {
+        this.task.cardID = newCardID;
+        this.task.taskID = newTaskID;
+        this.task.taskHtmlID = `card${this.task.cardID}Task${newTaskID}`;
+        this.task.taskNameID = `${this.task.taskHtmlID}Name`;
+        this.task.tagsDivID = `${this.task.taskHtmlID}TagsDiv`;
     }
 
     /**
@@ -151,8 +139,8 @@ export default class TaskModel {
      */
     addTag(name, color, tagID) {
         const newTag = {
-            tagHtmlID: `${this.task.taskID}Tag${tagID.toString()}`,
             tagID: tagID,
+            tagHtmlID: `${this.task.taskHtmlID}Tag${tagID}`,
             tagName: name,
             tagColor: color,
         };

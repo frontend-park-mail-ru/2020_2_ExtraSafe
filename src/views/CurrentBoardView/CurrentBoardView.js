@@ -33,14 +33,6 @@ export default class CurrentBoardView extends BaseView {
         document.getElementById(cardHtmlID).dataset.order = order.toString();
     }
 
-    // /**
-    //  * update board name
-    //  * @param {string} boardName
-    //  */
-    // updateBoardName(boardName) {
-    //     document.getElementById('boardName').innerHTML = boardName;
-    // }
-
     /**
      * add all event listeners
      */

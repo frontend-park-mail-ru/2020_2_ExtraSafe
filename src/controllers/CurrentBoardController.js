@@ -65,7 +65,7 @@ export default class CurrentBoardController extends BaseController {
             isInitialized: cardID !== -1,
         };
         const newCard = new CardController(this.cardsDiv, cardObj);
-        this.cards.splice(order, 0, newCard);
+        this.cards.push(newCard);
 
         this.view.renderCard(newCard);
         return newCard;
@@ -95,13 +95,12 @@ export default class CurrentBoardController extends BaseController {
         const cards = [];
         for (const [cardIndex, card] of this.cards.entries()) {
             card.model.card.order = cardIndex;
-            card.model.cardJSON.order = cardIndex;
             cards.push({
-                cardID: card.model.cardJSON.cardID,
-                order: card.model.cardJSON.order,
+                cardID: card.model.card.cardID,
+                order: card.model.card.order,
             });
 
-            this.view.updateCardOrder(card.model.card.cardID, cardIndex);
+            this.view.updateCardOrder(card.model.card.cardHtmlID, cardIndex);
         }
         this.model.changeCardOrderOnServer(cards);
     }
@@ -139,7 +138,7 @@ export default class CurrentBoardController extends BaseController {
             console.log('currentBoardModel:boardDeleted');
             this.router.open('/');
         });
-        globalEventBus.on('cardView:deleteCardFromArray', (cardID) => {
+        globalEventBus.on('cardController:deleteCardFromArray', (cardID) => {
             this.deleteCardByID(cardID);
         });
     }
