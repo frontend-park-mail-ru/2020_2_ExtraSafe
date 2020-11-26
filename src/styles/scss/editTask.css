@@ -280,16 +280,6 @@
   align-items: center;
   width: 90%;
 }
-.edit-tags__add__tag__selected {
-  outline: none;
-  box-shadow: 0 0 0 2px #6D27E7 inset;
-}
-.edit-tags__add__tag__selected__icon {
-  display: flex;
-  width: 17px;
-  height: 17px;
-  margin: 0 10px 0 0;
-}
 .edit-tags__add__pen-icon {
   display: flex;
   width: 18px;
@@ -322,6 +312,83 @@
   font-size: 14px;
   line-height: 16px;
   color: #808080;
+}
+.edit-tags__create__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+  max-width: 225px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  background: #FFFFFF;
+}
+.edit-tags__create__title {
+  display: flex;
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+  margin: 15px 45px 0 0;
+  cursor: default;
+}
+.edit-tags__create__tag__name {
+  display: flex;
+  max-width: 200px;
+  margin: 15px 0 15px 0;
+}
+.edit-tags__create__tag__container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-flow: wrap;
+  max-width: 200px;
+}
+.edit-tags__create__tag__color {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  margin: 4px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  background: #CCCCCC;
+  cursor: pointer;
+}
+.edit-tags__create__button {
+  border-radius: 5px;
+  border-style: none;
+  background: linear-gradient(90deg, #A32CDF 0%, #4F4FD7 100%);
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  color: #FFFFFF;
+  cursor: pointer;
+  width: 50%;
+  height: 30px;
+  margin: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+.edit-tags__selected {
+  outline: none;
+  box-shadow: 0 0 0 2px #6D27E7 inset !important;
+}
+.edit-tags__selected__icon {
+  display: flex;
+  width: 17px;
+  height: 17px;
+  margin: 0 10px 0 0;
+}
+.edit-tags__selected__icon-color {
+  display: flex;
+  width: 17px;
+  height: 17px;
 }
 .edit-tags__close {
   position: absolute;

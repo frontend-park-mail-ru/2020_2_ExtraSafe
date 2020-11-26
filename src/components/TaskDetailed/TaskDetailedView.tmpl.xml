@@ -27,7 +27,7 @@
                     <div class="edit-tags__container">
                         <img class="edit-tags__close" src="../../img/icons/close.svg" id="closeTask" alt="close"/>
 
-                        <div class="edit-tags__add__container">
+                        <!--<div class="edit-tags__add__container">
                             <div class="edit-tags__add__title">
                                 Добавить метку
                             </div>
@@ -35,12 +35,12 @@
                             <div class="edit-tags__add__tags__container">
 
                                 <div class="edit-tags__add__tag__line">
-                                    <div class="edit-tags__add__tag edit-tags__add__tag__selected">
+                                    <div class="edit-tags__add__tag edit-tags__selected">
                                         <div class="edit-tags__add__tag__name">
                                             Frontend
                                         </div>
 
-                                        <img class="edit-tags__add__tag__selected__icon" src="../../img/icons/selected.svg" alt="selected_tag"/>
+                                        <img class="edit-tags__selected__icon" src="../../img/icons/selected.svg" alt="selected_tag"/>
                                     </div>
 
                                     <img class="edit-tags__add__pen-icon" src="../../img/icons/edit_tag.svg" alt="edit_tag"/>
@@ -86,8 +86,36 @@
                                 </div>
                             </div>
 
+                        </div>-->
+
+                        <div class="edit-tags__create__container">
+                            <div class="edit-tags__create__title">
+                                Создать метку
+                            </div>
+
+                            <input class="edit-tags__create__tag__name" placeholder="Введите название метки"/>
+
+                            <div class="edit-tags__create__tag__container">
+                                <div class="edit-tags__create__tag__color edit-tags__selected">
+                                    <img class="edit-tags__selected__icon-color" src="../../img/icons/selected.svg" alt="selected_tag"/>
+                                </div>
+                                <div class="edit-tags__create__tag__color"> </div>
+                                <div class="edit-tags__create__tag__color"> </div>
+                                <div class="edit-tags__create__tag__color"> </div>
+                                <div class="edit-tags__create__tag__color"> </div>
+                                <div class="edit-tags__create__tag__color"> </div>
+                                <div class="edit-tags__create__tag__color"> </div>
+                                <div class="edit-tags__create__tag__color"> </div>
+                                <div class="edit-tags__create__tag__color"> </div>
+                                <div class="edit-tags__create__tag__color"> </div>
+                            </div>
+
+                            <button class="edit-tags__create__button">Создать</button>
+
                         </div>
+
                     </div>
+
 
                     <div class="edit-task__content__info__title">
                         Метки

@@ -414,20 +414,6 @@
 
                 width: 90%;
             }
-
-            &__selected {
-                outline: none;
-                box-shadow: 0 0 0 2px $electric-indigo inset;
-
-                &__icon {
-                    display: flex;
-
-                    width: 17px;
-                    height: 17px;
-
-                    margin: 0 10px 0 0;
-                }
-            }
         }
 
         &__pen-icon {
@@ -478,6 +464,112 @@
                 color: $grey-text-color;
             }
         }
+
+    }
+
+    &__create {
+
+        &__container {
+            @include flex-column;
+
+            justify-content: space-between;
+            align-items: center;
+
+            width: 100vw;
+            max-width: 225px;
+
+            @include standard-border-radius;
+
+            @include standard-shadow;
+
+            background: $white;
+        }
+
+        &__title {
+            display: flex;
+
+            @include standard-font(normal, 16px, 19px);
+
+            margin: 15px 45px 0 0;
+
+            cursor: default;
+        }
+
+        &__tag {
+
+            &__name {
+                display: flex;
+
+                max-width: 200px;
+
+                margin: 15px 0 15px 0;
+            }
+
+            &__container {
+                @include flex-row;
+
+                @include content-center;
+
+                flex-flow: wrap;
+
+                max-width: 200px;
+            }
+
+            &__color {
+                display: flex;
+
+                @include content-center;
+
+                width: 32px;
+                height: 32px;
+
+                margin: 4px;
+
+                @include standard-border-radius;
+
+                @include standard-shadow;
+
+                background: $input-border-color;
+
+                cursor: pointer;
+            }
+
+
+        }
+
+        &__button {
+            @include standard-button;
+
+            width: 50%;
+            height: 30px;
+
+            margin: 10px;
+
+            @include standard-shadow;
+
+        }
+    }
+
+    &__selected {
+        outline: none;
+        box-shadow: 0 0 0 2px $electric-indigo inset !important;
+
+        &__icon {
+            display: flex;
+
+            width: 17px;
+            height: 17px;
+
+            margin: 0 10px 0 0;
+
+            &-color {
+                display: flex;
+
+                width: 17px;
+                height: 17px;
+            }
+        }
+
 
     }
 

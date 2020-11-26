@@ -23,7 +23,7 @@ module.exports = {
                     MiniCssExtractPlugin.loader,
                     'css-loader',
                     // Compiles Sass to CSS
-                    "sass-loader",
+                    'sass-loader',
                 ],
             },
         ],
