@@ -1,10 +1,10 @@
 <fest:template xmlns:fest="http://fest.mail.ru">
     <div class="navbar">
-        <img class="navbar-icon" data-href="/" title="Домой" src="../img/icons/home.svg"/>
-        <img class="main_logo" data-href="/" src="../img/icons/tabutask_logo_white.svg"/>
-        <img id="avatarMini" class="avatar-mini" title="Профиль" src=""/>
+        <img class="navbar__icon" data-href="/" title="Домой" src="../img/icons/home.svg"/>
+        <img class="navbar__tabutask-logotype" data-href="/" src="../img/icons/tabutask_logo_white.svg"/>
+        <img id="avatarMini" class="navbar__avatar" title="Профиль" src=""/>
     </div>
-    <div id="myDropdown" class="dropdown-content">
+    <div id="myDropdown" class="dropdown__content">
         <a id="navbarSettings" href="/settings">Настройки</a>
         <a id="navbarLogout" href="">Выйти</a>
     </div>

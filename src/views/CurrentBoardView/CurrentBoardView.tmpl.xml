@@ -7,7 +7,7 @@
                     <fest:value>json.boardName</fest:value>
                 </div>
 
-<!--                <img src="../../img/icons/favorite.svg" class="board-info__left-side__name-favorite__favorite-icon"-->
+<!--                <img class="board-info__left-side__name-favorite__favorite-icon" src="../../img/icons/favorite.svg"-->
 <!--                     alt="favorite"/>-->
             </div>
 
@@ -19,21 +19,21 @@
         </div>
 
         <div class="board-info__right-side__container">
-            <img src="../../img/icons/bin.svg" class="board-info__right-side__settings-icon" id="boardSettings" alt="settings"/>
+            <img class="board-info__right-side__settings__icon" src="../../img/icons/bin.svg" id="boardSettings" alt="settings"/>
         </div>
 
     </div>
 
-    <div class="scroll__cards__container">
+    <div class="scroll-cards__container">
 
         <div id="cardsDiv" style="display: flex"/>
 
         <div class="new-card__container">
             <div class="new-card__content__container">
                 <div class="new-card__title__container" id="addCardButton">
-                    <img src="../../img/icons/add_white.svg" class="new-card__title__icon_add-new" alt="add"/>
+                    <img class="new-card__title__add-new__icon" src="../../img/icons/add_white.svg" alt="add"/>
 
-                    <div class="new-card__title__text_add-new">
+                    <div class="new-card__title__text">
                         Добавить колонку
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
-    <div class="login-reg-input">
+    <div class="login-reg__input">
         <fest:attributes>
             <fest:for iterate="json.params" index="i" value="v">
                 <fest:attribute name="{v.name}"><fest:value>v.value</fest:value></fest:attribute>
@@ -15,7 +15,7 @@
                 </fest:attributes>
             </input>
             <fest:if test="v.hasError">
-                <div id="{v.id}Error" class="login-reg-error" hidden="true"/>
+                <div class="login-reg__error" id="{v.id}Error" hidden="true"/>
             </fest:if>
         </fest:for>
     </div>

@@ -1,56 +1,124 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
     <div class="edit-task__content__container">
-        <div class="edit-task__name__container">
-            <div class="edit-task__name_text" id="taskName" contenteditable="true">
+
+        <img class="edit-task__close" src="../../img/icons/close.svg" id="closeTask" alt="close"/>
+
+        <div class="edit-task__content__name__container">
+            <div class="edit-task__content__name__text" id="taskName" contenteditable="true">
                 <fest:value>json.taskName</fest:value>
             </div>
         </div>
 
-        <div class="edit-task__all-info__container">
-            <div class="edit-task__info-collaborators-and-tags__container">
-<!--                <div class="edit-task__info-collaborators__container">-->
-<!--                    <div class="edit-task__info_text">-->
-<!--                        Участники-->
-<!--                    </div>-->
+        <div class="edit-task__content__info__container">
+            <div class="edit-task__content__info">
+                <div class="edit-task__content__info__collaborator__container ">
+                    <div class="edit-task__content__info__title">
+                        Участники
+                    </div>
 
-<!--                    <div class="edit-task__info__elements">-->
-<!--                        <img src="../../img/egor.jpg" class="edit-task__info_collaborator" alt="collaborator"/>-->
-<!--                        <img src="../../img/icons/add_collaborator.svg" class="edit-task__add-new-element_icon"-->
-<!--                             alt="add new collaborator"/>-->
-<!--                    </div>-->
-<!--                </div>-->
+                    <div class="edit-task__content__info__elements">
+                        <img src="../../img/egor.jpg" class="edit-task__content__info__collaborator" alt="collaborator"/>
+                        <img src="../../img/icons/add_collaborator.svg" class="edit-task__content__info__elements__add-new__icon"
+                             alt="add new collaborator"/>
+                    </div>
+                </div>
 
-                <div class="edit-task__info-tags__container">
-                    <div class="edit-task__info_text">
+                <div class="edit-task__content__info__tag__container">
+                    <div class="edit-tags__container">
+                        <img class="edit-tags__close" src="../../img/icons/close.svg" id="closeTask" alt="close"/>
+
+                        <div class="edit-tags__add__container">
+                            <div class="edit-tags__add__title">
+                                Добавить метку
+                            </div>
+
+                            <div class="edit-tags__add__tags__container">
+
+                                <div class="edit-tags__add__tag__line">
+                                    <div class="edit-tags__add__tag edit-tags__add__tag__selected">
+                                        <div class="edit-tags__add__tag__name">
+                                            Frontend
+                                        </div>
+
+                                        <img class="edit-tags__add__tag__selected__icon" src="../../img/icons/selected.svg" alt="selected_tag"/>
+                                    </div>
+
+                                    <img class="edit-tags__add__pen-icon" src="../../img/icons/edit_tag.svg" alt="edit_tag"/>
+                                </div>
+
+                                <div class="edit-tags__add__tag__line">
+                                    <div class="edit-tags__add__tag">
+                                        <div class="edit-tags__add__tag__name">
+                                            Backend
+                                        </div>
+                                    </div>
+
+                                    <img class="edit-tags__add__pen-icon" src="../../img/icons/edit_tag.svg" alt="edit_tag"/>
+                                </div>
+
+                                <div class="edit-tags__add__tag__line">
+                                    <div class="edit-tags__add__tag">
+                                        <div class="edit-tags__add__tag__name">
+                                            Prod
+                                        </div>
+                                    </div>
+
+                                    <img class="edit-tags__add__pen-icon" src="../../img/icons/edit_tag.svg" alt="edit_tag"/>
+                                </div>
+
+                                <div class="edit-tags__add__tag__line">
+                                    <div class="edit-tags__add__tag">
+                                        <div class="edit-tags__add__tag__name">
+                                            Chillout
+                                        </div>
+                                    </div>
+
+                                    <img class="edit-tags__add__pen-icon" src="../../img/icons/edit_tag.svg" alt="edit_tag"/>
+                                </div>
+
+                            </div>
+
+                            <div class="edit-tags__add-new__container">
+                                <img class="edit-tags__add-new__icon" src="../../img/icons/add_grey.svg" alt="add"/>
+
+                                <div class="edit-tags__add-new__text">
+                                    Добавить метку
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="edit-task__content__info__title">
                         Метки
                     </div>
 
-                    <div class="edit-task__info__elements">
+                    <div class="edit-task__content__info__elements">
                         <div id="tagsDetailedDiv" style="display: flex">
                             <fest:for iterate="json.tags" index="i" value="v">
                                 <fest:include context="v" src="./TagDetailed.tmpl.xml"/>
                             </fest:for>
                         </div>
 
-                        <img src="../../img/icons/add_tag.svg" class="edit-task__add-new-element_icon"
-                             alt="add new tag" id="addTag"/>
+                        <img src="../../img/icons/add_tag.svg" class="edit-task__content__info__elements__add-new__icon"
+                             id="addTag" alt="add new tag"/>
                     </div>
                 </div>
 
-                <img src="../../img/icons/bin.svg" class="edit-task__delete-task_icon" id="deleteTask" alt="delete task"/>
+                <img class="edit-task__content__delete__icon" src="../../img/icons/bin.svg" id="deleteTask" alt="delete task"/>
             </div>
 
-            <div class="edit-task__description__container">
-                <div class="edit-task__description__title">
+            <div class="edit-task__content__description__container">
+                <div class="edit-task__content__description__title">
                     Описание
                 </div>
 
-                <div class="edit-task__description__body">
-                    <div class="edit-task__description__body_text" id="taskDescription" contenteditable="true">
+                <div class="edit-task__content__description__body">
+                    <div class="edit-task__content__description__body__text" id="taskDescription" contenteditable="true">
                         <fest:value>json.taskDescription</fest:value>
                     </div>
-                    <div class="edit-task__description__footer">
-                        <button class="edit-task__description__save-button" id="saveTaskDescription">
+                    <div class="edit-task__content__description__body__footer">
+                        <button class="edit-task__content__description__body__footer__save-button" id="saveTaskDescription">
                             Сохранить
                         </button>
                     </div>
@@ -58,6 +126,5 @@
             </div>
         </div>
 
-        <img src="../../img/icons/close.svg" class="edit-task__close" id="closeTask" alt="close"/>
     </div>
 </fest:template>

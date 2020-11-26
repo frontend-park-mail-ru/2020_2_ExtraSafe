@@ -1,0 +1,72 @@
+@import "mixins";
+@import "colors";
+
+@media screen and (max-width: $mobile-breakpoint) {
+    .default__container__without-navbar {
+        background: $white !important;
+    }
+}
+
+@media screen and (max-height: 500px) {
+
+    .default__container__with-navbar {
+        justify-content: start !important;
+    }
+
+}
+
+/* Стиль для всего body */
+body {
+  margin: 0;
+  background: $main-background-color;
+}
+
+/* Базовый стиль для всего приложения */
+.application {
+
+    /* Приложение во весь экран */
+    &__base {
+        @include flex-column;
+
+        height: 100vh;
+    }
+
+    /* Ограничения для навбара */
+    &__navbar {
+        max-height: 10vh;
+    }
+
+    /* Стили для контента страницы без навбара */
+    &__content {
+        @include flex-column;
+
+        flex-grow: 1;
+
+        height: 100%;
+    }
+
+}
+
+/* Стандартный input */
+input {
+    padding: 8px 14px;
+    margin: 8px 0;
+
+    border: 1px solid $input-border-color;
+    border-radius: 5px;
+
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px $electric-indigo inset;
+    }
+}
+
+/* Контейнер с навбаром */
+.default__container__with-navbar {
+    @include default__container(calc(100vh - 40px));
+}
+
+/* Контейнер без навбара */
+.default__container__without-navbar {
+    @include default__container(100vh);
+}

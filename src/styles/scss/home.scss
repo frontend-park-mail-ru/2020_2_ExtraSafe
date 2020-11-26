@@ -1,0 +1,387 @@
+@import "mixins";
+@import "colors";
+
+// Особенности верстки для планшета
+@media screen and (max-width: $tablet-breakpoint) {
+    // Убираем левую часть меню
+    .home__left-side__container {
+        display: none !important;
+    }
+
+    // Расположение 3 досок
+    .board__container {
+        width: calc(33% - 12px) !important;
+    }
+}
+
+// Особенности верстки для мобильного устройства
+@media screen and (max-width: $mobile-breakpoint) {
+
+    // Более логичное расположение досок, когда их 2
+    .boards__container {
+        justify-content: space-between !important;
+    }
+
+    // Расположение 2 досок
+    .board__container {
+        width: calc(50% - 12px) !important;
+    }
+}
+
+// Выравнивание контента
+.main__container {
+    @include flex-column;
+
+    justify-content: flex-start;
+    align-items: center;
+}
+
+// Домашняя страница
+.home {
+
+    // Контейнер домашней страницы
+    &__container {
+        @include flex-row;
+
+        justify-content: space-around;
+
+        width: 100%;
+        max-width: 1300px;
+
+        margin: 35px 0 0 0;
+    }
+
+    // Левая сторона с меню и командами
+    &__left-side {
+
+        // Контейнер левой стороны
+        &__container {
+            @include flex-column;
+
+            justify-content: end;
+
+            padding: 0 25px 0 25px;
+
+            width: 100%;
+            max-width: 200px;
+
+            gap: 25px;
+        }
+
+        // Меню
+        &__menu {
+
+            // Контейнер меню
+            &__container {
+                @include flex-column;
+
+                justify-content: space-evenly;
+
+                width: 100%;
+                max-width: 200px;
+                height: 70px;
+
+                @include standard-border-radius;
+
+                background: white;
+
+                filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.15));
+            }
+
+            // Элемент меню
+            &__element {
+                display: flex;
+
+                margin-left: 20px;
+
+                width: fit-content;
+
+                @include standard-font(300, 14px, 16px);
+                text-decoration: none;
+                color: $grey-text-color;
+
+                transition: 0.05s linear;
+
+                cursor: pointer;
+
+                // Поведение при наведении
+                &:hover {
+                    color: $electric-indigo;
+                }
+
+                // Активный элемент меню
+                &_active {
+                    display: flex;
+
+                    width: fit-content;
+
+                    margin: 0 0 0 20px;
+
+                    @include standard-font(bold, 14px, 16px);
+                    color: $electric-indigo;
+
+                    cursor: default;
+                }
+            }
+        }
+
+        // Команды и добавление новых команд
+        &__team {
+
+            // Контейнер команд
+            &__container {
+                @include flex-column;
+
+                align-items: center;
+
+                width: 100%;
+                max-width: 200px;
+                height: fit-content;
+
+                @include standard-border-radius;
+
+                background: white;
+
+                filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.15));
+            }
+
+            // Заголовок
+            &__title {
+                display: flex;
+
+                align-self: center;
+                justify-self: flex-start;
+
+                margin: 0 0 0 20px;
+
+                @include standard-font(bold, 14px, 16px);
+                color: $dark-grey;
+
+                cursor: default;
+
+                // Контейнер заголовка
+                &__container {
+                    display: flex;
+
+                    align-items: center;
+
+                    height: 35px;
+                    width: 100%;
+
+                    border-bottom: 1px solid $input-border-color;
+                }
+
+            }
+
+            // Добавление новых команд
+            &__add-new {
+
+                // Контейнер добавления команд
+                &__container {
+                    @include flex-row;
+
+                    align-items: center;
+                    justify-content: space-evenly;
+
+                    height: 35px;
+
+                    gap: 10px;
+
+                    cursor: pointer;
+                }
+
+                // Текст добавления новых команд
+                &__text {
+                    display: flex;
+
+                    align-items: center;
+
+                    @include standard-font(300, 14px, 16px);
+                    color: $grey-text-color;
+                }
+
+                // Иконка добавления новых команд
+                &__icon {
+                    display: flex;
+
+                    width: 18px;
+                    height: 18px;
+                }
+            }
+        }
+    }
+
+    // Правая сторона с досками и избранными досками
+    &__right-side {
+
+        // Контейнер правой стороны
+        &__container {
+            @include flex-column;
+
+            align-items: center;
+
+            width: 97%;
+            max-width: 1000px;
+        }
+
+        // Заголовок
+        &__title {
+
+            // Контейнер заголовка
+            &__container {
+                @include flex-row;
+                flex-flow: wrap;
+
+                align-content: center;
+                justify-content: flex-start;
+
+                width: 100%;
+                max-width: 930px;
+
+                margin: 0 0 25px 0;
+
+                border-bottom: 1px solid $dark-grey;
+            }
+
+            // Текст заголовка
+            &__text {
+                display: flex;
+
+                margin: 0 0 5px 20px;
+
+                @include standard-font(normal, 18px, 21px);
+                font-family: Roboto, sans-serif;
+                color: $dark-grey;
+
+                cursor: default;
+            }
+        }
+    }
+}
+
+// Доски
+.boards {
+
+    // Контейнер с досками
+    &__container {
+        @include flex-row;
+        flex-flow: wrap;
+
+        justify-content: flex-start;
+
+        // width: 100%;
+        width: 95%;
+        max-width: 930px;
+        height: -webkit-fill-available;
+    }
+}
+
+// Доска
+.board {
+
+    // Контейнер доски
+    &__container {
+        flex: 0 0 auto;
+
+        // flex-grow: 1;
+
+        text-align: center;
+
+
+        width: calc(25% - 12px);
+        // max-width: 220px;
+        height: 100%;
+        max-height: 100px;
+
+        margin: 6px;
+
+        @include standard-border-radius;
+        @include standard-shadow;
+
+        background: $white;
+
+        cursor: pointer;
+    }
+
+    // Название доски
+    &__name {
+
+        // Контейнер названия доски
+        &__container {
+            @include flex-row;
+
+            align-items: center;
+            justify-content: space-between;
+
+            height: 35px;
+
+            border-radius: 5px 5px 0 0;
+            border-right: 1px solid $card-violet;
+
+            background: $card-violet;
+        }
+
+        // Текст названия доски
+        &__text {
+            display: flex;
+
+            margin: 0 0 0 10px;
+
+            @include standard-font(16px, 20px, 15px);
+            color: $light-grey;
+
+            cursor: pointer;
+        }
+
+        // Троеточие в названии доски
+        &__dots-icon {
+            width: 16px;
+            height: 16px;
+
+            margin: 0 10px 0 0;
+
+            cursor: pointer;
+        }
+
+    }
+
+    // Описание доски
+    &__description {
+
+        // Контейнер описания доски
+        &__container {
+            @include flex-row;
+
+            align-items: center;
+
+            padding: 10px;
+        }
+
+        // Текст описания доски
+        &__text {
+            display: flex;
+
+            flex-grow: 10;
+
+            justify-self: center;
+            align-self: center;
+
+            @include standard-font(300, 12px, 14px);
+            text-align: left;
+
+            cursor: default;
+        }
+
+        // Иконка избранной доски
+        &__favorite {
+            flex-grow: 1;
+
+            align-self: flex-end;
+
+            height: 15px;
+            width: 15px;
+
+            cursor: pointer;
+        }
+    }
+}

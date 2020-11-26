@@ -1,0 +1,81 @@
+@charset "UTF-8";
+@media screen and (max-width: 470px) {
+  .default__container__without-navbar {
+    background: #FFFFFF !important;
+  }
+}
+@media screen and (max-height: 500px) {
+  .default__container__with-navbar {
+    justify-content: start !important;
+  }
+}
+/* Стиль для всего body */
+body {
+  margin: 0;
+  background: #F2F2F2;
+}
+
+/* Базовый стиль для всего приложения */
+.application {
+  /* Приложение во весь экран */
+  /* Ограничения для навбара */
+  /* Стили для контента страницы без навбара */
+}
+.application__base {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+.application__navbar {
+  max-height: 10vh;
+}
+.application__content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  height: 100%;
+}
+
+/* Стандартный input */
+input {
+  padding: 8px 14px;
+  margin: 8px 0;
+  border: 1px solid #CCCCCC;
+  border-radius: 5px;
+}
+input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #6D27E7 inset;
+}
+
+/* Контейнер с навбаром */
+.default__container__with-navbar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 40px);
+  background-color: #F2F2F2;
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: normal;
+}
+
+/* Контейнер без навбара */
+.default__container__without-navbar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #F2F2F2;
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: normal;
+}
+
+/*# sourceMappingURL=base.css.map */

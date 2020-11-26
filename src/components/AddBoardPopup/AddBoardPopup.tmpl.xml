@@ -1,11 +1,11 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
     <div class="edit-task__content__container">
-        <div class="edit-task__name__container">
-            <div class="edit-task__name_text" id="popupBoardName" contenteditable="true" placeholder="Введите название доски"/>
+        <div class="edit-task__content__name__container">
+            <div class="edit-task__content__name__text" id="popupBoardName" contenteditable="true" placeholder="Введите название доски"/>
         </div>
 
-        <div class="edit-task__all-info__container" style="margin-bottom: 20px;">
-            <button class="edit-task__description__save-button" id="createBoard"
+        <div class="edit-task__content__info__container" style="margin-bottom: 20px;">
+            <button class="edit-task__content__description__body__footer__save-button" id="createBoard"
                     style="margin-left: 20px; margin-top: 0; max-width: 150px;">
                 Создать доску
             </button>
@@ -68,6 +68,6 @@
 <!--            </div>-->
         </div>
 
-        <img src="../../img/icons/close.svg" class="edit-task__close" id="closePopup" alt="close"/>
+        <img class="edit-task__close" src="../../img/icons/close.svg" id="closePopup" alt="close"/>
     </div>
 </fest:template>

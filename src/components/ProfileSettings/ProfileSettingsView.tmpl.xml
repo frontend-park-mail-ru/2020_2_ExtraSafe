@@ -2,16 +2,17 @@
     <form id="profileForm" class="settings-body" onsubmit="return false">
         <label for="imageInput" class="avatar">
             <img id="profileAvatar" src="" class="avatar" alt="avatar"/>
-            <img src="../img/add_avatar.svg" class="test-change" alt="test"/>
-            <div id="profileAvatarError" class="profile-avatar-error" hidden="true"/>
+            <img src="../img/add_avatar.svg" class="avatar__change-area" alt="test"/>
+            <div id="profileAvatarError" class="avatar_error" hidden="true"/>
         </label>
         <input id="imageInput" style="display: none" type="file" accept="image/jpeg,image/png"/>
 
-        <div class="settings-input-container">
+        <div class="settings__input__container">
             <fest:include context="json.usernameInput" src="../../components/NamedInput/NamedInput.tmpl.xml"/>
             <fest:include context="json.fullNameInput" src="../../components/NamedInput/NamedInput.tmpl.xml"/>
             <fest:include context="json.emailInput" src="../../components/NamedInput/NamedInput.tmpl.xml"/>
         </div>
+       <!-- <button class="settings__button">Применить изменения</button>-->
         <fest:include context="json.submitButton" src="../SubmitButton/SubmitButton.tmpl.xml"/>
     </form>
 </fest:template>

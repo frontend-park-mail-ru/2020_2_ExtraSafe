@@ -20,9 +20,9 @@ export default class SettingsView extends BaseView {
      * Render profile settings
      */
     renderProfileSettings() {
-        this.profileLink.className = 'active-profile-nav';
-        this.accountsLink.className = 'profile-nav';
-        this.securityLink.className = 'profile-nav';
+        this.profileLink.className = 'navigation__element_active';
+        this.accountsLink.className = 'navigation__element';
+        this.securityLink.className = 'navigation__element';
         this.eventBus.emit('settingsView:renderProfile', this.settingsBody);
     }
 
@@ -30,9 +30,9 @@ export default class SettingsView extends BaseView {
      * Render accounts settings
      */
     renderAccountsSettings() {
-        this.profileLink.className = 'profile-nav';
-        this.accountsLink.className = 'active-profile-nav';
-        this.securityLink.className = 'profile-nav';
+        this.profileLink.className = 'navigation__element';
+        this.accountsLink.className = 'navigation__element_active';
+        this.securityLink.className = 'navigation__element';
         this.eventBus.emit('settingsView:renderAccounts', this.settingsBody);
     }
 
@@ -40,9 +40,9 @@ export default class SettingsView extends BaseView {
      * Render security settings
      */
     renderSecuritySettings() {
-        this.profileLink.className = 'profile-nav';
-        this.accountsLink.className = 'profile-nav';
-        this.securityLink.className = 'active-profile-nav';
+        this.profileLink.className = 'navigation__element';
+        this.accountsLink.className = 'navigation__element';
+        this.securityLink.className = 'navigation__element_active';
         this.eventBus.emit('settingsView:renderSecurity', this.settingsBody);
     }
 

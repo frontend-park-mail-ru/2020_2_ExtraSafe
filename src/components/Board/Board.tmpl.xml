@@ -1,7 +1,7 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
     <div class="board__container" id="{json.boardHtmlID}">
-        <div class="board__title__container">
-            <div class="board__title_text">
+        <div class="board__name__container">
+            <div class="board__name__text">
                 <fest:value>json.boardName</fest:value>
             </div>
 <!--            <img src="../../img/icons/dots.svg" class="card__title_dots-icon" id="{json.removeBoardID}" alt="dots"/>-->

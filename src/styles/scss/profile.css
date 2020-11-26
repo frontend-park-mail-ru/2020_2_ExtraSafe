@@ -1,0 +1,313 @@
+@charset "UTF-8";
+@media screen and (max-width: 470px) {
+  .reg-form {
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    width: 100% !important;
+  }
+
+  .login-form {
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    width: 100% !important;
+  }
+}
+/* Форма логина */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 400px;
+  height: 378px;
+  padding: 10px 0;
+  background-color: #FFFFFF;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Форма регистрации */
+.reg-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 400px;
+  height: 487px;
+  padding: 10px 0;
+  background-color: #FFFFFF;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+
+.login-reg__input {
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: normal;
+  color: #808080;
+  cursor: default;
+}
+.login-reg__button {
+  width: 75%;
+  padding: 14px 14px;
+  border-radius: 5px;
+  border-style: none;
+  background: linear-gradient(90deg, #A32CDF 0%, #4F4FD7 100%);
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  color: #FFFFFF;
+  cursor: pointer;
+}
+.login-reg__a {
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 16px;
+  text-decoration: none;
+  color: #A32CDF;
+}
+.login-reg__error {
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: normal;
+  color: #FF0404;
+  margin-bottom: 5px;
+}
+
+@media screen and (max-width: 850px) {
+  .navigation {
+    display: none !important;
+  }
+
+  .settings-body {
+    border-radius: 5px !important;
+  }
+
+  .adaptive-navigation__icon {
+    display: flex !important;
+  }
+}
+@media screen and (max-width: 470px) {
+  .login-reg__button {
+    width: 75% !important;
+  }
+
+  .login-reg__input {
+    width: 75% !important;
+  }
+
+  /*    .settings__input__container {
+          width: 75vh !important;
+      }*/
+}
+@media screen and (max-height: 500px) {
+  .settings-body {
+    margin: 25px 0 0 0 !important;
+  }
+}
+.profile-form {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  justify-content: space-evenly;
+  width: 95%;
+  max-width: 840px;
+  flex-basis: 600px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  background: #FFFFFF;
+}
+
+.navigation {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: flex-start;
+  width: 25%;
+  height: 100%;
+  border-right: 1px solid #CCCCCC;
+  border-radius: 5px 0 0 5px;
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 16px;
+  background-color: white;
+  /* Элемент меню */
+}
+.navigation__element {
+  margin: 30px 0 0 30px;
+  color: #808080;
+  transition: 0.05s linear;
+  /* Активный элемент меню */
+  /* Элемент меню при наведении */
+}
+.navigation__element_active {
+  margin: 30px 0 0 30px;
+  font-weight: bold;
+  color: #6D27E7;
+  cursor: default;
+}
+.navigation__element:hover {
+  color: #6D27E7;
+  cursor: pointer;
+}
+
+.settings-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 100%;
+  background-color: #FFFFFF;
+  border-radius: 0 5px 5px 0;
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: normal;
+  color: #808080;
+}
+.settings__button {
+  border-radius: 5px;
+  border-style: none;
+  background: linear-gradient(90deg, #A32CDF 0%, #4F4FD7 100%);
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  color: #FFFFFF;
+  cursor: pointer;
+  width: 50%;
+  padding: 14px;
+}
+.settings__input {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin-top: 5px;
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: normal;
+  color: var(--grey-text-color);
+}
+.settings__input__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.settings__input_with-logotype {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: normal;
+  color: var(--grey-text-color);
+}
+
+.avatar {
+  z-index: 2;
+  height: 96px;
+  width: 96px;
+  clip-path: circle();
+  object-fit: cover;
+  filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.15));
+  cursor: pointer;
+}
+.avatar__change-area {
+  position: relative;
+  z-index: 3;
+  bottom: 35px;
+  height: 33px;
+  width: 96px;
+  object-fit: cover;
+  cursor: pointer;
+}
+.avatar_error {
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: normal;
+  text-align: center;
+  color: #FF0404;
+  margin-bottom: 5px;
+}
+
+.logotype {
+  margin: 0 25px 0 0;
+  width: 37px;
+  height: 37px;
+}
+
+.changes__success {
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: normal;
+  color: green;
+  margin: 0 0 5px 0;
+}
+
+.close {
+  position: absolute;
+  right: 0;
+  width: 17px;
+  height: 17px;
+  align-self: flex-start;
+  margin: 25px 25px 0 0;
+  cursor: pointer;
+}
+
+.adaptive-navigation__container {
+  display: none;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: flex-start;
+  z-index: 1;
+  width: 25%;
+  height: 100%;
+  border-right: 1px solid #CCCCCC;
+  border-radius: 5px 0 0 5px;
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 16px;
+  background-color: black;
+}
+.adaptive-navigation__icon {
+  display: none;
+  position: absolute;
+  left: 0;
+  width: 17px;
+  height: 17px;
+  align-self: flex-start;
+  margin: 25px 0 0 25px;
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=profile.css.map */

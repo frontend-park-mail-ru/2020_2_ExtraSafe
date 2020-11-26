@@ -7,7 +7,7 @@
             </fest:for>
         </div>
 
-        <div class="card__content__task_description" id="{json.taskNameID}" role="textarea">
+        <div class="card__content__task__description" id="{json.taskNameID}" role="textarea">
             <fest:attributes>
                 <fest:if test="json.contentEditable">
                     <fest:attribute name="contenteditable">
@@ -19,24 +19,24 @@
             <fest:value>json.taskName</fest:value>
         </div>
 
-<!--        <div class="card__content__task__footer_container">-->
+<!--        <div class="card__content__task__footer__container">-->
 
-<!--            <div class="card__content__task__footer__task-info">-->
-<!--                <div class="card__content__task__footer__task-info_date">-->
+<!--            <div class="card__content__task__footer__info">-->
+<!--                <div class="card__content__task__footer__info__date">-->
 <!--                    <fest:value>json.taskDeadline</fest:value>-->
 <!--                </div>-->
 
-<!--                <div class="card__content__task__footer__task-info_progress">-->
-<!--                    <img src="../../img/icons/check.svg" class="card__content__task__footer__task-info__progress_icon"/>-->
-<!--                    <div class="card__content__task__footer__task-info__progress_count">-->
+<!--                <div class="card__content__task__footer__info__progress">-->
+<!--                    <img src="../../img/icons/check.svg" class="card__content__task__footer__info__progress__icon"/>-->
+<!--                    <div class="card__content__task__footer__info__progress__count">-->
 <!--                        <fest:value>json.completedJobs</fest:value>/<fest:value>json.jobsCount</fest:value>-->
 <!--                    </div>-->
 <!--                </div>-->
 <!--            </div>-->
 
-<!--            <div class="card__content__task__footer_collaborators">-->
+<!--            <div class="card__content__task__footer__collaborators">-->
 <!--                <fest:for iterate="json.taskCollaborators" index="i" value="v">-->
-<!--                    <img src="{v.src}" class="card__content__task__footer_collaborator"/>-->
+<!--                    <img src="{v.src}" class="card__content__task__footer__collaborator"/>-->
 <!--                </fest:for>-->
 <!--            </div>-->
 <!--        </div>-->
