@@ -1,6 +1,8 @@
 import BaseController from '../../controllers/BaseController.js';
 import TaskDetailedModel from './TaskDetailedModel.js';
 import TaskDetailedView from './TaskDetailedView.js';
+import TagAddPopup from './TagAddPopup/TagAddPopup.js';
+import TagCreatePopup from './TagCreatePopup/TagCreatePopup.js';
 
 /**
  * Task detailed controller
@@ -14,6 +16,9 @@ export default class TaskDetailedController extends BaseController {
         super(el);
         this.model = new TaskDetailedModel(this.eventBus);
         this.view = new TaskDetailedView(el, this.eventBus);
+        const tagPopupEl = document.getElementById('tagPopup');
+        this.tagAddPopup = new TagAddPopup(tagPopupEl);
+        this.tagCreatePopup = new TagCreatePopup(tagPopupEl);
     }
 
     /**

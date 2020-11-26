@@ -35,6 +35,19 @@ export default class CurrentBoardModel {
             } else {
                 this.board.boardID = responseBody.boardID;
                 this.board.boardName = responseBody.name;
+                // TODO: убрать заглушку
+                this.board.tags = [
+                    {
+                        tagID: 0,
+                        tagName: 'front',
+                        tagColor: '#FFE380',
+                    },
+                    {
+                        tagID: 1,
+                        tagName: 'back',
+                        tagColor: '#FF8080',
+                    },
+                ];
                 this.eventBus.emit('currentBoardModel:getBoardSuccess', responseBody);
             }
             return responseBody;
