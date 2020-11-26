@@ -337,7 +337,7 @@
 .edit-tags {
 
     &__container {
-        display: flex;
+        display: none;
 
         position: absolute;
 
@@ -420,7 +420,7 @@
                 box-shadow: 0 0 0 2px $electric-indigo inset;
 
                 &__icon {
-                    display: flex;
+                    display: none;
 
                     width: 17px;
                     height: 17px;

@@ -99,7 +99,7 @@ export default class CardView extends BaseView {
      */
     render(card) {
         const html = cardTemplate(card);
-        this.el.appendChild(...rendering.createElementsFromTmpl(html));
+        this.el.appendChild(rendering.createElementsFromTmpl(html));
         this.tasksDiv = document.getElementById(card.tasksDiv);
         this.addEventListeners(card);
         this.eventBus.emit('cardView:viewRendered', this.tasksDiv);

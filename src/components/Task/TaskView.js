@@ -153,7 +153,7 @@ export default class TaskView extends BaseView {
      */
     addTag(tag) {
         const tagsHtml = tagTemplate(tag);
-        this.tagsEl.appendChild(...rendering.createElementsFromTmpl(tagsHtml));
+        this.tagsEl.appendChild(rendering.createElementsFromTmpl(tagsHtml));
         // TODO: добавить eventListener на клик, не здесь)
     }
 
@@ -163,7 +163,7 @@ export default class TaskView extends BaseView {
      */
     render(task) {
         const html = taskTemplate(task);
-        this.el.appendChild(...rendering.createElementsFromTmpl(html));
+        this.el.appendChild(rendering.createElementsFromTmpl(html));
         this.addEventListeners(task);
         if (!task.isInitialized) {
             document.getElementById(task.taskNameID).focus();

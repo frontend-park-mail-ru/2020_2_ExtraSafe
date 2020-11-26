@@ -24,70 +24,7 @@
                 </div>
 
                 <div class="edit-task__content__info__tag__container">
-                    <div class="edit-tags__container">
-                        <img class="edit-tags__close" src="../../img/icons/close.svg" id="closeTask" alt="close"/>
-
-                        <div class="edit-tags__add__container">
-                            <div class="edit-tags__add__title">
-                                Добавить метку
-                            </div>
-
-                            <div class="edit-tags__add__tags__container">
-
-                                <div class="edit-tags__add__tag__line">
-                                    <div class="edit-tags__add__tag edit-tags__add__tag__selected">
-                                        <div class="edit-tags__add__tag__name">
-                                            Frontend
-                                        </div>
-
-                                        <img class="edit-tags__add__tag__selected__icon" src="../../img/icons/selected.svg" alt="selected_tag"/>
-                                    </div>
-
-                                    <img class="edit-tags__add__pen-icon" src="../../img/icons/edit_tag.svg" alt="edit_tag"/>
-                                </div>
-
-                                <div class="edit-tags__add__tag__line">
-                                    <div class="edit-tags__add__tag">
-                                        <div class="edit-tags__add__tag__name">
-                                            Backend
-                                        </div>
-                                    </div>
-
-                                    <img class="edit-tags__add__pen-icon" src="../../img/icons/edit_tag.svg" alt="edit_tag"/>
-                                </div>
-
-                                <div class="edit-tags__add__tag__line">
-                                    <div class="edit-tags__add__tag">
-                                        <div class="edit-tags__add__tag__name">
-                                            Prod
-                                        </div>
-                                    </div>
-
-                                    <img class="edit-tags__add__pen-icon" src="../../img/icons/edit_tag.svg" alt="edit_tag"/>
-                                </div>
-
-                                <div class="edit-tags__add__tag__line">
-                                    <div class="edit-tags__add__tag">
-                                        <div class="edit-tags__add__tag__name">
-                                            Chillout
-                                        </div>
-                                    </div>
-
-                                    <img class="edit-tags__add__pen-icon" src="../../img/icons/edit_tag.svg" alt="edit_tag"/>
-                                </div>
-
-                            </div>
-
-                            <div class="edit-tags__add-new__container">
-                                <img class="edit-tags__add-new__icon" src="../../img/icons/add_grey.svg" alt="add"/>
-
-                                <div class="edit-tags__add-new__text">
-                                    Добавить метку
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
+                    <div class="edit-tags__container" id="tagPopup"/>
 
                     <div class="edit-task__content__info__title">
                         Метки
@@ -96,7 +33,11 @@
                     <div class="edit-task__content__info__elements">
                         <div id="tagsDetailedDiv" style="display: flex">
                             <fest:for iterate="json.tags" index="i" value="v">
-                                <fest:include context="v" src="./TagDetailed.tmpl.xml"/>
+                                <div class="edit-task__content__info__tag" style="background: {v.tagColor}">
+                                    <div class="edit-task__content__info__tag__text">
+                                        <fest:value>v.tagName</fest:value>
+                                    </div>
+                                </div>
                             </fest:for>
                         </div>
 

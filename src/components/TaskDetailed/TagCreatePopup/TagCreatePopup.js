@@ -88,10 +88,10 @@ export default class TagCreatePopup {
      * Render popup
      */
     render() {
+        this.el.style.display = 'flex';
         const templateJSON = this.templateJSONSetup();
         const html = tagCreatePopup(templateJSON);
-        this.el.appendChild(...rendering.createElementsFromTmpl(html));
-        this.el.style.display = 'flex';
+        this.el.appendChild(rendering.createElementsFromTmpl(html));
         this.addEventListeners(templateJSON);
     }
 }

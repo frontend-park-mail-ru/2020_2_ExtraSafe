@@ -1,7 +1,7 @@
 import BaseController from '../../controllers/BaseController.js';
 import TaskDetailedModel from './TaskDetailedModel.js';
 import TaskDetailedView from './TaskDetailedView.js';
-// import TagAddPopup from './TagAddPopup/TagAddPopup.js';
+import TagAddPopup from './TagAddPopup/TagAddPopup.js';
 // import TagCreatePopup from './TagCreatePopup/TagCreatePopup.js';
 
 /**
@@ -16,8 +16,6 @@ export default class TaskDetailedController extends BaseController {
         super(el);
         this.model = new TaskDetailedModel(this.eventBus);
         this.view = new TaskDetailedView(el, this.eventBus);
-        // const tagPopupEl = document.getElementById('tagPopup');
-        // this.tagAddPopup = new TagAddPopup(tagPopupEl);
         // this.tagCreatePopup = new TagCreatePopup(tagPopupEl);
     }
 
@@ -32,6 +30,9 @@ export default class TaskDetailedController extends BaseController {
             this.model.updateTaskName(newTaskName);
             this.eventBus.emit('taskDetailedController:taskNameUpdated', null);
         });
+        this.eventBus.on('taskDetailedView:addTag', () => {
+            this.tagAddPopup.render(this.model.task.tags);
+        });
     }
 
     /**
@@ -42,5 +43,8 @@ export default class TaskDetailedController extends BaseController {
         this.model.task = json;
         this.view.render(json);
         this.addEventListeners();
+
+        const tagPopupEl = document.getElementById('tagPopup');
+        this.tagAddPopup = new TagAddPopup(tagPopupEl);
     }
 }

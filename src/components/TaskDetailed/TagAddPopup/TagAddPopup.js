@@ -1,4 +1,4 @@
-import tagAddPopup from 'TagAddPopup.tmpl.xml';
+import tagAddPopup from './TagAddPopup.tmpl.xml';
 import rendering from '../../../utils/rendering.js';
 import EventBus from '../../../utils/eventBus.js';
 
@@ -20,9 +20,7 @@ export default class TagAddPopup {
      * Hide popup
      */
     hide() {
-        for (const el of this.el.children) {
-            el.remove();
-        }
+        this.el.innerHTML = '';
         this.el.style.removeProperty('display');
     }
 
@@ -33,13 +31,16 @@ export default class TagAddPopup {
     addEventListeners(tags) {
         // TODO: изменить id
         for (const tag of tags) {
-            const tagEl = document.getElementById(tag.tagHtmlID);
+            const tagEl = document.getElementById(tag.tagBodyHtmlID);
+            const tagCheckEl = document.getElementById(tag.tagCheckID);
             tagEl.addEventListener('click', () => {
-                if (tagEl.classList.contains('checked')) {
-                    tagEl.classList.remove('checked');
+                if (tagEl.classList.contains('edit-tags__add__tag__selected')) {
+                    tagEl.classList.remove('edit-tags__add__tag__selected');
+                    tagCheckEl.style.removeProperty('display');
                     this.eventBus.emit('tagAddPopup:tagRemoved', tag.tagID);
                 } else {
-                    tagEl.classList.add('checked');
+                    tagEl.classList.add('edit-tags__add__tag__selected');
+                    tagCheckEl.style.display = 'flex';
                     this.eventBus.emit('tagAddPopup:tagAdded', tag.tagID);
                 }
             });
@@ -50,23 +51,40 @@ export default class TagAddPopup {
             });
         }
 
-        document.getElementById('close').addEventListener('click', () => {
+        document.getElementById('closeTagPopup').addEventListener('click', () => {
             this.hide();
             this.eventBus.offAll();
         });
-        document.getElementById('create').addEventListener('click', () => {
+        document.getElementById('createTag').addEventListener('click', () => {
             this.hide();
             this.eventBus.emit('tagAddPopup:tagCreate', null);
             this.eventBus.offAll();
         });
 
-        window.onclick = (event) => {
-            console.log('tagAddPopup:onClick');
-            if (event.target !== this.el) {
-                this.hide();
-                this.eventBus.offAll();
-            }
-        };
+        // TODO: сделать нормальное закрытие
+        // window.onclick = (event) => {
+        //     console.log('tagAddPopup:onClick');
+        //     if (event.target !== this.el) {
+        //         this.hide();
+        //         this.eventBus.offAll();
+        //     }
+        // };
+    }
+
+    /**
+     * setup template input data
+     * @param {[Object]} tags
+     * @return {Object} templateData
+     */
+    templateJSONSetup(tags) {
+        for (const tag of tags) {
+            tag.tagHtmlID = `tag${tag.tagID}`;
+            tag.tagBodyHtmlID = `tagBody${tag.tagID}`;
+            tag.tagCheckID = `tagCheck${tag.tagID}`;
+            tag.tagEditID = `tagEditID${tag.tagID}`;
+            tag.isSelected = true;
+        }
+        return {tags: tags};
     }
 
     /**
@@ -74,9 +92,10 @@ export default class TagAddPopup {
      * @param {[Object]} tags
      */
     render(tags) {
-        const html = tagAddPopup({tags: tags});
-        this.el.appendChild(...rendering.createElementsFromTmpl(html));
         this.el.style.display = 'flex';
-        this.addEventListeners(tags);
+        const templateJSON = this.templateJSONSetup(tags);
+        const html = tagAddPopup(templateJSON);
+        this.el.appendChild(rendering.createElementsFromTmpl(html));
+        this.addEventListeners(templateJSON.tags);
     }
 }

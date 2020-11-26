@@ -53,12 +53,15 @@ class Rendering {
     /**
      * create elements from template
      * @param {string} html
-     * @return {HTMLCollection}
+     * @return {DocumentFragment}
      */
     createElementsFromTmpl(html) {
-        const el = document.createElement('div');
-        el.innerHTML = html;
-        return el.children;
+        // const el = document.createElement('div');
+        // el.innerHTML = html;
+        // console.log(el);
+        // console.log(el.firstElementChild);
+        // return el.children;
+        return document.createRange().createContextualFragment(html);
     }
 }
 
