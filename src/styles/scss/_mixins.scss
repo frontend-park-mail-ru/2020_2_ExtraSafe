@@ -1,0 +1,97 @@
+@import "colors";
+
+$mobile-breakpoint: 470px;
+$tablet-breakpoint: 850px;
+
+// выделение всех input, чтобы не ехала верстка: box-shadow: 0 0 0 2px var(--electric-indigo);
+
+// Flex - колонка
+@mixin flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+// Flex - строка
+@mixin flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+// Контент по центру
+@mixin content-center {
+    align-items: center;
+    justify-content: center;
+}
+
+// Стандартный текст (на вход font-weight, font-size, $line-height)
+@mixin standard-font($font-weight, $font-size, $line-height) {
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: $font-weight;
+    font-size: $font-size;
+    line-height: $line-height;
+}
+
+// Круглое изображение
+@mixin circle-icon {
+    clip-path: circle();
+    object-fit: cover;
+}
+
+// Стандартная тень
+@mixin standard-shadow {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+
+// Стандартное закругление всех контейнеров
+@mixin standard-border-radius {
+    border-radius: 5px;
+}
+
+// Стандартная кнопка
+@mixin standard-button {
+    @include standard-border-radius;
+    border-style: none;
+
+    background: $standard-gradient;
+
+    @include standard-font(500, 14px, 16px);
+    color: $white;
+
+    cursor: pointer;
+}
+
+// Контейнер по-умолчанию (на вход height - высота контейнера)
+@mixin default__container($height) {
+    @include flex-column;
+    @include content-center;
+
+    height: $height;
+    background-color: $main-background-color;
+
+    @include standard-font(normal, 16px, normal);
+}
+
+
+// --------------- Начало login-reg ---------------
+
+// Форма login и reg (на вход размер)
+@mixin login-reg-form($width, $height) {
+    @include flex-column;
+
+    align-items: center;
+    justify-content: space-evenly;
+
+    width: $width;
+    height: $height;
+
+    padding: 10px 0;
+
+    background-color: $white;
+
+    @include standard-border-radius;
+
+    @include standard-shadow;
+}
+
+// --------------- Конец login-reg ---------------

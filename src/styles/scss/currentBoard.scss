@@ -1,0 +1,547 @@
+@import "mixins";
+@import "colors";
+
+// Информация о доске
+.board-info {
+
+    // Контейнер, содержащий всю информация о доске
+    // (названия, избранное, коллабораторы) и настройки доски
+    &__container {
+        display: flex;
+
+        align-items: center;
+        justify-content: space-between;
+        flex-flow: row wrap;
+
+        height: 50px;
+        max-height: 10vh;
+
+        margin: 0 28px 0 28px;
+
+        border-bottom: 1px solid $dark-grey;
+    }
+
+    // Левая сторона информации о доске
+    &__left-side {
+
+        // Контейнер левой стороны
+        &__container {
+            display: flex;
+            flex-direction: row;
+            gap: 50px;
+        }
+
+        // Название доски и иконка избранного
+        &__name-favorite {
+
+            // Контейнер элементов левой части
+            &__container {
+                display: flex;
+
+                @include content-center;
+
+                flex-flow: row wrap;
+            }
+
+            // Название доски
+            &__board-name {
+                display: flex;
+
+                padding: 0;
+                margin: 0 0 0 20px;
+
+                @include standard-font(normal, 24px, 28px);
+                border: none;
+
+                background: none;
+
+                cursor: pointer;
+
+                // Поведение при наведении
+                &:focus {
+                    box-shadow: 0 1px 0 0;
+
+                    outline: none;
+
+                    cursor: text;
+                }
+            }
+
+            // Избранное
+            &__favorite {
+
+                // Иконка избранного
+                &__icon {
+                    display: flex;
+
+                    width: 23px;
+                    height: 23px;
+
+                    margin: 0 0 0 7px;
+
+                    object-fit: cover;
+
+                    color: $dark-grey;
+
+                    cursor: pointer;
+                }
+            }
+        }
+
+        // Коллабораторы
+        &__collaborator {
+            height: 28px;
+            width: 28px;
+
+            margin: 0 10px 0 0;
+
+            @include circle-icon;
+
+            cursor: pointer;
+
+            // Контейнер коллабораторов
+            &s {
+                display: flex;
+
+                @include content-center;
+                flex-flow: row wrap;
+
+                flex-shrink: 3;
+            }
+
+        }
+    }
+
+    // Правая сторона информации о доске
+    &__right-side {
+
+        // Контейнер правой части
+        &__container {
+            display: flex;
+        }
+
+        // Настройки доски
+        &__settings {
+
+            // Иконка настроек
+            &__icon {
+                display: flex;
+                justify-self: flex-end;
+
+                width: 23px;
+                height: 23px;
+
+                margin: 0 16px 0 0;
+
+                object-fit: cover;
+
+                color: $dark-grey;
+
+                cursor: pointer;
+            }
+        }
+    }
+
+}
+
+
+// Область размещения карточек
+.scroll-cards__container {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-grow: 1;
+
+    overflow: hidden;
+
+    padding: 20px 35px 0 35px;
+
+    overflow-x: auto;
+}
+
+
+// Карточка
+.card {
+
+    // Контейнер карточки
+    &__container {
+        @include flex-column;
+
+        width: 290px;
+        height: fit-content;
+        max-height: 80vh;
+
+        margin: 6px;
+
+        text-align: center;
+
+        @include standard-shadow;
+        @include standard-border-radius;
+
+        background: white;
+    }
+
+    // Имя карточки
+    &__name {
+
+        // Контейнер имение карточки
+        &__container {
+            @include flex-row;
+
+            align-items: center;
+            justify-content: space-between;
+
+            min-height: 45px;
+
+            border-radius: 5px 5px 0 0;
+
+            border-right: 1px solid $card-violet;
+
+            background: $card-violet;
+        }
+
+        // Текст имени карточки
+        &__text {
+            display: flex;
+
+            width: 240px;
+
+            margin: 10px 0 10px 15px;
+
+            @include standard-font(normal, 18px, 20px);
+            text-align: start;
+            word-break: break-word;
+            color: $light-grey;
+
+            cursor: pointer;
+
+            // Поведение при наведении
+            &:focus {
+                outline: none;
+
+                box-shadow: 0 1px 0 0;
+
+                cursor: text;
+            }
+        }
+
+        // Троеточие в названии
+        &__dots {
+
+            // Иконка
+            &__icon {
+                width: 18px;
+                height: 18px;
+
+                margin: 0 10px 0 0;
+
+                cursor: pointer;
+            }
+        }
+    }
+
+    // Контент карточки
+    &__content {
+
+        // Контейнер контента карточки
+        &__container {
+            @include flex-column;
+
+            overflow-y: auto;
+        }
+
+        // Содержимое задачи
+        &__task {
+            @include flex-column;
+
+            margin: 10px 10px 0 10px;
+
+            @include standard-border-radius;
+
+            background: $light-grey;
+
+            cursor: pointer;
+
+            // Тег
+            &__tag {
+                display: flex;
+
+                width: 30px;
+                height: 7px;
+
+                top: -0.1px;
+
+                border-radius: 0;
+
+                background: $darkolivegreen;
+
+                // Контейнер тегов
+                &s {
+                    @include flex-row;
+
+                    width: fit-content;
+
+                    border-radius: 5px 0 5px 0;
+
+                    overflow: auto;
+
+                    background: $light-grey;
+                }
+            }
+
+            // Описание задачи
+            &__description {
+                min-height: 17px;
+
+                padding: 10px;
+
+                @include standard-font(300, 15px, 17px);
+                text-align: left;
+
+                // Поведение, когда выбран
+                &:focus {
+                    outline: none;
+
+                    @include standard-border-radius;
+
+                    box-shadow: 0 0 0 2px var(--electric-indigo);
+
+                    cursor: text;
+                }
+            }
+
+            // Информация о задаче: дедлайн, количество выполненных подзадач, коллабораторы
+            &__footer {
+
+                // Контейнер информации о задаче
+                &__container {
+                    @include flex-row;
+
+                    justify-content: space-between;
+
+                    padding: 0 10px 8px 10px;
+                }
+
+                // Левая часть футера, состоящая из даты и прогресса
+                &__info {
+                    @include flex-row;
+
+                    justify-content: space-evenly;
+
+                    gap: 10px;
+
+                    // Плашка с датой
+                    &__date {
+                        display: flex;
+
+                        @include content-center;
+
+                        width: 66px;
+                        height: 30px;
+
+                        @include standard-shadow;
+
+                        @include standard-border-radius;
+
+                        @include standard-font(normal, 15px, 17px);
+                        color: $dark-grey;
+
+                        background: $white;
+                    }
+
+                    // Плашка с прогрессом выполнения задачи
+                    // (количество выполненных подзадач)
+                    &__progress {
+                        @include flex-row;
+
+                        align-items: center;
+                        justify-content: space-evenly;
+
+                        width: 66px;
+                        height: 30px;
+
+                        @include standard-shadow;
+
+                        @include standard-border-radius;
+
+                        background: $white;
+
+                        // Иконка прогресса
+                        &__icon {
+                            display: flex;
+
+                            width: 18px;
+                            height: 18px;
+                        }
+
+                        // Количество выполненных подзадач
+                        &__count {
+                            display: flex;
+
+                            @include standard-font(normal, 15px, 17px);
+                            color: $dark-grey;
+                        }
+
+
+                    }
+
+                }
+
+                // Коллабораторы
+                &__collaborator {
+                    width: 28px;
+                    height: 28px;
+
+                    @include circle-icon;
+
+                    // Контейнер коллабораторов
+                    &s {
+                        @include flex-row;
+
+                        justify-content: space-between;
+
+                        gap: 5px;
+                    }
+                }
+            }
+        }
+
+        // Добавление новой задачи
+        &__add-new-task {
+
+            // Контейнер добавления новой задачи
+            &__container {
+                @include flex-row;
+
+                justify-content: center;
+
+                padding: 14px 0 13px 0;
+
+                gap: 10px;
+
+                cursor: pointer;
+            }
+
+            // Иконка добавления новой задачи
+            &__icon {
+                height: 18px;
+                width: 18px;
+            }
+
+            // Текст добавления новой задачи
+            &__text {
+                @include standard-font(300, 15px, 17px);
+            }
+        }
+    }
+
+
+}
+
+
+// Новая карточка
+.new-card {
+
+    // Контейнер новой карточки
+    &__container {
+        display: flex;
+
+        flex: 0 0 auto;
+
+        width: 290px;
+        height: 90px;
+
+        margin: 6px;
+
+        @include standard-border-radius;
+        @include standard-shadow;
+
+        text-align: center;
+
+        background: $white;
+    }
+
+    // Контент новой карточки
+    &__content {
+
+        // Контейнер контента
+        &__container {
+            @include flex-column;
+            flex-flow: row wrap;
+
+            padding: 0 35px 0 0;
+        }
+    }
+
+    // Заголовок новой карточки
+    &__title {
+
+        // Контейнер заголовка новой карточки
+        &__container {
+            @include flex-row;
+
+            @include content-center;
+
+            height: 45px;
+            width: 290px;
+
+            gap: 10px;
+
+            border-radius: 5px 5px 0 0;
+
+            border-right: 1px solid $card-violet;
+
+            cursor: pointer;
+
+            background: $card-violet;
+        }
+
+        // Текст заголовка новой карточки
+        &__text {
+            display: flex;
+
+            align-items: center;
+
+            @include standard-font(300, 18px, 17px);
+
+            color: $light-grey;
+        }
+
+        // Добавление новой карточки
+        &__add-new {
+
+            // Иконка добавления новой карточки
+            &__icon {
+                display: flex;
+
+                width: 18px;
+                height: 18px;
+            }
+        }
+    }
+}
+
+
+// Кастомизация скроллбара
+::-webkit-scrollbar {
+    width: 10px;
+    height: 12px;
+
+    @include standard-border-radius;
+
+    &-track {
+        @include standard-border-radius;
+
+        background: $light-grey;
+    }
+
+    &-thumb {
+        background: $scroll-inactive;
+        opacity: 0.5;
+
+        @include standard-border-radius;
+
+        &:hover {
+            background: $scroll-active;
+        }
+    }
+}

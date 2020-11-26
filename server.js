@@ -1,15 +1,13 @@
 const express = require('express');
-// const path = require('path');
 
 const app = express();
-// const srcFolder = path.resolve(__dirname, '/source');
 
-app.use(express.static(`${__dirname}/source`));
+app.use(express.static(`${__dirname}/dist`));
 
 const port = 3033;
 
 app.get('*', (req, res) => {
-    res.sendFile(`${__dirname}/source/index.html`);
+    res.sendFile(`${__dirname}/dist/index.html`);
 });
 
 app.listen(port, () => {

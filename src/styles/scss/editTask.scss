@@ -1,0 +1,499 @@
+@import "mixins";
+@import "colors";
+
+// Настройка задачи
+.edit-task {
+
+    // Контейнер настройки задачи
+    &__container {
+        display: none;
+
+        position: absolute;
+
+        align-items: flex-start;
+        justify-content: center;
+
+        top: 0;
+
+        width: 100vw;
+        height: 80vh;
+
+        padding: 20vh 0 0 0 ;
+
+        background-color: $background_inactive;
+    }
+
+    // Содержимое настройки задачи
+    &__content {
+
+        // Контейнер настройки содержимого задачи
+        &__container {
+            @include flex-column;
+
+            position: absolute;
+
+            align-items: center;
+            justify-content: flex-start;
+
+            width: 100%;
+            max-width: 615px;
+            height: fit-content;
+
+            @include standard-border-radius;
+            @include standard-shadow;
+
+            background: $white;
+        }
+
+        // Название задачи
+        &__name {
+
+            // Контейнер названия задачи
+            &__container {
+                display: flex;
+
+                justify-content: flex-start;
+                justify-self: center;
+
+                z-index: 1;
+
+                width: 100%;
+                max-width: 555px;
+
+                padding: 25px 0 10px 0;
+
+                border-bottom: 1px solid $dark-grey;
+            }
+
+            // Текст названия задачи
+            &__text {
+                display: flex;
+
+                width: 100%;
+                max-width: 450px;
+
+                padding: 0 50px 0 10px;
+
+                border: none;
+                outline: none;
+
+                @include standard-font(normal, 18px, 21px);
+                word-break: break-all;
+
+                cursor: pointer;
+            }
+        }
+
+        // Информация по коллабораторам и тегам задачи
+        &__info {
+            @include flex-row;
+
+            width: 100%;
+            max-width: 540px;
+
+            // Контейнер информации |~|
+            &__container {
+                @include flex-column;
+
+                justify-content: flex-start;
+                align-items: flex-start;
+
+                width: 100%;
+                max-width: 540px;
+
+                margin: 20px 0 0 0;
+            }
+
+            // Названия блока информации
+            &__title {
+                display: flex;
+
+                @include standard-font(normal, 14px, 16px);
+
+                cursor: default;
+            }
+
+            // Набор элементов: коллабораторы и теги
+            &__elements {
+                @include flex-row;
+
+                position: relative;
+
+                flex-wrap: wrap;
+
+                // Иконка добавления тега или коллаборатора
+                &__add-new__icon {
+                    display: flex;
+
+                    height: 28px;
+                    width: 28px;
+
+                    margin: 10px 0 0 0 ;
+
+                    filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.15));
+
+                    cursor: pointer;
+                }
+            }
+
+            // Коллабораторы
+            &__collaborator {
+                position: relative;
+
+                height: 28px;
+                width: 28px;
+
+                margin: 10px 10px 0 0;
+
+                @include circle-icon;
+
+                filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.15));
+
+                cursor: pointer;
+
+                // Контейнер коллабораторов
+                &__container {
+                    @include flex-column;
+                    justify-content: flex-start;
+
+                    width: 100%;
+                    max-width: 140px;
+
+                    margin: 0 35px 0 0;
+                }
+            }
+
+            // Теги
+            &__tag {
+                display: flex;
+
+                @include content-center;
+
+                width: fit-content;
+                height: 28px;
+
+                margin: 10px 10px 0 0;
+
+                @include standard-border-radius;
+
+                box-shadow: 0 0 9px rgba(0, 0, 0, 0.15);
+
+                cursor: pointer;
+
+                // Контейнер тегов
+                &__container {
+                    @include flex-column;
+
+                    justify-content: flex-start;
+
+                    width: 100%;
+                    max-width: 350px;
+
+                    margin: 0 35px 0 0;
+                }
+
+                // Текст в теге
+                &__text {
+                    display: flex;
+
+                    margin: 0 8px 0 8px;
+
+                    @include standard-font(normal, 15px, 17px);
+                }
+            }
+        }
+
+        // Описание задачи
+        &__description {
+
+            // Контейнер описания задачи
+            &__container {
+                @include flex-column;
+
+                align-items: flex-start;
+                justify-content: flex-start;
+
+                width: 100%;
+                max-width: 550px;
+
+                padding: 20px 0 0 0;
+            }
+
+            // Заголовок описания задачи, слово "Описание",
+            // Возможно, стоит проработать этот момент и
+            // Создать шаблон для всех title'ов
+            &__title {
+                display: flex;
+
+                @include standard-font(normal, 14px, 16px);
+
+                cursor: default;
+            }
+
+            // Тело описания задачи
+            &__body {
+                @include flex-column;
+
+                width: 100%;
+
+                margin: 10px 0 20px 0;
+
+                @include standard-border-radius;
+
+                background: $light-grey;
+
+                // Стиль текста описания задачи
+                &__text {
+                    display: flex;
+
+                    margin: 10px;
+
+                    @include standard-font(300, 15px, 17px);
+                    word-break: break-all;
+
+                    border: none;
+                    outline: none;
+
+                    cursor: pointer;
+
+                    // Поведение при наведении
+                    &:hover {
+                        cursor: text;
+                    }
+                }
+
+                // Футер в описании, содержащий кнопку и поле
+                // Для логического разделения внутри блока description
+                &__footer {
+                    @include flex-row;
+
+                    justify-content: flex-start;
+
+                    margin: 0 0 10px 0;
+
+                    border-top: 1px solid $input-border-color;
+
+                    &__save-button {
+                        display: flex;
+
+                        @include content-center;
+
+                        width: 100%;
+                        max-width: 105px;
+                        height: 100%;
+                        max-height: 30px;
+
+                        margin: 10px 0 0 10px;
+                        padding: 10px;
+
+                        @include standard-button;
+
+                        cursor: pointer;
+                    }
+                }
+
+
+            }
+        }
+
+        // Удаление задачи
+        &__delete {
+
+            // Иконка удаления задачи
+            &__icon {
+                display: flex;
+
+                align-self: flex-end;
+                justify-self: flex-end;
+
+                width: 28px;
+                height: 28px;
+
+                cursor: pointer;
+            }
+        }
+    }
+
+
+    // Закрытие настройки задачи
+    &__close {
+        position: absolute;
+
+        z-index: 2;
+
+        right: 0;
+
+        width: 17px;
+        height: 17px;
+
+        align-self: flex-start;
+
+        margin: 25px 25px 0 0;
+        cursor: pointer;
+    }
+}
+
+// PopUp с тегами
+.edit-tags {
+
+    &__container {
+        display: flex;
+
+        position: absolute;
+
+        z-index: 1;
+
+        align-items: flex-start;
+        justify-content: center;
+
+        top: 50%
+    }
+
+    &__add {
+
+        &__container {
+            @include flex-column;
+
+            justify-content: space-between;
+            align-items: center;
+
+            width: 100vw;
+            max-width: 225px;
+
+            @include standard-border-radius;
+
+            @include standard-shadow;
+
+            background: $white;
+        }
+
+        &__title {
+            display: flex;
+
+            @include standard-font(normal, 16px, 19px);
+
+            margin: 15px 45px 0 0;
+
+            cursor: default;
+        }
+
+        &__tag {
+            display: flex;
+
+            position: relative;
+
+            align-items: center;
+            justify-content: space-between;
+
+            width: 100vh;
+            max-width: 185px;
+            height: 100vh;
+            max-height: 32px;
+
+            margin: 4px;
+
+            @include standard-border-radius;
+
+            @include standard-shadow;
+
+            background: $input-border-color;
+
+            cursor: pointer;
+
+            &__name {
+                @include standard-font(normal, 14px, 16px);
+
+                margin: 0 0 0 10px;
+            }
+
+            &__line {
+                @include flex-row;
+
+                justify-content: space-evenly;
+                align-items: center;
+
+                width: 90%;
+            }
+
+            &__selected {
+                outline: none;
+                box-shadow: 0 0 0 2px $electric-indigo inset;
+
+                &__icon {
+                    display: flex;
+
+                    width: 17px;
+                    height: 17px;
+
+                    margin: 0 10px 0 0;
+                }
+            }
+        }
+
+        &__pen-icon {
+            display: flex;
+
+            width: 18px;
+            height: 18px;
+
+            margin: 0 0 0 5px;
+
+            cursor: pointer;
+        }
+
+        &__tags {
+
+            &__container {
+                @include flex-column;
+
+                align-items: center;
+
+                margin: 10px 0 0 0;
+            }
+
+        }
+
+        &-new {
+
+            &__container {
+                @include flex-row;
+
+                justify-content: center;
+
+                padding: 13px 0 13px 0;
+
+                gap: 10px;
+
+                cursor: pointer;
+            }
+
+            &__icon {
+                height: 18px;
+                width: 18px;
+            }
+
+            &__text {
+                @include standard-font(normal, 14px, 16px);
+
+                color: $grey-text-color;
+            }
+        }
+
+    }
+
+    &__close {
+        position: absolute;
+
+        z-index: 2;
+
+        right: 0;
+
+        width: 17px;
+        height: 17px;
+
+        align-self: flex-start;
+
+        margin: 17px 17px 0 0;
+        cursor: pointer;
+    }
+}

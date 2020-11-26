@@ -1,0 +1,22 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
+    <div class="login-reg__input">
+        <fest:attributes>
+            <fest:for iterate="json.params" index="i" value="v">
+                <fest:attribute name="{v.name}"><fest:value>v.value</fest:value></fest:attribute>
+            </fest:for>
+        </fest:attributes>
+        <fest:value>json.name</fest:value>
+        <fest:for iterate="json.inputs" index="i" value="v">
+            <input type="{v.type}" id="{v.id}" placeholder="{v.placeholder}">
+                <fest:attributes>
+                    <fest:for iterate="v.params" index="j" value="va">
+                        <fest:attribute name="{va.name}"><fest:value>va.value</fest:value></fest:attribute>
+                    </fest:for>
+                </fest:attributes>
+            </input>
+            <fest:if test="v.hasError">
+                <div class="login-reg__error" id="{v.id}Error" hidden="true"/>
+            </fest:if>
+        </fest:for>
+    </div>
+</fest:template>

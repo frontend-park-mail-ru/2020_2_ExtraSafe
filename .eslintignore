@@ -1,5 +1,5 @@
-# Fest
-*.tmpl.js
+# Build files
+dist
 
 # Temporary files
 temp
