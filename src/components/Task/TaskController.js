@@ -111,10 +111,27 @@ export default class TaskController extends BaseController {
     }
 
     /**
+     * Add event listeners related to tags
+     */
+    addTagEventListeners() {
+        this.taskDetailed.eventBus.on('tagDetailedController:tagAdded', (tag) => {
+            // TODO: убрать костыль
+            tag.tagHtmlID = `${this.model.task.taskHtmlID}Tag${tag.tagID}`;
+            this.view.addTag(tag);
+        });
+        this.taskDetailed.eventBus.on('tagDetailedController:tagRemoved', (tag) => {
+            // TODO: убрать костыль
+            tag.tagHtmlID = `${this.model.task.taskHtmlID}Tag${tag.tagID}`;
+            this.view.removeTag(tag);
+        });
+    }
+
+    /**
      * Render task
      */
     render() {
         this.addEventListeners();
         this.view.render(this.model.task);
+        this.addTagEventListeners();
     }
 }

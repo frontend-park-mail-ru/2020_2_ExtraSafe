@@ -1,6 +1,7 @@
 import BaseView from '../../views/BaseView/BaseView.js';
 import rendering from '../../utils/rendering.js';
 import taskTemplate from './Task.tmpl.xml';
+import tagTemplate from './Tag.tmpl.xml';
 
 /**
  * Class Task view.
@@ -154,6 +155,14 @@ export default class TaskView extends BaseView {
         const tagsHtml = tagTemplate(tag);
         this.tagsEl.appendChild(rendering.createElementsFromTmpl(tagsHtml));
         // TODO: добавить eventListener на клик, не здесь)
+    }
+
+    /**
+     * Remove tag view
+     * @param {Object} tag
+     */
+    removeTag(tag) {
+        document.getElementById(tag.tagHtmlID).remove();
     }
 
     /**

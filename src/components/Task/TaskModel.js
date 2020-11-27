@@ -29,9 +29,20 @@ export default class TaskModel {
             isInitialized: task.isInitialized,
         };
 
+        this.initTags();
+    }
+
+    /**
+     * Initialize tags data
+     */
+    initTags() {
         if (Array.isArray(this.task.tags) && this.task.tags.length) {
             for (const tag of this.task.tags) {
                 tag.tagHtmlID = `${this.task.taskHtmlID}Tag${tag.tagID}`;
+                tag.tagDetailedID = `tagDetailed${tag.tagID}`;
+                tag.tagBodyHtmlID = `tagBody${tag.tagID}`;
+                tag.tagCheckID = `tagCheck${tag.tagID}`;
+                tag.tagEditID = `tagEditID${tag.tagID}`;
             }
         }
     }
@@ -134,20 +145,40 @@ export default class TaskModel {
         this.task.tagsDivID = `${this.task.taskHtmlID}TagsDiv`;
     }
 
-    /**
-     * Add tag data
-     * @param {string} name
-     * @param {string} color
-     * @param {number} tagID
-     */
-    addTag(name, color, tagID) {
-        const newTag = {
-            tagID: tagID,
-            tagHtmlID: `${this.task.taskHtmlID}Tag${tagID}`,
-            tagName: name,
-            tagColor: color,
-        };
-        this.task.tags.push(newTag);
-        this.eventBus.emit('taskModel:tagDataAdded', newTag);
-    }
+    // /**
+    //  * Add tag data
+    //  * @param {string} name
+    //  * @param {string} color
+    //  * @param {number} tagID
+    //  */
+    // addTag(name, color, tagID) {
+    //     const newTag = {
+    //         tagID: tagID,
+    //         tagHtmlID: `${this.task.taskHtmlID}Tag${tagID}`,
+    //         tagName: name,
+    //         tagColor: color,
+    //     };
+    //     this.task.tags.push(newTag);
+    //     this.eventBus.emit('taskModel:tagDataAdded', newTag);
+    // }
+
+    // /**
+    //  * Add tag data
+    //  * @param {Object} tag
+    //  */
+    // addTag(tag) {
+    //     this.task.tags.push(tag);
+    //     // this.eventBus.emit('taskModel:tagDataAdded', newTag);
+    // }
+    //
+    // /**
+    //  * Remove tag from array
+    //  * @param {Object} removedTag
+    //  */
+    // removeTag(removedTag) {
+    //     const tagIndex = this.task.tags.findIndex((tag) => {
+    //         return tag.tagID === removedTag.tagID;
+    //     });
+    //     this.task.tags.splice(tagIndex, 1);
+    // }
 }

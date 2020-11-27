@@ -1,5 +1,4 @@
 import tagAddPopup from './TagAddPopup.tmpl.xml';
-import rendering from '../../../utils/rendering.js';
 import EventBus from '../../../utils/eventBus.js';
 
 /**
@@ -37,28 +36,25 @@ export default class TagAddPopup {
                 if (tagEl.classList.contains('edit-tags__add__tag__selected')) {
                     tagEl.classList.remove('edit-tags__add__tag__selected');
                     tagCheckEl.style.removeProperty('display');
-                    this.eventBus.emit('tagAddPopup:tagRemoved', tag.tagID);
+                    this.eventBus.emit('tagAddPopup:tagRemoved', tag);
                 } else {
                     tagEl.classList.add('edit-tags__add__tag__selected');
                     tagCheckEl.style.display = 'flex';
-                    this.eventBus.emit('tagAddPopup:tagAdded', tag.tagID);
+                    this.eventBus.emit('tagAddPopup:tagAdded', tag);
                 }
             });
             document.getElementById(tag.tagEditID).addEventListener('click', () => {
                 this.hide();
                 this.eventBus.emit('tagAddPopup:tagEdit', tag.tagID);
-                this.eventBus.offAll();
             });
         }
 
         document.getElementById('closeTagPopup').addEventListener('click', () => {
             this.hide();
-            this.eventBus.offAll();
         });
         document.getElementById('createTag').addEventListener('click', () => {
             this.hide();
             this.eventBus.emit('tagAddPopup:tagCreate', null);
-            this.eventBus.offAll();
         });
 
         // TODO: сделать нормальное закрытие
@@ -72,18 +68,22 @@ export default class TagAddPopup {
     }
 
     /**
-     * setup template input data
-     * @param {[Object]} tags
-     * @return {Object} templateData
+     * Create tags array for template
+     * @param {[Object]} taskTags
+     * @param {[Object]} boardTags
+     * @return {[Object]}
      */
-    templateJSONSetup(tags) {
-        for (const tag of tags) {
-            tag.tagHtmlID = `tag${tag.tagID}`;
-            tag.tagBodyHtmlID = `tagBody${tag.tagID}`;
-            tag.tagCheckID = `tagCheck${tag.tagID}`;
-            tag.tagEditID = `tagEditID${tag.tagID}`;
-        }
-        return {tags: tags};
+    createTagsForTemplate(taskTags, boardTags) {
+        const tagsForTemplate = JSON.parse(JSON.stringify(boardTags));
+        tagsForTemplate.forEach((tmplTag) => {
+            const tagFound = taskTags.some((tag) => {
+                return tag.tagID === tmplTag.tagID;
+            });
+            if (tagFound) {
+                tmplTag.isSelected = true;
+            }
+        });
+        return tagsForTemplate;
     }
 
     /**
@@ -94,14 +94,9 @@ export default class TagAddPopup {
     render(tags, boardTags) {
         this.el.style.display = 'flex';
 
-        const tagsForTemplate = boardTags;
-        for (let i = 0; i < tags.length; i++) {
-            tagsForTemplate[i].isSelected = true;
-        }
-        const templateJSON = this.templateJSONSetup(tagsForTemplate);
+        const tagsForTemplate = this.createTagsForTemplate(tags, boardTags);
 
-        const html = tagAddPopup(templateJSON);
-        this.el.appendChild(rendering.createElementsFromTmpl(html));
-        this.addEventListeners(templateJSON.tags);
+        this.el.innerHTML = tagAddPopup({tags: tagsForTemplate});
+        this.addEventListeners(tagsForTemplate);
     }
 }

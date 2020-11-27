@@ -18,7 +18,12 @@ export default class EventBus {
         if (!this.listeners.hasOwnProperty(event)) {
             this.listeners[event] = [];
         }
-        this.listeners[event].push(callback);
+        const callbackExists = this.listeners[event].some((element) => {
+            return element === callback;
+        });
+        if (!callbackExists) {
+            this.listeners[event].push(callback);
+        }
     }
 
     /**

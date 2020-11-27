@@ -11,6 +11,27 @@ export default class TaskDetailedModel {
     }
 
     /**
+     * Add tag to array
+     * @param {Object} tag
+     */
+    addTag(tag) {
+        this.task.tags.push(tag);
+        // TODO: запрос в сеть
+    }
+
+    /**
+     * Remove tag from array
+     * @param {Object} removedTag
+     */
+    removeTag(removedTag) {
+        const tagIndex = this.task.tags.findIndex((tag) => {
+            return tag.tagID === removedTag.tagID;
+        });
+        this.task.tags.splice(tagIndex, 1);
+        // TODO: запрос в сеть
+    }
+
+    /**
      * Update task description
      * @param {string} newDescription
      */

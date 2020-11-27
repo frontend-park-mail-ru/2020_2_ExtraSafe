@@ -36,6 +36,22 @@ export default class TaskDetailedController extends BaseController {
     }
 
     /**
+     * Add event listeners related to tags
+     */
+    addTagEventListeners() {
+        this.tagAddPopup.eventBus.on('tagAddPopup:tagAdded', (tag) => {
+            this.model.addTag(tag);
+            this.view.addTag(tag);
+            this.eventBus.emit('tagDetailedController:tagAdded', tag);
+        });
+        this.tagAddPopup.eventBus.on('tagAddPopup:tagRemoved', (tag) => {
+            this.model.removeTag(tag);
+            this.view.removeTag(tag);
+            this.eventBus.emit('tagDetailedController:tagRemoved', tag);
+        });
+    }
+
+    /**
      * Render task detailed view
      * @param {Object} board
      * @param {Object} task
@@ -48,5 +64,6 @@ export default class TaskDetailedController extends BaseController {
 
         const tagPopupEl = document.getElementById('tagPopup');
         this.tagAddPopup = new TagAddPopup(tagPopupEl);
+        this.addTagEventListeners();
     }
 }

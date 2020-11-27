@@ -53,10 +53,25 @@ export default class CurrentBoardModel {
                         tagColor: '#60FFB2',
                     },
                 ];
+                this.initTags();
                 this.eventBus.emit('currentBoardModel:getBoardSuccess', responseBody);
             }
             return responseBody;
         });
+    }
+
+    /**
+     * Initialize tags data
+     */
+    initTags() {
+        if (Array.isArray(this.board.boardTags) && this.board.boardTags.length) {
+            for (const tag of this.board.boardTags) {
+                tag.tagDetailedID = `tagDetailed${tag.tagID}`;
+                tag.tagBodyHtmlID = `tagBody${tag.tagID}`;
+                tag.tagCheckID = `tagCheck${tag.tagID}`;
+                tag.tagEditID = `tagEditID${tag.tagID}`;
+            }
+        }
     }
 
     /**

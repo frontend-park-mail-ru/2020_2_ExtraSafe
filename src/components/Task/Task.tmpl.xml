@@ -3,7 +3,7 @@
 
         <div class="card__content__task__tags" id="{json.tagsDivID}">
             <fest:for iterate="json.tags" index="i" value="v">
-                <div class="card__content__task__tag" id="{v.tagHtmlID}" style="background: {v.tagColor}"/>
+                <fest:include context="v" src="./Tag.tmpl.xml"/>
             </fest:for>
         </div>
 

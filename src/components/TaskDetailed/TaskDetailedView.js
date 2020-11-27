@@ -1,5 +1,7 @@
 import BaseView from '../../views/BaseView/BaseView.js';
 import taskDetailedViewTemplate from './TaskDetailedView.tmpl.xml';
+import tagDetailedTemplate from './TagDetailed.tmpl.xml';
+import rendering from '../../utils/rendering.js';
 
 /**
  * Task detailed view
@@ -15,11 +17,29 @@ export default class TaskDetailedView extends BaseView {
     }
 
     /**
+     * Add tag view
+     * @param {Object} tag
+     */
+    addTag(tag) {
+        const tagEl = rendering.createElementsFromTmpl(tagDetailedTemplate(tag));
+        document.getElementById('tagsDetailedDiv').appendChild(tagEl);
+    }
+
+    /**
+     * Remove tag view
+     * @param {Object} tag
+     */
+    removeTag(tag) {
+        document.getElementById(tag.tagDetailedID).remove();
+    }
+
+    /**
      * add all event listeners
      * @param {Object} task
      */
     addEventListeners(task) {
         document.getElementById('closeTask').addEventListener('click', () => {
+            this.el.innerHTML = '';
             this.el.style.display = 'none';
             this.eventBus.emit('taskDetailedView:closed', null);
         });

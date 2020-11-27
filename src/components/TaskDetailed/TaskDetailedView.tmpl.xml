@@ -33,11 +33,7 @@
                     <div class="edit-task__content__info__elements">
                         <div id="tagsDetailedDiv" style="display: flex">
                             <fest:for iterate="json.tags" index="i" value="v">
-                                <div class="edit-task__content__info__tag" style="background: {v.tagColor}">
-                                    <div class="edit-task__content__info__tag__text">
-                                        <fest:value>v.tagName</fest:value>
-                                    </div>
-                                </div>
+                                <fest:include context="v" src="./TagDetailed.tmpl.xml"/>
                             </fest:for>
                         </div>
 
