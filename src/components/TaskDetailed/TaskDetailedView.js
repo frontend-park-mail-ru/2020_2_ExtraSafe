@@ -16,9 +16,9 @@ export default class TaskDetailedView extends BaseView {
 
     /**
      * add all event listeners
-     * @param {JSON} json
+     * @param {Object} task
      */
-    addEventListeners(json) {
+    addEventListeners(task) {
         document.getElementById('closeTask').addEventListener('click', () => {
             this.el.style.display = 'none';
             this.eventBus.emit('taskDetailedView:closed', null);
@@ -32,7 +32,7 @@ export default class TaskDetailedView extends BaseView {
             const taskName = el.innerText;
             // TODO: сделать проверку на название из пробелов
             if (taskName === '') {
-                el.innerHTML = json.taskName;
+                el.innerHTML = task.taskName;
             } else {
                 this.eventBus.emit('taskDetailedView:updateTaskName', taskName);
             }
@@ -48,11 +48,11 @@ export default class TaskDetailedView extends BaseView {
 
     /**
      * Render task detailed view
-     * @param {JSON} json
+     * @param {Object} task
      */
-    render(json) {
+    render(task) {
         this.el.style.display = 'flex';
-        this.el.innerHTML = taskDetailedViewTemplate(json);
-        this.addEventListeners(json);
+        this.el.innerHTML = taskDetailedViewTemplate(task);
+        this.addEventListeners(task);
     }
 }

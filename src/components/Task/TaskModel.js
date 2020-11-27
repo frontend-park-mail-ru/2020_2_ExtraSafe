@@ -7,10 +7,13 @@ export default class TaskModel {
     /**
      * Task model constructor
      * @param {EventBus} eventBus
+     * @param {Object} board
      * @param {object} task
      */
-    constructor(eventBus, task) {
+    constructor(eventBus, board, task) {
         this.eventBus = eventBus;
+        // TODO: переделеать под board и card
+        this.board = board;
         this.task = {
             boardID: task.boardID,
             cardID: task.cardID,

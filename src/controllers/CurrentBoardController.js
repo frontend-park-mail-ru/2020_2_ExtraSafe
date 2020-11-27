@@ -64,7 +64,7 @@ export default class CurrentBoardController extends BaseController {
             order: order,
             isInitialized: cardID !== -1,
         };
-        const newCard = new CardController(this.cardsDiv, cardObj);
+        const newCard = new CardController(this.cardsDiv, this.model.board, cardObj);
         this.cards.push(newCard);
 
         this.view.renderCard(newCard);

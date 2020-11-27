@@ -1,3 +1,0 @@
-<fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
-    <div class="card__content__task__color-label" id="{json.tagHtmlID}" style="background: {json.tagColor}"/>
-</fest:template>

@@ -14,12 +14,13 @@ export default class CardController extends BaseController {
      * Card controller constructor
      * @constructor
      * @param {HTMLElement} el
+     * @param {Object} board
      * @param {object} card
      */
-    constructor(el, card) {
+    constructor(el, board, card) {
         super(el);
         this.view = new CardView(el, this.eventBus);
-        this.model = new CardModel(this.eventBus, card);
+        this.model = new CardModel(this.eventBus, board, card);
         this.tasks = [];
     }
 
@@ -78,7 +79,7 @@ export default class CardController extends BaseController {
             contentEditable: (taskID === -1).toString(),
             isInitialized: taskID !== -1,
         };
-        const newTask = new TaskController(this.tasksDiv, taskObj);
+        const newTask = new TaskController(this.tasksDiv, this.model.board, taskObj);
         this.tasks.push(newTask);
 
         this.view.renderTask(newTask);

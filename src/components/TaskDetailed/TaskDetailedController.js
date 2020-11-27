@@ -31,17 +31,19 @@ export default class TaskDetailedController extends BaseController {
             this.eventBus.emit('taskDetailedController:taskNameUpdated', null);
         });
         this.eventBus.on('taskDetailedView:addTag', () => {
-            this.tagAddPopup.render(this.model.task.tags);
+            this.tagAddPopup.render(this.model.task.tags, this.model.board.boardTags);
         });
     }
 
     /**
      * Render task detailed view
-     * @param {JSON} json
+     * @param {Object} board
+     * @param {Object} task
      */
-    render(json) {
-        this.model.task = json;
-        this.view.render(json);
+    render(board, task) {
+        this.model.task = task;
+        this.model.board = board;
+        this.view.render(task);
         this.addEventListeners();
 
         const tagPopupEl = document.getElementById('tagPopup');

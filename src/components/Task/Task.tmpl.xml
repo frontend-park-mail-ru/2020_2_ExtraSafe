@@ -1,9 +1,9 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
     <div class="card__content__task" id="{json.taskHtmlID}" data-order="{json.order}" draggable="true">
 
-        <div class="card__content__task__color-labels" id="{json.tagsDivID}">
+        <div class="card__content__task__tags" id="{json.tagsDivID}">
             <fest:for iterate="json.tags" index="i" value="v">
-                <fest:include context="v" src="./Tag.tmpl.xml"/>
+                <div class="card__content__task__tag" id="{v.tagHtmlID}" style="background: {v.tagColor}"/>
             </fest:for>
         </div>
 

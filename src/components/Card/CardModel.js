@@ -7,10 +7,13 @@ export default class CardModel {
     /**
      * Card model constructor
      * @param {EventBus} eventBus
+     * @param {Object} board
      * @param {object} card
      */
-    constructor(eventBus, card) {
+    constructor(eventBus, board, card) {
         this.eventBus = eventBus;
+        // TODO: переделеать под board
+        this.board = board;
         this.card = {
             boardID: card.boardID,
             cardID: card.cardID,

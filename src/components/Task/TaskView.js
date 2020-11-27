@@ -1,7 +1,6 @@
 import BaseView from '../../views/BaseView/BaseView.js';
 import rendering from '../../utils/rendering.js';
 import taskTemplate from './Task.tmpl.xml';
-import tagTemplate from './Tag.tmpl.xml';
 
 /**
  * Class Task view.
@@ -51,7 +50,7 @@ export default class TaskView extends BaseView {
         }, false);
         if (task.contentEditable === 'false') {
             taskNameEl.addEventListener('click', () => {
-                this.eventBus.emit('taskView:openTaskDetailed', task);
+                this.eventBus.emit('taskView:openTaskDetailed', null);
             }, false);
         }
         this.addDragAndDropEventListeners(task);

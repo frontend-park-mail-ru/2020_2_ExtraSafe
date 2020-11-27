@@ -14,12 +14,13 @@ export default class TaskController extends BaseController {
      * Task controller constructor
      * @constructor
      * @param {HTMLElement} el
-     * @param {object} task
+     * @param {Object} board
+     * @param {Object} task
      */
-    constructor(el, task) {
+    constructor(el, board, task) {
         super(el);
         this.view = new TaskView(el, this.eventBus);
-        this.model = new TaskModel(this.eventBus, task);
+        this.model = new TaskModel(this.eventBus, board, task);
         const taskDetailedDiv = document.getElementById('taskDetailed');
         this.taskDetailed = new TaskDetailedController(taskDetailedDiv);
     }
@@ -54,8 +55,8 @@ export default class TaskController extends BaseController {
             this.model.createTaskForServer();
             this.view.onTaskNameUpdated(taskJSON);
         });
-        this.eventBus.on('taskView:openTaskDetailed', (task) => {
-            this.taskDetailed.render(task);
+        this.eventBus.on('taskView:openTaskDetailed', () => {
+            this.taskDetailed.render(this.model.board, this.model.task);
         });
         this.eventBus.on('taskView:deleteTaskFromArray', () => {
             globalEventBus.emit('taskController:deleteTaskFromArray', this.model.task.taskID);

@@ -36,7 +36,7 @@ export default class CurrentBoardModel {
                 this.board.boardID = responseBody.boardID;
                 this.board.boardName = responseBody.name;
                 // TODO: убрать заглушку
-                this.board.tags = [
+                this.board.boardTags = [
                     {
                         tagID: 0,
                         tagName: 'front',
@@ -46,6 +46,11 @@ export default class CurrentBoardModel {
                         tagID: 1,
                         tagName: 'back',
                         tagColor: '#FF8080',
+                    },
+                    {
+                        tagID: 2,
+                        tagName: 'chill',
+                        tagColor: '#60FFB2',
                     },
                 ];
                 this.eventBus.emit('currentBoardModel:getBoardSuccess', responseBody);

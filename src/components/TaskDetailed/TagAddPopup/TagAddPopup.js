@@ -82,7 +82,6 @@ export default class TagAddPopup {
             tag.tagBodyHtmlID = `tagBody${tag.tagID}`;
             tag.tagCheckID = `tagCheck${tag.tagID}`;
             tag.tagEditID = `tagEditID${tag.tagID}`;
-            tag.isSelected = true;
         }
         return {tags: tags};
     }
@@ -90,10 +89,17 @@ export default class TagAddPopup {
     /**
      * Render popup
      * @param {[Object]} tags
+     * @param {[Object]} boardTags
      */
-    render(tags) {
+    render(tags, boardTags) {
         this.el.style.display = 'flex';
-        const templateJSON = this.templateJSONSetup(tags);
+
+        const tagsForTemplate = boardTags;
+        for (let i = 0; i < tags.length; i++) {
+            tagsForTemplate[i].isSelected = true;
+        }
+        const templateJSON = this.templateJSONSetup(tagsForTemplate);
+
         const html = tagAddPopup(templateJSON);
         this.el.appendChild(rendering.createElementsFromTmpl(html));
         this.addEventListeners(templateJSON.tags);
