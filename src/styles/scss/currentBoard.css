@@ -1,3 +1,21 @@
+@media screen and (max-width: 470px) {
+  .card__container {
+    max-height: 79vh !important;
+  }
+
+  .board-info__left-side__container {
+    gap: 25px !important;
+  }
+
+  .board-info__left-side__collaborator {
+    margin: 0 5px 0 0 !important;
+  }
+}
+@media screen and (max-height: 450px) {
+  .card__container {
+    max-height: 65vh !important;
+  }
+}
 .board-info__container {
   display: flex;
   align-items: center;
@@ -177,7 +195,7 @@
 .card__content__task__description:focus {
   outline: none;
   border-radius: 5px;
-  box-shadow: 0 0 0 2px var(--electric-indigo);
+  box-shadow: 0 0 0 2px #6D27E7 inset !important;
   cursor: text;
 }
 .card__content__task__footer__container {
@@ -249,9 +267,15 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  padding: 14px 0 13px 0;
+  padding: 10px 0 10px 0;
+  margin: 10px;
   gap: 10px;
+  border-radius: 5px;
   cursor: pointer;
+}
+.card__content__add-new-task__container:hover {
+  background: #e3e3e3;
+  transition: 0.1s linear;
 }
 .card__content__add-new-task__icon {
   height: 18px;

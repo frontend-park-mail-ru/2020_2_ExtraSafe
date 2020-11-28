@@ -8,7 +8,7 @@
     .edit-task__content__name__container,
     .edit-task__content__info__container
     {
-        width: 95% !important;
+        width: 90% !important;
     }
 
     .edit-task__content__container {
@@ -35,6 +35,12 @@
 
         align-items: flex-start;
         justify-content: center;
+
+        overflow-y: auto;
+
+        &::-webkit-scrollbar {
+            width: 0;
+        }
 
         top: 0;
 
@@ -413,11 +419,19 @@
                     justify-content: center;
                     align-self: center;
 
-                    padding: 14px 0 13px 0;
+                    margin: 5px 10px 5px 10px;
+                    padding: 10px 20px 10px 20px;
+
+                    @include standard-border-radius;
 
                     gap: 10px;
 
                     cursor: pointer;
+
+                    &:hover {
+                        background: $element-active;
+                        transition: 0.1s linear;
+                    }
                 }
 
                 // Иконка добавления нового вложения

@@ -115,9 +115,14 @@
           width: 75vh !important;
       }*/
 }
-@media screen and (max-height: 500px) {
-  .settings-body {
-    margin: 25px 0 0 0 !important;
+@media screen and (max-height: 450px) {
+  .profile-form {
+    margin: 15px 0 0 0 !important;
+    height: 100vh !important;
+  }
+
+  .adaptive-navigation__container {
+    height: 55% !important;
   }
 }
 .profile-form {
@@ -285,6 +290,9 @@
   cursor: pointer;
 }
 
+.adaptive-navigation {
+  height: 100%;
+}
 .adaptive-navigation__button {
   display: none;
   position: absolute;

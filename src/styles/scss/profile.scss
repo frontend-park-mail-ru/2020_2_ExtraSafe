@@ -36,10 +36,15 @@
         }*/
 }
 
-@media screen and (max-height: 500px) {
+@media screen and (max-height: 450px) {
 
-    .settings-body {
-        margin: 25px 0 0 0 !important;
+    .profile-form {
+        margin: 15px 0 0 0 !important;
+        height: 100vh !important;
+    }
+
+    .adaptive-navigation__container {
+        height: 55% !important;
     }
 }
 
@@ -245,6 +250,7 @@
 
 // Адаптирующаяся навигация
 .adaptive-navigation {
+    height: 100%;
 
     // Кнопка открытия/закрытия
     &__button {

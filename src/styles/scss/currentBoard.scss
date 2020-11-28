@@ -1,6 +1,29 @@
 @import "mixins";
 @import "colors";
 
+@media screen and (max-width: $mobile-breakpoint) {
+
+    .card__container {
+        max-height: 79vh !important;
+    }
+
+    .board-info__left-side__container {
+        gap: 25px !important;
+    }
+
+    .board-info__left-side__collaborator {
+        margin: 0 5px 0 0 !important;
+    }
+}
+
+@media screen and (max-height: 450px) {
+
+    .card__container {
+        max-height: 65vh !important;
+    }
+
+}
+
 // Информация о доске
 .board-info {
 
@@ -262,7 +285,7 @@
             cursor: pointer;
 
             &:hover {
-                background: #e3e3e3;
+                background: $element-active;
                 transition: 0.1s linear;
             }
 
@@ -308,7 +331,7 @@
 
                     @include standard-border-radius;
 
-                    box-shadow: 0 0 0 2px var(--electric-indigo);
+                    box-shadow: 0 0 0 2px $electric-indigo inset !important;
 
                     cursor: text;
                 }
@@ -419,11 +442,20 @@
 
                 justify-content: center;
 
-                padding: 14px 0 13px 0;
+                padding: 10px 0 10px 0;
+
+                margin: 10px;
 
                 gap: 10px;
 
+                @include standard-border-radius;
+
                 cursor: pointer;
+
+                &:hover {
+                    background: $element-active;
+                    transition: 0.1s linear;
+                }
             }
 
             // Иконка добавления новой задачи
@@ -438,8 +470,6 @@
             }
         }
     }
-
-
 }
 
 
