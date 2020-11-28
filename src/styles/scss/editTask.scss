@@ -193,6 +193,7 @@
                 @include content-center;
 
                 width: fit-content;
+                min-width: 28px;
                 height: 28px;
 
                 margin: 10px 10px 0 0;
@@ -555,20 +556,6 @@
 
                 width: 90%;
             }
-
-            &__selected {
-                outline: none;
-                box-shadow: 0 0 0 2px $electric-indigo inset;
-
-                &__icon {
-                    display: none;
-
-                    width: 17px;
-                    height: 17px;
-
-                    margin: 0 10px 0 0;
-                }
-            }
         }
 
         &__pen-icon {
@@ -718,7 +705,7 @@
             margin: 0 10px 0 0;
 
             &-color {
-                display: flex;
+                display: none;
 
                 width: 17px;
                 height: 17px;

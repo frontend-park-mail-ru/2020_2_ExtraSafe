@@ -33,19 +33,19 @@ export default class TagAddPopup {
             const tagEl = document.getElementById(tag.tagBodyHtmlID);
             const tagCheckEl = document.getElementById(tag.tagCheckID);
             tagEl.addEventListener('click', () => {
-                if (tagEl.classList.contains('edit-tags__add__tag__selected')) {
-                    tagEl.classList.remove('edit-tags__add__tag__selected');
+                if (tagEl.classList.contains('edit-tags__selected')) {
+                    tagEl.classList.remove('edit-tags__selected');
                     tagCheckEl.style.removeProperty('display');
                     this.eventBus.emit('tagAddPopup:tagRemoved', tag);
                 } else {
-                    tagEl.classList.add('edit-tags__add__tag__selected');
+                    tagEl.classList.add('edit-tags__selected');
                     tagCheckEl.style.display = 'flex';
                     this.eventBus.emit('tagAddPopup:tagAdded', tag);
                 }
             });
             document.getElementById(tag.tagEditID).addEventListener('click', () => {
                 this.hide();
-                this.eventBus.emit('tagAddPopup:tagEdit', tag.tagID);
+                this.eventBus.emit('tagAddPopup:tagEdit', tag);
             });
         }
 
@@ -56,6 +56,12 @@ export default class TagAddPopup {
             this.hide();
             this.eventBus.emit('tagAddPopup:tagCreate', null);
         });
+
+        // document.addEventListener('click', (event) => {
+        //     if (event.target !== this.el && event.target.id !== 'addTag') {
+        //         this.hide();
+        //     }
+        // });
 
         // TODO: сделать нормальное закрытие
         // window.onclick = (event) => {

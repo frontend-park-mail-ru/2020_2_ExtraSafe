@@ -158,6 +158,14 @@ export default class TaskView extends BaseView {
     }
 
     /**
+     * Change tag view
+     * @param {Object} tag
+     */
+    changeTag(tag) {
+        document.getElementById(tag.tagHtmlID).style.background = tag.tagColor;
+    }
+
+    /**
      * Remove tag view
      * @param {Object} tag
      */

@@ -13,7 +13,7 @@
                         <fest:attributes>
                             <fest:if test="v.isSelected">
                                 <fest:attribute name="class">
-                                    edit-tags__add__tag edit-tags__add__tag__selected
+                                    edit-tags__add__tag edit-tags__selected
                                 </fest:attribute>
                             </fest:if>
                             <fest:attribute name="class">
@@ -24,7 +24,7 @@
                             <fest:value>v.tagName</fest:value>
                         </div>
 
-                        <img class="edit-tags__add__tag__selected__icon" src="../../img/icons/selected.svg" id="{v.tagCheckID}"
+                        <img class="edit-tags__selected__icon" src="../../img/icons/selected.svg" id="{v.tagCheckID}"
                              alt="selected_tag">
                             <fest:attributes>
                                 <fest:if test="v.isSelected">

@@ -40,6 +40,7 @@ export default class TaskModel {
             for (const tag of this.task.tags) {
                 tag.tagHtmlID = `${this.task.taskHtmlID}Tag${tag.tagID}`;
                 tag.tagDetailedID = `tagDetailed${tag.tagID}`;
+                tag.tagDetailedNameID = `tagDetailedName${tag.tagID}`;
                 tag.tagBodyHtmlID = `tagBody${tag.tagID}`;
                 tag.tagCheckID = `tagCheck${tag.tagID}`;
                 tag.tagEditID = `tagEditID${tag.tagID}`;

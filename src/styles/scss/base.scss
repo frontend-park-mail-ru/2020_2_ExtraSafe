@@ -15,6 +15,11 @@
 
 }
 
+[contenteditable] {
+    -webkit-user-select: text;
+    user-select: text;
+}
+
 /* Стиль для всего body */
 body {
   margin: 0;

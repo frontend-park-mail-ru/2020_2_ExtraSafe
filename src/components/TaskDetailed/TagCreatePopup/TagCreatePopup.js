@@ -1,5 +1,4 @@
-import tagCreatePopup from 'TagCreatePopup.tmpl.xml';
-import rendering from '../../../utils/rendering.js';
+import tagCreatePopup from './TagCreatePopup.tmpl.xml';
 import EventBus from '../../../utils/eventBus.js';
 
 /**
@@ -20,11 +19,46 @@ export default class TagCreatePopup {
      * Hide popup
      */
     hide() {
-        for (const el of this.el.children) {
-            el.remove();
-        }
+        this.el.innerHTML = '';
         this.el.style.display = 'none';
     }
+
+    /**
+     * Select tag
+     * @param {Object} tag
+     * @param {number} tagIndex
+     */
+    selectTag(tag, tagIndex) {
+        const colorEl = document.getElementById(`tagColor${tagIndex}`);
+        const checkEl = document.getElementById(`tagCheck${tagIndex}`);
+        checkEl.style.display = 'flex';
+        colorEl.classList.add('edit-tags__selected');
+        tag.isSelected = true;
+    }
+
+    /**
+     * Deselect tag
+     * @param {Object} tag
+     * @param {number} tagIndex
+     */
+    deselectTag(tag, tagIndex) {
+        const colorEl = document.getElementById(`tagColor${tagIndex}`);
+        const checkEl = document.getElementById(`tagCheck${tagIndex}`);
+        checkEl.style.removeProperty('display');
+        colorEl.classList.remove('edit-tags__selected');
+        tag.isSelected = false;
+    }
+
+    // /**
+    //  * Callback for click outside the element
+    //  * @param {MouseEvent} event
+    //  */
+    // onClickOut(event) {
+    //     if (event.target !== this.el && event.target.id !== 'createTag') {
+    //         this.hide();
+    //         this.eventBus.emit('tagCreatePopup:tagClose', null);
+    //     }
+    // }
 
     /**
      * Add all event listeners
@@ -32,66 +66,99 @@ export default class TagCreatePopup {
      */
     addEventListeners(templateJSON) {
         // TODO: изменить id
-        for (let index = 0; index < templateJSON.colors.length; index++) {
-            const colorEl = document.getElementById(`tagColor${index}`);
-            colorEl.addEventListener('click', () => {
-                if (colorEl.classList.contains('checked')) {
-                    colorEl.classList.remove('checked');
+        for (const [index, tag] of templateJSON.newTags.entries()) {
+            document.getElementById(`tagColor${index}`).addEventListener('click', () => {
+                if (tag.isSelected) {
+                    this.deselectTag(tag, index);
                 } else {
-                    colorEl.classList.add('checked');
+                    const lastCheckedIndex = templateJSON.newTags.findIndex((t) => {
+                        return t.isSelected;
+                    });
+                    if (lastCheckedIndex !== -1) {
+                        this.deselectTag(templateJSON.newTags[lastCheckedIndex], lastCheckedIndex);
+                    }
+                    this.selectTag(tag, index);
                 }
             });
         }
 
-        document.getElementById('close').addEventListener('click', () => {
+        document.getElementById('closeTagPopup').addEventListener('click', () => {
             this.hide();
-            this.eventBus.offAll();
+            this.eventBus.emit('tagCreatePopup:tagClose', null);
         });
-        document.getElementById('create').addEventListener('click', () => {
+        document.getElementById('createTag').addEventListener('click', () => {
+            const tagColor = templateJSON.newTags.find((tag) => {
+                return tag.isSelected;
+            }).tagColor;
+            const tagName = document.getElementById('tagName').value;
             this.hide();
-            const tagName = document.getElementById('input').value;
-            this.eventBus.emit('tagCreatePopup:tagCreate', tagName);
-            this.eventBus.offAll();
+
+            if (templateJSON.isInitialized) {
+                templateJSON.tagColor = tagColor;
+                templateJSON.tagName = tagName;
+                delete templateJSON.newTags;
+                delete templateJSON.isInitialized;
+                this.eventBus.emit('tagCreatePopup:tagEdit', templateJSON);
+            } else {
+                this.eventBus.emit('tagCreatePopup:tagCreate', [tagName, tagColor]);
+            }
         });
 
-        window.onclick = (event) => {
-            console.log('tagAddPopup:onClick');
-            if (event.target !== this.el) {
-                this.hide();
-                this.eventBus.offAll();
-            }
-        };
+        // document.addEventListener('click', this.onClickOut.bind(this));
+
+        // TODO: сделать нормальное закрытие
+        // window.onclick = (event) => {
+        //     console.log('tagAddPopup:onClick');
+        //     if (event.target !== this.el) {
+        //         this.hide();
+        //     }
+        // };
     }
 
     /**
-     * setup template input data
+     * Setup template input data
      * @return {Object} templateData
      */
     templateJSONSetup() {
         return {
-            colors: [
-                '#58FF1D',
-                '#1B68FF',
-                '#60FFB2',
-                '#72E6FF',
-                '#A88BFF',
-                '#EF9213',
-                '#FCFF27',
-                '#FF5151',
-                '#FF8080',
-                '#FFE600',
+            newTags: [
+                {tagColor: '#58FF1D'},
+                {tagColor: '#1B68FF'},
+                {tagColor: '#60FFB2'},
+                {tagColor: '#72E6FF'},
+                {tagColor: '#A88BFF'},
+                {tagColor: '#EF9213'},
+                {tagColor: '#FCFF27'},
+                {tagColor: '#FF5151'},
+                {tagColor: '#FF8080'},
+                {tagColor: '#FFE380'},
             ],
         };
     }
 
     /**
      * Render popup
+     * @param {Object} tag
      */
-    render() {
+    render(tag = undefined) {
         this.el.style.display = 'flex';
         const templateJSON = this.templateJSONSetup();
-        const html = tagCreatePopup(templateJSON);
-        this.el.appendChild(rendering.createElementsFromTmpl(html));
+        if (tag) {
+            const matchedTag = templateJSON.newTags.find((t) => {
+                return t.tagColor === tag.tagColor;
+            });
+            matchedTag.isSelected = true;
+            templateJSON.isInitialized = true;
+            delete tag.tagColor;
+            Object.assign(templateJSON, tag);
+            templateJSON.titleText = 'Изменить метку';
+            templateJSON.buttonText = 'Сохранить';
+        } else {
+            templateJSON.titleText = 'Создать метку';
+            templateJSON.buttonText = 'Создать';
+        }
+        this.el.innerHTML = tagCreatePopup(templateJSON);
         this.addEventListeners(templateJSON);
+        document.getElementById('tagName').select();
     }
 }

@@ -26,6 +26,15 @@ export default class TaskDetailedView extends BaseView {
     }
 
     /**
+     * Change tag view
+     * @param {Object} tag
+     */
+    changeTag(tag) {
+        document.getElementById(tag.tagDetailedID).style.background = tag.tagColor;
+        document.getElementById(tag.tagDetailedNameID).innerText = tag.tagName;
+    }
+
+    /**
      * Remove tag view
      * @param {Object} tag
      */

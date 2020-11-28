@@ -2,7 +2,7 @@ import BaseController from '../../controllers/BaseController.js';
 import TaskDetailedModel from './TaskDetailedModel.js';
 import TaskDetailedView from './TaskDetailedView.js';
 import TagAddPopup from './TagAddPopup/TagAddPopup.js';
-// import TagCreatePopup from './TagCreatePopup/TagCreatePopup.js';
+import TagCreatePopup from './TagCreatePopup/TagCreatePopup.js';
 
 /**
  * Task detailed controller
@@ -16,7 +16,6 @@ export default class TaskDetailedController extends BaseController {
         super(el);
         this.model = new TaskDetailedModel(this.eventBus);
         this.view = new TaskDetailedView(el, this.eventBus);
-        // this.tagCreatePopup = new TagCreatePopup(tagPopupEl);
     }
 
     /**
@@ -42,12 +41,36 @@ export default class TaskDetailedController extends BaseController {
         this.tagAddPopup.eventBus.on('tagAddPopup:tagAdded', (tag) => {
             this.model.addTag(tag);
             this.view.addTag(tag);
-            this.eventBus.emit('tagDetailedController:tagAdded', tag);
+            this.eventBus.emit('taskDetailedController:tagAdded', tag);
         });
         this.tagAddPopup.eventBus.on('tagAddPopup:tagRemoved', (tag) => {
             this.model.removeTag(tag);
             this.view.removeTag(tag);
-            this.eventBus.emit('tagDetailedController:tagRemoved', tag);
+            this.eventBus.emit('taskDetailedController:tagRemoved', tag);
+        });
+        this.tagAddPopup.eventBus.on('tagAddPopup:tagCreate', () => {
+            this.tagCreatePopup.render();
+        });
+        this.tagAddPopup.eventBus.on('tagAddPopup:tagEdit', (tag) => {
+            this.tagCreatePopup.render(tag);
+        });
+        this.tagCreatePopup.eventBus.on('tagCreatePopup:tagClose', () => {
+            this.tagAddPopup.render(this.model.task.tags, this.model.board.boardTags);
+        });
+        this.tagCreatePopup.eventBus.on('tagCreatePopup:tagCreate', ([tagName, tagColor]) => {
+            console.log(tagName, tagColor);
+            const tag = this.model.createTag(tagName, tagColor);
+            this.view.addTag(tag);
+            this.eventBus.emit('taskDetailedController:tagAdded', tag);
+            this.tagAddPopup.render(this.model.task.tags, this.model.board.boardTags);
+        });
+        this.tagCreatePopup.eventBus.on('tagCreatePopup:tagEdit', (tag) => {
+            if (tag.isSelected) {
+                this.view.changeTag(tag);
+                this.eventBus.emit('taskDetailedController:tagEdit', tag);
+            }
+            this.model.changeTag(tag);
+            this.tagAddPopup.render(this.model.task.tags, this.model.board.boardTags);
         });
     }
 
@@ -64,6 +87,7 @@ export default class TaskDetailedController extends BaseController {
 
         const tagPopupEl = document.getElementById('tagPopup');
         this.tagAddPopup = new TagAddPopup(tagPopupEl);
+        this.tagCreatePopup = new TagCreatePopup(tagPopupEl);
         this.addTagEventListeners();
     }
 }

@@ -67,6 +67,7 @@ export default class CurrentBoardModel {
         if (Array.isArray(this.board.boardTags) && this.board.boardTags.length) {
             for (const tag of this.board.boardTags) {
                 tag.tagDetailedID = `tagDetailed${tag.tagID}`;
+                tag.tagDetailedNameID = `tagDetailedName${tag.tagID}`;
                 tag.tagBodyHtmlID = `tagBody${tag.tagID}`;
                 tag.tagCheckID = `tagCheck${tag.tagID}`;
                 tag.tagEditID = `tagEditID${tag.tagID}`;
