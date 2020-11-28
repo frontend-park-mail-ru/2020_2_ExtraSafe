@@ -144,6 +144,10 @@
   background: #F3F3F3;
   cursor: pointer;
 }
+.card__content__task:hover {
+  background: #e3e3e3;
+  transition: 0.1s linear;
+}
 .card__content__task__tag {
   display: flex;
   width: 30px;

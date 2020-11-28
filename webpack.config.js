@@ -1,6 +1,7 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const autoprefixer = require("autoprefixer");
 
 // TODO: разобраться с мусорным <style>
 module.exports = {
@@ -22,6 +23,19 @@ module.exports = {
                 use: [
                     MiniCssExtractPlugin.loader,
                     'css-loader',
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            postcssOptions: {
+                                plugins: [
+                                    autoprefixer({
+                                        browsers: ['ie >= 8', 'last 4 version']
+                                    }),
+                                ],
+                            },
+                            sourceMap: true
+                        }
+                    },
                     // Compiles Sass to CSS
                     'sass-loader',
                 ],

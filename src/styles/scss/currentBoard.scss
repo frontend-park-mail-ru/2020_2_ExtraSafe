@@ -261,6 +261,11 @@
 
             cursor: pointer;
 
+            &:hover {
+                background: #e3e3e3;
+                transition: 0.1s linear;
+            }
+
             // Тег
             &__tag {
                 display: flex;
