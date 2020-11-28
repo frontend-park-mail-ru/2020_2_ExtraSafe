@@ -64,6 +64,12 @@ input {
 /* Контейнер с навбаром */
 .default__container__with-navbar {
     @include default__container(calc(100vh - 40px));
+
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        width: 0;
+    }
 }
 
 /* Контейнер без навбара */
