@@ -12,7 +12,11 @@
         border-radius: 5px !important;
     }
 
-    .adaptive-navigation__icon {
+    .adaptive-navigation__button {
+        display: flex !important;
+    }
+
+    .adaptive-navigation__container {
         display: flex !important;
     }
 }
@@ -27,9 +31,9 @@
         width: 75% !important;
     }
 
-/*    .settings__input__container {
-        width: 75vh !important;
-    }*/
+    /*    .settings__input__container {
+            width: 75vh !important;
+        }*/
 }
 
 @media screen and (max-height: 500px) {
@@ -242,44 +246,147 @@
 // Адаптирующаяся навигация
 .adaptive-navigation {
 
-    &__container {
-        display: none;
-
-        @include flex-column;
-
-        align-items: start;
-        justify-content: flex-start;
-
-        z-index: 1;
-
-        width: 25%;
-        // width: 100%;
-        // max-width: 160px;
-        height: 100%;
-
-        border-right: 1px solid $input-border-color;
-
-        border-radius: 5px 0 0 5px;
-
-        @include standard-font(300, 14px, 16px);
-
-        background-color: black;
-
-    }
-
-    &__icon {
+    // Кнопка открытия/закрытия
+    &__button {
         display: none;
 
         position: absolute;
 
-        left: 0;
+        z-index: 4;
 
-        width: 17px;
-        height: 17px;
+        align-items: center;
 
-        align-self: flex-start;
+        top: 25px;
+        left: 25px;
 
-        margin: 25px 0 0 25px;
+        width: 25px;
+        height: 25px;
+
         cursor: pointer;
+
+        & > span {
+            display: block;
+
+            position: absolute;
+
+            width: 100%;
+            height: 2px;
+
+            background-color: $grey-text-color;
+
+            transition-duration: .25s;
+
+            &::before{
+                display: block;
+
+                position: absolute;
+
+                width: 100%;
+                height: 2px;
+
+                background-color: $grey-text-color;
+
+                transition-duration: .25s;
+
+                content: '';
+                top: -8px;
+            }
+
+            &::after {
+                display: block;
+
+                position: absolute;
+
+                width: 100%;
+                height: 2px;
+
+                background-color: $grey-text-color;
+
+                transition-duration: .25s;
+
+                content: '';
+                top: 8px;
+            }
+        }
+    }
+
+    // Выплывающее меню
+    &__container {
+        display: none;
+        flex-direction: column;
+
+        position: absolute;
+
+        visibility: hidden;
+
+        z-index: 3;
+
+        top: 0;
+        left: -100%;
+
+        width: 40%;
+        height: 73.3%;
+
+        margin: 0;
+        padding: 80px 0;
+
+        border-radius: 5px 0 0 5px;
+
+        background-color: #f3f3f3;
+
+        @include standard-shadow;
+    }
+
+    // Элемент меню
+    &__element {
+        display: block;
+
+        width: fit-content;
+
+        margin: 10px 0 12px 10%;
+
+        transition: 0.05s linear;
+
+        @include standard-font(300, 14px, 16px);
+        color: $grey-text-color;
+
+        cursor: pointer;
+
+        // Поведение при наведении
+        &:hover {
+            color: $electric-indigo;
+        }
+
+        // Активный элемент
+        &_active {
+            font-weight: bold;
+
+            color: $electric-indigo;
+            cursor: default;
+        }
+    }
+}
+
+// Переключатель
+#navigation__toggle {
+    opacity: 0;
+
+    &:checked ~ .adaptive-navigation__button > span {
+        transform: rotate(45deg);
+    }
+
+    &:checked ~ .adaptive-navigation__button > span::before {
+        top: 0;
+        transform: rotate(0);
+    }
+
+    &:checked ~ .adaptive-navigation__button > span::after {
+        top: 0;
+        transform: rotate(90deg);
+    }
+
+    &:checked ~ .adaptive-navigation__container {
+        visibility: visible;
+        left: 0;
     }
 }

@@ -1,0 +1,42 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
+    <img class="edit-tags__close" src="../../img/icons/close.svg" id="closeTagPopup" alt="close"/>
+
+    <div class="edit-tags__create__container">
+        <div class="edit-tags__create__title">
+            Создать метку
+        </div>
+
+        <input class="edit-tags__create__tag__name" placeholder="Введите название метки"/>
+
+        <div class="edit-tags__create__tag__container">
+            <fest:for iterate="json.newTags" index="i" value="v">
+                <div class="edit-tags__create__tag__color">
+                    <fest:attributes>
+                        <fest:if test="v.isSelected">
+                            <fest:attribute name="class">
+                                edit-tags__create__tag__color edit-tags__selected
+                            </fest:attribute>
+                        </fest:if>
+                        <fest:attribute name="class">
+                            edit-tags__create__tag__color
+                        </fest:attribute>
+                    </fest:attributes>
+                    <img class="edit-tags__selected__icon-color" src="../../img/icons/selected.svg"
+                         alt="selected_tag">
+                        <fest:attributes>
+                            <fest:if test="v.isSelected">
+                                <fest:attribute name="style">
+                                    display: flex
+                                </fest:attribute>
+                            </fest:if>
+                        </fest:attributes>
+                    </img>
+
+                </div>
+            </fest:for>
+        </div>
+
+        <button class="edit-tags__create__button">Создать</button>
+
+    </div>
+</fest:template>

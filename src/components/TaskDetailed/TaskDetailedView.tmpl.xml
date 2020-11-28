@@ -10,6 +10,9 @@
         </div>
 
         <div class="edit-task__content__info__container">
+
+            <img class="edit-task__content__delete__icon" src="../../img/icons/bin.svg" id="deleteTask" alt="delete task"/>
+
             <div class="edit-task__content__info">
                 <div class="edit-task__content__info__collaborator__container ">
                     <div class="edit-task__content__info__title">
@@ -42,7 +45,6 @@
                     </div>
                 </div>
 
-                <img class="edit-task__content__delete__icon" src="../../img/icons/bin.svg" id="deleteTask" alt="delete task"/>
             </div>
 
             <div class="edit-task__content__description__container">
@@ -61,6 +63,81 @@
                     </div>
                 </div>
             </div>
+
+            <div class="edit-task__content__attachments__container">
+                <div class="edit-task__content__attachments__title">
+                    Вложения
+                </div>
+
+                <div class="edit-task__content__attachments__body">
+
+                    <div class="edit-task__content__attachments__body__element">
+                        <div class="edit-task__content__attachments__body__element__left">
+                            <img class="edit-task__content__attachments__body__element__left__icon" src="../../img/icons/file.svg" alt="remove"/>
+
+                            <div class="edit-task__content__attachments__body__element__left__text">
+                                Название файла
+                            </div>
+                        </div>
+
+                        <div class="edit-task__content__attachments__body__element__right">
+                            <img class="edit-task__content__attachments__body__element__right__icon" src="../../img/icons/remove.svg" alt="remove"/>
+                        </div>
+                    </div>
+
+                    <div class="edit-task__content__attachments__body__element">
+                        <div class="edit-task__content__attachments__body__element__left">
+                            <img class="edit-task__content__attachments__body__element__left__icon" src="../../img/icons/file.svg" alt="remove"/>
+
+                            <div class="edit-task__content__attachments__body__element__left__text">
+                                Название файла
+                            </div>
+                        </div>
+
+                        <div class="edit-task__content__attachments__body__element__right">
+                            <img class="edit-task__content__attachments__body__element__right__icon" src="../../img/icons/remove.svg" alt="remove"/>
+                        </div>
+                    </div>
+
+                    <div class="edit-task__content__attachments__body__element">
+                        <div class="edit-task__content__attachments__body__element__left">
+                            <img class="edit-task__content__attachments__body__element__left__icon" src="../../img/icons/file.svg" alt="remove"/>
+
+                            <div class="edit-task__content__attachments__body__element__left__text">
+                                Название файла
+                            </div>
+                        </div>
+
+                        <div class="edit-task__content__attachments__body__element__right">
+                            <img class="edit-task__content__attachments__body__element__right__icon" src="../../img/icons/remove.svg" alt="remove"/>
+                        </div>
+                    </div>
+
+                    <div class="edit-task__content__attachments__body__element">
+                        <div class="edit-task__content__attachments__body__element__left">
+                            <img class="edit-task__content__attachments__body__element__left__icon" src="../../img/icons/file.svg" alt="remove"/>
+
+                            <div class="edit-task__content__attachments__body__element__left__text">
+                                Название файла
+                            </div>
+                        </div>
+
+                        <div class="edit-task__content__attachments__body__element__right">
+                            <img class="edit-task__content__attachments__body__element__right__icon" src="../../img/icons/remove.svg" alt="remove"/>
+                        </div>
+                    </div>
+
+                    <div class="edit-task__content__attachments__add-new__container">
+                        <img class="edit-task__content__attachments__add-new__icon" src="../../img/icons/add.svg" alt="add"/>
+
+                        <div class="edit-task__content__attachments__add-new__text">
+                            Загрузить новый файл
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
 
     </div>

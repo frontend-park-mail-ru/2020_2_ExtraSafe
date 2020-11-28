@@ -11,7 +11,28 @@
 
             <div style="display: flex; position: relative; width: 100%; height: 100%;">
                 <img class="close" data-href="/" src="../../img/icons/close.svg" alt="close"/>
-                <img class="adaptive-navigation__icon" data-href="/" src="../../img/icons/hamburger.svg" alt="adaptive_navigation"/>
+
+                <div class="adaptive-navigation">
+                    <input id="navigation__toggle" type="checkbox" />
+                    <label class="adaptive-navigation__button" for="navigation__toggle">
+                        <span></span>
+                    </label>
+
+                    <div class="adaptive-navigation__container">
+                        <div class="adaptive-navigation__element adaptive-navigation__element_active">
+                            Профиль
+                        </div>
+
+                        <div class="adaptive-navigation__element">
+                            Аккаунты
+                        </div>
+
+                        <div class="adaptive-navigation__element">
+                            Безопасность
+                        </div>
+                    </div>
+                </div>
+
                 <div class="settings-body" id="settingsBody"/>
             </div>
         </div>

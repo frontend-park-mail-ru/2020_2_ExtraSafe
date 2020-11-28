@@ -1,5 +1,6 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
     <form id="profileForm" class="settings-body" onsubmit="return false">
+
         <label for="imageInput" class="avatar">
             <img id="profileAvatar" src="" class="avatar" alt="avatar"/>
             <img src="../img/add_avatar.svg" class="avatar__change-area" alt="test"/>

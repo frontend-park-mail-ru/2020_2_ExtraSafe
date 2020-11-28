@@ -1,6 +1,29 @@
 @import "mixins";
 @import "colors";
 
+// Адаптивная верстка для телефона
+@media screen and (max-width: $mobile-breakpoint) {
+
+    .edit-task__content__container,
+    .edit-task__content__name__container,
+    .edit-task__content__info__container
+    {
+        width: 95% !important;
+    }
+
+    .edit-task__content__container {
+        top: 10%
+    }
+
+    .edit-task__content__info {
+        flex-flow: wrap !important;
+    }
+
+    .edit-task__content__info__elements {
+        margin: 0 0 15px 0 !important;
+    }
+}
+
 // Настройка задачи
 .edit-task {
 
@@ -296,12 +319,130 @@
             }
         }
 
+        // Вложения задачи
+        &__attachments {
+
+            // Контейнер вложений
+            &__container {
+                @include flex-column;
+
+                align-items: flex-start;
+                justify-content: flex-start;
+
+                width: 100%;
+                max-width: 550px;
+            }
+
+            // Заголовок
+            &__title {
+                display: flex;
+
+                @include standard-font(normal, 14px, 16px);
+
+                cursor: default;
+            }
+
+            // Тело с вложениями
+            &__body {
+                @include flex-column;
+
+                align-items: center;
+
+                width: 100%;
+
+                margin: 10px 0 20px 0;
+
+                @include standard-border-radius;
+
+                background: $light-grey;
+
+                &__element {
+                    @include flex-row;
+
+                    align-items: center;
+                    justify-content: space-between;
+
+                    width: 95%;
+                    height: 25px;
+
+                    margin: 10px 0 0 0;
+
+                    &__left {
+                        @include flex-row;
+
+                        align-items: center;
+
+                        cursor: pointer;
+
+                        &__icon {
+                            width: 24px;
+                            height: 24px;
+                            margin: 0 10px 0 0;
+                        }
+
+                        &__text {
+                            @include standard-font(normal, 14px, 16px);
+
+                            color: $electric-indigo;
+                        }
+
+                    }
+
+                    &__right {
+
+                        &__icon {
+                            width: 20px;
+                            height: 20px;
+
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+
+            // Добавление нового вложения
+            &__add-new {
+
+                // Контейнер добавления нового вложения
+                &__container {
+                    @include flex-row;
+
+                    width: fit-content;
+
+                    justify-content: center;
+                    align-self: center;
+
+                    padding: 14px 0 13px 0;
+
+                    gap: 10px;
+
+                    cursor: pointer;
+                }
+
+                // Иконка добавления нового вложения
+                &__icon {
+                    height: 24px;
+                    width: 24px;
+                }
+
+                // Текст добавления нового вложения
+                &__text {
+                    align-self: center;
+
+                    @include standard-font(normal, 14px, 16px);
+                }
+            }
+
+        }
+
         // Удаление задачи
         &__delete {
 
             // Иконка удаления задачи
             &__icon {
                 display: flex;
+
+                position: absolute;
 
                 align-self: flex-end;
                 justify-self: flex-end;
@@ -478,6 +619,112 @@
                 color: $grey-text-color;
             }
         }
+
+    }
+
+    &__create {
+
+        &__container {
+            @include flex-column;
+
+            justify-content: space-between;
+            align-items: center;
+
+            width: 100vw;
+            max-width: 225px;
+
+            @include standard-border-radius;
+
+            @include standard-shadow;
+
+            background: $white;
+        }
+
+        &__title {
+            display: flex;
+
+            @include standard-font(normal, 16px, 19px);
+
+            margin: 15px 45px 0 0;
+
+            cursor: default;
+        }
+
+        &__tag {
+
+            &__name {
+                display: flex;
+
+                max-width: 200px;
+
+                margin: 15px 0 15px 0;
+            }
+
+            &__container {
+                @include flex-row;
+
+                @include content-center;
+
+                flex-flow: wrap;
+
+                max-width: 200px;
+            }
+
+            &__color {
+                display: flex;
+
+                @include content-center;
+
+                width: 32px;
+                height: 32px;
+
+                margin: 4px;
+
+                @include standard-border-radius;
+
+                @include standard-shadow;
+
+                background: $input-border-color;
+
+                cursor: pointer;
+            }
+
+
+        }
+
+        &__button {
+            @include standard-button;
+
+            width: 50%;
+            height: 30px;
+
+            margin: 10px;
+
+            @include standard-shadow;
+
+        }
+    }
+
+    &__selected {
+        outline: none;
+        box-shadow: 0 0 0 2px $electric-indigo inset !important;
+
+        &__icon {
+            display: none;
+
+            width: 17px;
+            height: 17px;
+
+            margin: 0 10px 0 0;
+
+            &-color {
+                display: flex;
+
+                width: 17px;
+                height: 17px;
+            }
+        }
+
 
     }
 
