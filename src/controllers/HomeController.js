@@ -78,7 +78,7 @@ export default class HomeController extends BaseController {
             console.log(boards);
             userSession.setBoards(boards);
             for (const board of boards) {
-                this.addBoard(board.boardID, board.name);
+                this.addBoard(board.boardID, board.boardName);
             }
         });
     }

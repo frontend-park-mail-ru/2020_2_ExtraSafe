@@ -44,7 +44,7 @@ router.addRoute('/', homeController);
 globalEventBus.on('userSession:setBoards', (boards) => {
     for (const board of boards) {
         router.addRoute(`/board/${board.boardID}`,
-            new CurrentBoardController(contentDiv, router, board.name, board.boardID));
+            new CurrentBoardController(contentDiv, router, board.boardName, board.boardID));
     }
 });
 

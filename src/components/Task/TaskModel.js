@@ -100,10 +100,10 @@ export default class TaskModel {
     createTaskForServer() {
         const data = {
             cardID: this.task.cardID,
-            name: this.task.taskName,
-            description: this.task.taskDescription,
-            order: this.task.order,
-            tags: this.task.tags,
+            taskName: this.task.taskName,
+            taskDescription: this.task.taskDescription,
+            taskOrder: this.task.order,
+            taskTags: this.task.tags,
         };
         network.taskCreate(data, this.task.boardID).then((response) => {
             return response.json();
@@ -128,10 +128,10 @@ export default class TaskModel {
         const data = {
             taskID: this.task.taskID,
             cardID: this.task.cardID,
-            name: this.task.taskName,
-            description: this.task.taskDescription,
-            order: this.task.order,
-            tags: this.task.tags,
+            taskName: this.task.taskName,
+            taskDescription: this.task.taskDescription,
+            taskOrder: this.task.order,
+            taskTags: this.task.tags,
         };
         network.taskSet(data).then((response) => {
             return response.json();
@@ -161,41 +161,4 @@ export default class TaskModel {
         this.task.taskNameID = `${this.task.taskHtmlID}Name`;
         this.task.tagsDivID = `${this.task.taskHtmlID}TagsDiv`;
     }
-
-    // /**
-    //  * Add tag data
-    //  * @param {string} name
-    //  * @param {string} color
-    //  * @param {number} tagID
-    //  */
-    // addTag(name, color, tagID) {
-    //     const newTag = {
-    //         tagID: tagID,
-    //         tagHtmlID: `${this.task.taskHtmlID}Tag${tagID}`,
-    //         tagName: name,
-    //         tagColor: color,
-    //     };
-    //     this.task.tags.push(newTag);
-    //     this.eventBus.emit('taskModel:tagDataAdded', newTag);
-    // }
-
-    // /**
-    //  * Add tag data
-    //  * @param {Object} tag
-    //  */
-    // addTag(tag) {
-    //     this.task.tags.push(tag);
-    //     // this.eventBus.emit('taskModel:tagDataAdded', newTag);
-    // }
-    //
-    // /**
-    //  * Remove tag from array
-    //  * @param {Object} removedTag
-    //  */
-    // removeTag(removedTag) {
-    //     const tagIndex = this.task.tags.findIndex((tag) => {
-    //         return tag.tagID === removedTag.tagID;
-    //     });
-    //     this.task.tags.splice(tagIndex, 1);
-    // }
 }

@@ -52,8 +52,8 @@ export default class CardModel {
     createCardForServer() {
         const data = {
             boardID: this.card.boardID,
-            name: this.card.cardName,
-            order: this.card.order,
+            cardName: this.card.cardName,
+            cardOrder: this.card.order,
         };
         console.log(data);
         network.cardCreate(data, this.card.boardID).then((response) => {
@@ -79,8 +79,8 @@ export default class CardModel {
         const data = {
             boardID: this.card.boardID,
             cardID: this.card.cardID,
-            name: this.card.cardName,
-            order: this.card.order,
+            cardName: this.card.cardName,
+            cardOrder: this.card.order,
         };
         network.cardSet(data).then((response) => {
             return response.json();
@@ -107,15 +107,15 @@ export default class CardModel {
             cards: [
                 {
                     cardID: this.card.cardID,
-                    tasks: [],
+                    cardTasks: [],
                 },
             ],
         };
 
         for (const task of tasks) {
-            data.cards[0].tasks.push({
+            data.cards[0].cardTasks.push({
                 taskID: task.model.task.taskID,
-                order: task.model.task.order,
+                taskOrder: task.model.task.order,
             });
         }
 
@@ -132,26 +132,26 @@ export default class CardModel {
             cards: [
                 {
                     cardID: oldCard.model.card.cardID,
-                    tasks: [],
+                    cardTasks: [],
                 },
                 {
                     cardID: this.card.cardID,
-                    tasks: [],
+                    cardTasks: [],
                 },
             ],
         };
 
         for (const task of oldCard.tasks) {
-            data.cards[0].tasks.push({
+            data.cards[0].cardTasks.push({
                 taskID: task.model.task.taskID,
-                order: task.model.task.order,
+                taskOrder: task.model.task.order,
             });
         }
 
         for (const task of tasks) {
-            data.cards[1].tasks.push({
+            data.cards[1].cardTasks.push({
                 taskID: task.model.task.taskID,
-                order: task.model.task.order,
+                taskOrder: task.model.task.order,
             });
         }
 

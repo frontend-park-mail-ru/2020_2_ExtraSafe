@@ -34,25 +34,26 @@ export default class CurrentBoardModel {
                 this.eventBus.emit('currentBoardModel:getBoardFailed', responseBody.codes);
             } else {
                 this.board.boardID = responseBody.boardID;
-                this.board.boardName = responseBody.name;
-                // TODO: убрать заглушку
-                this.board.boardTags = [
-                    {
-                        tagID: 0,
-                        tagName: 'front',
-                        tagColor: '#FFE380',
-                    },
-                    {
-                        tagID: 1,
-                        tagName: 'back',
-                        tagColor: '#FF8080',
-                    },
-                    {
-                        tagID: 2,
-                        tagName: 'chill',
-                        tagColor: '#60FFB2',
-                    },
-                ];
+                this.board.boardName = responseBody.boardName;
+                this.board.boardTags = responseBody.boardTags;
+                // // TODO: убрать заглушку
+                // this.board.boardTags = [
+                //     {
+                //         tagID: 0,
+                //         tagName: 'front',
+                //         tagColor: '#FFE380',
+                //     },
+                //     {
+                //         tagID: 1,
+                //         tagName: 'back',
+                //         tagColor: '#FF8080',
+                //     },
+                //     {
+                //         tagID: 2,
+                //         tagName: 'chill',
+                //         tagColor: '#60FFB2',
+                //     },
+                // ];
                 this.initTags();
                 this.eventBus.emit('currentBoardModel:getBoardSuccess', responseBody);
             }
@@ -83,8 +84,8 @@ export default class CurrentBoardModel {
         this.board.boardName = boardName;
 
         const data = {
-            boardName: boardName,
             boardID: this.board.boardID,
+            boardName: boardName,
         };
         network.boardSet(data).then((response) => {
             return response.json();

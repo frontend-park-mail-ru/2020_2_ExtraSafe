@@ -81,14 +81,16 @@ export default class TagAddPopup {
      */
     createTagsForTemplate(taskTags, boardTags) {
         const tagsForTemplate = JSON.parse(JSON.stringify(boardTags));
-        tagsForTemplate.forEach((tmplTag) => {
-            const tagFound = taskTags.some((tag) => {
-                return tag.tagID === tmplTag.tagID;
+        if (Array.isArray(taskTags) && taskTags.length) {
+            tagsForTemplate.forEach((tmplTag) => {
+                const tagFound = taskTags.some((tag) => {
+                    return tag.tagID === tmplTag.tagID;
+                });
+                if (tagFound) {
+                    tmplTag.isSelected = true;
+                }
             });
-            if (tagFound) {
-                tmplTag.isSelected = true;
-            }
-        });
+        }
         return tagsForTemplate;
     }
 
