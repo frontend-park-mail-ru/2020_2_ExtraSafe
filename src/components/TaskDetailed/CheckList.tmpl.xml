@@ -1,0 +1,28 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
+    <div class="edit-task__content__check-lists__title__container">
+        <div class="edit-task__content__check-lists__title">
+            Чек-лист
+        </div>
+
+        <div class="edit-task__content__check-lists__delete">
+            Удалить
+        </div>
+    </div>
+
+    <div class="edit-task__content__check-lists__body">
+        <div class="edit-check-lists__container" id="checkListPopup"/>
+
+        <fest:for iterate="json.checkListElements" index="i" value="v">
+            <fest:include context="v" src="./CheckListElement.tmpl.xml"/>
+        </fest:for>
+
+        <div class="edit-task__content__check-lists__body__element__add-new__container">
+            <img class="edit-task__content__check-lists__body__element__add-new__icon" src="../../img/icons/add.svg"
+                 alt="add"/>
+
+            <div class="edit-task__content__check-lists__body__element__add-new__text">
+                Добавить элемент
+            </div>
+        </div>
+    </div>
+</fest:template>

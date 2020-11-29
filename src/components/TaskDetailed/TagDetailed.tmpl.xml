@@ -1,0 +1,7 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
+    <div class="edit-task__content__info__tag" id="{json.tagDetailedID}" style="background: {json.tagColor}">
+        <div class="edit-task__content__info__tag__text" id="{json.tagDetailedNameID}">
+            <fest:value>json.tagName</fest:value>
+        </div>
+    </div>
+</fest:template>

@@ -40,7 +40,7 @@ export default class SecuritySettingsView extends BaseView {
      */
     showServerSuccess() {
         const passwordSuccess = document.getElementById('repeatPasswordError');
-        passwordSuccess.className = 'changes-success';
+        passwordSuccess.className = 'changes__success';
         passwordSuccess.innerHTML = 'Пароль изменен';
         passwordSuccess.hidden = false;
 

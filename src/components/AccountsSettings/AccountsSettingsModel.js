@@ -1,5 +1,6 @@
 import Network from '../../utils/network.js';
 import userSession from '../../utils/userSession.js';
+import network from '../../utils/network.js';
 
 /**
  * Accounts settings model
@@ -28,7 +29,12 @@ export default class AccountsSettingsModel {
         Network.accountsSet(data).then((response) => {
             return response.json();
         }).then((responseBody) => {
+            console.log(responseBody);
             userSession.setAccounts(responseBody);
+            if (!network.ifTokenValid(responseBody)) {
+                this.changeParams();
+                return;
+            }
             this.eventBus.emit('accountsSettingsModel:changeSuccess', null);
             return responseBody;
         });

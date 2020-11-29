@@ -25,22 +25,21 @@ export default class CurrentBoardView extends BaseView {
     }
 
     /**
-     * update board name
-     * @param {JSON} boardJSON
+     * Update card order in HTML
+     * @param {string} cardHtmlID
+     * @param {number} order
      */
-    updateBoardName(boardJSON) {
-        document.getElementById('boardName').innerHTML = boardJSON.boardName;
+    updateCardOrder(cardHtmlID, order) {
+        document.getElementById(cardHtmlID).dataset.order = order.toString();
     }
 
     /**
      * add all event listeners
      */
     addEventListeners() {
-        this.cardsDiv = document.getElementById('cardsDiv');
-        document.getElementById('addCardButton')
-            .addEventListener('click', () => {
-                this.eventBus.emit('currentBoardView:addNewCard', this.cardsDiv);
-            }, false);
+        document.getElementById('addCardButton').addEventListener('click', () => {
+            this.eventBus.emit('currentBoardView:addNewCard', null);
+        }, false);
         document.getElementById('boardName').addEventListener('focusout', (event) => {
             this.eventBus.emit('currentBoardView:boardNameUpdate', event.target.innerText);
         });
@@ -50,13 +49,17 @@ export default class CurrentBoardView extends BaseView {
     }
 
     /**
-     * Render Current Board view.
-     * @param {JSON} boardJSON
+     * Render current board view.
+     * @param {JSON} board
      */
-    render(boardJSON) {
+    render(board) {
         Navbar.navbarShow();
-        this.el.innerHTML = currentBoardTemplate(boardJSON);
+        this.el.innerHTML = currentBoardTemplate(board);
+
+        this.taskDetailed = document.getElementById('taskDetailed');
+        this.cardsDiv = document.getElementById('cardsDiv');
+
         this.addEventListeners();
-        this.eventBus.emit('currentBoardView:addCardsFromServer', this.cardsDiv);
+        this.eventBus.emit('currentBoardView:viewRendered', [this.cardsDiv, this.taskDetailed]);
     }
 }

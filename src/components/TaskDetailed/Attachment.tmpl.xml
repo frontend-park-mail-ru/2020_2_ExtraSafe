@@ -1,0 +1,18 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
+    <div class="edit-task__content__attachments__body__element" id="{json.fileHtmlID}">
+        <div class="edit-task__content__attachments__body__element__left">
+            <img class="edit-task__content__attachments__body__element__left__icon" src="../../img/icons/file.svg"
+                 id="{json.fileIconID}" data-outhref="{json.fileUrl}" alt="remove"/>
+
+            <a class="edit-task__content__attachments__body__element__left__text" id="{json.fileNameID}"
+               data-outhref="{json.fileUrl}">
+                <fest:value>json.fileName</fest:value>
+            </a>
+        </div>
+
+        <div class="edit-task__content__attachments__body__element__right">
+            <img class="edit-task__content__attachments__body__element__right__icon" src="../../img/icons/remove.svg"
+                 id="{json.fileRemoveID}" alt="remove"/>
+        </div>
+    </div>
+</fest:template>

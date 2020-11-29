@@ -1,4 +1,3 @@
-import CardController from '../components/Card/CardController.js';
 import network from '../utils/network.js';
 
 /**
@@ -17,13 +16,6 @@ export default class CurrentBoardModel {
             boardID: boardID,
             boardName: boardName,
             boardCollaborators: [],
-            cards: [],
-        };
-        this.newCard = {
-            boardID: boardID,
-            cardID: 0,
-            cardName: '',
-            isInitialized: false,
         };
     }
 
@@ -35,8 +27,33 @@ export default class CurrentBoardModel {
             return response.json();
         }).then((responseBody) => {
             if (responseBody.status > 200) {
+                if (!network.ifTokenValid(responseBody)) {
+                    this.getBoardData();
+                    return;
+                }
                 this.eventBus.emit('currentBoardModel:getBoardFailed', responseBody.codes);
             } else {
+                this.board.boardID = responseBody.boardID;
+                this.board.boardName = responseBody.name;
+                // TODO: убрать заглушку
+                this.board.boardTags = [
+                    {
+                        tagID: 0,
+                        tagName: 'front',
+                        tagColor: '#FFE380',
+                    },
+                    {
+                        tagID: 1,
+                        tagName: 'back',
+                        tagColor: '#FF8080',
+                    },
+                    {
+                        tagID: 2,
+                        tagName: 'chill',
+                        tagColor: '#60FFB2',
+                    },
+                ];
+                this.initTags();
                 this.eventBus.emit('currentBoardModel:getBoardSuccess', responseBody);
             }
             return responseBody;
@@ -44,48 +61,17 @@ export default class CurrentBoardModel {
     }
 
     /**
-     * set board params received from server
-     * @param {JSON} responseJSON
+     * Initialize tags data
      */
-    setBoardData(responseJSON) {
-        this.board.boardID = responseJSON.boardID;
-        this.board.boardName = responseJSON.name;
-        this.addCardsFromJSON(responseJSON.cards);
-        this.eventBus.emit('currentBoardModel:boardDataSet', this.board);
-    }
-
-    /**
-     * Add new card
-     * @param {HTMLElement} cardsDiv
-     * @param {object} card
-     * @return {CardController}
-     */
-    addNewCard(cardsDiv, card = this.newCard) {
-        const newCard = new CardController(cardsDiv, this.board.cards.length, card);
-        this.board.cards.push(newCard);
-
-        this.eventBus.emit('currentBoardModel:cardAdded', newCard);
-        return newCard;
-    }
-
-    /**
-     * create cards from server
-     * @param {[JSON]}cardsJSON
-     */
-    addCardsFromJSON(cardsJSON) {
-        if (!(Array.isArray(cardsJSON) && cardsJSON.length)) {
-            return;
-        }
-
-        for (const card of cardsJSON) {
-            const cardObj = {
-                boardID: this.board.boardID,
-                cardID: card.cardID,
-                cardName: card.name,
-                isInitialized: true,
-            };
-            const newCard = this.addNewCard(this.cardsDiv, cardObj);
-            newCard.addTasksFromJSON(card.tasks);
+    initTags() {
+        if (Array.isArray(this.board.boardTags) && this.board.boardTags.length) {
+            for (const tag of this.board.boardTags) {
+                tag.tagDetailedID = `tagDetailed${tag.tagID}`;
+                tag.tagDetailedNameID = `tagDetailedName${tag.tagID}`;
+                tag.tagBodyHtmlID = `tagBody${tag.tagID}`;
+                tag.tagCheckID = `tagCheck${tag.tagID}`;
+                tag.tagEditID = `tagEditID${tag.tagID}`;
+            }
         }
     }
 
@@ -104,6 +90,10 @@ export default class CurrentBoardModel {
             return response.json();
         }).then((responseBody) => {
             if (responseBody.status > 200) {
+                if (!network.ifTokenValid(responseBody)) {
+                    this.updateBoardName(boardName);
+                    return;
+                }
                 this.eventBus.emit('currentBoardModel:boardSetFailed', responseBody.codes);
             } else {
                 this.eventBus.emit('currentBoardModel:boardSetSuccess', responseBody);
@@ -116,8 +106,28 @@ export default class CurrentBoardModel {
      * Delete board
      */
     deleteBoard() {
-        network.boardDelete(this.board.boardID).then(() => {
-            this.eventBus.emit('currentBoardModel:boardDeleted', null);
+        network.boardDelete(this.board.boardID).then((response) => {
+            return response.json();
+        }).then((responseBody) => {
+            if (responseBody.status > 200) {
+                if (!network.ifTokenValid(responseBody)) {
+                    this.deleteBoard();
+                    return;
+                }
+            } else {
+                this.eventBus.emit('currentBoardModel:boardDeleted', null);
+            }
+        }).catch((error) => {
+            return;
         });
+    }
+
+    /**
+     * Change card order on server
+     * @param {[JSON]} cards
+     */
+    changeCardOrderOnServer(cards) {
+        const data = {cards: cards};
+        network.cardsOrder(data, this.board.boardID).then((response) => {});
     }
 }

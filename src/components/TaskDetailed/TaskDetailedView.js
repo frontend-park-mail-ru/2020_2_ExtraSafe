@@ -1,5 +1,8 @@
 import BaseView from '../../views/BaseView/BaseView.js';
 import taskDetailedViewTemplate from './TaskDetailedView.tmpl.xml';
+import tagDetailedTemplate from './TagDetailed.tmpl.xml';
+import attachmentTemplate from './Attachment.tmpl.xml';
+import rendering from '../../utils/rendering.js';
 
 /**
  * Task detailed view
@@ -15,11 +18,60 @@ export default class TaskDetailedView extends BaseView {
     }
 
     /**
-     * add all event listeners
-     * @param {JSON} json
+     * Add tag view
+     * @param {Object} tag
      */
-    addEventListeners(json) {
+    addTag(tag) {
+        const tagEl = rendering.createElementsFromTmpl(tagDetailedTemplate(tag));
+        document.getElementById('tagsDetailedDiv').appendChild(tagEl);
+    }
+
+    /**
+     * Change tag view
+     * @param {Object} tag
+     */
+    changeTag(tag) {
+        document.getElementById(tag.tagDetailedID).style.background = tag.tagColor;
+        document.getElementById(tag.tagDetailedNameID).innerText = tag.tagName;
+    }
+
+    /**
+     * Remove tag view
+     * @param {Object} tag
+     */
+    removeTag(tag) {
+        document.getElementById(tag.tagDetailedID).remove();
+    }
+
+    /**
+     * Add attachment view
+     * @param {Object} fileObj
+     */
+    addAttachment(fileObj) {
+        const uploadFileEl = document.getElementById('uploadFile');
+        const attachmentEl = rendering.createElementsFromTmpl(attachmentTemplate(fileObj));
+        document.getElementById('attachmentsDiv').insertBefore(attachmentEl, uploadFileEl);
+        document.getElementById(fileObj.fileRemoveID).addEventListener('click', () => {
+            this.removeAttachment(fileObj);
+            this.eventBus.emit('taskDetailedView:removeAttachment', fileObj);
+        });
+    }
+
+    /**
+     * Remove attachment view
+     * @param {Object} fileObj
+     */
+    removeAttachment(fileObj) {
+        document.getElementById(fileObj.fileHtmlID).remove();
+    }
+
+    /**
+     * Add all event listeners
+     * @param {Object} task
+     */
+    addEventListeners(task) {
         document.getElementById('closeTask').addEventListener('click', () => {
+            this.el.innerHTML = '';
             this.el.style.display = 'none';
             this.eventBus.emit('taskDetailedView:closed', null);
         });
@@ -32,7 +84,7 @@ export default class TaskDetailedView extends BaseView {
             const taskName = el.innerText;
             // TODO: сделать проверку на название из пробелов
             if (taskName === '') {
-                el.innerHTML = json.taskName;
+                el.innerHTML = task.taskName;
             } else {
                 this.eventBus.emit('taskDetailedView:updateTaskName', taskName);
             }
@@ -41,15 +93,37 @@ export default class TaskDetailedView extends BaseView {
             this.el.style.display = 'none';
             this.eventBus.emit('taskDetailedView:deleteTask', null);
         });
+        document.getElementById('addTag').addEventListener('click', () => {
+            this.eventBus.emit('taskDetailedView:addTag', null);
+        });
+
+        this.addAttachmentsEventListeners(task);
+    }
+
+    /**
+     * Add attachments event listeners
+     * @param {Object} task
+     */
+    addAttachmentsEventListeners(task) {
+        for (const attachment of task.attachments) {
+            document.getElementById(attachment.fileRemoveID).addEventListener('click', () => {
+                this.removeAttachment(attachment);
+                this.eventBus.emit('taskDetailedView:removeAttachment', attachment);
+            });
+        }
+
+        document.getElementById('fileInput').addEventListener('change', (event) => {
+            this.eventBus.emit('taskDetailedView:uploadFile', event.target.files[0]);
+        });
     }
 
     /**
      * Render task detailed view
-     * @param {JSON} json
+     * @param {Object} task
      */
-    render(json) {
+    render(task) {
         this.el.style.display = 'flex';
-        this.el.innerHTML = taskDetailedViewTemplate(json);
-        this.addEventListeners(json);
+        this.el.innerHTML = taskDetailedViewTemplate(task);
+        this.addEventListeners(task);
     }
 }
