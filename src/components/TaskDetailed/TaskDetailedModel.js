@@ -20,21 +20,15 @@ export default class TaskDetailedModel {
     }
 
     /**
-     * Update tag in array
+     * Update tag in board array
      * @param {Object} changedTag
      */
     changeTag(changedTag) {
-        delete changedTag.isSelected;
-        const tagIndex = this.task.tags.findIndex((tag) => {
-            return tag.tagID === changedTag.tagID;
-        });
-        this.task.tags[tagIndex] = changedTag;
-
-        // TODO: опять костыль
         const tagBoardIndex = this.board.boardTags.findIndex((tag) => {
             return tag.tagID === changedTag.tagID;
         });
-        this.board.boardTags[tagBoardIndex] = changedTag;
+        this.board.boardTags[tagBoardIndex].tagColor = changedTag.tagColor;
+        this.board.boardTags[tagBoardIndex].tagName = changedTag.tagName;
         // TODO: запрос в сеть
     }
 
@@ -71,7 +65,7 @@ export default class TaskDetailedModel {
         this.task.tags.push(newTag);
         this.board.boardTags.push(newTag);
         return newTag;
-        // TODO: запрос в сеть
+        // TODO: запрос в сеть, тут еще она это добавляется к задаче короч
     }
 
     /**

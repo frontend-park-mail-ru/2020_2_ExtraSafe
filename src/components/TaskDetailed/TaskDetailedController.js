@@ -3,6 +3,7 @@ import TaskDetailedModel from './TaskDetailedModel.js';
 import TaskDetailedView from './TaskDetailedView.js';
 import TagAddPopup from './TagAddPopup/TagAddPopup.js';
 import TagCreatePopup from './TagCreatePopup/TagCreatePopup.js';
+import globalEventBus from "../../utils/globalEventBus.js";
 
 /**
  * Task detailed controller
@@ -58,18 +59,17 @@ export default class TaskDetailedController extends BaseController {
             this.tagAddPopup.render(this.model.task.tags, this.model.board.boardTags);
         });
         this.tagCreatePopup.eventBus.on('tagCreatePopup:tagCreate', ([tagName, tagColor]) => {
-            console.log(tagName, tagColor);
             const tag = this.model.createTag(tagName, tagColor);
             this.view.addTag(tag);
             this.eventBus.emit('taskDetailedController:tagAdded', tag);
             this.tagAddPopup.render(this.model.task.tags, this.model.board.boardTags);
         });
         this.tagCreatePopup.eventBus.on('tagCreatePopup:tagEdit', (tag) => {
+            this.model.changeTag(tag);
             if (tag.isSelected) {
                 this.view.changeTag(tag);
-                this.eventBus.emit('taskDetailedController:tagEdit', tag);
             }
-            this.model.changeTag(tag);
+            globalEventBus.emit('taskDetailedController:tagEdit', tag);
             this.tagAddPopup.render(this.model.task.tags, this.model.board.boardTags);
         });
     }

@@ -124,10 +124,15 @@ export default class TaskController extends BaseController {
             tag.tagHtmlID = `${this.model.task.taskHtmlID}Tag${tag.tagID}`;
             this.view.removeTag(tag);
         });
-        this.taskDetailed.eventBus.on('taskDetailedController:tagEdit', (tag) => {
+        globalEventBus.on('taskDetailedController:tagEdit', (tag) => {
             // TODO: убрать костыль
-            tag.tagHtmlID = `${this.model.task.taskHtmlID}Tag${tag.tagID}`;
-            this.view.changeTag(tag);
+            const tagFound = this.model.task.tags.some((t) => {
+                return t.tagID === tag.tagID;
+            });
+            if (tagFound) {
+                const newTag = this.model.changeTag(tag);
+                this.view.changeTag(newTag);
+            }
         });
     }
 

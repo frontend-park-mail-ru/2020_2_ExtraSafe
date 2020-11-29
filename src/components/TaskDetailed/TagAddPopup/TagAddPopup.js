@@ -36,10 +36,12 @@ export default class TagAddPopup {
                 if (tagEl.classList.contains('edit-tags__selected')) {
                     tagEl.classList.remove('edit-tags__selected');
                     tagCheckEl.style.removeProperty('display');
+                    delete tag.isSelected;
                     this.eventBus.emit('tagAddPopup:tagRemoved', tag);
                 } else {
                     tagEl.classList.add('edit-tags__selected');
                     tagCheckEl.style.display = 'flex';
+                    tag.isSelected = true;
                     this.eventBus.emit('tagAddPopup:tagAdded', tag);
                 }
             });

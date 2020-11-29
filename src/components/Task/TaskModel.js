@@ -161,4 +161,19 @@ export default class TaskModel {
         this.task.taskNameID = `${this.task.taskHtmlID}Name`;
         this.task.tagsDivID = `${this.task.taskHtmlID}TagsDiv`;
     }
+
+    /**
+     * Update tag in array
+     * @param {Object} changedTag
+     * @return {Object}
+     */
+    changeTag(changedTag) {
+        const tagIndex = this.task.tags.findIndex((tag) => {
+            return tag.tagID === changedTag.tagID;
+        });
+        this.task.tags[tagIndex].tagColor = changedTag.tagColor;
+        this.task.tags[tagIndex].tagName = changedTag.tagName;
+        delete this.task.tags[tagIndex].isSelected;
+        return this.task.tags[tagIndex];
+    }
 }
