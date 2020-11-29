@@ -1,0 +1,17 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
+    <form id="profileForm" class="settings-body" onsubmit="return false">
+        <label for="imageInput" class="avatar">
+            <img id="profileAvatar" src="" class="avatar" alt="avatar"/>
+            <img src="../img/add_avatar.svg" class="test-change" alt="test"/>
+            <div id="profileAvatarError" class="profile-avatar-error" hidden="true"/>
+        </label>
+        <input id="imageInput" style="display: none" type="file" accept="image/jpeg,image/png"/>
+
+        <div class="settings-input-container">
+            <fest:include context="json.usernameInput" src="../../components/NamedInput/NamedInput.tmpl.xml"/>
+            <fest:include context="json.fullNameInput" src="../../components/NamedInput/NamedInput.tmpl.xml"/>
+            <fest:include context="json.emailInput" src="../../components/NamedInput/NamedInput.tmpl.xml"/>
+        </div>
+        <fest:include context="json.submitButton" src="../SubmitButton/SubmitButton.tmpl.xml"/>
+    </form>
+</fest:template>

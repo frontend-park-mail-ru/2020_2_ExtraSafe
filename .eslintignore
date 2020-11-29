@@ -1,0 +1,5 @@
+# Build files
+dist
+
+# Temporary files
+temp

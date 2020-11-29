@@ -1,0 +1,17 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
+    <div class="board__container" id="{json.boardID}">
+        <div class="board__title__container">
+            <div class="board__title_text">
+                <fest:value>json.boardName</fest:value>
+            </div>
+<!--            <img src="../../img/icons/dots.svg" class="card__title_dots-icon" id="{json.removeBoardID}" alt="dots"/>-->
+        </div>
+
+<!--        <div class="board__description__container">-->
+<!--            <div class="board__description__text">-->
+<!--                <fest:value>json.boardDescription</fest:value>-->
+<!--            </div>-->
+<!--            <img src="../../img/icons/favorite.svg" class="board__description__favorite" alt="favorite"/>-->
+<!--        </div>-->
+    </div>
+</fest:template>

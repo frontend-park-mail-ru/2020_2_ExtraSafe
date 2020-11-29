@@ -1,0 +1,356 @@
+/* отцентровка контента  */
+.main__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+/* контейнер страницы */
+.home__container {
+    display: flex;
+    flex-direction: row;
+
+    justify-content: space-around;
+
+    width: 100%;
+    max-width: 1300px;
+
+    margin-top: 35px;
+}
+
+/* левая сторона с меню и командами */
+.home__left-side__container {
+    display: flex;
+
+    width: 100%;
+    max-width: 200px;
+
+    flex-direction: column;
+    justify-content: end;
+
+    gap: 25px;
+}
+
+/* контейнер меню */
+.home__left-side__menu__container {
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-evenly;
+
+    width: 100%;
+    max-width: 200px;
+    height: 70px;
+
+    border-radius: 5px;
+
+    background: white;
+
+    filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.15));
+}
+
+/* элементы меню */
+.home__left-side__menu__element {
+    display: flex;
+
+    margin-left: 20px;
+
+    width: fit-content;
+
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 16px;
+
+    color: var(--grey-text-color);
+
+    text-decoration: none;
+    transition: 0.05s linear;
+
+    cursor: pointer;
+}
+
+/* наведение на элемент меню */
+.home__left-side__menu__element:hover {
+    color: var(--electric-indigo);
+}
+
+/* активный элемент меню */
+.home__left-side__menu__element_active {
+    display: flex;
+
+    margin-left: 20px;
+
+    width: fit-content;
+
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 16px;
+
+    color: var(--electric-indigo);
+
+    cursor: default;
+}
+
+/* контейнер команд */
+.home__left-side__team__container {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    width: 100%;
+    max-width: 200px;
+    height: fit-content;
+
+    border-radius: 5px;
+
+    background: white;
+
+    filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.15));
+}
+
+/* контейнер с фразой Команда и отделительная черта */
+.home__left-side__team__title__container {
+    display: flex;
+
+    height: 35px;
+
+    width: 100%;
+
+    align-items: center;
+
+    border-bottom-style: solid;
+    border-bottom-color: var(--input-border-color);
+    border-width: 1px;
+}
+
+/* название блока */
+.home__left-side__team__title {
+    display: flex;
+
+    align-self: center;
+
+    justify-self: flex-start;
+
+    margin-left: 20px;
+
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 16px;
+
+    color: var(--dark-grey);
+
+    cursor: default;
+}
+
+/* контейнер добавления новой команды */
+.home__left-side__team__add-new__container {
+    display: flex;
+
+    flex-direction: row;
+
+    justify-content: space-evenly;
+
+    align-items: center;
+
+    height: 35px;
+
+    gap: 10px;
+
+    cursor: pointer;
+}
+
+/* текст добавления новой команды */
+.home__left-side__team__add-new_text {
+    display: flex;
+
+    align-items: center;
+
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 16px;
+
+    color: var(--grey-text-color);
+}
+
+/* иконка добавления новой команды */
+.home__left-side__team__add-new_icon {
+    display: flex;
+
+    width: 18px;
+    height: 18px;
+}
+
+/* правая сторона с досками и избранными досками */
+.home__right-side__container {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    width: 100%;
+
+    max-width: 1000px;
+}
+
+.home__right-side__title__container {
+    display: flex;
+
+    width: 100%;
+
+    margin-bottom: 25px;
+    margin-top: 10px;
+
+    border-bottom: 1px solid var(--dark-grey);
+}
+
+.home__right-side__title__text {
+    display: flex;
+
+    margin-bottom: 5px;
+    margin-left: 20px;
+
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 21px;
+
+    color: var(--dark-grey);
+
+    cursor: default;
+}
+
+
+/* контейнер пространства с досками */
+.boards__container {
+    display: flex;
+
+    flex-direction: row;
+
+    flex-flow: wrap;
+
+    width: 100%;
+    max-width: 930px;
+
+    height: -webkit-fill-available;
+
+    justify-content: flex-start;
+}
+
+/* контейнер доски */
+.board__container {
+    flex: 0 0 auto;
+
+    text-align: center;
+
+    margin: 6px;
+
+    width: 100%;
+    height: 100%;
+
+    max-width: 220px;
+    max-height: 100px;
+
+    box-shadow: 0 0 9px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+
+    background: white;
+}
+
+/* контейнер названия доски */
+.board__title__container {
+    display: flex;
+
+    flex-direction: row;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    height: 35px;
+
+    border-radius: 5px 5px 0 0;
+    border-right-style: solid;
+    border-right-color: var(--card-violet);
+    border-width: 1px;
+
+    background: var(--card-violet);
+}
+
+/* название доски */
+.board__title_text {
+    display: flex;
+
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-size: 16px;
+    line-height: 20px;
+    text-indent: 15px;
+    color: var(--light-grey);
+
+    cursor: pointer;
+}
+
+/* иконка троеточия */
+.board__title_dots-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+/* контейнер описания доски */
+.board__description__container {
+    display: flex;
+
+    flex-direction: row;
+
+    padding: 10px;
+
+    align-items: center;
+
+}
+
+/* текст описания доски */
+.board__description__text {
+    display: flex;
+
+    justify-self: center;
+    align-self: center;
+
+    flex-grow: 10;
+
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 14px;
+    text-align: left;
+
+    cursor: default;
+}
+
+/* иконка избранной доски */
+.board__description__favorite {
+    flex-grow: 1;
+
+    align-self: flex-end;
+
+    height: 15px;
+    width: 15px;
+
+    cursor: pointer;
+}

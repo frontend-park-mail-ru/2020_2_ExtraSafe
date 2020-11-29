@@ -1,0 +1,230 @@
+.profile-form {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: space-evenly;
+
+    width: 100%;
+    max-width: 840px;
+    flex-basis: 600px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+
+    background: white;
+}
+
+.navigation {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: flex-start;
+
+    width: 100%;
+    max-width: 160px;
+    height: 100%;
+
+    border-right-style: solid;
+    border-right-color: var(--input-border-color);
+    border-width: 1px;
+
+    border-radius: 5px 0 0 5px;
+
+    background-color: white;
+
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 16px;
+}
+
+.profile-nav {
+    margin-top: 30px;
+    margin-left: 30px;
+
+    color: var(--grey-text-color);
+    text-decoration: none;
+    transition: 0.05s linear;
+}
+
+.profile-nav:hover {
+    cursor: pointer;
+    color: var(--electric-indigo);
+}
+
+.active-profile-nav {
+    margin-top: 30px;
+    margin-left: 30px;
+
+    font-weight: bold;
+
+    color: var(--electric-indigo);
+    cursor: default;
+}
+
+.settings-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    max-width: 680px;
+    height: 100%;
+    background-color: white;
+    border-radius: 0 5px 5px 0;
+
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 12px;
+    color: var(--grey-text-color);
+}
+
+.main-settings-button {
+    padding: 14px 14px;
+    background: linear-gradient(90deg, var(--violet) 0%, var(--blue) 100%);
+    border-radius: 5px;
+    border-style: none;
+
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    color: white;
+}
+
+.settings-input {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin-top: 5px;
+
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 12px;
+    color: var(--grey-text-color);
+}
+
+.settings-input-with-img {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 12px;
+    color: var(--grey-text-color);
+}
+
+.settings-input-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.avatar {
+    position: relative;
+
+    z-index: 2;
+
+    height: 96px;
+    width: 96px;
+
+    object-fit: cover;
+    clip-path: circle();
+
+    filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.15));
+
+    cursor: pointer;
+}
+
+.test-change {
+    position: relative;
+
+    z-index: 3;
+
+    bottom: 35px;
+
+    height: 33px;
+    width: 96px;
+
+    object-fit: cover;
+
+    cursor: pointer;
+}
+
+.change-avatar {
+    margin-top: 70px;
+    width: 96px;
+    height: 23px;
+    border-radius: 70%;
+    left: 252px;
+    top: 128px;
+
+    background: rgba(0, 0, 0, 0.5);
+    filter: blur(5px);
+}
+
+.profile-avatar-error {
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 12px;
+    color: var(--red);
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.close {
+    position: relative;
+
+    width: 17px;
+    height: 17px;
+
+    align-self: flex-start;
+
+    padding-right: 25px;
+    padding-top: 25px;
+    cursor: pointer;
+}
+
+.checkbox-settings {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 14px;
+    color: black;
+}
+
+.buttons-notifications {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.account-logo {
+    margin-right: 25px;
+    width: 37px;
+    height: 37px;
+}
+
+.changes-success {
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 12px;
+    color: green;
+    margin-bottom: 5px;
+}

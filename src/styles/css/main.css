@@ -1,0 +1,57 @@
+:root {
+    --main-bg-color : #F2F2F2;
+    --input-border-color: #CCCCCC;
+    --grey-text-color: #808080;
+    --violet: #A32CDF;
+    --blue: #4F4FD7;
+    --red: #FF0404;
+    --light-grey: #F3F3F3;
+    --electric-indigo: #6D27E7;
+    --dark-grey: #333333;
+    --card-violet: #7653DE;
+}
+
+input {
+    padding: 8px 14px;
+    margin: 8px 0;
+    border: 1px solid var(--input-border-color);
+    border-radius: 5px;
+}
+
+input:focus {
+    border: 2px solid var(--violet);
+    outline: none;
+}
+
+body {
+    margin: 0;
+    background: var(--main-bg-color);
+}
+
+.default-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--main-bg-color);
+    height: calc(100vh - 40px);
+
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+}
+
+.container-without-navbar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--main-bg-color);
+    height: 100vh;
+
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+}

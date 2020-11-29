@@ -1,0 +1,450 @@
+/* контейнер, содержащий всю информация о доске (названия, избранное, коллабораторы) и настройки доски*/
+.board-info__container {
+    display: flex;
+
+    align-items: center;
+    flex-flow: row wrap;
+    justify-content: space-between;
+
+    height: 50px;
+
+    margin-left: 28px;
+    margin-right: 28px;
+
+    border-bottom-style: solid;
+    border-bottom-color: var(--dark-grey);
+    border-width: 1px;
+}
+
+/*контейнер левой части */
+.board-info__left-side__container {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+}
+
+/* элементы левой части board-info */
+.board-info__left-side__name-favorite__container {
+    display: flex;
+    align-items: center;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+.board-info__left-side__name-favorite__board-name {
+    display: flex;
+
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 28px;
+    border: none;
+    background: none;
+    padding: 0 0 0 0;
+    margin-left: 20px;
+
+    cursor: pointer;
+}
+.board-info__left-side__name-favorite__board-name:focus {
+    box-shadow: 0 1px 0 0;
+    outline: none;
+    cursor: text;
+}
+
+.board-info__left-side__name-favorite__favorite-icon {
+    display: flex;
+
+    width: 23px;
+    height: 23px;
+
+    margin-left: 7px;
+
+    color: var(--dark-grey);
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.board-info__left-side__collaborators {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: row wrap;
+
+    flex-shrink: 3;
+}
+
+.board-info__left-side__collaborator {
+    height: 28px;
+    width: 28px;
+
+    margin-right: 10px;
+
+    clip-path: circle();
+    object-fit: cover;
+    cursor: pointer;
+}
+
+/* элементы правой части board-info */
+.board-info__right-side__container {
+    display: flex;
+}
+
+/* иконка настроек */
+.board-info__right-side__settings-icon {
+    display: flex;
+    justify-self: flex-end;
+
+    width: 23px;
+    height: 23px;
+
+    margin-right: 16px;
+
+    color: var(--dark-grey);
+    object-fit: cover;
+    cursor: pointer;
+}
+
+
+/* trello! */
+.scroll__cards__container {
+    display: flex;
+    flex-wrap: nowrap;
+
+    overflow: hidden;
+
+    margin: 20px 35px 0 35px;
+
+    overflow-x: auto;
+}
+
+/* контейнер карточки */
+.card__container {
+    flex: 0 0 auto;
+
+    text-align: center;
+
+    margin: 6px;
+
+    width: 290px;
+    height: fit-content;
+
+    box-shadow: 0 0 9px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+
+    background: white;
+}
+
+/* контейнер названия карточки */
+.card__title__container {
+    display: flex;
+
+    flex-direction: row;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    min-height: 45px;
+
+    border-radius: 5px 5px 0 0;
+    border-right-style: solid;
+    border-right-color: var(--card-violet);
+    border-width: 1px;
+
+    background: var(--card-violet);
+}
+
+/* название карточки */
+.card__title_text {
+    display: flex;
+
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-size: 18px;
+    line-height: 20px;
+    color: var(--light-grey);
+    text-align: start;
+    width: 240px;
+    word-break: break-word;
+    margin: 10px 0 10px 15px;
+    cursor: pointer;
+}
+.card__title_text:focus {
+    outline: none;
+    box-shadow: 0 1px 0 0;
+    cursor: text;
+}
+
+/* иконка троеточия */
+.card__title_dots-icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+/* содержимое карточки */
+.card__content__container {
+    display: flex;
+    flex-flow: row wrap;
+    flex-direction: column;
+}
+
+/* содержимое одной задачи */
+.card__content__task {
+    display: flex;
+    position: relative;
+    opacity: 0.999;
+    flex-direction: column;
+    width: 270px;
+    margin: 10px 10px 0 10px;
+
+    border-radius: 5px 5px 5px 5px;
+
+    cursor: pointer;
+
+    background: #F3F3F3;
+}
+
+/* цветные метки */
+.card__content__task__color-labels {
+    display: flex;
+    flex-direction: row;
+    background: var(--light-grey);
+    border-radius: 5px 0 5px 0;
+    overflow: auto;
+    width: fit-content;
+}
+
+/* не первая и не последняя цветная метка */
+.card__content__task__color-label {
+    display: flex;
+
+    width: 30px;
+    height: 7px;
+    top: -0.1px;
+
+    border-radius: 0 0 0 0;
+
+    background: darkolivegreen;
+}
+
+/* текст (описание) задачи */
+.card__content__task_description {
+    padding: 10px;
+
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 17px;
+    text-align: left;
+    min-height: 17px;
+}
+.card__content__task_description:focus {
+    outline: none;
+    border-radius: 5px;
+    box-shadow: 0 0 0 2px var(--electric-indigo);
+    cursor: text;
+}
+
+/* информация о задаче: дедлайн, количество выполненных подзадач, коллабораторы */
+.card__content__task__footer_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    padding-bottom: 8px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+/* правая часть футера, состоящая из даты и прогресса */
+.card__content__task__footer__task-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    gap: 10px;
+}
+
+/* плашка с датой */
+.card__content__task__footer__task-info_date {
+    display: flex;
+
+    width: 66px;
+    height: 30px;
+
+    background: #FFFFFF;
+    box-shadow: 0 0 9px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+
+    align-items: center;
+    justify-content: center;
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 17px;
+    color: var(--dark-grey);
+}
+
+/* плашка с прогрессом */
+.card__content__task__footer__task-info_progress {
+    display: flex;
+
+    justify-content: space-evenly;
+
+    align-items: center;
+
+    flex-direction: row;
+
+    width: 66px;
+    height: 30px;
+
+    background: #FFFFFF;
+    box-shadow: 0 0 9px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+
+}
+
+/* иконка прогресса */
+.card__content__task__footer__task-info__progress_icon {
+    display: flex;
+
+    width: 18px;
+    height: 18px;
+}
+
+/* количество выполненных подзадач */
+.card__content__task__footer__task-info__progress_count {
+    display: flex;
+
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 17px;
+    color: var(--dark-grey);
+
+}
+
+/* правая часть футера: коллабораторы */
+.card__content__task__footer_collaborators {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+/* аватарки коллабораторов в задаче */
+.card__content__task__footer_collaborator {
+    width: 28px;
+    height: 28px;
+
+    clip-path: circle();
+    object-fit: cover;
+}
+
+/* контейнер добавления новой задачи */
+.card__content__add-new-task__container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    margin-top: 14px;
+    margin-bottom: 13px;
+
+    gap: 10px;
+
+    cursor: pointer;
+}
+
+/* иконка добавления новой задачи */
+.card__content__add-new-task_icon {
+    height: 18px;
+    width: 18px;
+}
+
+/* текст добавления новой задачи */
+.card__content__add-new-task_text {
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 17px;
+}
+
+
+/* контейнер новой карточки карточки */
+.new-card__container {
+    display: flex;
+
+    flex: 0 0 auto;
+
+    text-align: center;
+
+    margin: 6px;
+
+    width: 290px;
+    height: 90px;
+
+    box-shadow: 0 0 9px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+
+    background: white;
+}
+
+/* контейнер контента новой карточки */
+.new-card__content__container {
+    display: flex;
+    flex-flow: row wrap;
+    flex-direction: column;
+}
+
+/* контейнер заголовка новой карточки */
+.new-card__title__container {
+    display: flex;
+
+    flex-direction: row;
+
+    align-items: center;
+
+    justify-content: center;
+
+    height: 45px;
+    width: 290px;
+
+    gap: 10px;
+
+    border-radius: 5px 5px 0 0;
+    border-right-style: solid;
+    border-right-color: var(--card-violet);
+    border-width: 1px;
+
+    cursor: pointer;
+
+    background: var(--card-violet);
+}
+
+/* текст в названии новой карточки */
+.new-card__title__text_add-new {
+    display: flex;
+
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 17px;
+    align-items: center;
+
+    color: var(--light-grey);
+}
+
+/* иконка добавления новой карточки */
+.new-card__title__icon_add-new {
+    display: flex;
+
+    width: 18px;
+    height: 18px;
+}
