@@ -69,71 +69,20 @@
                     Вложения
                 </div>
 
-                <div class="edit-task__content__attachments__body">
+                <div class="edit-task__content__attachments__body" id="attachmentsDiv">
+                    <fest:for iterate="json.attachments" index="i" value="v">
+                        <fest:include context="v" src="./Attachment.tmpl.xml"/>
+                    </fest:for>
 
-                    <div class="edit-task__content__attachments__body__element">
-                        <div class="edit-task__content__attachments__body__element__left">
-                            <img class="edit-task__content__attachments__body__element__left__icon" src="../../img/icons/file.svg" alt="remove"/>
-
-                            <div class="edit-task__content__attachments__body__element__left__text">
-                                Название файла
-                            </div>
-                        </div>
-
-                        <div class="edit-task__content__attachments__body__element__right">
-                            <img class="edit-task__content__attachments__body__element__right__icon" src="../../img/icons/remove.svg" alt="remove"/>
-                        </div>
-                    </div>
-
-                    <div class="edit-task__content__attachments__body__element">
-                        <div class="edit-task__content__attachments__body__element__left">
-                            <img class="edit-task__content__attachments__body__element__left__icon" src="../../img/icons/file.svg" alt="remove"/>
-
-                            <div class="edit-task__content__attachments__body__element__left__text">
-                                Название файла
-                            </div>
-                        </div>
-
-                        <div class="edit-task__content__attachments__body__element__right">
-                            <img class="edit-task__content__attachments__body__element__right__icon" src="../../img/icons/remove.svg" alt="remove"/>
-                        </div>
-                    </div>
-
-                    <div class="edit-task__content__attachments__body__element">
-                        <div class="edit-task__content__attachments__body__element__left">
-                            <img class="edit-task__content__attachments__body__element__left__icon" src="../../img/icons/file.svg" alt="remove"/>
-
-                            <div class="edit-task__content__attachments__body__element__left__text">
-                                Название файла
-                            </div>
-                        </div>
-
-                        <div class="edit-task__content__attachments__body__element__right">
-                            <img class="edit-task__content__attachments__body__element__right__icon" src="../../img/icons/remove.svg" alt="remove"/>
-                        </div>
-                    </div>
-
-                    <div class="edit-task__content__attachments__body__element">
-                        <div class="edit-task__content__attachments__body__element__left">
-                            <img class="edit-task__content__attachments__body__element__left__icon" src="../../img/icons/file.svg" alt="remove"/>
-
-                            <div class="edit-task__content__attachments__body__element__left__text">
-                                Название файла
-                            </div>
-                        </div>
-
-                        <div class="edit-task__content__attachments__body__element__right">
-                            <img class="edit-task__content__attachments__body__element__right__icon" src="../../img/icons/remove.svg" alt="remove"/>
-                        </div>
-                    </div>
-
-                    <div class="edit-task__content__attachments__add-new__container">
+                    <label for="fileInput" class="edit-task__content__attachments__add-new__container" id="uploadFile">
                         <img class="edit-task__content__attachments__add-new__icon" src="../../img/icons/add.svg" alt="add"/>
 
                         <div class="edit-task__content__attachments__add-new__text">
                             Загрузить новый файл
                         </div>
-                    </div>
+                    </label>
+
+                    <input id="fileInput" style="display: none" type="file"/>
                 </div>
             </div>
 

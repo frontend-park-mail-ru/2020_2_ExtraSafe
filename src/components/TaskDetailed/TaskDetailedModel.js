@@ -75,6 +75,39 @@ export default class TaskDetailedModel {
     }
 
     /**
+     * Upload file
+     * @param {File} file
+     */
+    uploadFile(file) {
+        // TODO: добавить запрос в сеть
+        const attachmentID = Math.floor(Math.random() * Math.floor(1000));
+        const fileUrl = 'https://cataas.com/cat';
+        const newAttachment = {
+            attachmentID: attachmentID,
+            fileName: file.name,
+            fileUrl: fileUrl,
+            fileHtmlID: `file${attachmentID}`,
+            fileNameID: `fileName${attachmentID}`,
+            fileIconID: `fileIcon${attachmentID}`,
+            fileRemoveID: `fileRemove${attachmentID}`,
+        };
+        this.task.attachments.push(newAttachment);
+        this.eventBus.emit('taskDetailedModel:uploadFileSuccess', newAttachment);
+    }
+
+    /**
+     * Remove attachment
+     * @param {Object} fileObj
+     */
+    removeAttachment(fileObj) {
+        // TODO: добавить запрос в сеть
+        const removedFileIndex = this.task.attachments.findIndex((attachment) => {
+            return attachment.attachmentID === fileObj.attachmentID;
+        });
+        this.task.attachments.splice(removedFileIndex, 1);
+    }
+
+    /**
      * Update task description
      * @param {string} newDescription
      */

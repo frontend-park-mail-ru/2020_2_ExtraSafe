@@ -19,7 +19,7 @@ export default class EventBus {
             this.listeners[event] = [];
         }
         const callbackExists = this.listeners[event].some((element) => {
-            return element === callback;
+            return element.toString() === callback.toString();
         });
         if (!callbackExists) {
             this.listeners[event].push(callback);

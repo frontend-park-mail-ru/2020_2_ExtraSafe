@@ -75,6 +75,21 @@ export default class TaskDetailedController extends BaseController {
     }
 
     /**
+     * Add event listeners related to attachments
+     */
+    addAttachmentsEventListeners() {
+        this.eventBus.on('taskDetailedView:uploadFile', (file) => {
+            this.model.uploadFile(file);
+        });
+        this.eventBus.on('taskDetailedModel:uploadFileSuccess', (fileObj) => {
+            this.view.addAttachment(fileObj);
+        });
+        this.eventBus.on('taskDetailedView:removeAttachment', (fileObj) => {
+            this.model.removeAttachment(fileObj);
+        });
+    }
+
+    /**
      * Render task detailed view
      * @param {Object} board
      * @param {Object} task
@@ -89,5 +104,6 @@ export default class TaskDetailedController extends BaseController {
         this.tagAddPopup = new TagAddPopup(tagPopupEl);
         this.tagCreatePopup = new TagCreatePopup(tagPopupEl);
         this.addTagEventListeners();
+        this.addAttachmentsEventListeners();
     }
 }

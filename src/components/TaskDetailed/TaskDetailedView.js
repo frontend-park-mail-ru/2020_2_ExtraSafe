@@ -1,6 +1,7 @@
 import BaseView from '../../views/BaseView/BaseView.js';
 import taskDetailedViewTemplate from './TaskDetailedView.tmpl.xml';
 import tagDetailedTemplate from './TagDetailed.tmpl.xml';
+import attachmentTemplate from './Attachment.tmpl.xml';
 import rendering from '../../utils/rendering.js';
 
 /**
@@ -43,7 +44,29 @@ export default class TaskDetailedView extends BaseView {
     }
 
     /**
-     * add all event listeners
+     * Add attachment view
+     * @param {Object} fileObj
+     */
+    addAttachment(fileObj) {
+        const uploadFileEl = document.getElementById('uploadFile');
+        const attachmentEl = rendering.createElementsFromTmpl(attachmentTemplate(fileObj));
+        document.getElementById('attachmentsDiv').insertBefore(attachmentEl, uploadFileEl);
+        document.getElementById(fileObj.fileRemoveID).addEventListener('click', () => {
+            this.removeAttachment(fileObj);
+            this.eventBus.emit('taskDetailedView:removeAttachment', fileObj);
+        });
+    }
+
+    /**
+     * Remove attachment view
+     * @param {Object} fileObj
+     */
+    removeAttachment(fileObj) {
+        document.getElementById(fileObj.fileHtmlID).remove();
+    }
+
+    /**
+     * Add all event listeners
      * @param {Object} task
      */
     addEventListeners(task) {
@@ -72,6 +95,25 @@ export default class TaskDetailedView extends BaseView {
         });
         document.getElementById('addTag').addEventListener('click', () => {
             this.eventBus.emit('taskDetailedView:addTag', null);
+        });
+
+        this.addAttachmentsEventListeners(task);
+    }
+
+    /**
+     * Add attachments event listeners
+     * @param {Object} task
+     */
+    addAttachmentsEventListeners(task) {
+        for (const attachment of task.attachments) {
+            document.getElementById(attachment.fileRemoveID).addEventListener('click', () => {
+                this.removeAttachment(attachment);
+                this.eventBus.emit('taskDetailedView:removeAttachment', attachment);
+            });
+        }
+
+        document.getElementById('fileInput').addEventListener('change', (event) => {
+            this.eventBus.emit('taskDetailedView:uploadFile', event.target.files[0]);
         });
     }
 

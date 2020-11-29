@@ -25,11 +25,13 @@ export default class TaskModel {
             taskDescription: task.taskDescription,
             order: task.order,
             tags: task.tags,
+            attachments: task.attachments,
             contentEditable: task.contentEditable,
             isInitialized: task.isInitialized,
         };
 
         this.initTags();
+        this.initAttachments();
     }
 
     /**
@@ -44,6 +46,20 @@ export default class TaskModel {
                 tag.tagBodyHtmlID = `tagBody${tag.tagID}`;
                 tag.tagCheckID = `tagCheck${tag.tagID}`;
                 tag.tagEditID = `tagEditID${tag.tagID}`;
+            }
+        }
+    }
+
+    /**
+     * Initialize attachments data
+     */
+    initAttachments() {
+        if (Array.isArray(this.task.attachments) && this.task.attachments.length) {
+            for (const attachment of this.task.attachments) {
+                attachment.fileHtmlID = `file${attachment.attachmentID}`;
+                attachment.fileNameID = `fileName${attachment.attachmentID}`;
+                attachment.fileIconID = `fileIcon${attachment.attachmentID}`;
+                attachment.fileRemoveID = `fileRemove${attachment.attachmentID}`;
             }
         }
     }

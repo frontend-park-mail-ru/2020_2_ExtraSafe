@@ -55,7 +55,19 @@ export default class CardController extends BaseController {
                     tagColor: '#FF8080',
                 },
             ];
-            this.createTask(task.taskID, task.name, task.description, task.order, tags);
+            const attachments = [
+                {
+                    attachmentID: 0,
+                    fileName: 'cat.png',
+                    fileUrl: 'https://cataas.com/cat',
+                },
+                {
+                    attachmentID: 1,
+                    fileName: 'masha.png',
+                    fileUrl: 'https://cataas.com/cat/says/masha_ochen_lenivaya',
+                },
+            ];
+            this.createTask(task.taskID, task.name, task.description, task.order, tags, attachments);
         }
     }
 
@@ -66,8 +78,10 @@ export default class CardController extends BaseController {
      * @param {string} taskDescription
      * @param {number} order
      * @param {[Object]} tags
+     * @param {[Object]} attachments
      */
-    createTask(taskID = -1, taskName= '', taskDescription = '', order = this.tasks.length, tags = []) {
+    createTask(taskID = -1, taskName= '', taskDescription = '',
+        order = this.tasks.length, tags = [], attachments = []) {
         const taskObj = {
             boardID: this.model.card.boardID,
             cardID: this.model.card.cardID,
@@ -76,6 +90,7 @@ export default class CardController extends BaseController {
             taskDescription: taskDescription,
             order: order,
             tags: tags,
+            attachments: attachments,
             contentEditable: (taskID === -1).toString(),
             isInitialized: taskID !== -1,
         };
