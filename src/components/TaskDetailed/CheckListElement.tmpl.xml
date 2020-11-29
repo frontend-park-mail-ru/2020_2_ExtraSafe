@@ -1,0 +1,11 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
+    <div class="edit-task__content__check-lists__body__element" id="{json.checkListElementHtmlID}">
+        <img class="edit-task__content__check-lists__body__element__icon" src="../../img/icons/check_grey.svg"
+             id="{json.checkListElementCheckID}" alt="check"/>
+
+        <div class="edit-task__content__check-lists__body__element__text" id="{json.checkListElementNameID}"
+             contenteditable="true">
+            <fest:value>json.checkListElementName</fest:value>
+        </div>
+    </div>
+</fest:template>
