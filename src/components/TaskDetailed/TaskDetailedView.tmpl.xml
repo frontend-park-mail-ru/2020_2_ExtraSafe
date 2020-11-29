@@ -81,9 +81,84 @@
                             Загрузить новый файл
                         </div>
                     </label>
-
                     <input id="fileInput" style="display: none" type="file"/>
                 </div>
+            </div>
+
+            <div class="edit-task__content__check-lists__container">
+                <div class="edit-task__content__check-lists__title__container">
+                    <div class="edit-task__content__check-lists__title">
+                        Чек-лист
+                    </div>
+
+                    <div class="edit-task__content__check-lists__delete">
+                        Удалить
+                    </div>
+                </div>
+
+                <div class="edit-task__content__check-lists__body">
+                    <div class="edit-check-lists__container">
+                        <div class="edit-check-lists__body">
+                            <img class="edit-check-lists__close" src="../../img/icons/close.svg" alt="close"/>
+                            <div class="edit-check-lists__title">
+                                Создать чек-лист
+                            </div>
+
+                            <input class="edit-check-lists__name" placeholder="Чек-лист"/>
+
+                            <button class="edit-check-lists__button"> Создать </button>
+                        </div>
+                    </div>
+
+                    <div class="edit-task__content__check-lists__body__element">
+                        <img class="edit-task__content__check-lists__body__element__icon" src="../../img/icons/check_grey.svg" alt="check"/>
+
+                        <div class="edit-task__content__check-lists__body__element__text" contenteditable="true">
+                            Быть молодцом
+                        </div>
+                    </div>
+
+                    <div class="edit-task__content__check-lists__body__element">
+                        <img class="edit-task__content__check-lists__body__element__icon" src="../../img/icons/box_unchecked.svg" alt="unchecked"/>
+
+                        <div class="edit-task__content__check-lists__body__element__text" contenteditable="true">
+                            Сделай-ка это
+                        </div>
+                    </div>
+
+                    <div class="edit-task__content__check-lists__body__element">
+                        <img class="edit-task__content__check-lists__body__element__icon" src="../../img/icons/box_unchecked.svg" alt="unchecked"/>
+
+                        <div class="edit-task__content__check-lists__body__element__text" contenteditable="true">
+                            Потом еще это
+                        </div>
+                    </div>
+
+                    <div class="edit-task__content__check-lists__body__element">
+                        <img class="edit-task__content__check-lists__body__element__icon" src="../../img/icons/box_unchecked.svg" alt="unchecked"/>
+
+                        <div class="edit-task__content__check-lists__body__element__text" contenteditable="true">
+                            И это не забудь
+                        </div>
+                    </div>
+
+                    <div class="edit-task__content__check-lists__body__element__add-new__container">
+                        <img class="edit-task__content__check-lists__body__element__add-new__icon" src="../../img/icons/add.svg" alt="add"/>
+
+                        <div class="edit-task__content__check-lists__body__element__add-new__text">
+                            Добавить элемент
+                        </div>
+                    </div>
+                </div>
+
+                <div class="edit-task__content__check-lists__add-new__container">
+                    <img class="edit-task__content__check-lists__add-new__icon" src="../../img/icons/add.svg" alt="add"/>
+
+                    <div class="edit-task__content__check-lists__add-new__text">
+                        Создать чек-лист
+                    </div>
+                </div>
+
             </div>
 
 

@@ -22,6 +22,10 @@
     .edit-task__content__info__elements {
         margin: 0 0 15px 0 !important;
     }
+
+    .edit-tags__container {
+        top: 210px !important;
+    }
 }
 
 // Настройка задачи
@@ -384,7 +388,7 @@
                         &__icon {
                             width: 24px;
                             height: 24px;
-                            margin: 0 10px 0 0;
+                            margin: 0 20px 0 0;
                         }
 
                         &__text {
@@ -450,6 +454,191 @@
 
         }
 
+        // Чек-листы
+        &__check-lists {
+
+            // Контейнер вложений
+            &__container {
+                @include flex-column;
+
+                align-items: flex-start;
+                justify-content: flex-start;
+
+                width: 100%;
+                max-width: 550px;
+            }
+
+            // Заголовок
+            &__title {
+
+                &__container {
+                    @include flex-row;
+
+                    justify-content: space-between;
+
+                    width: 100%;
+                }
+
+                display: flex;
+
+                @include standard-font(normal, 14px, 16px);
+
+                cursor: default;
+            }
+
+            // Удаление чек-листа
+            &__delete {
+                display: flex;
+
+                @include standard-font(normal, 12px, 18px);
+
+                color: $grey-text-color;
+
+                cursor: pointer;
+
+                &:hover {
+                    color: $electric-indigo;
+                }
+            }
+
+            // Тело чек-листа
+            &__body {
+                @include flex-column;
+
+                align-items: center;
+
+                width: 100%;
+
+                margin: 10px 0 0 0;
+
+                @include standard-border-radius;
+
+                background: $light-grey;
+
+                &__element {
+                    @include flex-row;
+
+                    align-items: center;
+                    justify-content: flex-start;
+
+                    width: 95%;
+
+                    margin: 10px 0 0 0;
+
+                    &__icon {
+                        width: 24px;
+                        height: 24px;
+                        margin: 0 20px 0 0;
+
+                        cursor: pointer;
+                    }
+
+                    &__text {
+                        width: 100%;
+
+                        @include standard-font(normal, 14px, 16px);
+
+                        border: none;
+                        outline: none;
+
+                        word-break: break-all;
+
+                        text-align: justify;
+
+                        color: $dark-grey;
+
+                        cursor: pointer;
+                    }
+
+                    &__add-new {
+
+                        // Контейнер добавления нового элемента в чек-листе
+                        &__container {
+                            @include flex-row;
+
+                            width: fit-content;
+
+                            justify-content: center;
+                            align-self: center;
+
+                            margin: 5px 10px 5px 10px;
+                            padding: 10px 20px 10px 20px;
+
+                            @include standard-border-radius;
+
+                            gap: 10px;
+
+                            cursor: pointer;
+
+                            &:hover {
+                                background: $element-active;
+                                transition: 0.1s linear;
+                            }
+                        }
+
+                        // Иконка добавления нового элемента в чек-листе
+                        &__icon {
+                            height: 24px;
+                            width: 24px;
+                        }
+
+                        // Текст добавления нового элемента в чек-листе
+                        &__text {
+                            align-self: center;
+
+                            @include standard-font(normal, 14px, 16px);
+                        }
+                    }
+                }
+
+            }
+
+            // добавление нового чек-листа
+            &__add-new {
+
+                // контейнер создания нового чек-листа
+                &__container {
+                    @include flex-row;
+
+                    position: relative;
+
+                    width: fit-content;
+
+                    justify-content: center;
+                    align-self: flex-start;
+
+                    margin: 5px 10px 5px 0;
+                    padding: 10px 20px 10px 20px;
+
+                    @include standard-border-radius;
+
+                    gap: 10px;
+
+                    cursor: pointer;
+
+                    // поведение при наведении
+                    &:hover {
+                        background: $element-active;
+                        transition: 0.1s linear;
+                    }
+                }
+
+                // Иконка добавления нового чек-листа
+                &__icon {
+                    height: 24px;
+                    width: 24px;
+                }
+
+                // Текст добавления нового чек-листа
+                &__text {
+                    align-self: center;
+
+                    @include standard-font(normal, 14px, 16px);
+                }
+            }
+
+        }
+
         // Удаление задачи
         &__delete {
 
@@ -469,7 +658,6 @@
             }
         }
     }
-
 
     // Закрытие настройки задачи
     &__close {
@@ -502,7 +690,7 @@
         align-items: flex-start;
         justify-content: center;
 
-        top: 50%
+        top: 140px
     }
 
     &__add {
@@ -727,6 +915,84 @@
         }
 
 
+    }
+
+    &__close {
+        position: absolute;
+
+        z-index: 2;
+
+        right: 0;
+
+        width: 17px;
+        height: 17px;
+
+        align-self: flex-start;
+
+        margin: 17px 17px 0 0;
+        cursor: pointer;
+    }
+}
+
+// PopUp с чек-листами
+.edit-check-lists {
+
+    &__container {
+        display: flex;
+
+        position: absolute;
+
+        z-index: 1;
+
+        align-items: flex-start;
+        justify-content: center;
+
+        margin: 10px 0 0 0;
+    }
+
+    &__body {
+        @include flex-column;
+
+        position: relative;
+
+        justify-content: space-between;
+        align-items: center;
+
+        width: 100vw;
+        max-width: 250px;
+
+        @include standard-border-radius;
+
+        @include standard-shadow;
+
+        background: $white;
+    }
+
+    &__title {
+        display: flex;
+
+        @include standard-font(normal, 16px, 19px);
+
+        margin: 15px 45px 0 0;
+
+        cursor: default;
+    }
+
+    &__name {
+        display: flex;
+
+        width: 190px;
+
+        margin: 15px 0 0 0;
+    }
+
+    &__button {
+        width: 50%;
+        height: 30px;
+
+        margin: 10px;
+
+        @include standard-button;
     }
 
     &__close {
