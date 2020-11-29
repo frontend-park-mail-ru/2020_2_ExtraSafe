@@ -119,21 +119,24 @@ export default class Router {
     catchMouseClick(event) {
         if (event.target instanceof HTMLAnchorElement) {
             event.preventDefault();
+
             const outHref = event.target.dataset.outhref;
             if (outHref !== undefined) {
                 window.open(outHref, '_blank');
+                return;
             }
-            const link = event.target;
 
+            const link = event.target;
             this.open(link.pathname);
         } else if (event.target instanceof HTMLImageElement) {
             const href = event.target.dataset.href;
-            const outHref = event.target.dataset.outhref;
             if (href !== undefined) {
                 event.preventDefault();
                 this.open(href);
                 return;
             }
+
+            const outHref = event.target.dataset.outhref;
             if (outHref !== undefined) {
                 event.preventDefault();
                 window.open(outHref, '_blank');
