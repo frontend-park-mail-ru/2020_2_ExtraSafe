@@ -85,12 +85,14 @@
                 </div>
             </div>
 
-            <div class="edit-task__content__check-lists__container">
+            <div class="edit-task__content__check-lists__container" id="checkListsDiv">
+                <div class="edit-check-lists__container" id="checkListPopup"/>
+
                 <fest:for iterate="json.checkLists" index="i" value="v">
                     <fest:include context="v" src="./CheckList.tmpl.xml"/>
                 </fest:for>
 
-                <div class="edit-task__content__check-lists__add-new__container">
+                <div class="edit-task__content__check-lists__add-new__container" id="checkListCreate">
                     <img class="edit-task__content__check-lists__add-new__icon" src="../../img/icons/add.svg" alt="add"/>
 
                     <div class="edit-task__content__check-lists__add-new__text">

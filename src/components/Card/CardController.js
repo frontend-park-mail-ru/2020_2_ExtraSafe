@@ -42,32 +42,41 @@ export default class CardController extends BaseController {
         });
 
         for (const task of tasks) {
-            // // TODO: убрать заглушку
-            // const tags = [
-            //     {
-            //         tagID: 0,
-            //         tagName: 'front',
-            //         tagColor: '#FFE380',
-            //     },
-            //     {
-            //         tagID: 1,
-            //         tagName: 'back',
-            //         tagColor: '#FF8080',
-            //     },
-            // ];
-            // const attachments = [
-            //     {
-            //         attachmentID: 0,
-            //         fileName: 'cat.png',
-            //         fileUrl: 'https://cataas.com/cat',
-            //     },
-            //     {
-            //         attachmentID: 1,
-            //         fileName: 'masha.png',
-            //         fileUrl: 'https://cataas.com/cat/says/masha_ochen_lenivaya',
-            //     },
-            // ];
-            this.createTask(task.taskID, task.taskName, task.taskDescription, task.taskOrder, task.taskTags, task.taskAttachments);
+            const checkLists = [
+                {
+                    checklistID: 0,
+                    checklistName: 'Собрать бибы',
+                    checklistItems: [
+                        {
+                            checkListElementName: 'biba',
+                            isChecked: true,
+                        },
+                        {
+                            checkListElementName: 'boba',
+                            isChecked: false,
+                        },
+                    ],
+                },
+                {
+                    checklistID: 1,
+                    checklistName: 'Обустроить бункер',
+                    checklistItems: [
+                        {
+                            checkListElementName: 'opa',
+                            isChecked: false,
+                        },
+                        {
+                            checkListElementName: 'hoba',
+                            isChecked: true,
+                        },
+                        {
+                            checkListElementName: 'pipka',
+                            isChecked: false,
+                        },
+                    ],
+                },
+            ];
+            this.createTask(task.taskID, task.taskName, task.taskDescription, task.taskOrder, task.taskTags, task.taskAttachments, checkLists);
         }
     }
 
@@ -79,9 +88,10 @@ export default class CardController extends BaseController {
      * @param {number} order
      * @param {[Object]} tags
      * @param {[Object]} attachments
+     * @param {[Object]} checkLists
      */
     createTask(taskID = -1, taskName= '', taskDescription = '',
-        order = this.tasks.length, tags = [], attachments = []) {
+        order = this.tasks.length, tags = [], attachments = [], checkLists = []) {
         const taskObj = {
             boardID: this.model.card.boardID,
             cardID: this.model.card.cardID,
@@ -91,6 +101,7 @@ export default class CardController extends BaseController {
             order: order,
             tags: tags,
             attachments: attachments,
+            checkLists: checkLists,
             contentEditable: (taskID === -1).toString(),
             isInitialized: taskID !== -1,
         };

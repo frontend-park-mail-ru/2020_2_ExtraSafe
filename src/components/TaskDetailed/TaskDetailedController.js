@@ -4,6 +4,7 @@ import TaskDetailedView from './TaskDetailedView.js';
 import TagAddPopup from './TagAddPopup/TagAddPopup.js';
 import TagCreatePopup from './TagCreatePopup/TagCreatePopup.js';
 import globalEventBus from '../../utils/globalEventBus.js';
+import CheckListPopup from './CheckListPopup/CheckListPopup.js';
 
 /**
  * Task detailed controller
@@ -20,6 +21,18 @@ export default class TaskDetailedController extends BaseController {
     }
 
     /**
+     * Initialize popups
+     */
+    initPopups() {
+        const tagPopupEl = document.getElementById('tagPopup');
+        this.tagAddPopup = new TagAddPopup(tagPopupEl);
+        this.tagCreatePopup = new TagCreatePopup(tagPopupEl);
+
+        const checkListPopupEl = document.getElementById('checkListPopup');
+        this.checkListPopup = new CheckListPopup(checkListPopupEl);
+    }
+
+    /**
      * Add all event listeners
      */
     addEventListeners() {
@@ -32,6 +45,9 @@ export default class TaskDetailedController extends BaseController {
         });
         this.eventBus.on('taskDetailedView:addTag', () => {
             this.tagAddPopup.render(this.model.task.tags, this.model.board.boardTags);
+        });
+        this.eventBus.on('taskDetailedView:addCheckList', () => {
+            this.checkListPopup.render();
         });
     }
 
@@ -98,6 +114,43 @@ export default class TaskDetailedController extends BaseController {
     }
 
     /**
+     * Add event listeners related to check-lists
+     */
+    addCheckListsEventListeners() {
+        this.checkListPopup.eventBus.on('checkListPopup:popupCreate', (checkListName) => {
+            const newCheckList = this.model.createCheckList(checkListName);
+            this.view.addCheckList(newCheckList);
+        });
+        this.eventBus.on('taskDetailedView:removeCheckList', (checkList) => {
+            this.model.removeCheckList(checkList);
+        });
+    }
+
+    /**
+     * Add event listeners related to check-list elements
+     */
+    addCheckListsElementsEventListeners() {
+        this.eventBus.on('taskDetailedView:checkListElementChangeName', ([checkListElement, checkListElementName]) => {
+            if (checkListElement.isInitialized) {
+                this.model.updateCheckListElement(checkListElement, checkListElementName);
+            } else {
+                this.model.createCheckListElement(checkListElement, checkListElementName);
+            }
+        });
+        this.eventBus.on('taskDetailedView:checkListElementRemove', (checkListElement) => {
+            if (checkListElement.isInitialized) {
+                this.model.removeCheckListElement(checkListElement);
+            }
+        });
+        this.eventBus.on('taskDetailedView:checkListElementUnchecked', (checkListElement) => {
+            this.model.updateCheckListElement(checkListElement, undefined, false);
+        });
+        this.eventBus.on('taskDetailedView:checkListElementChecked', (checkListElement) => {
+            this.model.updateCheckListElement(checkListElement, undefined, true);
+        });
+    }
+
+    /**
      * Render task detailed view
      * @param {Object} board
      * @param {Object} task
@@ -105,13 +158,15 @@ export default class TaskDetailedController extends BaseController {
     render(board, task) {
         this.model.task = task;
         this.model.board = board;
+        // this.model.getAttachments();
+
         this.view.render(task);
         this.addEventListeners();
 
-        const tagPopupEl = document.getElementById('tagPopup');
-        this.tagAddPopup = new TagAddPopup(tagPopupEl);
-        this.tagCreatePopup = new TagCreatePopup(tagPopupEl);
+        this.initPopups();
         this.addTagEventListeners();
         this.addAttachmentsEventListeners();
+        this.addCheckListsEventListeners();
+        this.addCheckListsElementsEventListeners();
     }
 }

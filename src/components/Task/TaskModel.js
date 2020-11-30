@@ -25,6 +25,7 @@ export default class TaskModel {
             taskDescription: task.taskDescription,
             order: task.order,
             tags: task.tags,
+            checkLists: task.checkLists,
             attachments: task.attachments,
             contentEditable: task.contentEditable,
             isInitialized: task.isInitialized,
@@ -32,6 +33,7 @@ export default class TaskModel {
 
         this.initTags();
         this.initAttachments();
+        this.initCheckLists();
     }
 
     /**
@@ -60,6 +62,43 @@ export default class TaskModel {
                 attachment.fileNameID = `fileName${attachment.attachmentID}`;
                 attachment.fileIconID = `fileIcon${attachment.attachmentID}`;
                 attachment.fileRemoveID = `fileRemove${attachment.attachmentID}`;
+            }
+        }
+    }
+
+    /**
+     * Initialize check-lists data
+     */
+    initCheckLists() {
+        if (Array.isArray(this.task.checkLists) && this.task.checkLists.length) {
+            for (const checkList of this.task.checkLists) {
+                checkList.checkListName = checkList.checklistName;
+                checkList.checkListID = checkList.checklistID;
+                checkList.checkListHtmlID = `checkList${checkList.checklistID}`;
+                checkList.checkListElementsDivID = `checkListElementsDiv${checkList.checklistID}`;
+                checkList.checkListAddNewElementID = `checkListAddNewElement${checkList.checklistID}`;
+                checkList.checkListRemoveID = `checkListRemove${checkList.checklistID}`;
+                checkList.checkListElements = checkList.checklistItems;
+                this.initCheckListElements(checkList);
+            }
+        }
+    }
+
+    /**
+     * Initialize check-list elements data
+     * @param {[Object]} checkList
+     */
+    initCheckListElements(checkList) {
+        if (Array.isArray(checkList.checkListElements) && checkList.checkListElements.length) {
+            for (const checkListElement of checkList.checkListElements) {
+                // TODO: костыль
+                const checkListElementID = Math.floor(Math.random() * Math.floor(10000));
+                checkListElement.checkListID = checkList.checkListID;
+                checkListElement.checkListElementID = checkListElementID;
+                checkListElement.checkListElementHtmlID = `checkList${checkList.checkListID}Element${checkListElementID}`;
+                checkListElement.checkListElementCheckID = `checkList${checkList.checkListID}ElementCheck${checkListElementID}`;
+                checkListElement.checkListElementNameID = `checkList${checkList.checkListID}ElementName${checkListElementID}`;
+                checkListElement.isInitialized = true;
             }
         }
     }

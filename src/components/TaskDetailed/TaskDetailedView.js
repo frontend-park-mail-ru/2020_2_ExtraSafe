@@ -1,8 +1,10 @@
 import BaseView from '../../views/BaseView/BaseView.js';
+import rendering from '../../utils/rendering.js';
 import taskDetailedViewTemplate from './TaskDetailedView.tmpl.xml';
 import tagDetailedTemplate from './TagDetailed.tmpl.xml';
 import attachmentTemplate from './Attachment.tmpl.xml';
-import rendering from '../../utils/rendering.js';
+import checkListTemplate from './CheckList.tmpl.xml';
+import checkListElementTemplate from './CheckListElement.tmpl.xml';
 
 /**
  * Task detailed view
@@ -51,10 +53,7 @@ export default class TaskDetailedView extends BaseView {
         const uploadFileEl = document.getElementById('uploadFile');
         const attachmentEl = rendering.createElementsFromTmpl(attachmentTemplate(fileObj));
         document.getElementById('attachmentsDiv').insertBefore(attachmentEl, uploadFileEl);
-        document.getElementById(fileObj.fileRemoveID).addEventListener('click', () => {
-            this.removeAttachment(fileObj);
-            this.eventBus.emit('taskDetailedView:removeAttachment', fileObj);
-        });
+        this.addAttachmentEventListeners(fileObj);
     }
 
     /**
@@ -63,6 +62,59 @@ export default class TaskDetailedView extends BaseView {
      */
     removeAttachment(fileObj) {
         document.getElementById(fileObj.fileHtmlID).remove();
+    }
+
+    /**
+     * Add check-list view
+     * @param {Object} checkListObj
+     */
+    addCheckList(checkListObj) {
+        const addCheckListEl = document.getElementById('checkListCreate');
+        const checkListEl = rendering.createElementsFromTmpl(checkListTemplate(checkListObj));
+        document.getElementById('checkListsDiv').insertBefore(checkListEl, addCheckListEl);
+        this.addCheckListEventListeners(checkListObj);
+    }
+
+    /**
+     * Remove check-list view
+     * @param {Object} checkListObj
+     */
+    removeCheckList(checkListObj) {
+        document.getElementById(checkListObj.checkListHtmlID).remove();
+    }
+
+    /**
+     * Add check-list element view
+     * @param {Object} checkListObj
+     */
+    addCheckListElement(checkListObj) {
+        const checkListAddNewElementEl = document.getElementById(checkListObj.checkListAddNewElementID);
+
+        // TODO: костыль
+        const checkListElementID = Math.floor(Math.random() * Math.floor(10000));
+        const checkListElementObj = {
+            checkListID: checkListObj.checkListID,
+            checkListElementID: checkListElementID,
+            checkListElementHtmlID: `checkList${checkListObj.checkListID}Element${checkListElementID}`,
+            checkListElementCheckID: `checkList${checkListObj.checkListID}ElementCheck${checkListElementID}`,
+            checkListElementNameID: `checkList${checkListObj.checkListID}ElementName${checkListElementID}`,
+            isInitialized: false,
+        };
+
+        const checkListElementEl = rendering.createElementsFromTmpl(checkListElementTemplate(checkListElementObj));
+        document.getElementById(checkListObj.checkListElementsDivID)
+            .insertBefore(checkListElementEl, checkListAddNewElementEl);
+        this.addCheckListElementEventListeners(checkListElementObj);
+        document.getElementById(checkListElementObj.checkListElementNameID).focus();
+    }
+
+    /**
+     * Remove check-list element view
+     * @param {Object} checkListElementObj
+     */
+    removeCheckListElement(checkListElementObj) {
+        document.getElementById(checkListElementObj.checkListElementHtmlID).remove();
+        this.eventBus.emit('taskDetailedView:checkListElementRemove', checkListElementObj);
     }
 
     /**
@@ -96,24 +148,71 @@ export default class TaskDetailedView extends BaseView {
         document.getElementById('addTag').addEventListener('click', () => {
             this.eventBus.emit('taskDetailedView:addTag', null);
         });
+        document.getElementById('checkListCreate').addEventListener('click', () => {
+            this.eventBus.emit('taskDetailedView:addCheckList', null);
+        });
 
-        this.addAttachmentsEventListeners(task);
+        document.getElementById('fileInput').addEventListener('change', (event) => {
+            this.eventBus.emit('taskDetailedView:uploadFile', event.target.files[0]);
+        });
+        for (const attachment of task.attachments) {
+            this.addAttachmentEventListeners(attachment);
+        }
+
+        for (const checkList of task.checkLists) {
+            this.addCheckListEventListeners(checkList);
+        }
     }
 
     /**
      * Add attachments event listeners
-     * @param {Object} task
+     * @param {Object} attachment
      */
-    addAttachmentsEventListeners(task) {
-        for (const attachment of task.attachments) {
-            document.getElementById(attachment.fileRemoveID).addEventListener('click', () => {
-                this.removeAttachment(attachment);
-                this.eventBus.emit('taskDetailedView:removeAttachment', attachment);
-            });
-        }
+    addAttachmentEventListeners(attachment) {
+        document.getElementById(attachment.fileRemoveID).addEventListener('click', () => {
+            this.removeAttachment(attachment);
+            this.eventBus.emit('taskDetailedView:removeAttachment', attachment);
+        });
+    }
 
-        document.getElementById('fileInput').addEventListener('change', (event) => {
-            this.eventBus.emit('taskDetailedView:uploadFile', event.target.files[0]);
+    /**
+     * Add check-list event listeners
+     * @param {Object} checkList
+     */
+    addCheckListEventListeners(checkList) {
+        document.getElementById(checkList.checkListRemoveID).addEventListener('click', () => {
+            this.removeCheckList(checkList);
+            this.eventBus.emit('taskDetailedView:removeCheckList', checkList);
+        });
+        document.getElementById(checkList.checkListAddNewElementID).addEventListener('click', () => {
+            this.addCheckListElement(checkList);
+        });
+        for (const checkListElement of checkList.checkListElements) {
+            this.addCheckListElementEventListeners(checkListElement);
+        }
+    }
+
+    /**
+     * Add check-list event listeners
+     * @param {Object} checkListElement
+     */
+    addCheckListElementEventListeners(checkListElement) {
+        document.getElementById(checkListElement.checkListElementNameID).addEventListener('focusout', (event) => {
+            if (event.target.innerText === '') {
+                this.removeCheckListElement(checkListElement);
+            } else {
+                this.eventBus.emit('taskDetailedView:checkListElementChangeName',
+                    [checkListElement, event.target.innerText]);
+            }
+        });
+        document.getElementById(checkListElement.checkListElementCheckID).addEventListener('click', (event) => {
+            if (checkListElement.isChecked) {
+                event.target.src = '../../img/icons/box_unchecked.svg';
+                this.eventBus.emit('taskDetailedView:checkListElementUnchecked', checkListElement);
+            } else {
+                event.target.src = '../../img/icons/check_grey.svg';
+                this.eventBus.emit('taskDetailedView:checkListElementChecked', checkListElement);
+            }
         });
     }
 
