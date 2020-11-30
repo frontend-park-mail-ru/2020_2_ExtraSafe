@@ -11,8 +11,9 @@
         </div>
 
         <div class="edit-task__content__attachments__body__element__right">
-            <img class="edit-task__content__attachments__body__element__right__icon" src="../../img/icons/remove.svg"
-                 id="{json.fileRemoveID}" alt="remove"/>
+            <div class="edit-task__content__attachments__body__element__right__delete"
+                 id="{json.fileRemoveID}" alt="remove"> Удалить </div>
+
         </div>
     </div>
 </fest:template>
