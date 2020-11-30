@@ -1,4 +1,5 @@
 import network from '../../utils/network.js';
+import userSession from '../../utils/userSession.js';
 
 /**
  * Task model
@@ -7,29 +8,120 @@ export default class TaskModel {
     /**
      * Task model constructor
      * @param {EventBus} eventBus
-     * @param {number} taskNumber
-     * @param {string} cardNumber
+     * @param {Object} board
      * @param {object} task
      */
-    constructor(eventBus, taskNumber, cardNumber, task) {
+    constructor(eventBus, board, task) {
         this.eventBus = eventBus;
+        // TODO: переделеать под board и card
+        this.board = board;
         this.task = {
-            taskName: task.taskName,
-            taskDescription: task.taskDescription,
-            taskID: `${cardNumber}Task${taskNumber}`,
-            taskNameID: `${cardNumber}Task${taskNumber}Name`,
-            contentEditable: task.contentEditable,
-            isInitialized: task.isInitialized,
-            order: task.order,
-        };
-        this.taskJSON = {
             boardID: task.boardID,
             cardID: task.cardID,
             taskID: task.taskID,
-            name: task.taskName,
-            description: task.taskDescription,
+            taskHtmlID: `card${task.cardID}Task${task.taskID}`,
+            taskNameID: `card${task.cardID}Task${task.taskID}Name`,
+            tagsDivID: `card${task.cardID}Task${task.taskID}TagsDiv`,
+            taskName: task.taskName,
+            taskDescription: task.taskDescription,
             order: task.order,
+            tags: task.tags,
+            checkLists: task.checkLists,
+            attachments: task.attachments,
+            comments: [],
+            taskAssigners: task.taskAssigners,
+            contentEditable: task.contentEditable,
+            isInitialized: task.isInitialized,
         };
+
+        this.initTags();
+        this.initAttachments();
+        this.initCheckLists();
+        this.initAssigners();
+    }
+
+    /**
+     * Initialize tags data
+     */
+    initTags() {
+        if (Array.isArray(this.task.tags) && this.task.tags.length) {
+            for (const tag of this.task.tags) {
+                tag.tagHtmlID = `${this.task.taskHtmlID}Tag${tag.tagID}`;
+                tag.tagDetailedID = `tagDetailed${tag.tagID}`;
+                tag.tagDetailedNameID = `tagDetailedName${tag.tagID}`;
+                tag.tagBodyHtmlID = `tagBody${tag.tagID}`;
+                tag.tagCheckID = `tagCheck${tag.tagID}`;
+                tag.tagEditID = `tagEditID${tag.tagID}`;
+            }
+        }
+    }
+
+    /**
+     * Initialize attachments data
+     */
+    initAttachments() {
+        if (Array.isArray(this.task.attachments) && this.task.attachments.length) {
+            for (const attachment of this.task.attachments) {
+                attachment.fileHtmlID = `file${attachment.attachmentID}`;
+                attachment.fileNameID = `fileName${attachment.attachmentID}`;
+                attachment.fileIconID = `fileIcon${attachment.attachmentID}`;
+                attachment.fileRemoveID = `fileRemove${attachment.attachmentID}`;
+            }
+        }
+    }
+
+    /**
+     * Initialize check-lists data
+     */
+    initCheckLists() {
+        if (Array.isArray(this.task.checkLists) && this.task.checkLists.length) {
+            for (const checkList of this.task.checkLists) {
+                checkList.checkListName = checkList.checklistName;
+                checkList.checkListID = checkList.checklistID;
+                checkList.checkListHtmlID = `checkList${checkList.checklistID}`;
+                checkList.checkListElementsDivID = `checkListElementsDiv${checkList.checklistID}`;
+                checkList.checkListAddNewElementID = `checkListAddNewElement${checkList.checklistID}`;
+                checkList.checkListRemoveID = `checkListRemove${checkList.checklistID}`;
+                checkList.checkListElements = checkList.checklistItems;
+                this.initCheckListElements(checkList);
+            }
+        }
+    }
+
+    /**
+     * Initialize check-list elements data
+     * @param {[Object]} checkList
+     */
+    initCheckListElements(checkList) {
+        if (Array.isArray(checkList.checkListElements) && checkList.checkListElements.length) {
+            for (const checkListElement of checkList.checkListElements) {
+                // TODO: костыль
+                const checkListElementID = Math.floor(Math.random() * Math.floor(10000));
+                checkListElement.checkListID = checkList.checkListID;
+                checkListElement.checkListElementID = checkListElementID;
+                checkListElement.checkListElementHtmlID = `checkList${checkList.checkListID}Element${checkListElementID}`;
+                checkListElement.checkListElementCheckID = `checkList${checkList.checkListID}ElementCheck${checkListElementID}`;
+                checkListElement.checkListElementNameID = `checkList${checkList.checkListID}ElementName${checkListElementID}`;
+                checkListElement.isInitialized = true;
+            }
+        }
+    }
+
+    /**
+     * Initialize assigners data
+     */
+    initAssigners() {
+        if (Array.isArray(this.task.taskAssigners) && this.task.taskAssigners.length) {
+            for (const assigner of this.task.taskAssigners) {
+                assigner.memberHtmlID = `${assigner.username}Member`;
+                assigner.memberDeleteID = `${assigner.username}MemberDelete`;
+                assigner.memberTaskHtmlID = `${assigner.username}Task`;
+                assigner.memberTaskPopupHtmlID = `${assigner.username}TaskPopup`;
+                assigner.memberTaskPopupCheckID = `${assigner.username}TaskPopupCheck`;
+                assigner.memberAvatarSrc = `${network.serverAddr}/avatar/${assigner.avatar}`;
+                assigner.memberUsername = assigner.username;
+            }
+        }
     }
 
     /**
@@ -45,30 +137,44 @@ export default class TaskModel {
     }
 
     /**
-     * delete task on server
+     * Delete task on server
      */
     deleteTask() {
-        network.taskDelete(this.taskJSON.taskID);
-    }
-
-    /**
-     * send request to server with new task
-     */
-    createTaskForServer() {
-        const data = {
-            taskID: 0,
-            cardID: this.taskJSON.cardID,
-            name: this.task.taskName,
-            description: this.task.taskDescription,
-            order: this.task.order,
-        };
-        network.taskCreate(data, this.taskJSON.boardID).then((response) => {
+        network.taskDelete(this.task.taskID).then((response) => {
             return response.json();
         }).then((responseBody) => {
             if (responseBody.status > 200) {
+                if (!network.ifTokenValid(responseBody)) {
+                    this.deleteTask();
+                    return;
+                }
+            }
+        }).catch((error) => {
+            return;
+        });
+    }
+
+    /**
+     * Send request to server with new task
+     */
+    createTaskForServer() {
+        const data = {
+            cardID: this.task.cardID,
+            taskName: this.task.taskName,
+            taskDescription: this.task.taskDescription,
+            taskOrder: this.task.order,
+            taskTags: this.task.tags,
+        };
+        network.taskCreate(data, this.task.boardID).then((response) => {
+            return response.json();
+        }).then((responseBody) => {
+            if (responseBody.status > 200) {
+                if (!network.ifTokenValid(responseBody)) {
+                    this.createTaskForServer();
+                    return;
+                }
                 this.eventBus.emit('taskModel:createTaskFailed', responseBody.codes);
             } else {
-                this.taskJSON.taskID = responseBody.taskID;
                 this.eventBus.emit('taskModel:createTaskSuccess', responseBody);
             }
             return responseBody;
@@ -76,23 +182,100 @@ export default class TaskModel {
     }
 
     /**
-     * send request to server with update task
+     * Send request to server with update task
      */
     updateTaskForServer() {
         const data = {
-            taskID: this.taskJSON.taskID,
-            cardID: this.taskJSON.cardID,
-            name: this.task.taskName,
-            description: this.task.taskDescription,
-            order: this.task.order,
+            taskID: this.task.taskID,
+            cardID: this.task.cardID,
+            taskName: this.task.taskName,
+            taskDescription: this.task.taskDescription,
+            taskOrder: this.task.order,
+            taskTags: this.task.tags,
         };
         network.taskSet(data).then((response) => {
             return response.json();
         }).then((responseBody) => {
             if (responseBody.status > 200) {
+                if (!network.ifTokenValid(responseBody)) {
+                    this.updateTaskForServer();
+                    return;
+                }
                 this.eventBus.emit('taskModel:setTaskFailed', responseBody.codes);
             } else {
                 this.eventBus.emit('taskModel:setTaskSuccess', responseBody);
+            }
+            return responseBody;
+        });
+    }
+
+    /**
+     * Update task IDs
+     * @param {number} newTaskID
+     * @param {number} newCardID
+     */
+    updateTaskIDs(newTaskID= this.task.taskID, newCardID = this.task.cardID) {
+        this.task.cardID = newCardID;
+        this.task.taskID = newTaskID;
+        this.task.taskHtmlID = `card${this.task.cardID}Task${newTaskID}`;
+        this.task.taskNameID = `${this.task.taskHtmlID}Name`;
+        this.task.tagsDivID = `${this.task.taskHtmlID}TagsDiv`;
+    }
+
+    /**
+     * Update tag in array
+     * @param {Object} changedTag
+     * @return {Object}
+     */
+    changeTag(changedTag) {
+        const tagIndex = this.task.tags.findIndex((tag) => {
+            return tag.tagID === changedTag.tagID;
+        });
+        this.task.tags[tagIndex].tagColor = changedTag.tagColor;
+        this.task.tags[tagIndex].tagName = changedTag.tagName;
+        delete this.task.tags[tagIndex].isSelected;
+        return this.task.tags[tagIndex];
+    }
+
+    /**
+     * Get task detailed
+     */
+    getTaskDetailed() {
+        network.taskGet(this.task.taskID).then((response) => {
+            return response.json();
+        }).then((responseBody) => {
+            if (responseBody.status > 200) {
+                if (!network.ifTokenValid(responseBody)) {
+                    this.getTaskDetailed();
+                    return;
+                }
+                this.eventBus.emit('taskModel:getTaskDetailedFailed', responseBody.codes);
+            } else {
+                // TODO: полукостыль
+                for (const attachment of responseBody.taskAttachments) {
+                    this.task.attachments.push({
+                        attachmentID: attachment.attachmentID,
+                        fileName: attachment.attachmentFileName,
+                        fileUrl: `${network.serverAddr}/files/${attachment.attachmentFilePath}`,
+                        fileUrlForDelete: attachment.attachmentFilePath,
+                        fileHtmlID: `file${attachment.attachmentID}`,
+                        fileNameID: `fileName${attachment.attachmentID}`,
+                        fileIconID: `fileIcon${attachment.attachmentID}`,
+                        fileRemoveID: `fileRemove${attachment.attachmentID}`,
+                    });
+                }
+                for (const comment of responseBody.taskComments) {
+                    this.task.comments.push({
+                        commentID: comment.commentID,
+                        commentHtmlID: `comment${comment.commentID}`,
+                        commentAvatar: `${network.serverAddr}/avatar/${comment.commentAuthor.avatar}`,
+                        commentUsername: comment.commentAuthor.username,
+                        commentRemove: `comment${comment.commentID}Remove`,
+                        commentText: comment.commentMessage,
+                        isMine: userSession.data.username === comment.commentAuthor.username,
+                    });
+                }
+                this.eventBus.emit('taskModel:getTaskDetailedSuccess', responseBody);
             }
             return responseBody;
         });

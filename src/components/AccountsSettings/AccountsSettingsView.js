@@ -48,7 +48,7 @@ export default class AccountsSettingsView extends BaseView {
      */
     showServerSuccess() {
         const profileSuccess = document.getElementById('facebookError');
-        profileSuccess.className = 'changes-success';
+        profileSuccess.className = 'changes__success';
         profileSuccess.innerHTML = 'Данные изменены';
         profileSuccess.hidden = false;
     }

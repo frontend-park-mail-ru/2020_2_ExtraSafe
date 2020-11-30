@@ -39,8 +39,9 @@ export default class HomeView extends BaseView {
     render() {
         Navbar.navbarShow();
         this.el.innerHTML = homeViewTemplate();
-        this.boardsDiv = document.getElementById('boardsDiv');
         this.addEventListeners();
-        this.eventBus.emit('homeView:addBoardsFromServer', this.boardsDiv);
+
+        this.boardsDiv = document.getElementById('boardsDiv');
+        this.eventBus.emit('homeView:viewRendered', this.boardsDiv);
     }
 }

@@ -118,6 +118,26 @@
     overflow-x: auto;
 }
 
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #B4B4B4;
+    opacity: 0.5;
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #787878;
+}
+
 /* контейнер карточки */
 .card__container {
     flex: 0 0 auto;
@@ -242,6 +262,7 @@
     text-align: left;
     min-height: 17px;
 }
+
 .card__content__task_description:focus {
     outline: none;
     border-radius: 5px;
@@ -260,7 +281,7 @@
     padding-left: 10px;
 }
 
-/* правая часть футера, состоящая из даты и прогресса */
+/* левая часть футера, состоящая из даты и прогресса */
 .card__content__task__footer__task-info {
     display: flex;
     flex-direction: row;
@@ -305,7 +326,6 @@
     background: #FFFFFF;
     box-shadow: 0 0 9px rgba(0, 0, 0, 0.15);
     border-radius: 5px;
-
 }
 
 /* иконка прогресса */

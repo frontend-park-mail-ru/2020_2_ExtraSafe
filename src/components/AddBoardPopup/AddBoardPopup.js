@@ -47,7 +47,7 @@ export default class AddBoardPopup {
      */
     render() {
         const html = addBoardPopupTemplate();
-        this.el.appendChild(...rendering.createElementsFromTmpl(html));
+        this.el.appendChild(rendering.createElementsFromTmpl(html));
         this.el.style.display = 'flex';
         this.addEventListeners();
         document.getElementById('popupBoardName').focus();

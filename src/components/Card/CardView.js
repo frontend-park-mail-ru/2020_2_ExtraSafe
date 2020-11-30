@@ -1,7 +1,6 @@
 import BaseView from '../../views/BaseView/BaseView.js';
 import rendering from '../../utils/rendering.js';
 import cardTemplate from './Card.tmpl.xml';
-import globalEventBus from '../../utils/globalEventBus.js';
 
 /**
  * Class Card view.
@@ -18,41 +17,22 @@ export default class CardView extends BaseView {
     }
 
     /**
-     * Add all event listeners
-     * @param {JSON} cardJSON
+     * Update card IDs in HTML
+     * @param {Object} card
+     * @param {number} newCardID
      */
-    addEventListeners(cardJSON) {
-        document.getElementById(cardJSON.cardNameID).addEventListener('focusout', (event) => {
-            const newName = event.target.innerText;
-            // TODO: сделать проверку на название из пробелов
-            if (newName === '') {
-                if (cardJSON.isInitialized) {
-                    event.target.innerHTML = cardJSON.cardName;
-                } else {
-                    // TODO: добавить удаление объекта
-                    document.getElementById(cardJSON.cardID).remove();
-                }
-            } else {
-                this.eventBus.emit('cardView:updateCardName', newName);
-            }
-        });
-        document.getElementById(cardJSON.addTaskID).addEventListener('click', () => {
-            this.eventBus.emit('cardView:addNewTask', this.tasksDiv);
-        });
-        document.getElementById(cardJSON.addTaskID).addEventListener('dragenter', () => {
-            this.tasksDiv.appendChild(window.draggedTask);
-        });
-        document.getElementById(cardJSON.addTaskID).addEventListener('dragover', (event) => {
-            event.preventDefault();
-        });
-        document.getElementById(cardJSON.addTaskID).addEventListener('drop', () => {
-            window.taskDropped = true;
-            globalEventBus.emit('taskView:taskPositionChanged', null);
-        });
-        document.getElementById(cardJSON.cardSettingsID).addEventListener('click', () => {
-            document.getElementById(cardJSON.cardID).remove();
-            this.eventBus.emit('cardView:deleteCard', null);
-        });
+    updateCardHtmlIDs(card, newCardID) {
+        const cardEl = document.getElementById(card.cardHtmlID);
+        const cardNameIDEl = document.getElementById(card.cardNameID);
+        const cardSettingsIDEl = document.getElementById(card.cardSettingsID);
+        const addTaskIDEl = document.getElementById(card.addTaskID);
+        const tasksDivEl = document.getElementById(card.tasksDiv);
+
+        cardEl.id = `card${newCardID}`;
+        cardNameIDEl.id = `cardName${newCardID}`;
+        cardSettingsIDEl.id = `cardSettings${newCardID}`;
+        addTaskIDEl.id = `addTask${newCardID}`;
+        tasksDivEl.id = `tasksDiv${newCardID}`;
     }
 
     /**
@@ -64,17 +44,67 @@ export default class CardView extends BaseView {
     }
 
     /**
-     * Render card
-     * @param {JSON} cardJSON
+     * Add all event listeners
+     * @param {JSON} card
      */
-    render(cardJSON) {
-        const html = cardTemplate(cardJSON);
-        this.el.appendChild(...rendering.createElementsFromTmpl(html));
-        this.tasksDiv = document.getElementById(cardJSON.tasksDiv);
-        this.addEventListeners(cardJSON);
-        this.eventBus.emit('cardView:addTasksFromServer', this.tasksDiv);
-        if (!cardJSON.isInitialized) {
-            document.getElementById(cardJSON.cardNameID).focus();
+    addEventListeners(card) {
+        document.getElementById(card.cardNameID).addEventListener('focusout', (event) => {
+            const newName = event.target.innerText;
+            // TODO: сделать проверку на название из пробелов
+            if (newName === '') {
+                if (card.isInitialized) {
+                    event.target.innerHTML = card.cardName;
+                } else {
+                    document.getElementById(card.cardHtmlID).remove();
+                    this.eventBus.emit('cardView:deleteCard', null);
+                }
+            } else {
+                this.eventBus.emit('cardView:updateCardName', newName);
+            }
+        });
+        document.getElementById(card.addTaskID).addEventListener('click', () => {
+            this.eventBus.emit('cardView:addNewTask', null);
+        });
+        document.getElementById(card.cardSettingsID).addEventListener('click', () => {
+            document.getElementById(card.cardHtmlID).remove();
+            this.eventBus.emit('cardView:deleteCard', null);
+        });
+        this.addDragAndDropEventListeners(card);
+    }
+
+    /**
+     * Add event listeners related to drag and drop
+     * @param {JSON} card
+     */
+    addDragAndDropEventListeners(card) {
+        document.getElementById(card.addTaskID).addEventListener('dragenter', () => {
+            this.tasksDiv.appendChild(window.draggedTask);
+        });
+        document.getElementById(card.addTaskID).addEventListener('dragover', (event) => {
+            event.preventDefault();
+        });
+        document.getElementById(card.addTaskID).addEventListener('drop', () => {
+            window.taskDropped = true;
+            if (window.startTasksDiv === this.tasksDiv) {
+                this.eventBus.emit('cardView:taskOrderChanged', window.draggedTask);
+            } else {
+                this.eventBus.emit('cardView:taskMovedToThisCard', [window.draggedTask, window.startTasksDiv]);
+            }
+        });
+    }
+
+    /**
+     * Render card
+     * @param {JSON} card
+     */
+    render(card) {
+        const html = cardTemplate(card);
+        this.el.appendChild(rendering.createElementsFromTmpl(html));
+        this.tasksDiv = document.getElementById(card.tasksDiv);
+        this.addEventListeners(card);
+        this.eventBus.emit('cardView:viewRendered', this.tasksDiv);
+        if (!card.isInitialized) {
+            document.getElementById(card.cardNameID).focus();
         }
     }
 }

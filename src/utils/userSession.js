@@ -59,15 +59,6 @@ class UserSession {
     }
 
     /**
-     * Set boards
-     * @param {json} val
-     */
-    setBoards(val) {
-        this.boards = val.boards;
-        globalEventBus.emit('userSession:setBoards', this.boards);
-    }
-
-    /**
      * reset data to default values
      */
     resetAccounts() {
@@ -81,6 +72,24 @@ class UserSession {
                 facebook: '',
             },
         });
+    }
+
+    /**
+     * Set boards
+     * @param {[JSON]} boards
+     */
+    setBoards(boards) {
+        this.boards = boards;
+        globalEventBus.emit('userSession:setBoards', this.boards);
+    }
+
+    /**
+     * Add board
+     * @param {JSON} board
+     */
+    addBoard(board) {
+        this.boards.push(board);
+        globalEventBus.emit('userSession:setBoards', this.boards);
     }
 }
 

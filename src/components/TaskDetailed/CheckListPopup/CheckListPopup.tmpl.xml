@@ -1,0 +1,13 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
+    <div class="edit-check-lists__body">
+        <img class="edit-check-lists__close" src="../../img/icons/close.svg"
+             id="checkListPopupClose" alt="close"/>
+        <div class="edit-check-lists__title">
+            Создать чек-лист
+        </div>
+
+        <input class="edit-check-lists__name" id="checkListPopupInput" placeholder="Чек-лист"/>
+
+        <button class="edit-check-lists__button" id="checkListPopupCreate" >Создать</button>
+    </div>
+</fest:template>

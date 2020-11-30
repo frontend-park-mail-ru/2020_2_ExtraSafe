@@ -1,11 +1,11 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
-    <div class="card__container" id="{json.cardID}">
+    <div class="card__container" id="{json.cardHtmlID}" data-order="{json.order}">
 
-        <div class="card__title__container">
-            <div class="card__title_text" id="{json.cardNameID}" contenteditable="true">
+        <div class="card__name__container">
+            <div class="card__name__text" id="{json.cardNameID}" contenteditable="true">
                 <fest:value>json.cardName</fest:value>
             </div>
-            <img src="../../img/icons/bin_w.svg" class="card__title_dots-icon" id="{json.cardSettingsID}" alt="dots"/>
+            <img class="card__name__dots__icon" src="../../img/icons/bin_w.svg" id="{json.cardSettingsID}" alt="dots"/>
         </div>
 
         <div class="card__content__container" id="{json.tasksDiv}">
@@ -15,8 +15,8 @@
         </div>
 
         <div class="card__content__add-new-task__container" id="{json.addTaskID}" >
-            <img src="../../img/icons/add.svg" class="card__content__add-new-task_icon" alt="add new task"/>
-            <div class="card__content__add-new-task_text">
+            <img class="card__content__add-new-task__icon" src="../../img/icons/add.svg" alt="add new task"/>
+            <div class="card__content__add-new-task__text">
                 Добавить задачу
             </div>
         </div>

@@ -5,7 +5,7 @@ import globalEventBus from './globalEventBus.js';
  */
 class Network {
     /**
-     * Constructor
+     * Constructor network
      */
     constructor() {
         this.serverAddr = 'http://tabutask.ru:8080';
@@ -21,6 +21,7 @@ class Network {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'X-CSRF-Token': '',
             },
         };
         this.requestPut = {
@@ -29,17 +30,25 @@ class Network {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
+                'X-CSRF-Token': '',
             },
         };
         this.requestDelete = {
             mode: 'cors',
             credentials: 'include',
             method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-Token': '',
+            },
         };
         this.requestFormData = {
             mode: 'cors',
             credentials: 'include',
             method: 'POST',
+            headers: {
+                'X-CSRF-Token': '',
+            },
         };
     }
 
@@ -117,9 +126,12 @@ class Network {
      */
     accountsSet(data) {
         const url = this.serverAddr + '/accounts/';
-        this.requestPost.body = JSON.stringify(data);
+        // this.requestPost.body = JSON.stringify(data);
+        const request = this.requestPost;
+        request.body = JSON.stringify(data);
+        request.headers['X-CSRF-Token'] = '4444';
 
-        return fetch(url, this.requestPost);
+        return fetch(url, request);
     }
 
     /**
@@ -194,6 +206,30 @@ class Network {
     }
 
     /**
+     * request to add user to board
+     * @param {requestData} data
+     * @return {Promise<Response>}
+     */
+    userAddToBoard(data) {
+        const url = this.serverAddr + '/board/' + data.boardID + '/user-add/';
+        this.requestPut.body = JSON.stringify(data);
+
+        return fetch(url, this.requestPut);
+    }
+
+    /**
+     * request to remove user from board
+     * @param {requestData} data
+     * @return {Promise<Response>}
+     */
+    userRemoveFromBoard(data) {
+        const url = this.serverAddr + '/board/' + data.boardID + '/user-remove/';
+        this.requestPut.body = JSON.stringify(data);
+
+        return fetch(url, this.requestPut);
+    }
+
+    /**
      * request to create card
      * @param {requestData} data
      * @param {string} boardID
@@ -238,6 +274,19 @@ class Network {
         const url = this.serverAddr + '/card/' + cardID + '/';
 
         return fetch(url, this.requestDelete);
+    }
+
+    /**
+     * request to change cards order
+     * @param {requestData} data
+     * @param {string} boardID
+     * @return {Promise<Response>}
+     */
+    cardsOrder(data, boardID) {
+        const url = this.serverAddr + '/card-order/' + boardID + '/';
+        this.requestPost.body = JSON.stringify(data);
+
+        return fetch(url, this.requestPost);
     }
 
     /**
@@ -307,6 +356,216 @@ class Network {
     getBoards() {
         const url = this.serverAddr + '/boards/';
         return fetch(url, this.requestGet);
+    }
+
+    /**
+     * request to create tag
+     * @param {requestData} data
+     * @param {string} boardID
+     * @return {Promise<Response>}
+     */
+    tagCreate(data) {
+        const url = this.serverAddr + '/tag/' + data.boardID + '/';
+        this.requestPost.body = JSON.stringify(data);
+
+        return fetch(url, this.requestPost);
+    }
+
+    /**
+     * request to change data for tag
+     * @param {requestData} data
+     * @return {Promise<Response>}
+     */
+    tagSet(data) {
+        const url = this.serverAddr + '/tag/' + data.boardID + '/';
+        this.requestPut.body = JSON.stringify(data);
+
+        return fetch(url, this.requestPut);
+    }
+
+    /**
+     * request to delete tag from board
+     * @param {requestData} data
+     * @return {Promise<Response>}
+     */
+    tagDelete(data) {
+        const url = this.serverAddr + '/tag/' + data.boardID + '/';
+        this.requestDelete.body = JSON.stringify(data);
+
+        return fetch(url, this.requestDelete);
+    }
+
+    /**
+     * request to add tag to task
+     * @param {requestData} data
+     * @return {Promise<Response>}
+     */
+    tagAddToTask(data) {
+        const url = this.serverAddr + '/task/' + data.taskID + '/tag-add/';
+        this.requestPut.body = JSON.stringify(data);
+
+        return fetch(url, this.requestPut);
+    }
+
+    /**
+     * request to add tag to task
+     * @param {requestData} data
+     * @return {Promise<Response>}
+     */
+    tagRemoveFromTask(data) {
+        const url = this.serverAddr + '/task/' + data.taskID + '/tag-remove/';
+        this.requestPut.body = JSON.stringify(data);
+
+        return fetch(url, this.requestPut);
+    }
+
+    /**
+     * request to add user to task
+     * @param {requestData} data
+     * @return {Promise<Response>}
+     */
+    userAddToTask(data) {
+        const url = this.serverAddr + '/task/' + data.taskID + '/user-add/';
+        this.requestPut.body = JSON.stringify(data);
+
+        return fetch(url, this.requestPut);
+    }
+
+    /**
+     * request to remove user from task
+     * @param {requestData} data
+     * @return {Promise<Response>}
+     */
+    userRemoveFromTask(data) {
+        const url = this.serverAddr + '/task/' + data.taskID + '/user-remove/';
+        this.requestPut.body = JSON.stringify(data);
+
+        return fetch(url, this.requestPut);
+    }
+
+
+    /**
+     * request to create comment
+     * @param {requestData} data
+     * @param {string} taskID
+     * @return {Promise<Response>}
+     */
+    commentCreate(data) {
+        const url = this.serverAddr + '/comment/' + data.taskID + '/';
+        this.requestPost.body = JSON.stringify(data);
+
+        return fetch(url, this.requestPost);
+    }
+
+    /**
+     * request to change data for comment
+     * @param {requestData} data
+     * @return {Promise<Response>}
+     */
+    commentSet(data) {
+        const url = this.serverAddr + '/comment/' + data.commentID + '/';
+        this.requestPut.body = JSON.stringify(data);
+
+        return fetch(url, this.requestPut);
+    }
+
+    /**
+     * request to delete comment from task
+     * @param {requestData} data
+     * @return {Promise<Response>}
+     */
+    commentDelete(data) {
+        const url = this.serverAddr + '/comment/' + data.commentID + '/';
+        this.requestDelete.body = JSON.stringify(data);
+
+        return fetch(url, this.requestDelete);
+    }
+
+    /**
+     * request to create checklist
+     * @param {requestData} data
+     * @param {string} taskID
+     * @return {Promise<Response>}
+     */
+    checklistCreate(data) {
+        const url = this.serverAddr + '/checklist/' + data.taskID + '/';
+        this.requestPost.body = JSON.stringify(data);
+
+        return fetch(url, this.requestPost);
+    }
+
+    /**
+     * request to change data for checklist
+     * @param {requestData} data
+     * @return {Promise<Response>}
+     */
+    checklistSet(data) {
+        const url = this.serverAddr + '/checklist/' + data.taskID + '/';
+        this.requestPut.body = JSON.stringify(data);
+
+        return fetch(url, this.requestPut);
+    }
+
+    /**
+     * request to delete checklist from task
+     * @param {requestData} data
+     * @return {Promise<Response>}
+     */
+    checklistDelete(data) {
+        const url = this.serverAddr + '/checklist/' + data.taskID + '/';
+        this.requestDelete.body = JSON.stringify(data);
+
+        return fetch(url, this.requestDelete);
+    }
+
+    /**
+     * request to create attachment
+     * @param {requestData} data
+     * @param {string} taskID
+     * @return {Promise<Response>}
+     */
+    attachmentCreate(data) {
+        console.log(data);
+        const url = this.serverAddr + '/attachment/' + data.get('taskID') + '/';
+        this.requestFormData.body = data;
+
+        return fetch(url, this.requestFormData);
+    }
+
+    /**
+     * request to delete attachment from task
+     * @param {requestData} data
+     * @return {Promise<Response>}
+     */
+    attachmentDelete(data) {
+        const url = this.serverAddr + '/attachment/' + data.taskID + '/';
+        this.requestDelete.body = JSON.stringify(data);
+
+        return fetch(url, this.requestDelete);
+    }
+
+    /**
+     * Check token error from server
+     * @param {JSON} responseBody
+     * @return {boolean}
+     */
+    ifTokenValid(responseBody) {
+        if (responseBody.status === 777) {
+            this.setToken(responseBody.token);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Set token to headers of requests
+     * @param {string} token
+     */
+    setToken(token) {
+        this.requestPost.headers['X-CSRF-Token'] = token;
+        this.requestPut.headers['X-CSRF-Token'] = token;
+        this.requestDelete.headers['X-CSRF-Token'] = token;
+        this.requestFormData.headers['X-CSRF-Token'] = token;
     }
 }
 

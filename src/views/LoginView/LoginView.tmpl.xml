@@ -1,11 +1,11 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
-    <div class="container-without-navbar">
-        <form id="loginForm" class="login-form" onsubmit="return false">
+    <div class="default__container__without-navbar">
+        <form class="login-form" id="loginForm" onsubmit="return false">
             <div>Авторизация</div>
             <fest:include context="json.emailInput" src="../../components/NamedInput/NamedInput.tmpl.xml"/>
             <fest:include context="json.passwordInput" src="../../components/NamedInput/NamedInput.tmpl.xml"/>
             <fest:include context="json.signInButton" src="../../components/SubmitButton/SubmitButton.tmpl.xml"/>
-            <a class="login-reg-a" href="/reg">Ещё нет аккаунта? Зарегистрироваться!</a>
+            <a class="login-reg__a" href="/reg">Ещё нет аккаунта? Зарегистрироваться!</a>
         </form>
     </div>
 </fest:template>

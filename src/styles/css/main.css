@@ -19,9 +19,12 @@ input {
 }
 
 input:focus {
-    border: 2px solid var(--violet);
+/*    border: 2px solid var(--violet); */
+
     outline: none;
+    box-shadow: 0 0 0 2px var(--electric-indigo);
 }
+
 
 body {
     margin: 0;
