@@ -46,6 +46,9 @@ export default class CurrentBoardView extends BaseView {
         document.getElementById('boardSettings').addEventListener('click', () => {
             this.eventBus.emit('currentBoardView:deleteBoard', null);
         });
+        document.getElementById('addMember').addEventListener('click', () => {
+            this.eventBus.emit('currentBoardView:addMember', null);
+        });
     }
 
     /**

@@ -4,6 +4,8 @@ import CurrentBoardModel from '../models/CurrentBoardModel.js';
 import TaskDetailedController from '../components/TaskDetailed/TaskDetailedController.js';
 import globalEventBus from '../utils/globalEventBus.js';
 import CardController from '../components/Card/CardController.js';
+import MembersPopup from "../components/MembersPopup/MembersPopup.js";
+import MemberInvitePopup from "../components/MemberInvitePopup/MemberInvitePopup.js";
 
 /**
  * Current board controller
@@ -144,10 +146,51 @@ export default class CurrentBoardController extends BaseController {
     }
 
     /**
+     * Initialize members popups
+     */
+    initMembersPopups() {
+        const membersPopupEl = document.getElementById('membersPopup');
+        this.membersPopup = new MembersPopup(membersPopupEl);
+        this.memberInvitePopup = new MemberInvitePopup(membersPopupEl);
+    }
+
+    /**
+     * Add event listeners related to members
+     */
+    addMembersEventListeners() {
+        this.eventBus.on('currentBoardView:addMember', () => {
+            this.membersPopup.render(this.model.board);
+        });
+        this.membersPopup.eventBus.on('membersPopup:memberDelete', (member) => {
+            this.model.memberDelete(member);
+        });
+        this.membersPopup.eventBus.on('membersPopup:memberInvite', () => {
+            this.memberInvitePopup.render();
+        });
+        this.memberInvitePopup.eventBus.on('memberInvitePopup:memberInvite', (memberUsername) => {
+            this.model.memberInvite(memberUsername);
+        });
+        this.eventBus.on('currentBoardModel:memberInviteFailed', (codes) => {
+            console.log('currentBoardModel:memberInviteFailed', codes);
+        });
+        this.eventBus.on('currentBoardModel:memberInviteSuccess', (responseBody) => {
+            console.log('currentBoardModel:memberInviteSuccess', responseBody);
+            // TODO: сделать добавление на вьюху доски
+            this.membersPopup.render(this.model.board);
+        });
+        this.memberInvitePopup.eventBus.on('memberInvitePopup:popupClose', () => {
+            this.membersPopup.render(this.model.board);
+        });
+    }
+
+    /**
      * Render view
      */
     render() {
         super.render();
         this.view.render(this.model.board);
+
+        this.initMembersPopups();
+        this.addMembersEventListeners();
     }
 }

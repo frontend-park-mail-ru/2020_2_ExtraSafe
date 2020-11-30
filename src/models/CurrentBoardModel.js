@@ -15,7 +15,7 @@ export default class CurrentBoardModel {
         this.board = {
             boardID: boardID,
             boardName: boardName,
-            boardCollaborators: [],
+            boardMembers: [],
         };
     }
 
@@ -36,25 +36,9 @@ export default class CurrentBoardModel {
                 this.board.boardID = responseBody.boardID;
                 this.board.boardName = responseBody.boardName;
                 this.board.boardTags = responseBody.boardTags;
-                // // TODO: убрать заглушку
-                // this.board.boardTags = [
-                //     {
-                //         tagID: 0,
-                //         tagName: 'front',
-                //         tagColor: '#FFE380',
-                //     },
-                //     {
-                //         tagID: 1,
-                //         tagName: 'back',
-                //         tagColor: '#FF8080',
-                //     },
-                //     {
-                //         tagID: 2,
-                //         tagName: 'chill',
-                //         tagColor: '#60FFB2',
-                //     },
-                // ];
+                this.board.boardMembers = responseBody.boardMembers;
                 this.initTags();
+                this.initMembers();
                 this.eventBus.emit('currentBoardModel:getBoardSuccess', responseBody);
             }
             return responseBody;
@@ -72,6 +56,19 @@ export default class CurrentBoardModel {
                 tag.tagBodyHtmlID = `tagBody${tag.tagID}`;
                 tag.tagCheckID = `tagCheck${tag.tagID}`;
                 tag.tagEditID = `tagEditID${tag.tagID}`;
+            }
+        }
+    }
+
+    /**
+     * Initialize members data
+     */
+    initMembers() {
+        if (Array.isArray(this.board.boardMembers) && this.board.boardMembers.length) {
+            for (const member of this.board.boardMembers) {
+                member.memberHtmlID = `${member.username}Member`;
+                member.memberDeleteID =`${member.username}MemberDelete`;
+                member.memberAvatarSrc = `${network.serverAddr}/avatar/${member.avatar}`;
             }
         }
     }
@@ -130,5 +127,35 @@ export default class CurrentBoardModel {
     changeCardOrderOnServer(cards) {
         const data = {cards: cards};
         network.cardsOrder(data, this.board.boardID).then((response) => {});
+    }
+
+    /**
+     * Delete member from board
+     * @param {Object} member
+     */
+    memberDelete(member) {
+        // TODO: сеть
+        const index = this.board.boardMembers.findIndex((m) => {
+            return m.username === member.username;
+        });
+        this.board.boardMembers.splice(index, 1);
+    }
+
+    /**
+     * Invite member to board
+     * @param {string} memberUsername
+     */
+    memberInvite(memberUsername) {
+        // TODO: сеть надо чтоб возвращало usershort
+        this.eventBus.emit('currentBoardModel:memberInviteFailed', responseBody.codes);
+
+        const newMember = {
+            email: 'egor@mail.ru',
+            username: 'egor',
+            fullName: '',
+            avatar: 'default/default_avatar.png',
+        };
+        this.board.boardMembers.push(newMember);
+        this.eventBus.emit('currentBoardModel:memberInviteSuccess', responseBody);
     }
 }
