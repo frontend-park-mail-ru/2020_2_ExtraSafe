@@ -180,8 +180,25 @@ export default class TaskDetailedController extends BaseController {
      * Add event listeners related to assigners
      */
     addAssignersEventListeners() {
-        this.eventBus.on('taskAssignersPopup:assignerAdded', (user) => {
-
+        this.taskAssignersPopup.eventBus.on('taskAssignersPopup:assignerAdded', (user) => {
+            this.model.addAssigner(user);
+            this.view.addAssigner(user);
+        });
+        this.taskAssignersPopup.eventBus.on('taskAssignersPopup:assignerRemoved', (user) => {
+            this.model.removeAssigner(user);
+            this.view.removeAssigner(user);
+        });
+        this.eventBus.on('taskDetailedModel:addAssignerFailed', (codes) => {
+            console.log('taskDetailedModel:addAssignerFailed', codes);
+        });
+        this.eventBus.on('taskDetailedModel:addAssignerSuccess', (responseBody) => {
+            console.log('taskDetailedModel:addAssignerSuccess', responseBody);
+        });
+        this.eventBus.on('taskDetailedModel:removeAssignerFailed', (codes) => {
+            console.log('taskDetailedModel:removeAssignerFailed', codes);
+        });
+        this.eventBus.on('taskDetailedModel:removeAssignerSuccess', (responseBody) => {
+            console.log('taskDetailedModel:removeAssignerSuccess', responseBody);
         });
     }
 
@@ -193,7 +210,6 @@ export default class TaskDetailedController extends BaseController {
     render(board, task) {
         this.model.task = task;
         this.model.board = board;
-        // this.model.getAttachments();
 
         this.view.render(task);
         this.addEventListeners();
@@ -203,5 +219,6 @@ export default class TaskDetailedController extends BaseController {
         this.addAttachmentsEventListeners();
         this.addCheckListsEventListeners();
         this.addCheckListsElementsEventListeners();
+        this.addAssignersEventListeners();
     }
 }

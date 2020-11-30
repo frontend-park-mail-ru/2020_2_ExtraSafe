@@ -5,6 +5,7 @@ import tagDetailedTemplate from './TagDetailed.tmpl.xml';
 import attachmentTemplate from './Attachment.tmpl.xml';
 import checkListTemplate from './CheckList.tmpl.xml';
 import checkListElementTemplate from './CheckListElement.tmpl.xml';
+import taskAssignerTemplate from './TaskAssigner.tmpl.xml';
 
 /**
  * Task detailed view
@@ -115,6 +116,24 @@ export default class TaskDetailedView extends BaseView {
     removeCheckListElement(checkListElementObj) {
         document.getElementById(checkListElementObj.checkListElementHtmlID).remove();
         this.eventBus.emit('taskDetailedView:checkListElementRemove', checkListElementObj);
+    }
+
+    /**
+     * Add assigner view
+     * @param {Object} user
+     */
+    addAssigner(user) {
+        const taskAssignerAddEl = document.getElementById('taskAssignersAdd');
+        const taskAssignerEl = rendering.createElementsFromTmpl(taskAssignerTemplate(user));
+        document.getElementById('taskAssignersDiv').insertBefore(taskAssignerEl, taskAssignerAddEl);
+    }
+
+    /**
+     * Remove assigner view
+     * @param {Object} user
+     */
+    removeAssigner(user) {
+        document.getElementById(user.memberTaskHtmlID).remove();
     }
 
     /**

@@ -2,14 +2,13 @@
     <img class="edit-add-collaborator__close" src="../../img/icons/close.svg" id="taskAssignersPopupClose" alt="close"/>
 
     <div class="board-users" style="display: flex; width: 100%">
-        <div class="edit-add-collaborator__body">
+        <div class="edit-add-collaborator__body" id="taskAssignersPopupDiv">
             <div class="edit-add-collaborator__title">
                 Участники
             </div>
 
-            <div class="edit-add-collaborator__element" id="taskAssignersPopupDiv">
-                <fest:for iterate="json.users" index="i" value="v">
-                    <div id="{v.memberTaskPopupHtmlID}" style="width: 100%;display: flex;flex-direction: row;">
+            <fest:for iterate="json.users" index="i" value="v">
+                <div class="edit-add-collaborator__element" id="{v.memberTaskPopupHtmlID}">
                         <div class="edit-add-collaborator__left-side">
                             <img class="edit-add-collaborator__element__avatar" src="{v.memberAvatarSrc}"
                                  alt="user"/>
@@ -29,10 +28,8 @@
                                 </fest:if>
                             </fest:attributes>
                         </img>
-                    </div>
-                </fest:for>
-            </div>
-
+                </div>
+            </fest:for>
         </div>
     </div>
 </fest:template>

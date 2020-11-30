@@ -193,6 +193,8 @@
 
         position: relative;
 
+        @include standard-shadow;
+
         align-items: center;
         justify-content: space-between;
 

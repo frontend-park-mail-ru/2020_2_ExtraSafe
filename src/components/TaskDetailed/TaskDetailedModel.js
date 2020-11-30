@@ -201,41 +201,6 @@ export default class TaskDetailedModel {
         return newAttachment;
     }
 
-    // /**
-    //  * Get attachments from server
-    //  */
-    // getAttachments() {
-    //     // TODO: запрос в сеть
-    //     const attachments = [
-    //         {
-    //             attachmentID: 0,
-    //             fileName: 'cat.png',
-    //             fileUrl: 'https://cataas.com/cat',
-    //         },
-    //         {
-    //             attachmentID: 1,
-    //             fileName: 'masha.png',
-    //             fileUrl: 'https://cataas.com/cat/says/masha_ochen_lenivaya',
-    //         },
-    //     ];
-    //     this.task.attachments = attachments;
-    //     this.initAttachments();
-    // }
-    //
-    // /**
-    //  * Initialize attachments data
-    //  */
-    // initAttachments() {
-    //     if (Array.isArray(this.task.attachments) && this.task.attachments.length) {
-    //         for (const attachment of this.task.attachments) {
-    //             attachment.fileHtmlID = `file${attachment.attachmentID}`;
-    //             attachment.fileNameID = `fileName${attachment.attachmentID}`;
-    //             attachment.fileIconID = `fileIcon${attachment.attachmentID}`;
-    //             attachment.fileRemoveID = `fileRemove${attachment.attachmentID}`;
-    //         }
-    //     }
-    // }
-
     /**
      * Remove attachment
      * @param {Object} fileObj
@@ -434,7 +399,60 @@ export default class TaskDetailedModel {
      * @param {Object} user
      */
     addAssigner(user) {
+        const data = {
+            taskID: this.task.taskID,
+            assignerUsername: user.memberUsername,
+        };
 
+        network.userAddToTask(data).then((response) => {
+            return response.json();
+        }).then((responseBody) => {
+            if (responseBody.status > 200) {
+                if (!network.ifTokenValid(checkListObj)) {
+                    this.addAssigner(user);
+                    return;
+                }
+                this.eventBus.emit('taskDetailedModel:addAssignerFailed', responseBody.codes);
+            } else {
+                this.eventBus.emit('taskDetailedModel:addAssignerSuccess', responseBody);
+            }
+        }).catch((error) => {
+            return;
+        });
+
+        this.task.taskAssigners.push(user);
+    }
+
+    /**
+     * Remove assigner
+     * @param {Object} user
+     */
+    removeAssigner(user) {
+        const data = {
+            taskID: this.task.taskID,
+            assignerUsername: user.memberUsername,
+        };
+
+        network.userRemoveFromTask(data).then((response) => {
+            return response.json();
+        }).then((responseBody) => {
+            if (responseBody.status > 200) {
+                if (!network.ifTokenValid(checkListObj)) {
+                    this.removeAssigner(user);
+                    return;
+                }
+                this.eventBus.emit('taskDetailedModel:removeAssignerFailed', responseBody.codes);
+            } else {
+                this.eventBus.emit('taskDetailedModel:removeAssignerSuccess', responseBody);
+            }
+        }).catch((error) => {
+            return;
+        });
+
+        const index = this.task.taskAssigners.findIndex((assigner) => {
+            return assigner.memberName === user.memberName;
+        });
+        this.task.taskAssigners.splice(index, 1);
     }
 
     /**

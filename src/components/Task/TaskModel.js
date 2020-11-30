@@ -35,7 +35,7 @@ export default class TaskModel {
         this.initTags();
         this.initAttachments();
         this.initCheckLists();
-        // this.initAssigners();
+        this.initAssigners();
     }
 
     /**
@@ -105,18 +105,22 @@ export default class TaskModel {
         }
     }
 
-    // /**
-    //  * Initialize assigners data
-    //  */
-    // initAssigners() {
-    //     if (Array.isArray(this.task.taskAssigners) && this.task.taskAssigners.length) {
-    //         for (const assigner of this.task.taskAssigners) {
-    //             assigner.taskAssignerPopupHtmlID = `${assigner.username}AssignerPopup`;
-    //             assigner.taskAssignerAvatarSrc = `${network.serverAddr}/avatar/${assigner.avatar}`;
-    //             assigner.taskAssignerCheckID = `${assigner.username}AssignerCheck`;
-    //         }
-    //     }
-    // }
+    /**
+     * Initialize assigners data
+     */
+    initAssigners() {
+        if (Array.isArray(this.task.taskAssigners) && this.task.taskAssigners.length) {
+            for (const assigner of this.task.taskAssigners) {
+                assigner.memberHtmlID = `${assigner.username}Member`;
+                assigner.memberDeleteID = `${assigner.username}MemberDelete`;
+                assigner.memberTaskHtmlID = `${assigner.username}Task`;
+                assigner.memberTaskPopupHtmlID = `${assigner.username}TaskPopup`;
+                assigner.memberTaskPopupCheckID = `${assigner.username}TaskPopupCheck`;
+                assigner.memberAvatarSrc = `${network.serverAddr}/avatar/${assigner.avatar}`;
+                assigner.memberUsername = assigner.username;
+            }
+        }
+    }
 
     /**
      * Update task name data
