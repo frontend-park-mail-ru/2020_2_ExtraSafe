@@ -42,41 +42,42 @@ export default class CardController extends BaseController {
         });
 
         for (const task of tasks) {
-            const checkLists = [
-                {
-                    checklistID: 0,
-                    checklistName: 'Собрать бибы',
-                    checklistItems: [
-                        {
-                            checkListElementName: 'biba',
-                            isChecked: true,
-                        },
-                        {
-                            checkListElementName: 'boba',
-                            isChecked: false,
-                        },
-                    ],
-                },
-                {
-                    checklistID: 1,
-                    checklistName: 'Обустроить бункер',
-                    checklistItems: [
-                        {
-                            checkListElementName: 'opa',
-                            isChecked: false,
-                        },
-                        {
-                            checkListElementName: 'hoba',
-                            isChecked: true,
-                        },
-                        {
-                            checkListElementName: 'pipka',
-                            isChecked: false,
-                        },
-                    ],
-                },
-            ];
-            this.createTask(task.taskID, task.taskName, task.taskDescription, task.taskOrder, task.taskTags, task.taskAttachments, checkLists);
+            // const checkLists = [
+            //     {
+            //         checklistID: 0,
+            //         checklistName: 'Собрать бибы',
+            //         checklistItems: [
+            //             {
+            //                 checkListElementName: 'biba',
+            //                 isChecked: true,
+            //             },
+            //             {
+            //                 checkListElementName: 'boba',
+            //                 isChecked: false,
+            //             },
+            //         ],
+            //     },
+            //     {
+            //         checklistID: 1,
+            //         checklistName: 'Обустроить бункер',
+            //         checklistItems: [
+            //             {
+            //                 checkListElementName: 'opa',
+            //                 isChecked: false,
+            //             },
+            //             {
+            //                 checkListElementName: 'hoba',
+            //                 isChecked: true,
+            //             },
+            //             {
+            //                 checkListElementName: 'pipka',
+            //                 isChecked: false,
+            //             },
+            //         ],
+            //     },
+            // ];
+            this.createTask(task.taskID, task.taskName, task.taskDescription, task.taskOrder,
+                task.taskTags, task.taskAttachments, task.taskChecklists);
         }
     }
 

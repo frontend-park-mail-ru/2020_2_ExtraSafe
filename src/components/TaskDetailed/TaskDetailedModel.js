@@ -267,22 +267,48 @@ export default class TaskDetailedModel {
     /**
      * Create new check-list
      * @param {string} checkListName
-     * @return {Object}
      */
     createCheckList(checkListName) {
-        const checkListID = Math.floor(Math.random() * Math.floor(1000));
+        const data = {
+            taskID: this.task.taskID,
+            checklistName: checkListName,
+            checklistItems: [],
+        };
+
+        network.checklistCreate(data).then((response) => {
+            return response.json();
+        }).then((responseBody) => {
+            if (responseBody.status > 200) {
+                if (!network.ifTokenValid(responseBody)) {
+                    this.checklistCreate(data);
+                    return;
+                }
+                this.eventBus.emit('taskDetailedModel:createCheckListFailed', responseBody.codes);
+            } else {
+                this.eventBus.emit('taskDetailedModel:createCheckListSuccess', responseBody);
+            }
+        }).catch((error) => {
+            return;
+        });
+    }
+
+    /**
+     * Add check-list
+     * @param {Object} responseBody
+     * @return {Object}
+     */
+    addCheckList(responseBody) {
         const newCheckList = {
-            checkListID: checkListID,
-            checkListHtmlID: `checkList${checkListID}`,
-            checkListElementsDivID: `checkListElementsDiv${checkListID}`,
-            checkListAddNewElementID: `checkListAddNewElement${checkListID}`,
-            checkListRemoveID: `checkListRemove${checkListID}`,
-            checkListName: checkListName,
+            checkListID: responseBody.checklistID,
+            checkListHtmlID: `checkList${responseBody.checklistID}`,
+            checkListElementsDivID: `checkListElementsDiv${responseBody.checklistID}`,
+            checkListAddNewElementID: `checkListAddNewElement${responseBody.checklistID}`,
+            checkListRemoveID: `checkListRemove${responseBody.checklistID}`,
+            checkListName: responseBody.checklistName,
             checkListElements: [],
         };
         this.task.checkLists.push(newCheckList);
         return newCheckList;
-        // TODO: запрос в сеть
     }
 
     /**
@@ -290,11 +316,67 @@ export default class TaskDetailedModel {
      * @param {Object} checkListObj
      */
     removeCheckList(checkListObj) {
-        // TODO: добавить запрос в сеть
+        const data = {
+            taskID: this.task.taskID,
+            checklistID: checkListObj.checkListID,
+        };
+
+        network.checklistDelete(data).then((response) => {
+            return response.json();
+        }).then((responseBody) => {
+            if (responseBody.status > 200) {
+                if (!network.ifTokenValid(responseBody)) {
+                    this.checklistDelete(data);
+                    return;
+                }
+                this.eventBus.emit('taskDetailedModel:removeCheckListFailed', responseBody.codes);
+            } else {
+                this.eventBus.emit('taskDetailedModel:removeCheckListSuccess', responseBody);
+            }
+        }).catch((error) => {
+            return;
+        });
+
         const removedCheckListIndex = this.task.checkLists.findIndex((checkList) => {
             return checkList.checkListID === checkList.checkListID;
         });
         this.task.checkLists.splice(removedCheckListIndex, 1);
+    }
+
+    /**
+     * Update check-list
+     * @param {Object} checkListObj
+     */
+    updateCheckList(checkListObj) {
+        const data = {
+            taskID: this.task.taskID,
+            checklistID: checkListObj.checkListID,
+            checklistName: checkListObj.checkListName,
+            checklistItems: [],
+        };
+
+        for (const checkListElement of checkListObj.checkListElements) {
+            data.checklistItems.push({
+                checkListElementName: checkListElement.checkListElementName,
+                isChecked: checkListElement.isChecked,
+            });
+        }
+
+        network.checklistSet(data).then((response) => {
+            return response.json();
+        }).then((responseBody) => {
+            if (responseBody.status > 200) {
+                if (!network.ifTokenValid(responseBody)) {
+                    this.checklistSet(data);
+                    return;
+                }
+                this.eventBus.emit('taskDetailedModel:updateCheckListFailed', responseBody.codes);
+            } else {
+                this.eventBus.emit('taskDetailedModel:updateCheckListSuccess', responseBody);
+            }
+        }).catch((error) => {
+            return;
+        });
     }
 
     /**
@@ -310,7 +392,8 @@ export default class TaskDetailedModel {
         checkListElement.isInitialized = true;
         checkListElement.isChecked = false;
         checkListFound.checkListElements.push(checkListElement);
-        // TODO: запрос в сеть
+
+        this.updateCheckList(checkListFound);
     }
 
     /**
@@ -323,7 +406,11 @@ export default class TaskDetailedModel {
         isChecked = checkListElement.isChecked) {
         checkListElement.checkListElementName = checkListElementName;
         checkListElement.isChecked = isChecked;
-        // TODO: запрос в сеть
+
+        const checkListFound = this.task.checkLists.find((checkList) => {
+            return checkList.checkListID === checkListElement.checkListID;
+        });
+        this.updateCheckList(checkListFound);
     }
 
     /**
@@ -331,7 +418,6 @@ export default class TaskDetailedModel {
      * @param {Object} checkListElementObj
      */
     removeCheckListElement(checkListElementObj) {
-        // TODO: добавить запрос в сеть
         const checkListFound = this.task.checkLists.find((checkList) => {
             return checkList.checkListID === checkListElementObj.checkListID;
         });
@@ -339,6 +425,8 @@ export default class TaskDetailedModel {
             return element.checkListElementID === checkListElementObj.checkListElementID;
         });
         checkListFound.checkListElements.splice(elementIndex, 1);
+
+        this.updateCheckList(checkListFound);
     }
 
     /**

@@ -118,11 +118,30 @@ export default class TaskDetailedController extends BaseController {
      */
     addCheckListsEventListeners() {
         this.checkListPopup.eventBus.on('checkListPopup:popupCreate', (checkListName) => {
-            const newCheckList = this.model.createCheckList(checkListName);
-            this.view.addCheckList(newCheckList);
+            this.model.createCheckList(checkListName);
         });
         this.eventBus.on('taskDetailedView:removeCheckList', (checkList) => {
             this.model.removeCheckList(checkList);
+        });
+        this.eventBus.on('taskDetailedModel:createCheckListFailed', (codes) => {
+            console.log('taskDetailedModel:createCheckListFailed', codes);
+        });
+        this.eventBus.on('taskDetailedModel:createCheckListSuccess', (responseBody) => {
+            console.log('taskDetailedModel:createCheckListSuccess', responseBody);
+            const newCheckList = this.model.addCheckList(responseBody);
+            this.view.addCheckList(newCheckList);
+        });
+        this.eventBus.on('taskDetailedModel:removeCheckListFailed', (codes) => {
+            console.log('taskDetailedModel:removeCheckListFailed', codes);
+        });
+        this.eventBus.on('taskDetailedModel:removeCheckListSuccess', (responseBody) => {
+            console.log('taskDetailedModel:removeCheckListSuccess', responseBody);
+        });
+        this.eventBus.on('taskDetailedModel:updateCheckListFailed', (codes) => {
+            console.log('taskDetailedModel:updateCheckListFailed', codes);
+        });
+        this.eventBus.on('taskDetailedModel:updateCheckListSuccess', (responseBody) => {
+            console.log('taskDetailedModel:updateCheckListSuccess', responseBody);
         });
     }
 
