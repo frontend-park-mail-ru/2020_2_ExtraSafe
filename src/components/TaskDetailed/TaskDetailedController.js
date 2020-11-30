@@ -3,7 +3,7 @@ import TaskDetailedModel from './TaskDetailedModel.js';
 import TaskDetailedView from './TaskDetailedView.js';
 import TagAddPopup from './TagAddPopup/TagAddPopup.js';
 import TagCreatePopup from './TagCreatePopup/TagCreatePopup.js';
-import globalEventBus from "../../utils/globalEventBus.js";
+import globalEventBus from '../../utils/globalEventBus.js';
 
 /**
  * Task detailed controller
@@ -59,10 +59,7 @@ export default class TaskDetailedController extends BaseController {
             this.tagAddPopup.render(this.model.task.tags, this.model.board.boardTags);
         });
         this.tagCreatePopup.eventBus.on('tagCreatePopup:tagCreate', ([tagName, tagColor]) => {
-            const tag = this.model.createTag(tagName, tagColor);
-            this.view.addTag(tag);
-            this.eventBus.emit('taskDetailedController:tagAdded', tag);
-            this.tagAddPopup.render(this.model.task.tags, this.model.board.boardTags);
+            this.model.createTag(tagName, tagColor);
         });
         this.tagCreatePopup.eventBus.on('tagCreatePopup:tagEdit', (tag) => {
             this.model.changeTag(tag);
@@ -72,6 +69,12 @@ export default class TaskDetailedController extends BaseController {
             globalEventBus.emit('taskDetailedController:tagEdit', tag);
             this.tagAddPopup.render(this.model.task.tags, this.model.board.boardTags);
         });
+        this.eventBus.on('taskDetailedModel:createTagSuccess', (responseBody) => {
+            const tag = this.model.addCreatedTag(responseBody);
+            this.view.addTag(tag);
+            this.eventBus.emit('taskDetailedController:tagAdded', tag);
+            this.tagAddPopup.render(this.model.task.tags, this.model.board.boardTags);
+        });
     }
 
     /**
@@ -79,10 +82,15 @@ export default class TaskDetailedController extends BaseController {
      */
     addAttachmentsEventListeners() {
         this.eventBus.on('taskDetailedView:uploadFile', (file) => {
-            this.model.uploadFile(file);
+            this.model.uploadFileOnServer(file);
         });
-        this.eventBus.on('taskDetailedModel:uploadFileSuccess', (fileObj) => {
-            this.view.addAttachment(fileObj);
+        this.eventBus.on('taskDetailedModel:uploadFileOnServerSuccess', (responseBody) => {
+            console.log('taskDetailedModel:uploadFileOnServerSuccess', responseBody);
+            const newFile = this.model.addFile(responseBody);
+            this.view.addAttachment(newFile);
+        });
+        this.eventBus.on('taskDetailedModel:uploadFileOnServerFailed', (codes) => {
+            console.log('taskDetailedModel:uploadFileOnServerFailed', codes);
         });
         this.eventBus.on('taskDetailedView:removeAttachment', (fileObj) => {
             this.model.removeAttachment(fileObj);

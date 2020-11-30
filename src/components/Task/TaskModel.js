@@ -176,4 +176,38 @@ export default class TaskModel {
         delete this.task.tags[tagIndex].isSelected;
         return this.task.tags[tagIndex];
     }
+
+    /**
+     * Get task detailed
+     */
+    getTaskDetailed() {
+        network.taskGet(this.task.taskID).then((response) => {
+            return response.json();
+        }).then((responseBody) => {
+            if (responseBody.status > 200) {
+                if (!network.ifTokenValid(responseBody)) {
+                    this.getTaskDetailed();
+                    return;
+                }
+                this.eventBus.emit('taskModel:getTaskDetailedFailed', responseBody.codes);
+            } else {
+                // TODO: полукостыль
+                for (const attachment of responseBody.taskAttachments) {
+                    this.task.attachments.push({
+                        attachmentID: attachment.attachmentID,
+                        fileName: attachment.attachmentFileName,
+                        fileUrl: `${network.serverAddr}/files/${attachment.attachmentFilePath}`,
+                        fileUrlForDelete: attachment.attachmentFilePath,
+                        fileHtmlID: `file${attachment.attachmentID}`,
+                        fileNameID: `fileName${attachment.attachmentID}`,
+                        fileIconID: `fileIcon${attachment.attachmentID}`,
+                        fileRemoveID: `fileRemove${attachment.attachmentID}`,
+                    });
+                }
+                this.task.comments = responseBody.taskComments;
+                this.eventBus.emit('taskModel:getTaskDetailedSuccess', responseBody);
+            }
+            return responseBody;
+        });
+    }
 }

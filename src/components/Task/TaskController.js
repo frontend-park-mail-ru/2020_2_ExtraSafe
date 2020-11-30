@@ -56,6 +56,10 @@ export default class TaskController extends BaseController {
             this.view.onTaskNameUpdated(taskJSON);
         });
         this.eventBus.on('taskView:openTaskDetailed', () => {
+            this.model.getTaskDetailed();
+        });
+        this.eventBus.on('taskModel:getTaskDetailedSuccess', (responseBody) => {
+            console.log(responseBody);
             this.taskDetailed.render(this.model.board, this.model.task);
         });
         this.eventBus.on('taskView:deleteTaskFromArray', () => {
@@ -72,6 +76,10 @@ export default class TaskController extends BaseController {
         });
         this.taskDetailed.eventBus.on('taskDetailedView:closed', () => {
             this.model.updateTaskForServer();
+            // TODO: костыль
+            console.log('be');
+            this.taskDetailed.model.task.attachments = [];
+            this.taskDetailed.model.task.comments = [];
         });
         this.eventBus.on('taskModel:createTaskFailed', (errorCodes) => {
             for (const code of errorCodes) {

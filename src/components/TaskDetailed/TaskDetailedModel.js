@@ -1,3 +1,5 @@
+import network from '../../utils/network.js';
+
 /**
  * Task detailed model
  */
@@ -15,8 +17,26 @@ export default class TaskDetailedModel {
      * @param {Object} tag
      */
     addTag(tag) {
+        const tagForServer = {
+            taskID: this.task.taskID,
+            tagID: tag.tagID,
+        };
+
+        network.tagAddToTask(tagForServer).then((response) => {
+            return response.json();
+        }).then((responseBody) => {
+            if (responseBody.status > 200) {
+                if (!network.ifTokenValid(responseBody)) {
+                    this.addTag(tag);
+                    return;
+                }
+            }
+        }).catch((error) => {
+            return;
+        });
+
         this.task.tags.push(tag);
-        // TODO: запрос в сеть
+        // TODO: запрос в сеть +
     }
 
     /**
@@ -27,9 +47,29 @@ export default class TaskDetailedModel {
         const tagBoardIndex = this.board.boardTags.findIndex((tag) => {
             return tag.tagID === changedTag.tagID;
         });
+
+        const tagForServer = {
+            boardID: this.board.boardID,
+            tagID: changedTag.tagID,
+            tagName: changedTag.tagName,
+            tagColor: changedTag.tagColor,
+        };
+
+        network.tagSet(tagForServer).then((response) => {
+            return response.json();
+        }).then((responseBody) => {
+            if (responseBody.status > 200) {
+                if (!network.ifTokenValid(responseBody)) {
+                    this.changeTag(changedTag);
+                    return;
+                }
+            }
+        }).catch((error) => {
+            return;
+        });
         this.board.boardTags[tagBoardIndex].tagColor = changedTag.tagColor;
         this.board.boardTags[tagBoardIndex].tagName = changedTag.tagName;
-        // TODO: запрос в сеть
+        // TODO: запрос в сеть +
     }
 
     /**
@@ -41,52 +81,124 @@ export default class TaskDetailedModel {
             return tag.tagID === removedTag.tagID;
         });
         this.task.tags.splice(tagIndex, 1);
-        // TODO: запрос в сеть
+
+        const tagForServer = {
+            taskID: this.task.taskID,
+            tagID: removedTag.tagID,
+        };
+
+        network.tagRemoveFromTask(tagForServer).then((response) => {
+            return response.json();
+        }).then((responseBody) => {
+            if (responseBody.status > 200) {
+                if (!network.ifTokenValid(responseBody)) {
+                    this.removeTag(removedTag);
+                    return;
+                }
+            }
+        }).catch((error) => {
+            return;
+        });
+        // TODO: запрос в сеть +
+    }
+
+    /**
+     * Create new tag on server
+     * @param {string} tagName
+     * @param {string} tagColor
+     */
+    createTag(tagName, tagColor) {
+        const newTagForServer = {
+            boardID: this.board.boardID,
+            tagColor: tagColor,
+            tagName: tagName,
+        };
+
+        network.tagCreate(newTagForServer).then((response) => {
+            return response.json();
+        }).then((responseBody) => {
+            if (responseBody.status > 200) {
+                if (!network.ifTokenValid(responseBody)) {
+                    this.removeTag(removedTag);
+                    return;
+                }
+                this.eventBus.emit('taskDetailedModel:createTagFailed', responseBody.codes);
+            } else {
+                this.eventBus.emit('taskDetailedModel:createTagSuccess', responseBody);
+            }
+        }).catch((error) => {
+            return;
+        });
+        // TODO: запрос в сеть, тут еще она это добавляется к задаче короч +-
     }
 
     /**
      * Create new tag
-     * @param {string} tagName
-     * @param {string} tagColor
+     * @param {Object} responseBody
      * @return {Object}
      */
-    createTag(tagName, tagColor) {
-        const tagID = Math.floor(Math.random() * Math.floor(1000));
+    addCreatedTag(responseBody) {
         const newTag = {
-            tagID: tagID,
-            tagDetailedID: `tagDetailed${tagID}`,
-            tagDetailedNameID: `tagDetailedName${tagID}`,
-            tagBodyHtmlID: `tagBody${tagID}`,
-            tagCheckID: `tagCheck${tagID}`,
-            tagEditID: `tagEditID${tagID}`,
-            tagColor: tagColor,
-            tagName: tagName,
+            tagID: responseBody.tagID,
+            tagDetailedID: `tagDetailed${responseBody.tagID}`,
+            tagDetailedNameID: `tagDetailedName${responseBody.tagID}`,
+            tagBodyHtmlID: `tagBody${responseBody.tagID}`,
+            tagCheckID: `tagCheck${responseBody.tagID}`,
+            tagEditID: `tagEditID${responseBody.tagID}`,
+            tagColor: responseBody.tagColor,
+            tagName: responseBody.tagName,
         };
-        this.task.tags.push(newTag);
+        // this.task.tags.push(newTag);
         this.board.boardTags.push(newTag);
+        this.addTag(newTag);
         return newTag;
-        // TODO: запрос в сеть, тут еще она это добавляется к задаче короч
     }
 
     /**
-     * Upload file
+     * Upload file on server
      * @param {File} file
      */
-    uploadFile(file) {
-        // TODO: добавить запрос в сеть
-        const attachmentID = Math.floor(Math.random() * Math.floor(1000));
-        const fileUrl = 'https://cataas.com/cat';
+    uploadFileOnServer(file) {
+        const formData = new FormData();
+        formData.append('attachmentFileName', file.name);
+        formData.append('taskID', this.task.taskID);
+        formData.append('file', file);
+
+        network.attachmentCreate(formData).then((response) => {
+            return response.json();
+        }).then((responseBody) => {
+            if (responseBody.status > 200) {
+                if (!network.ifTokenValid(responseBody)) {
+                    this.uploadFileOnServer(file);
+                    return;
+                }
+                this.eventBus.emit('taskDetailedModel:uploadFileOnServerFailed', responseBody.codes);
+            } else {
+                this.eventBus.emit('taskDetailedModel:uploadFileOnServerSuccess', responseBody);
+            }
+        }).catch((error) => {
+            return;
+        });
+    }
+
+    /**
+     * Add file
+     * @param {Object} responseBody
+     * @return {Object}
+     */
+    addFile(responseBody) {
         const newAttachment = {
-            attachmentID: attachmentID,
-            fileName: file.name,
-            fileUrl: fileUrl,
-            fileHtmlID: `file${attachmentID}`,
-            fileNameID: `fileName${attachmentID}`,
-            fileIconID: `fileIcon${attachmentID}`,
-            fileRemoveID: `fileRemove${attachmentID}`,
+            attachmentID: responseBody.attachmentID,
+            fileName: responseBody.attachmentFileName,
+            fileUrl: `${network.serverAddr}/files/${responseBody.attachmentFilePath}`,
+            fileUrlForDelete: responseBody.attachmentFilePath,
+            fileHtmlID: `file${responseBody.attachmentID}`,
+            fileNameID: `fileName${responseBody.attachmentID}`,
+            fileIconID: `fileIcon${responseBody.attachmentID}`,
+            fileRemoveID: `fileRemove${responseBody.attachmentID}`,
         };
         this.task.attachments.push(newAttachment);
-        this.eventBus.emit('taskDetailedModel:uploadFileSuccess', newAttachment);
+        return newAttachment;
     }
 
     /**
@@ -94,9 +206,25 @@ export default class TaskDetailedModel {
      * @param {Object} fileObj
      */
     removeAttachment(fileObj) {
-        // TODO: добавить запрос в сеть
         const removedFileIndex = this.task.attachments.findIndex((attachment) => {
             return attachment.attachmentID === fileObj.attachmentID;
+        });
+        const data = {
+            taskID: this.task.taskID,
+            attachmentID: fileObj.attachmentID,
+            attachmentFileName: fileObj.fileUrlForDelete,
+        };
+        network.attachmentDelete(data).then((response) => {
+            return response.json();
+        }).then((responseBody) => {
+            if (responseBody.status > 200) {
+                if (!network.ifTokenValid(responseBody)) {
+                    this.removeAttachment(fileObj);
+                    return;
+                }
+            }
+        }).catch((error) => {
+            return;
         });
         this.task.attachments.splice(removedFileIndex, 1);
     }
