@@ -167,6 +167,200 @@
 
 }
 
+// Добавление коллаборатора на доску
+.add-collaborator {
+
+    &__container {
+        display: flex;
+
+        position: absolute;
+
+        z-index: 2;
+
+        align-items: flex-start;
+        justify-content: center;
+
+        max-width: 270px;
+        width: 100%;
+
+        top: 95px;
+        left: 40px;
+    }
+
+    &__body {
+
+        @include flex-column;
+
+        position: relative;
+
+        align-items: center;
+        justify-content: space-between;
+
+        width: 100%;
+
+        @include standard-border-radius;
+
+        background: $white;
+    }
+
+    &__title {
+        display: flex;
+
+        align-self: flex-start;
+
+        height: fit-content;
+
+        margin: 16px 0 20px 22px;
+
+        @include standard-font(normal, 16px, 19px);
+
+        cursor: default;
+    }
+
+    &__element {
+        @include flex-row;
+
+        align-items: center;
+        justify-content: space-between;
+
+        width: 85%;
+
+        margin: 0 0 10px 0;
+
+        &__avatar {
+            display: flex;
+
+            align-self: flex-start;
+
+            @include circle-icon;
+
+            width: 28px;
+            height: 28px;
+
+            cursor: pointer;
+        }
+
+        &__name {
+            display: flex;
+
+            width: 100%;
+
+            margin: 0 0 0 10px;
+
+            @include standard-font(normal, 14px, 16px);
+
+            color: $dark-grey;
+
+            cursor: default;
+        }
+
+        &__delete{
+            display: flex;
+
+            width: 20px;
+            height: 28px;
+
+            cursor: pointer;
+        }
+    }
+
+    &__add-new {
+
+        &__container {
+            @include flex-row;
+
+            width: fit-content;
+
+            justify-content: center;
+            align-self: center;
+
+            margin: 0 10px 5px 10px;
+            padding: 10px 12px 10px 12px;
+
+            @include standard-border-radius;
+
+            gap: 10px;
+
+            cursor: pointer;
+
+            &:hover {
+                background: $element-active;
+                transition: 0.1s linear;
+            }
+        }
+
+        &__icon {
+            height: 18px;
+            width: 18px;
+        }
+
+        &__text {
+            align-self: center;
+
+            @include standard-font(normal, 14px, 16px);
+
+            color: $grey-text-color;
+        }
+    }
+
+    &__input {
+        &:focus {
+            border: 2px $electric-indigo solid !important;
+        }
+
+        width: 80%;
+
+        padding: 10px;
+
+        @include standard-font(normal, 14px, 16px);
+
+        @include standard-border-radius;
+
+        border: 2px $light-grey solid;
+
+        word-break: break-all;
+
+        outline: none;
+
+        text-align: justify;
+
+        color: $dark-grey;
+
+        cursor: pointer;
+    }
+
+    &__button {
+        display: flex;
+
+        @include content-center;
+
+        width: 50%;
+        height: 100%;
+        max-height: 30px;
+
+        padding: 10px;
+        margin: 10px 0 10px 0;
+
+        @include standard-button;
+    }
+
+    &__close {
+        position: absolute;
+
+        z-index: 2;
+
+        right: 0;
+
+        width: 17px;
+        height: 17px;
+
+        align-self: flex-start;
+
+        margin: 17px 17px 0 0;
+        cursor: pointer;
+    }
+}
+
 
 // Область размещения карточек
 .scroll-cards__container {

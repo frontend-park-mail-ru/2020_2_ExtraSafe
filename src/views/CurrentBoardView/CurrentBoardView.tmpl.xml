@@ -14,7 +14,67 @@
             <div class="board-info__left-side__collaborators">
                 <img src="../../img/egor.jpg" class="board-info__left-side__collaborator" alt="collaborator"/>
                 <img src="../../img/doge.jpg" class="board-info__left-side__collaborator" alt="collaborator"/>
-                <img src="../../img/icons/add_collaborator.svg" class="board-info__left-side__collaborator" alt="add-collaborator"/>
+                <img src="../../img/icons/members_dots.svg" class="board-info__left-side__collaborator" alt="add-collaborator"/>
+
+                <!--<div class="add-collaborator__container">
+                    <img class="add-collaborator__close" src="../../img/icons/close.svg" alt="close"/>
+
+                    <div class="board-users" style="display: flex; width: 100%">
+                        <div class="add-collaborator__body">
+                            <div class="add-collaborator__title">
+                                Участники
+                            </div>
+
+                            <div class="add-collaborator__element">
+                                <img class="add-collaborator__element__avatar" src="../../img/egor.jpg" alt="user"/>
+                                <div class="add-collaborator__element__name">
+                                    Боб
+                                </div>
+                                <img class="add-collaborator__element__delete" src="../../img/icons/delete_member.svg" alt="delete"/>
+                            </div>
+
+                            <div class="add-collaborator__element">
+                                <img class="add-collaborator__element__avatar" src="../../img/egor.jpg" alt="user"/>
+                                <div class="add-collaborator__element__name">
+                                    Лох педальный
+                                </div>
+                                <img class="add-collaborator__element__delete" src="../../img/icons/delete_member.svg" alt="delete"/>
+                            </div>
+
+                            <div class="add-collaborator__element">
+                                <img class="add-collaborator__element__avatar" src="../../img/egor.jpg" alt="user"/>
+                                <div class="add-collaborator__element__name">
+                                    Сыр подстольный
+                                </div>
+                                <img class="add-collaborator__element__delete" src="../../img/icons/delete_member.svg" alt="delete"/>
+                            </div>
+
+                            <div class="add-collaborator__add-new__container">
+                                <img class="add-collaborator__add-new__icon" src="../../img/icons/add_grey.svg" alt="add"/>
+
+                                <div class="add-collaborator__add-new__text">
+                                    Добавить пользователя
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="invite-users" style="display: flex; width: 100%">
+                        <div class="add-collaborator__body">
+                            <div class="add-collaborator__title">
+                                Добавить пользователя
+                            </div>
+
+                            <div class="add-collaborator__input" contenteditable="true"> </div>
+
+                            <button class="add-collaborator__button"> Добавить </button>
+                    </div>
+
+                </div>
+
+                </div>-->
+
 <!--                <fest:for iterate="json.boardCollaborators" index="i" value="v">
                     <img src="{v.src}" class="board-info__left-side__collaborator" alt="collaborator"/>
                 </fest:for>-->
