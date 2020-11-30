@@ -96,6 +96,41 @@ export default class TaskDetailedModel {
     }
 
     /**
+     * Get attachments from server
+     */
+    getAttachments() {
+        // TODO: запрос в сеть
+        const attachments = [
+            {
+                attachmentID: 0,
+                fileName: 'cat.png',
+                fileUrl: 'https://cataas.com/cat',
+            },
+            {
+                attachmentID: 1,
+                fileName: 'masha.png',
+                fileUrl: 'https://cataas.com/cat/says/masha_ochen_lenivaya',
+            },
+        ];
+        this.task.attachments = attachments;
+        this.initAttachments();
+    }
+
+    /**
+     * Initialize attachments data
+     */
+    initAttachments() {
+        if (Array.isArray(this.task.attachments) && this.task.attachments.length) {
+            for (const attachment of this.task.attachments) {
+                attachment.fileHtmlID = `file${attachment.attachmentID}`;
+                attachment.fileNameID = `fileName${attachment.attachmentID}`;
+                attachment.fileIconID = `fileIcon${attachment.attachmentID}`;
+                attachment.fileRemoveID = `fileRemove${attachment.attachmentID}`;
+            }
+        }
+    }
+
+    /**
      * Remove attachment
      * @param {Object} fileObj
      */
@@ -105,6 +140,83 @@ export default class TaskDetailedModel {
             return attachment.attachmentID === fileObj.attachmentID;
         });
         this.task.attachments.splice(removedFileIndex, 1);
+    }
+
+    /**
+     * Create new check-list
+     * @param {string} checkListName
+     * @return {Object}
+     */
+    createCheckList(checkListName) {
+        const checkListID = Math.floor(Math.random() * Math.floor(1000));
+        const newCheckList = {
+            checkListID: checkListID,
+            checkListHtmlID: `checkList${checkListID}`,
+            checkListElementsDivID: `checkListElementsDiv${checkListID}`,
+            checkListAddNewElementID: `checkListAddNewElement${checkListID}`,
+            checkListRemoveID: `checkListRemove${checkListID}`,
+            checkListName: checkListName,
+            checkListElements: [],
+        };
+        this.task.checkLists.push(newCheckList);
+        return newCheckList;
+        // TODO: запрос в сеть
+    }
+
+    /**
+     * Remove check-list
+     * @param {Object} checkListObj
+     */
+    removeCheckList(checkListObj) {
+        // TODO: добавить запрос в сеть
+        const removedCheckListIndex = this.task.checkLists.findIndex((checkList) => {
+            return checkList.checkListID === checkList.checkListID;
+        });
+        this.task.checkLists.splice(removedCheckListIndex, 1);
+    }
+
+    /**
+     * Create new check-list element
+     * @param {Object} checkListElement
+     * @param {string} checkListElementName
+     */
+    createCheckListElement(checkListElement, checkListElementName) {
+        const checkListFound = this.task.checkLists.find((checkList) => {
+            return checkList.checkListID === checkListElement.checkListID;
+        });
+        checkListElement.checkListElementName = checkListElementName;
+        checkListElement.isInitialized = true;
+        checkListElement.isChecked = false;
+        checkListFound.checkListElements.push(checkListElement);
+        // TODO: запрос в сеть
+    }
+
+    /**
+     * Update check-list element
+     * @param {Object} checkListElement
+     * @param {string} checkListElementName
+     * @param {boolean} isChecked
+     */
+    updateCheckListElement(checkListElement, checkListElementName = checkListElement.checkListElementName,
+        isChecked = checkListElement.isChecked) {
+        checkListElement.checkListElementName = checkListElementName;
+        checkListElement.isChecked = isChecked;
+        // TODO: запрос в сеть
+    }
+
+    /**
+     * Remove check-list element
+     * @param {Object} checkListElementObj
+     */
+    removeCheckListElement(checkListElementObj) {
+        // TODO: добавить запрос в сеть
+        const checkListFound = this.task.checkLists.find((checkList) => {
+            return checkList.checkListID === checkListElementObj.checkListID;
+        });
+        const elementIndex = checkListFound.checkListElements.findIndex((element) => {
+            return element.checkListElementID === checkListElementObj.checkListElementID;
+        });
+        checkListFound.checkListElements.splice(elementIndex, 1);
     }
 
     /**

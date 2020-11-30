@@ -55,19 +55,41 @@ export default class CardController extends BaseController {
                     tagColor: '#FF8080',
                 },
             ];
-            const attachments = [
+            const checkLists = [
                 {
-                    attachmentID: 0,
-                    fileName: 'cat.png',
-                    fileUrl: 'https://cataas.com/cat',
+                    checklistID: 0,
+                    checklistName: 'Собрать бибы',
+                    checklistItems: [
+                        {
+                            checkListElementName: 'biba',
+                            isChecked: true,
+                        },
+                        {
+                            checkListElementName: 'boba',
+                            isChecked: false,
+                        },
+                    ],
                 },
                 {
-                    attachmentID: 1,
-                    fileName: 'masha.png',
-                    fileUrl: 'https://cataas.com/cat/says/masha_ochen_lenivaya',
+                    checklistID: 1,
+                    checklistName: 'Обустроить бункер',
+                    checklistItems: [
+                        {
+                            checkListElementName: 'opa',
+                            isChecked: false,
+                        },
+                        {
+                            checkListElementName: 'hoba',
+                            isChecked: true,
+                        },
+                        {
+                            checkListElementName: 'pipka',
+                            isChecked: false,
+                        },
+                    ],
                 },
             ];
-            this.createTask(task.taskID, task.name, task.description, task.order, tags, attachments);
+            this.createTask(task.taskID, task.name, task.description, task.order, tags, checkLists);
         }
     }
 
@@ -78,10 +100,10 @@ export default class CardController extends BaseController {
      * @param {string} taskDescription
      * @param {number} order
      * @param {[Object]} tags
-     * @param {[Object]} attachments
+     * @param {[Object]} checkLists
      */
     createTask(taskID = -1, taskName= '', taskDescription = '',
-        order = this.tasks.length, tags = [], attachments = []) {
+        order = this.tasks.length, tags = [], checkLists = []) {
         const taskObj = {
             boardID: this.model.card.boardID,
             cardID: this.model.card.cardID,
@@ -90,7 +112,7 @@ export default class CardController extends BaseController {
             taskDescription: taskDescription,
             order: order,
             tags: tags,
-            attachments: attachments,
+            checkLists: checkLists,
             contentEditable: (taskID === -1).toString(),
             isInitialized: taskID !== -1,
         };
