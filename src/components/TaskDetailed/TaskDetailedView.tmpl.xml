@@ -85,7 +85,7 @@
                             Загрузить новый файл
                         </div>
                     </label>
-                    <input id="fileInput" style="display: none" type="file"/>
+                    <input id="fileInput" accept=".png, .jpeg, .gif, .doc" style="display: none" type="file"/>
                 </div>
             </div>
 

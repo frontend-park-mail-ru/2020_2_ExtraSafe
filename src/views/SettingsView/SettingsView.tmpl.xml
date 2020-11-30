@@ -4,7 +4,7 @@
             <div class="navigation">
                 <div class="navigation__element_active" id="profileLink">Профиль</div>
                 <!--<div class="navigation__element">Внешний вид</div>-->
-                <span class="navigation__element" id="accountsLink">Аккаунты</span>
+                <span class="navigation__element" id="accountsLink" style="display: none">Аккаунты</span>
                 <span class="navigation__element" id="securityLink">Безопасность</span>
                 <!--<a class="navigation__element">Уведомления</a>-->
             </div>
@@ -19,15 +19,15 @@
                     </label>
 
                     <div class="adaptive-navigation__container">
-                        <div class="adaptive-navigation__element adaptive-navigation__element_active">
+                        <div class="adaptive-navigation__element adaptive-navigation__element_active" id="profileLink">
                             Профиль
                         </div>
 
-                        <div class="adaptive-navigation__element">
-                            Аккаунты
-                        </div>
+<!--                        <div class="adaptive-navigation__element">-->
+<!--                            Аккаунты-->
+<!--                        </div>-->
 
-                        <div class="adaptive-navigation__element">
+                        <div class="adaptive-navigation__element" id="securityLink">
                             Безопасность
                         </div>
                     </div>
