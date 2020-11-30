@@ -42,42 +42,8 @@ export default class CardController extends BaseController {
         });
 
         for (const task of tasks) {
-            // const checkLists = [
-            //     {
-            //         checklistID: 0,
-            //         checklistName: 'Собрать бибы',
-            //         checklistItems: [
-            //             {
-            //                 checkListElementName: 'biba',
-            //                 isChecked: true,
-            //             },
-            //             {
-            //                 checkListElementName: 'boba',
-            //                 isChecked: false,
-            //             },
-            //         ],
-            //     },
-            //     {
-            //         checklistID: 1,
-            //         checklistName: 'Обустроить бункер',
-            //         checklistItems: [
-            //             {
-            //                 checkListElementName: 'opa',
-            //                 isChecked: false,
-            //             },
-            //             {
-            //                 checkListElementName: 'hoba',
-            //                 isChecked: true,
-            //             },
-            //             {
-            //                 checkListElementName: 'pipka',
-            //                 isChecked: false,
-            //             },
-            //         ],
-            //     },
-            // ];
             this.createTask(task.taskID, task.taskName, task.taskDescription, task.taskOrder,
-                task.taskTags, task.taskAttachments, task.taskChecklists);
+                task.taskTags, task.taskAttachments, task.taskChecklists, task.taskAssigners);
         }
     }
 
@@ -90,9 +56,11 @@ export default class CardController extends BaseController {
      * @param {[Object]} tags
      * @param {[Object]} attachments
      * @param {[Object]} checkLists
+     * @param {[Object]} taskAssigners
      */
     createTask(taskID = -1, taskName= '', taskDescription = '',
-        order = this.tasks.length, tags = [], attachments = [], checkLists = []) {
+        order = this.tasks.length, tags = [], attachments = [],
+        checkLists = [], taskAssigners = []) {
         const taskObj = {
             boardID: this.model.card.boardID,
             cardID: this.model.card.cardID,
@@ -103,6 +71,7 @@ export default class CardController extends BaseController {
             tags: tags,
             attachments: attachments,
             checkLists: checkLists,
+            taskAssigners: taskAssigners,
             contentEditable: (taskID === -1).toString(),
             isInitialized: taskID !== -1,
         };

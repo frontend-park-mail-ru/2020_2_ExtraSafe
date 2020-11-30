@@ -67,8 +67,12 @@ export default class CurrentBoardModel {
         if (Array.isArray(this.board.boardMembers) && this.board.boardMembers.length) {
             for (const member of this.board.boardMembers) {
                 member.memberHtmlID = `${member.username}Member`;
-                member.memberDeleteID =`${member.username}MemberDelete`;
+                member.memberDeleteID = `${member.username}MemberDelete`;
+                member.memberTaskHtmlID = `${member.username}Task`;
+                member.memberTaskPopupHtmlID = `${member.username}TaskPopup`;
+                member.memberTaskPopupCheckID = `${member.username}TaskPopupCheck`;
                 member.memberAvatarSrc = `${network.serverAddr}/avatar/${member.avatar}`;
+                member.memberUsername = member.username;
             }
         }
     }
@@ -134,7 +138,28 @@ export default class CurrentBoardModel {
      * @param {Object} member
      */
     memberDelete(member) {
-        // TODO: сеть
+        const data = {
+            boardID: this.board.boardID,
+            memberUsername: member.memberUsername,
+        };
+
+        console.log(data);
+
+        network.userRemoveFromBoard(data).then((response) => {
+            return response.json();
+        }).then((responseBody) => {
+            if (responseBody.status > 200) {
+                if (!network.ifTokenValid(responseBody)) {
+                    this.memberDelete(member);
+                    return;
+                }
+                this.eventBus.emit('currentBoardModel:memberDeleteFailed', responseBody.codes);
+            } else {
+                this.eventBus.emit('currentBoardModel:memberDeleteSuccess', responseBody);
+            }
+        }).catch((error) => {
+            return;
+        });
         const index = this.board.boardMembers.findIndex((m) => {
             return m.username === member.username;
         });
@@ -146,16 +171,33 @@ export default class CurrentBoardModel {
      * @param {string} memberUsername
      */
     memberInvite(memberUsername) {
-        // TODO: сеть надо чтоб возвращало usershort
-        this.eventBus.emit('currentBoardModel:memberInviteFailed', responseBody.codes);
-
-        const newMember = {
-            email: 'egor@mail.ru',
-            username: 'egor',
-            fullName: '',
-            avatar: 'default/default_avatar.png',
+        const data = {
+            boardID: this.board.boardID,
+            memberUsername: memberUsername,
         };
-        this.board.boardMembers.push(newMember);
-        this.eventBus.emit('currentBoardModel:memberInviteSuccess', responseBody);
+
+        network.userAddToBoard(data).then((response) => {
+            return response.json();
+        }).then((responseBody) => {
+            if (responseBody.status > 200) {
+                if (!network.ifTokenValid(responseBody)) {
+                    this.memberInvite(memberUsername);
+                    return;
+                }
+                this.eventBus.emit('currentBoardModel:memberInviteFailed', responseBody.codes);
+            } else {
+                const newMember = {
+                    email: responseBody.email,
+                    username: responseBody.username,
+                    fullName: responseBody.fullName,
+                    avatar: responseBody.avatar,
+                };
+                this.board.boardMembers.push(newMember);
+                this.initMembers();
+                this.eventBus.emit('currentBoardModel:memberInviteSuccess', responseBody);
+            }
+        }).catch((error) => {
+            return;
+        });
     }
 }

@@ -280,7 +280,7 @@ export default class TaskDetailedModel {
         }).then((responseBody) => {
             if (responseBody.status > 200) {
                 if (!network.ifTokenValid(responseBody)) {
-                    this.checklistCreate(data);
+                    this.createCheckList(checkListName);
                     return;
                 }
                 this.eventBus.emit('taskDetailedModel:createCheckListFailed', responseBody.codes);
@@ -326,7 +326,7 @@ export default class TaskDetailedModel {
         }).then((responseBody) => {
             if (responseBody.status > 200) {
                 if (!network.ifTokenValid(responseBody)) {
-                    this.checklistDelete(data);
+                    this.removeCheckList(checkListObj);
                     return;
                 }
                 this.eventBus.emit('taskDetailedModel:removeCheckListFailed', responseBody.codes);
@@ -366,8 +366,8 @@ export default class TaskDetailedModel {
             return response.json();
         }).then((responseBody) => {
             if (responseBody.status > 200) {
-                if (!network.ifTokenValid(responseBody)) {
-                    this.checklistSet(data);
+                if (!network.ifTokenValid(checkListObj)) {
+                    this.updateCheckList(data);
                     return;
                 }
                 this.eventBus.emit('taskDetailedModel:updateCheckListFailed', responseBody.codes);
@@ -427,6 +427,14 @@ export default class TaskDetailedModel {
         checkListFound.checkListElements.splice(elementIndex, 1);
 
         this.updateCheckList(checkListFound);
+    }
+
+    /**
+     * Add assigner
+     * @param {Object} user
+     */
+    addAssigner(user) {
+
     }
 
     /**

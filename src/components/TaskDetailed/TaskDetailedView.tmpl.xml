@@ -19,38 +19,15 @@
                         Участники
                     </div>
 
-                    <div class="edit-task__content__info__elements">
-                        <img src="../../img/egor.jpg" class="edit-task__content__info__collaborator" alt="collaborator"/>
+                    <div class="edit-task__content__info__elements" id="taskAssignersDiv">
+                        <fest:for iterate="json.taskAssigners" index="i" value="v">
+                            <fest:include context="v" src="./TaskAssigner.tmpl.xml"/>
+                        </fest:for>
                         <img src="../../img/icons/add_collaborator.svg" class="edit-task__content__info__elements__add-new__icon"
-                             alt="add new collaborator"/>
+                             id="taskAssignersAdd" alt="add new collaborator"/>
                     </div>
 
-                    <div class="edit-add-collaborator__container">
-<!--                        <img class="edit-add-collaborator__close" src="../../img/icons/close.svg" alt="close"/>-->
-
-<!--                        <div class="board-users" style="display: flex; width: 100%">-->
-<!--                            <div class="edit-add-collaborator__body">-->
-<!--                                <div class="edit-add-collaborator__title">-->
-<!--                                    Участники-->
-<!--                                </div>-->
-
-<!--                                <div class="edit-add-collaborator__element">-->
-<!--                                    <div class="edit-add-collaborator__left-side">-->
-<!--                                        <img class="edit-add-collaborator__element__avatar" src="../../img/egor.jpg"-->
-<!--                                             alt="user"/>-->
-
-<!--                                        <div class="edit-add-collaborator__element__name">-->
-<!--                                            Боб-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-
-<!--                                    <img class="edit-add-collaborator__element__selected"-->
-<!--                                         src="../../img/icons/selected.svg" alt="selected"/>-->
-<!--                                </div>-->
-
-<!--                            </div>-->
-<!--                        </div>-->
-                    </div>
+                    <div class="edit-add-collaborator__container" id="taskAssignersPopup"/>
                 </div>
 
                 <div class="edit-task__content__info__tag__container">

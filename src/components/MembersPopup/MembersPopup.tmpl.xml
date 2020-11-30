@@ -11,7 +11,7 @@
                 <div class="add-collaborator__element" id="{v.memberHtmlID}">
                     <img class="add-collaborator__element__avatar" src="{v.memberAvatarSrc}" alt="user"/>
                     <div class="add-collaborator__element__name">
-                        <fest:value>v.username</fest:value>
+                        <fest:value>v.memberUsername</fest:value>
                     </div>
                     <img class="add-collaborator__element__delete" src="../../img/icons/delete_member.svg" id="{v.memberDeleteID}" alt="delete"/>
                 </div>

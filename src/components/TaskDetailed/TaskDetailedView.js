@@ -151,6 +151,9 @@ export default class TaskDetailedView extends BaseView {
         document.getElementById('checkListCreate').addEventListener('click', () => {
             this.eventBus.emit('taskDetailedView:addCheckList', null);
         });
+        document.getElementById('taskAssignersAdd').addEventListener('click', () => {
+            this.eventBus.emit('taskDetailedView:addAssigners', null);
+        });
 
         document.getElementById('fileInput').addEventListener('change', (event) => {
             this.eventBus.emit('taskDetailedView:uploadFile', event.target.files[0]);

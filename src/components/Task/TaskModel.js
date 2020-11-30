@@ -27,6 +27,7 @@ export default class TaskModel {
             tags: task.tags,
             checkLists: task.checkLists,
             attachments: task.attachments,
+            taskAssigners: task.taskAssigners,
             contentEditable: task.contentEditable,
             isInitialized: task.isInitialized,
         };
@@ -34,6 +35,7 @@ export default class TaskModel {
         this.initTags();
         this.initAttachments();
         this.initCheckLists();
+        // this.initAssigners();
     }
 
     /**
@@ -102,6 +104,19 @@ export default class TaskModel {
             }
         }
     }
+
+    // /**
+    //  * Initialize assigners data
+    //  */
+    // initAssigners() {
+    //     if (Array.isArray(this.task.taskAssigners) && this.task.taskAssigners.length) {
+    //         for (const assigner of this.task.taskAssigners) {
+    //             assigner.taskAssignerPopupHtmlID = `${assigner.username}AssignerPopup`;
+    //             assigner.taskAssignerAvatarSrc = `${network.serverAddr}/avatar/${assigner.avatar}`;
+    //             assigner.taskAssignerCheckID = `${assigner.username}AssignerCheck`;
+    //         }
+    //     }
+    // }
 
     /**
      * Update task name data

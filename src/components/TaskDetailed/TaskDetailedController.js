@@ -5,6 +5,7 @@ import TagAddPopup from './TagAddPopup/TagAddPopup.js';
 import TagCreatePopup from './TagCreatePopup/TagCreatePopup.js';
 import globalEventBus from '../../utils/globalEventBus.js';
 import CheckListPopup from './CheckListPopup/CheckListPopup.js';
+import TaskAssignersPopup from './TaskAssginersPopup/TaskAssignersPopup.js';
 
 /**
  * Task detailed controller
@@ -30,6 +31,9 @@ export default class TaskDetailedController extends BaseController {
 
         const checkListPopupEl = document.getElementById('checkListPopup');
         this.checkListPopup = new CheckListPopup(checkListPopupEl);
+
+        const taskAssignersPopupEl = document.getElementById('taskAssignersPopup');
+        this.taskAssignersPopup = new TaskAssignersPopup(taskAssignersPopupEl);
     }
 
     /**
@@ -48,6 +52,9 @@ export default class TaskDetailedController extends BaseController {
         });
         this.eventBus.on('taskDetailedView:addCheckList', () => {
             this.checkListPopup.render();
+        });
+        this.eventBus.on('taskDetailedView:addAssigners', () => {
+            this.taskAssignersPopup.render(this.model.board.boardMembers, this.model.task.taskAssigners);
         });
     }
 
@@ -166,6 +173,15 @@ export default class TaskDetailedController extends BaseController {
         });
         this.eventBus.on('taskDetailedView:checkListElementChecked', (checkListElement) => {
             this.model.updateCheckListElement(checkListElement, undefined, true);
+        });
+    }
+
+    /**
+     * Add event listeners related to assigners
+     */
+    addAssignersEventListeners() {
+        this.eventBus.on('taskAssignersPopup:assignerAdded', (user) => {
+
         });
     }
 

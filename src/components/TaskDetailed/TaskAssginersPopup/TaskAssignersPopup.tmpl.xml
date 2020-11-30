@@ -1,0 +1,38 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
+    <img class="edit-add-collaborator__close" src="../../img/icons/close.svg" id="taskAssignersPopupClose" alt="close"/>
+
+    <div class="board-users" style="display: flex; width: 100%">
+        <div class="edit-add-collaborator__body">
+            <div class="edit-add-collaborator__title">
+                Участники
+            </div>
+
+            <div class="edit-add-collaborator__element" id="taskAssignersPopupDiv">
+                <fest:for iterate="json.users" index="i" value="v">
+                    <div id="{v.memberTaskPopupHtmlID}" style="width: 100%;display: flex;flex-direction: row;">
+                        <div class="edit-add-collaborator__left-side">
+                            <img class="edit-add-collaborator__element__avatar" src="{v.memberAvatarSrc}"
+                                 alt="user"/>
+
+                            <div class="edit-add-collaborator__element__name">
+                                <fest:value>v.memberUsername</fest:value>
+                            </div>
+                        </div>
+
+                        <img class="edit-add-collaborator__element__selected"
+                             src="../../img/icons/selected.svg" id="{v.memberTaskPopupCheckID}" alt="selected">
+                            <fest:attributes>
+                                <fest:if test="v.isSelected">
+                                    <fest:attribute name="style">
+                                        display: flex
+                                    </fest:attribute>
+                                </fest:if>
+                            </fest:attributes>
+                        </img>
+                    </div>
+                </fest:for>
+            </div>
+
+        </div>
+    </div>
+</fest:template>

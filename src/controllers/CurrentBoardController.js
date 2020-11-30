@@ -4,8 +4,8 @@ import CurrentBoardModel from '../models/CurrentBoardModel.js';
 import TaskDetailedController from '../components/TaskDetailed/TaskDetailedController.js';
 import globalEventBus from '../utils/globalEventBus.js';
 import CardController from '../components/Card/CardController.js';
-import MembersPopup from "../components/MembersPopup/MembersPopup.js";
-import MemberInvitePopup from "../components/MemberInvitePopup/MemberInvitePopup.js";
+import MembersPopup from '../components/MembersPopup/MembersPopup.js';
+import MemberInvitePopup from '../components/MemberInvitePopup/MemberInvitePopup.js';
 
 /**
  * Current board controller
