@@ -77,7 +77,6 @@ export default class TaskController extends BaseController {
         this.taskDetailed.eventBus.on('taskDetailedView:closed', () => {
             this.model.updateTaskForServer();
             // TODO: костыль
-            console.log('be');
             this.taskDetailed.model.task.attachments = [];
             this.taskDetailed.model.task.comments = [];
         });

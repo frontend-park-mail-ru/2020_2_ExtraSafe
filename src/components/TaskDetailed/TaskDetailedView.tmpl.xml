@@ -111,97 +111,25 @@
                 </div>
 
                 <div class="edit-task__content__comments__add">
-                    <img class="edit-task__content__comments__add__collaborator" src="../../img/egor.jpg" alt="author"/>
+                    <img class="edit-task__content__comments__add__collaborator" src="{json.commentAvatar}" alt="author"/>
 
                     <div class="edit-task__content__comments__add__comment">
 
-                            <div class="edit-task__content__comments__add__comment__text" contenteditable="true">
+                            <div class="edit-task__content__comments__add__comment__text" contenteditable="true"
+                                 id="commentInputID">
                                 Напишите комментарий...
                             </div>
 
-                        <button class="edit-task__content__comments__add__comment__button"> Сохранить </button>
+                        <button class="edit-task__content__comments__add__comment__button" id="commentSaveID"> Сохранить </button>
                     </div>
                 </div>
 
-                <div class="edit-task__content__comments__body">
-
-                    <div class="edit-task__content__comments__body__comment">
-                        <img class="edit-task__content__comments__body__comment__collaborator" src="../../img/egor.jpg" alt="author"/>
-
-                        <div class="edit-task__content__comments__body__comment__right">
-                            <div class="edit-task__content__comments__body__comment__right__header">
-                                <div class="edit-task__content__comments__body__comment__right__header__name">
-                                    Егорка Помидорка
-                                </div>
-
-                                <div class="edit-task__content__comments__body__comment__right__header__delete">
-                                    Удалить
-                                </div>
-                            </div>
-
-                            <div class="edit-task__content__comments__body__comment__right__text">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                Metus leo cursus diam, in sit vulputate luctus a.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="edit-task__content__comments__body__comment">
-                        <img class="edit-task__content__comments__body__comment__collaborator" src="../../img/doge.jpg" alt="author"/>
-
-                        <div class="edit-task__content__comments__body__comment__right">
-                            <div class="edit-task__content__comments__body__comment__right__header">
-                                <div class="edit-task__content__comments__body__comment__right__header__name">
-                                    Егорка Легенда
-                                </div>
-
-                                <div class="edit-task__content__comments__body__comment__right__header__delete">
-                                    Удалить
-                                </div>
-                            </div>
-
-                            <div class="edit-task__content__comments__body__comment__right__text">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                Metus leo cursus diam, in sit vulputate luctus a.
-                                In etiam sem curabitur et lectus. Faucibus orci ultricies a lectus turpis vel.
-                                Vitae massa tristique velit volutpat nunc.
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                Metus leo cursus diam, in sit vulputate luctus a.
-                                In etiam sem curabitur et lectus. Faucibus orci ultricies a lectus turpis vel.
-                                Vitae massa tristique velit volutpat nunc.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="edit-task__content__comments__body__comment">
-                        <img class="edit-task__content__comments__body__comment__collaborator" src="../../img/user.svg" alt="author"/>
-
-                        <div class="edit-task__content__comments__body__comment__right">
-                            <div class="edit-task__content__comments__body__comment__right__header">
-                                <div class="edit-task__content__comments__body__comment__right__header__name">
-                                    Егорка На Попе Корка
-                                </div>
-
-                                <div class="edit-task__content__comments__body__comment__right__header__delete">
-                                    Удалить
-                                </div>
-                            </div>
-
-                            <div class="edit-task__content__comments__body__comment__right__text">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                Metus leo cursus diam, in sit vulputate luctus a.
-                                In etiam sem curabitur et lectus. Faucibus orci ultricies a lectus turpis vel.
-                                Vitae massa tristique velit volutpat nunc.
-                            </div>
-                        </div>
-                    </div>
-
+                <div class="edit-task__content__comments__body" id="commentsDiv">
+                    <fest:for iterate="json.comments" index="i" value="v">
+                        <fest:include context="v" src="./Comment.tmpl.xml"/>
+                    </fest:for>
                 </div>
-
             </div>
-
-
         </div>
-
     </div>
 </fest:template>

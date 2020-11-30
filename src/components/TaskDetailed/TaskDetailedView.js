@@ -6,6 +6,8 @@ import attachmentTemplate from './Attachment.tmpl.xml';
 import checkListTemplate from './CheckList.tmpl.xml';
 import checkListElementTemplate from './CheckListElement.tmpl.xml';
 import taskAssignerTemplate from './TaskAssigner.tmpl.xml';
+import commentTemplate from './Comment.tmpl.xml';
+import userSession from '../../utils/userSession.js';
 
 /**
  * Task detailed view
@@ -137,6 +139,15 @@ export default class TaskDetailedView extends BaseView {
     }
 
     /**
+     * Add comment view
+     * @param {Object} comment
+     */
+    addComment(comment) {
+        const commentEl = rendering.createElementsFromTmpl(commentTemplate(comment));
+        document.getElementById('commentsDiv').appendChild(commentEl);
+    }
+
+    /**
      * Add all event listeners
      * @param {Object} task
      */
@@ -184,6 +195,8 @@ export default class TaskDetailedView extends BaseView {
         for (const checkList of task.checkLists) {
             this.addCheckListEventListeners(checkList);
         }
+
+        this.addCommentsEventListeners(task.comments);
     }
 
     /**
@@ -239,11 +252,44 @@ export default class TaskDetailedView extends BaseView {
     }
 
     /**
+     * Add comments event listeners
+     * @param {[Object]} comments
+     */
+    addCommentsEventListeners(comments) {
+        document.getElementById('commentSaveID').addEventListener('click', () => {
+            const text = document.getElementById('commentInputID').innerText;
+            if (text !== '') {
+                this.eventBus.emit('taskDetailedView:addComment', text);
+            }
+        });
+        document.getElementById('commentInputID').addEventListener('focus', (event) => {
+            event.target.select();
+        });
+
+        for (const comment of comments) {
+            this.addCommentEventListeners(comment);
+        }
+    }
+
+    /**
+     * Add comment event listeners
+     * @param {Object} comment
+     */
+    addCommentEventListeners(comment) {
+        document.getElementById(comment.commentRemove).addEventListener('click', (event) => {
+            document.getElementById(comment.commentHtmlID).remove();
+            this.eventBus.emit('taskDetailedView:removeComment', comment);
+        });
+    }
+
+    /**
      * Render task detailed view
      * @param {Object} task
      */
     render(task) {
         this.el.style.display = 'flex';
+        // task.commentAvatar = `${network.serverAddr}/avatar/${userSession.data.avatar}`;
+        task.commentAvatar = userSession.data.avatar;
         this.el.innerHTML = taskDetailedViewTemplate(task);
         this.addEventListeners(task);
     }

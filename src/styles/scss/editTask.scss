@@ -772,7 +772,9 @@
 
             // Тело с написанными комментариями
             &__body {
-                @include flex-column;
+
+                display: flex;
+                flex-direction: column-reverse;
 
                 width: 100%;
 
@@ -817,7 +819,7 @@
                             }
 
                             &__delete {
-                                display: flex;
+                                display: none;
 
                                 align-self: flex-end;
 

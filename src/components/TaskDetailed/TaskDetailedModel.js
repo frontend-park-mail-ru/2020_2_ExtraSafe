@@ -1,4 +1,5 @@
 import network from '../../utils/network.js';
+import userSession from '../../utils/userSession.js';
 
 /**
  * Task detailed model
@@ -453,6 +454,80 @@ export default class TaskDetailedModel {
             return assigner.memberName === user.memberName;
         });
         this.task.taskAssigners.splice(index, 1);
+    }
+
+    /**
+     * Create comment
+     * @param {string} commentText
+     */
+    createComment(commentText) {
+        const data = {
+            taskID: this.task.taskID,
+            commentMessage: commentText,
+        };
+
+        network.commentCreate(data).then((response) => {
+            return response.json();
+        }).then((responseBody) => {
+            if (responseBody.status > 200) {
+                if (!network.ifTokenValid(checkListObj)) {
+                    this.createComment(commentText);
+                    return;
+                }
+                this.eventBus.emit('taskDetailedModel:createCommentFailed', responseBody.codes);
+            } else {
+                this.task.comments.push();
+                this.eventBus.emit('taskDetailedModel:createCommentSuccess', responseBody);
+            }
+        }).catch((error) => {
+            return;
+        });
+    }
+
+    /**
+     * Add comment
+     * @param {Object} responseBody
+     * @return {Object}
+     */
+    addComment(responseBody) {
+        const newComment = {
+            commentID: responseBody.commentID,
+            commentHtmlID: `comment${responseBody.commentID}`,
+            commentAvatar: `${network.serverAddr}/avatar/${responseBody.commentAuthor.avatar}`,
+            commentUsername: responseBody.commentAuthor.username,
+            commentRemove: `comment${responseBody.commentID}Remove`,
+            commentText: responseBody.commentMessage,
+            isMine: userSession.data.username === responseBody.commentAuthor.username,
+        };
+        this.task.comments.push(newComment);
+        return newComment;
+    }
+
+    /**
+     * Create comment
+     * @param {Object} comment
+     */
+    removeComment(comment) {
+        const data = {
+            taskID: this.task.taskID,
+            commentID: comment.commentID,
+        };
+
+        network.commentDelete(data).then((response) => {
+            return response.json();
+        }).then((responseBody) => {
+            if (responseBody.status > 200) {
+                if (!network.ifTokenValid(checkListObj)) {
+                    this.removeComment(comment);
+                    return;
+                }
+                this.eventBus.emit('taskDetailedModel:removeCommentFailed', responseBody.codes);
+            } else {
+                this.eventBus.emit('taskDetailedModel:removeCommentSuccess', responseBody);
+            }
+        }).catch((error) => {
+            return;
+        });
     }
 
     /**

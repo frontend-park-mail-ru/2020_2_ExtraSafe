@@ -1,4 +1,5 @@
 import network from '../../utils/network.js';
+import userSession from '../../utils/userSession.js';
 
 /**
  * Task model
@@ -27,6 +28,7 @@ export default class TaskModel {
             tags: task.tags,
             checkLists: task.checkLists,
             attachments: task.attachments,
+            comments: [],
             taskAssigners: task.taskAssigners,
             contentEditable: task.contentEditable,
             isInitialized: task.isInitialized,
@@ -262,7 +264,17 @@ export default class TaskModel {
                         fileRemoveID: `fileRemove${attachment.attachmentID}`,
                     });
                 }
-                this.task.comments = responseBody.taskComments;
+                for (const comment of responseBody.taskComments) {
+                    this.task.comments.push({
+                        commentID: comment.commentID,
+                        commentHtmlID: `comment${comment.commentID}`,
+                        commentAvatar: `${network.serverAddr}/avatar/${comment.commentAuthor.avatar}`,
+                        commentUsername: comment.commentAuthor.username,
+                        commentRemove: `comment${comment.commentID}Remove`,
+                        commentText: comment.commentMessage,
+                        isMine: userSession.data.username === comment.commentAuthor.username,
+                    });
+                }
                 this.eventBus.emit('taskModel:getTaskDetailedSuccess', responseBody);
             }
             return responseBody;

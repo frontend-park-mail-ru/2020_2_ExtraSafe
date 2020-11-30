@@ -203,6 +203,26 @@ export default class TaskDetailedController extends BaseController {
     }
 
     /**
+     * Add comments event listeners
+     */
+    addCommentsEventListeners() {
+        this.eventBus.on('taskDetailedView:addComment', (text) => {
+            this.model.createComment(text);
+        });
+        this.eventBus.on('taskDetailedView:removeComment', (comment) => {
+            this.model.removeComment(comment);
+        });
+        this.eventBus.on('taskDetailedModel:createCommentFailed', (codes) => {
+            console.log('taskDetailedModel:createCommentFailed', codes);
+        });
+        this.eventBus.on('taskDetailedModel:createCommentSuccess', (responseBody) => {
+            console.log('taskDetailedModel:createCommentSuccess', responseBody);
+            const newComment = this.model.addComment(responseBody);
+            this.view.addComment(newComment);
+        });
+    }
+
+    /**
      * Render task detailed view
      * @param {Object} board
      * @param {Object} task
@@ -220,5 +240,6 @@ export default class TaskDetailedController extends BaseController {
         this.addCheckListsEventListeners();
         this.addCheckListsElementsEventListeners();
         this.addAssignersEventListeners();
+        this.addCommentsEventListeners();
     }
 }
