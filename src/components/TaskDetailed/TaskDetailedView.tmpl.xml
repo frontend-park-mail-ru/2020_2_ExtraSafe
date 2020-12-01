@@ -11,7 +11,7 @@
 
         <div class="edit-task__content__info__container">
 
-            <img class="edit-task__content__delete__icon" src="../../img/icons/bin.svg" id="deleteTask" alt="delete task"/>
+            <img class="edit-task__content__delete__icon" src="../../img/icons/bin.svg" id="deleteTask" title="Удалить задачу" alt="delete task"/>
 
             <div class="edit-task__content__info">
                 <div class="edit-task__content__info__collaborator__container ">
@@ -24,7 +24,7 @@
                             <fest:include context="v" src="./TaskAssigner.tmpl.xml"/>
                         </fest:for>
                         <img src="../../img/icons/add_collaborator.svg" class="edit-task__content__info__elements__add-new__icon"
-                             id="taskAssignersAdd" alt="add new collaborator"/>
+                             id="taskAssignersAdd" title="Добавить участника" alt="add new collaborator"/>
                     </div>
 
                     <div class="edit-add-collaborator__container" id="taskAssignersPopup"/>
@@ -45,7 +45,7 @@
                         </div>
 
                         <img src="../../img/icons/add_tag.svg" class="edit-task__content__info__elements__add-new__icon"
-                             id="addTag" alt="add new tag"/>
+                             id="addTag" title="Добавить метку" alt="add new tag"/>
                     </div>
                 </div>
 
@@ -116,8 +116,8 @@
                     <div class="edit-task__content__comments__add__comment">
 
                             <div class="edit-task__content__comments__add__comment__text" contenteditable="true"
-                                 id="commentInputID">
-                                Напишите комментарий...
+                                 id="commentInputID" data-placeholder="Напишите комментарий...">
+
                             </div>
 
                         <button class="edit-task__content__comments__add__comment__button" id="commentSaveID"> Сохранить </button>

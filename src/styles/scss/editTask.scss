@@ -28,6 +28,15 @@
     }
 }
 
+// div contenteditable placeholder как Vk!
+[data-placeholder]:empty:before {
+    content: attr(data-placeholder);
+
+    color: $grey-text-color;
+
+    @include standard-font(normal, 14px, 16px);
+}
+
 // Настройка задачи
 .edit-task {
 

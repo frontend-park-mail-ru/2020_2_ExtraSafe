@@ -14,14 +14,14 @@
                 <fest:for iterate="json.boardMembers" index="i" value="v">
                     <img class="board-info__left-side__collaborator" src="{v.memberAvatarSrc}" id="{v.memberBoardHtmlID}" alt="collaborator"/>
                 </fest:for>
-                <img class="board-info__left-side__collaborator" src="../../img/icons/members_dots.svg" id="addMember" alt="add-collaborator"/>
+                <img class="board-info__left-side__collaborator" src="../../img/icons/members_dots.svg" id="addMember" title="Управление участниками" alt="add-collaborator"/>
 
                 <div class="add-collaborator__container" id="membersPopup"/>
             </div>
         </div>
 
         <div class="board-info__right-side__container">
-            <img class="board-info__right-side__settings__icon" src="../../img/icons/bin.svg" id="boardSettings" alt="settings"/>
+            <img class="board-info__right-side__settings__icon" src="../../img/icons/bin.svg" id="boardSettings" title="Удалить доску" alt="settings"/>
         </div>
 
     </div>

@@ -21,6 +21,16 @@
     top: 210px !important;
   }
 }
+[data-placeholder]:empty:before {
+  content: attr(data-placeholder);
+  color: #808080;
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 16px;
+}
+
 .edit-task__container {
   display: none;
   position: absolute;
@@ -558,7 +568,7 @@
 }
 .edit-task__content__comments__body {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   width: 100%;
 }
 .edit-task__content__comments__body__comment {
@@ -597,7 +607,7 @@
   cursor: default;
 }
 .edit-task__content__comments__body__comment__right__header__delete {
-  display: flex;
+  display: none;
   align-self: flex-end;
   font-family: Roboto, sans-serif;
   font-style: normal;
@@ -904,6 +914,7 @@
   display: flex;
   flex-direction: column;
   position: relative;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   align-items: center;
   justify-content: space-between;
   width: 100%;
@@ -957,9 +968,8 @@
   color: #333333;
 }
 .edit-add-collaborator__element__selected {
-  display: flex;
+  display: none;
   width: 20px;
-  height: 20px;
   cursor: pointer;
 }
 .edit-add-collaborator__close {

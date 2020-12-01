@@ -1,7 +1,7 @@
 <fest:template xmlns:fest="http://fest.mail.ru">
     <div class="navbar">
         <img class="navbar__icon" data-href="/" title="Домой" src="../img/icons/home.svg"/>
-        <img class="navbar__tabutask-logotype" data-href="/" src="../img/icons/tabutask_logo_white.svg"/>
+        <img class="navbar__tabutask-logotype" data-href="/" src="../img/icons/tabutask_logo_white.svg" title="Домой" />
         <img id="avatarMini" class="navbar__avatar" title="Профиль" src=""/>
     </div>
     <div id="myDropdown" class="dropdown__content">

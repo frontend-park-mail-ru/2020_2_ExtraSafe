@@ -260,6 +260,9 @@ export default class TaskDetailedView extends BaseView {
             const text = document.getElementById('commentInputID').innerText;
             if (text !== '') {
                 this.eventBus.emit('taskDetailedView:addComment', text);
+
+                // TODO: Сделать правильно
+                document.getElementById('commentInputID').innerText = '';
             }
         });
         document.getElementById('commentInputID').addEventListener('focus', (event) => {
