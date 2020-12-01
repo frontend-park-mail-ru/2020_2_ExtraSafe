@@ -58,9 +58,9 @@
         top: 0;
 
         width: 100vw;
-        height: 80vh;
+        height: 90vh;
 
-        padding: 20vh 0 0 0 ;
+        padding: 10vh 0 0 0 ;
 
         background-color: $background_inactive;
 
@@ -520,6 +520,8 @@
                     justify-content: space-between;
 
                     width: 100%;
+
+                    margin: 0 0 5px 0;
                 }
 
                 display: flex;
@@ -552,7 +554,7 @@
 
                 width: 100%;
 
-                margin: 10px 0 0 0;
+                margin: 10px 0 20px 0;
 
                 @include standard-border-radius;
 
@@ -566,7 +568,15 @@
 
                     width: 95%;
 
-                    margin: 10px 0 0 0;
+                    padding: 10px 0 5px 10px;
+
+                    &s {
+                        @include standard-border-radius;
+
+                        background: $white;
+
+                        padding: 5px;
+                    }
 
                     &__icon {
                         width: 24px;
@@ -604,8 +614,8 @@
                             justify-content: center;
                             align-self: center;
 
-                            margin: 5px 10px 5px 10px;
-                            padding: 10px 20px 10px 20px;
+                            padding: 5px;
+                            margin: 0 0 0 5px;
 
                             @include standard-border-radius;
 
@@ -648,7 +658,7 @@
                     width: fit-content;
 
                     justify-content: center;
-                    align-self: flex-start;
+                    align-self: center;
 
                     margin: 5px 10px 5px 0;
                     padding: 10px 20px 10px 20px;
