@@ -74,6 +74,8 @@ export default class TaskDetailedView extends BaseView {
     addCheckList(checkListObj) {
         const addCheckListEl = document.getElementById('checkListCreate');
         const checkListEl = rendering.createElementsFromTmpl(checkListTemplate(checkListObj));
+        console.log(document.getElementById('checkListsDiv'));
+        console.log(checkListEl);
         document.getElementById('checkListsDiv').insertBefore(checkListEl, addCheckListEl);
         this.addCheckListEventListeners(checkListObj);
     }
