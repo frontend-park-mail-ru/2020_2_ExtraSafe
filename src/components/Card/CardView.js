@@ -94,6 +94,17 @@ export default class CardView extends BaseView {
     }
 
     /**
+     * Emit submit event on enter
+     * @param {KeyboardEvent} event
+     */
+    emitSubmit(event) {
+        if (event.keyCode === 13) {
+            this.requestSubmit();
+            event.target.blur();
+        }
+    }
+
+    /**
      * Render card
      * @param {JSON} card
      */

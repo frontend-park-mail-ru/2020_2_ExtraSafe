@@ -34,7 +34,7 @@ export default class CardController extends BaseController {
         }
 
         tasks.sort(function(a, b) {
-            if (a.order < b.order) {
+            if (a.taskOrder < b.taskOrder) {
                 return -1;
             } else {
                 return 1;

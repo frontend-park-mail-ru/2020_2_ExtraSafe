@@ -38,7 +38,7 @@ export default class CurrentBoardController extends BaseController {
         }
 
         cards.sort(function(a, b) {
-            if (a.order < b.order) {
+            if (a.cardOrder < b.cardOrder) {
                 return -1;
             } else {
                 return 1;

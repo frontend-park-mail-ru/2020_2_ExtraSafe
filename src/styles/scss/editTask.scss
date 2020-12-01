@@ -296,7 +296,7 @@
 
                 // Стиль текста описания задачи
                 &__text {
-                    display: flex;
+                    white-space: pre-wrap;
 
                     margin: 10px;
 
@@ -739,6 +739,7 @@
 
                         &:focus {
                             border: 2px $electric-indigo solid !important;
+                            cursor: text;
                         }
 
                         padding: 10px;
@@ -761,7 +762,7 @@
                     }
 
                     &__button {
-                        display: flex;
+                        display: none;
 
                         @include content-center;
 
@@ -845,7 +846,7 @@
                         }
 
                         &__text {
-                            display: flex;
+                            white-space: pre-wrap;
 
                             padding: 10px;
 

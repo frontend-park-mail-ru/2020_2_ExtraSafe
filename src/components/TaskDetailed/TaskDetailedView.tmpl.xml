@@ -116,9 +116,7 @@
                     <div class="edit-task__content__comments__add__comment">
 
                             <div class="edit-task__content__comments__add__comment__text" contenteditable="true"
-                                 id="commentInputID" data-placeholder="Напишите комментарий...">
-
-                            </div>
+                                 id="commentInputID" data-placeholder="Напишите комментарий..."/>
 
                         <button class="edit-task__content__comments__add__comment__button" id="commentSaveID"> Сохранить </button>
                     </div>

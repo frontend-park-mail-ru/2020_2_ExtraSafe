@@ -145,6 +145,7 @@ export default class TaskDetailedView extends BaseView {
     addComment(comment) {
         const commentEl = rendering.createElementsFromTmpl(commentTemplate(comment));
         document.getElementById('commentsDiv').appendChild(commentEl);
+        this.addCommentEventListeners(comment);
     }
 
     /**
@@ -256,17 +257,25 @@ export default class TaskDetailedView extends BaseView {
      * @param {[Object]} comments
      */
     addCommentsEventListeners(comments) {
-        document.getElementById('commentSaveID').addEventListener('click', () => {
-            const text = document.getElementById('commentInputID').innerText;
-            if (text !== '') {
-                this.eventBus.emit('taskDetailedView:addComment', text);
+        const commentInput = document.getElementById('commentInputID');
+        const commentSave = document.getElementById('commentSaveID');
 
-                // TODO: Сделать правильно
-                document.getElementById('commentInputID').innerText = '';
+        commentInput.addEventListener('focus', () => {
+            commentSave.style.display = 'flex';
+        });
+        commentInput.addEventListener('focusout', () => {
+            if (commentInput.innerText === '') {
+                setTimeout(() => {
+                    commentSave.style.display = 'none';
+                }, 0);
             }
         });
-        document.getElementById('commentInputID').addEventListener('focus', (event) => {
-            event.target.select();
+        commentSave.addEventListener('click', () => {
+            if (commentInput.innerText !== '') {
+                this.eventBus.emit('taskDetailedView:addComment', commentInput.innerText);
+                commentInput.innerHTML = '';
+                commentSave.style.display = 'none';
+            }
         });
 
         for (const comment of comments) {
@@ -279,7 +288,7 @@ export default class TaskDetailedView extends BaseView {
      * @param {Object} comment
      */
     addCommentEventListeners(comment) {
-        document.getElementById(comment.commentRemove).addEventListener('click', (event) => {
+        document.getElementById(comment.commentRemove).addEventListener('click', () => {
             document.getElementById(comment.commentHtmlID).remove();
             this.eventBus.emit('taskDetailedView:removeComment', comment);
         });
@@ -291,7 +300,6 @@ export default class TaskDetailedView extends BaseView {
      */
     render(task) {
         this.el.style.display = 'flex';
-        // task.commentAvatar = `${network.serverAddr}/avatar/${userSession.data.avatar}`;
         task.commentAvatar = userSession.data.avatar;
         this.el.innerHTML = taskDetailedViewTemplate(task);
         this.addEventListeners(task);
