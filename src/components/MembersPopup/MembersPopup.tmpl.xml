@@ -18,7 +18,7 @@
             </fest:for>
 
             <div class="add-collaborator__add-new__container" id="membersPopupInvite">
-                <img class="add-collaborator__add-new__icon" src="../../img/icons/add_grey.svg" alt="add"/>
+                <img class="add-collaborator__add-new__icon" src="../../img/icons/add.svg" alt="add"/>
 
                 <div class="add-collaborator__add-new__text">
                     Добавить пользователя

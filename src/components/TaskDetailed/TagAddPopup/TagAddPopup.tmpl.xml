@@ -42,7 +42,7 @@
         </div>
 
         <div class="edit-tags__add-new__container" id="createTag">
-            <img class="edit-tags__add-new__icon" src="../../img/icons/add_grey.svg" alt="add"/>
+            <img class="edit-tags__add-new__icon" src="../../img/icons/add.svg" alt="add"/>
 
             <div class="edit-tags__add-new__text">
                 Создать метку
