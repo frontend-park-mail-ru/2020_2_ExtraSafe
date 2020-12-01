@@ -1,5 +1,5 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
-    <div id="{json.checkListHtmlID}" style="width: 100%; margin: 10px 0;">
+    <div id="{json.checkListHtmlID}" style="width: 95%; margin: 10px 0;">
         <div class="edit-task__content__check-lists__title__container">
             <div class="edit-task__content__check-lists__title">
                 <fest:value>json.checkListName</fest:value>
@@ -10,7 +10,7 @@
             </div>
         </div>
 
-        <div class="edit-task__content__check-lists__body" id="{json.checkListElementsDivID}">
+        <div class="edit-task__content__check-lists__body__elements" id="{json.checkListElementsDivID}">
             <fest:for iterate="json.checkListElements" index="i" value="v">
                 <fest:include context="v" src="./CheckListElement.tmpl.xml"/>
             </fest:for>
