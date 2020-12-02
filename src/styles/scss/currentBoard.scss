@@ -463,6 +463,8 @@
         &__container {
             @include flex-column;
 
+            margin: 10px 3px 0 0;
+
             overflow-y: auto;
         }
 
@@ -470,7 +472,7 @@
         &__task {
             @include flex-column;
 
-            margin: 10px 10px 0 10px;
+            margin: 0 7px 10px 10px;
 
             min-height: fit-content;
 
@@ -483,6 +485,10 @@
             &:hover {
                 background: $element-active;
                 transition: 0.1s linear;
+            }
+
+            &:last-child {
+                margin: 0 7px 0 10px;
             }
 
             // Тег
