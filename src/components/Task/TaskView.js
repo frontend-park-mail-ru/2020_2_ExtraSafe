@@ -39,7 +39,11 @@ export default class TaskView extends BaseView {
      */
     addEventListeners(task) {
         const taskNameEl = document.getElementById(task.taskNameID);
+        taskNameEl.addEventListener('focus', (event) => {
+            event.target.addEventListener('keydown', this.onKeyDownBlur);
+        });
         taskNameEl.addEventListener('focusout', () => {
+            event.target.removeEventListener('keydown', this.onKeyDownBlur);
             const newName = taskNameEl.innerText;
             // TODO: сделать проверку на название из пробелов
             if (newName === '') {
@@ -120,6 +124,16 @@ export default class TaskView extends BaseView {
         taskEl.addEventListener('click', () => {
             this.eventBus.emit('taskView:openTaskDetailed', task);
         }, false);
+    }
+
+    /**
+     * On key down callback
+     * @param {KeyboardEvent} event
+     */
+    onKeyDownBlur(event) {
+        if (event.keyCode === 13 || event.keyCode === 27) {
+            event.target.blur();
+        }
     }
 
     /**

@@ -8,6 +8,7 @@ import checkListElementTemplate from './CheckListElement.tmpl.xml';
 import taskAssignerTemplate from './TaskAssigner.tmpl.xml';
 import commentTemplate from './Comment.tmpl.xml';
 import userSession from '../../utils/userSession.js';
+import globalEventBus from '../../utils/globalEventBus.js';
 
 /**
  * Task detailed view
@@ -151,20 +152,69 @@ export default class TaskDetailedView extends BaseView {
     }
 
     /**
+     * On key down callback
+     * @param {KeyboardEvent} event
+     */
+    onKeyDownBlur(event) {
+        if (event.keyCode === 13) {
+            document.activeElement.blur();
+        }
+    }
+
+    /**
+     * On key down callback
+     * @param {KeyboardEvent} event
+     */
+    onKeyDownHide(event) {
+        if (event.keyCode === 27) {
+            console.log('taskView');
+            if (document.activeElement !== document.body) {
+                document.activeElement.blur();
+            } else {
+                this.hide();
+            }
+            // event.stopImmediatePropagation();
+        }
+    }
+
+    /**
+     * Hide view
+     */
+    hide() {
+        this.el.innerHTML = '';
+        this.el.style.display = 'none';
+        // там прикол с bind(this)
+        window.removeEventListener('keydown', this.onKeyDownHide);
+        this.eventBus.emit('taskDetailedView:closed', null);
+    }
+
+    /**
      * Add all event listeners
      * @param {Object} task
      */
     addEventListeners(task) {
+        window.addEventListener('keydown', this.onKeyDownHide.bind(this));
+        globalEventBus.on('popupClosed', () => {
+            this.el.addEventListener('keydown', this.onKeyDownHide.bind(this));
+        });
         document.getElementById('closeTask').addEventListener('click', () => {
-            this.el.innerHTML = '';
-            this.el.style.display = 'none';
-            this.eventBus.emit('taskDetailedView:closed', null);
+            this.hide();
+        });
+        document.getElementById('taskDescription').addEventListener('focus', () => {
+            document.getElementById('saveTaskDescription').style.display = 'flex';
+        });
+        document.getElementById('taskDescription').addEventListener('focusout', () => {
+            document.getElementById('saveTaskDescription').removeAttribute('style');
         });
         document.getElementById('saveTaskDescription').addEventListener('click', () => {
             const description = document.getElementById('taskDescription').innerText;
             this.eventBus.emit('taskDetailedView:updateTaskDescription', description);
         });
+        document.getElementById('taskName').addEventListener('focus', () => {
+            window.addEventListener('keydown', this.onKeyDownBlur);
+        });
         document.getElementById('taskName').addEventListener('focusout', () => {
+            window.removeEventListener('keydown', this.onKeyDownBlur);
             const el = document.getElementById('taskName');
             const taskName = el.innerText;
             // TODO: сделать проверку на название из пробелов
@@ -179,12 +229,15 @@ export default class TaskDetailedView extends BaseView {
             this.eventBus.emit('taskDetailedView:deleteTask', null);
         });
         document.getElementById('addTag').addEventListener('click', () => {
+            window.removeEventListener('keydown', this.onKeyDownHide);
             this.eventBus.emit('taskDetailedView:addTag', null);
         });
         document.getElementById('checkListCreate').addEventListener('click', () => {
+            window.removeEventListener('keydown', this.onKeyDownHide.bind(this));
             this.eventBus.emit('taskDetailedView:addCheckList', null);
         });
         document.getElementById('taskAssignersAdd').addEventListener('click', () => {
+            window.removeEventListener('keydown', this.onKeyDownHide.bind(this));
             this.eventBus.emit('taskDetailedView:addAssigners', null);
         });
 

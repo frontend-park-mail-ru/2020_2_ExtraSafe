@@ -34,13 +34,27 @@ export default class CurrentBoardView extends BaseView {
     }
 
     /**
+     * On key down callback
+     * @param {KeyboardEvent} event
+     */
+    onKeyDownBlur(event) {
+        if (event.keyCode === 13 || event.keyCode === 27) {
+            event.target.blur();
+        }
+    }
+
+    /**
      * add all event listeners
      */
     addEventListeners() {
         document.getElementById('addCardButton').addEventListener('click', () => {
             this.eventBus.emit('currentBoardView:addNewCard', null);
         }, false);
+        document.getElementById('boardName').addEventListener('focus', () => {
+            event.target.addEventListener('keydown', this.onKeyDownBlur);
+        });
         document.getElementById('boardName').addEventListener('focusout', (event) => {
+            event.target.removeEventListener('keydown', this.onKeyDownBlur);
             this.eventBus.emit('currentBoardView:boardNameUpdate', event.target.innerText);
         });
         document.getElementById('boardSettings').addEventListener('click', () => {

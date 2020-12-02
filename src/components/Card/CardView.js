@@ -48,7 +48,11 @@ export default class CardView extends BaseView {
      * @param {JSON} card
      */
     addEventListeners(card) {
+        document.getElementById(card.cardNameID).addEventListener('focus', (event) => {
+            event.target.addEventListener('keydown', this.onKeyDownBlur);
+        });
         document.getElementById(card.cardNameID).addEventListener('focusout', (event) => {
+            event.target.removeEventListener('keydown', this.onKeyDownBlur);
             const newName = event.target.innerText;
             // TODO: сделать проверку на название из пробелов
             if (newName === '') {
@@ -94,12 +98,11 @@ export default class CardView extends BaseView {
     }
 
     /**
-     * Emit submit event on enter
+     * On key down callback
      * @param {KeyboardEvent} event
      */
-    emitSubmit(event) {
-        if (event.keyCode === 13) {
-            this.requestSubmit();
+    onKeyDownBlur(event) {
+        if (event.keyCode === 13 || event.keyCode === 27) {
             event.target.blur();
         }
     }
