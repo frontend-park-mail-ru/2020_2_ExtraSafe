@@ -472,6 +472,8 @@
 
             margin: 10px 10px 0 10px;
 
+            min-height: fit-content;
+
             @include standard-border-radius;
 
             background: $light-grey;

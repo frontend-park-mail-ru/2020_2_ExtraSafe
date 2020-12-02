@@ -48,7 +48,9 @@ export default class CurrentBoardView extends BaseView {
      */
     addEventListeners() {
         document.getElementById('addCardButton').addEventListener('click', () => {
-            this.eventBus.emit('currentBoardView:addNewCard', null);
+            setTimeout(() => {
+                this.eventBus.emit('currentBoardView:addNewCard', null);
+            }, 50);
         }, false);
         document.getElementById('boardName').addEventListener('focus', () => {
             event.target.addEventListener('keydown', this.onKeyDownBlur);

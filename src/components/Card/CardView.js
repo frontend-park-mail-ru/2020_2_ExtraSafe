@@ -67,7 +67,9 @@ export default class CardView extends BaseView {
             }
         });
         document.getElementById(card.addTaskID).addEventListener('click', () => {
-            this.eventBus.emit('cardView:addNewTask', null);
+            setTimeout(() => {
+                this.eventBus.emit('cardView:addNewTask', null);
+            }, 50);
         });
         document.getElementById(card.cardSettingsID).addEventListener('click', () => {
             document.getElementById(card.cardHtmlID).remove();

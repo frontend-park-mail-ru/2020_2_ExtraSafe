@@ -203,10 +203,10 @@ export default class TaskDetailedView extends BaseView {
         document.getElementById('taskDescription').addEventListener('focus', () => {
             document.getElementById('saveTaskDescription').style.display = 'flex';
         });
-        document.getElementById('taskDescription').addEventListener('focusout', () => {
-            document.getElementById('saveTaskDescription').removeAttribute('style');
+        document.getElementById('saveTaskDescription').addEventListener('click', (event) => {
+            event.target.removeAttribute('style');
         });
-        document.getElementById('saveTaskDescription').addEventListener('click', () => {
+        document.getElementById('saveTaskDescription').addEventListener('mousedown', () => {
             const description = document.getElementById('taskDescription').innerText;
             this.eventBus.emit('taskDetailedView:updateTaskDescription', description);
         });
@@ -320,12 +320,10 @@ export default class TaskDetailedView extends BaseView {
         });
         commentInput.addEventListener('focusout', () => {
             if (commentInput.innerText === '') {
-                setTimeout(() => {
-                    commentSave.style.display = 'none';
-                }, 0);
+                commentSave.style.display = 'none';
             }
         });
-        commentSave.addEventListener('click', () => {
+        commentSave.addEventListener('mousedown', () => {
             if (commentInput.innerText !== '') {
                 this.eventBus.emit('taskDetailedView:addComment', commentInput.innerText);
                 commentInput.innerHTML = '';

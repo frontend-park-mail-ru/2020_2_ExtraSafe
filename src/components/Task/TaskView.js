@@ -42,7 +42,7 @@ export default class TaskView extends BaseView {
         taskNameEl.addEventListener('focus', (event) => {
             event.target.addEventListener('keydown', this.onKeyDownBlur);
         });
-        taskNameEl.addEventListener('focusout', () => {
+        taskNameEl.addEventListener('focusout', (event) => {
             event.target.removeEventListener('keydown', this.onKeyDownBlur);
             const newName = taskNameEl.innerText;
             // TODO: сделать проверку на название из пробелов
