@@ -156,7 +156,7 @@ export default class TaskDetailedView extends BaseView {
      * @param {KeyboardEvent} event
      */
     onKeyDownBlur(event) {
-        if (event.keyCode === 13 || event.keyCode === 27) {
+        if (event.keyCode === 27) {
             if (document.activeElement !== document.body) {
                 document.activeElement.blur();
             }
@@ -167,17 +167,30 @@ export default class TaskDetailedView extends BaseView {
      * On key down callback
      * @param {KeyboardEvent} event
      */
-    onKeyDownHide(event) {
-        if (event.keyCode === 27) {
-            console.log('taskView');
-            if (document.activeElement !== document.body) {
-                document.activeElement.blur();
-            } else {
-                this.hide();
-            }
-            // event.stopImmediatePropagation();
+    onKeyDownSubmit(event) {
+        if (event.keyCode === 13) {
+            document.activeElement.blur();
+            // if (document.activeElement !== document.body) {
+            //     document.activeElement.blur();
+            // }
         }
     }
+
+    // /**
+    //  * On key down callback
+    //  * @param {KeyboardEvent} event
+    //  */
+    // onKeyDownHide(event) {
+    //     if (event.keyCode === 27) {
+    //         console.log('taskView');
+    //         if (document.activeElement !== document.body) {
+    //             document.activeElement.blur();
+    //         } else {
+    //             this.hide();
+    //         }
+    //         // event.stopImmediatePropagation();
+    //     }
+    // }
 
     /**
      * Hide view
@@ -207,18 +220,17 @@ export default class TaskDetailedView extends BaseView {
         document.getElementById('taskDescription').addEventListener('focus', () => {
             document.getElementById('saveTaskDescription').style.display = 'flex';
         });
-        document.getElementById('saveTaskDescription').addEventListener('click', (event) => {
-            event.target.removeAttribute('style');
-        });
-        document.getElementById('saveTaskDescription').addEventListener('mousedown', () => {
+        document.getElementById('saveTaskDescription').addEventListener('mousedown', (event) => {
             const description = document.getElementById('taskDescription').innerText;
             this.eventBus.emit('taskDetailedView:updateTaskDescription', description);
+            this.eventBus.emit('taskDetailedView:closed', null);
+            event.target.removeAttribute('style');
         });
-        // document.getElementById('taskName').addEventListener('focus', () => {
-        //     window.addEventListener('keydown', this.onKeyDownBlur);
-        // });
+        document.getElementById('taskName').addEventListener('focus', () => {
+            window.addEventListener('keydown', this.onKeyDownSubmit);
+        });
         document.getElementById('taskName').addEventListener('focusout', () => {
-            // window.removeEventListener('keydown', this.onKeyDownBlur);
+            window.removeEventListener('keydown', this.onKeyDownSubmit);
             const el = document.getElementById('taskName');
             const taskName = el.innerText;
             // TODO: сделать проверку на название из пробелов
@@ -226,6 +238,7 @@ export default class TaskDetailedView extends BaseView {
                 el.innerHTML = task.taskName;
             } else {
                 this.eventBus.emit('taskDetailedView:updateTaskName', taskName);
+                this.eventBus.emit('taskDetailedView:closed', null);
             }
         });
         document.getElementById('deleteTask').addEventListener('click', () => {

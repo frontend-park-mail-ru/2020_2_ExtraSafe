@@ -114,7 +114,7 @@ export default class CurrentBoardController extends BaseController {
         this.eventBus.on('currentBoardView:viewRendered', ([cardsDiv, taskDetailed]) => {
             this.cardsDiv = cardsDiv;
             this.taskDetailed = new TaskDetailedController(taskDetailed);
-            this.model.getBoardData();
+            // this.model.getBoardData();
         });
         this.eventBus.on('currentBoardModel:getBoardFailed', (errorCodes) => {
             console.log('currentBoardModel:getBoardFailed');
@@ -188,9 +188,15 @@ export default class CurrentBoardController extends BaseController {
      */
     render() {
         super.render();
-        this.view.render(this.model.board);
+        this.model.getBoardData().then((responseBody) => {
+            this.view.render(this.model.board);
+            this.eventBus.emit('currentBoardModel:getBoardSuccess', responseBody);
+            this.initMembersPopups();
+            this.addMembersEventListeners();
+        });
+        // this.view.render(this.model.board);
 
-        this.initMembersPopups();
-        this.addMembersEventListeners();
+        // this.initMembersPopups();
+        // this.addMembersEventListeners();
     }
 }

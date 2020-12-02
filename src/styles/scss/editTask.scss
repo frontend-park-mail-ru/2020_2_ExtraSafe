@@ -123,6 +123,10 @@
                 word-break: break-all;
 
                 cursor: pointer;
+
+                &:focus {
+                    cursor: text;
+                }
             }
         }
 
@@ -197,6 +201,8 @@
                 &__container {
                     @include flex-column;
                     justify-content: flex-start;
+
+                    position: relative;
 
                     width: 100%;
                     max-width: 140px;
@@ -1269,11 +1275,11 @@
         align-items: flex-start;
         justify-content: center;
 
-        max-width: 250px;
-        width: 100%;
+        width: 250px;
+        // width: 100%;
 
-        top: 135px;
-        left: 40px;
+        top: 65px;
+        // left: 40px;
     }
 
     &__body {

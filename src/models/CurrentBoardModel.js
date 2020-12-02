@@ -21,9 +21,10 @@ export default class CurrentBoardModel {
 
     /**
      * send request to server to get data of board
+     * @return {Promise}
      */
     getBoardData() {
-        network.boardGet(this.board.boardID).then((response) => {
+        return network.boardGet(this.board.boardID).then((response) => {
             return response.json();
         }).then((responseBody) => {
             if (responseBody.status > 200) {
@@ -39,7 +40,7 @@ export default class CurrentBoardModel {
                 this.board.boardMembers = responseBody.boardMembers;
                 this.initTags();
                 this.initMembers();
-                this.eventBus.emit('currentBoardModel:getBoardSuccess', responseBody);
+                // this.eventBus.emit('currentBoardModel:getBoardSuccess', responseBody);
             }
             return responseBody;
         });
