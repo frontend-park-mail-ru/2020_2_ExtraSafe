@@ -299,12 +299,13 @@
 .card__content__container {
   display: flex;
   flex-direction: column;
+  margin: 10px 3px 0 0;
   overflow-y: auto;
 }
 .card__content__task {
   display: flex;
   flex-direction: column;
-  margin: 10px 10px 0 10px;
+  margin: 0 7px 10px 10px;
   border-radius: 5px;
   background: #F3F3F3;
   cursor: pointer;
@@ -312,6 +313,9 @@
 .card__content__task:hover {
   background: #e3e3e3;
   transition: 0.1s linear;
+}
+.card__content__task:last-child {
+  margin: 0 7px 0 10px;
 }
 .card__content__task__tag {
   display: flex;

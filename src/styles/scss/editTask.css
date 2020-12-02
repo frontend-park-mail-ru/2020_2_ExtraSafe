@@ -33,41 +33,34 @@
 
 .edit-task__container {
   display: none;
-  position: absolute;
-  align-items: flex-start;
-  justify-content: center;
+  flex-direction: column;
+  position: fixed;
+  align-items: center;
   overflow-y: auto;
   top: 0;
   width: 100vw;
-  height: 90vh;
-  padding: 10vh 0 0 0;
+  height: 100vh;
   background-color: rgba(0, 0, 0, 0.3);
 }
 .edit-task__container::-webkit-scrollbar {
   width: 0;
 }
-.edit-task__container::after {
-  content: "";
-  display: flex;
-  /*position: absolute;*/
-  width: 100%;
-  height: 20vh;
-}
 .edit-task__content__container {
   display: flex;
   flex-direction: column;
-  position: absolute;
   align-items: center;
   justify-content: flex-start;
   width: 100%;
   max-width: 615px;
   height: fit-content;
+  margin: 10vh 0;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   background: #FFFFFF;
 }
 .edit-task__content__name__container {
   display: flex;
+  position: relative;
   justify-content: flex-start;
   justify-self: center;
   z-index: 1;
@@ -184,6 +177,7 @@
   width: 100%;
   max-width: 550px;
   padding: 20px 0 0 0;
+  margin: 0 0 20px 0;
 }
 .edit-task__content__description__title {
   display: flex;
@@ -198,12 +192,15 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin: 10px 0 20px 0;
+  margin: 10px 0 0 0;
   border-radius: 5px;
   background: #F3F3F3;
 }
+.edit-task__content__description__body:focus-within {
+  box-shadow: 0 0 0 2px #A32CDF inset;
+}
 .edit-task__content__description__body__text {
-  display: flex;
+  white-space: pre-wrap;
   margin: 10px;
   font-family: Roboto, sans-serif;
   font-style: normal;
@@ -215,7 +212,7 @@
   outline: none;
   cursor: pointer;
 }
-.edit-task__content__description__body__text:hover {
+.edit-task__content__description__body__text:focus {
   cursor: text;
 }
 .edit-task__content__description__body__footer {
@@ -226,14 +223,14 @@
   border-top: 1px solid #CCCCCC;
 }
 .edit-task__content__description__body__footer__save-button {
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   width: 100%;
   max-width: 105px;
   height: 100%;
   max-height: 30px;
-  margin: 10px 0 0 10px;
+  margin: 5px 0 0 0;
   padding: 10px;
   border-radius: 5px;
   border-style: none;
@@ -550,9 +547,10 @@
 }
 .edit-task__content__comments__add__comment__text:focus {
   border: 2px #6D27E7 solid !important;
+  cursor: text;
 }
 .edit-task__content__comments__add__comment__button {
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   width: 100%;
@@ -627,7 +625,7 @@
   color: #6D27E7;
 }
 .edit-task__content__comments__body__comment__right__text {
-  display: flex;
+  white-space: pre-wrap;
   padding: 10px;
   font-family: Roboto, sans-serif;
   font-style: normal;
@@ -636,7 +634,10 @@
   line-height: 16px;
   border-radius: 5px;
   background: #F3F3F3;
-  cursor: default;
+  cursor: pointer;
+}
+.edit-task__content__comments__body__comment__right__text:focus {
+  cursor: text;
 }
 .edit-task__content__delete__icon {
   display: flex;
@@ -654,7 +655,6 @@
   width: 17px;
   height: 17px;
   align-self: flex-start;
-  margin: 25px 25px 0 0;
   cursor: pointer;
 }
 
