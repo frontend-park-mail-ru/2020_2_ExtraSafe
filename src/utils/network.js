@@ -8,8 +8,8 @@ class Network {
      * Constructor network
      */
     constructor() {
-        // this.serverAddr = 'http://tabutask.ru:8080';
-        this.serverAddr = 'http://127.0.0.1:8080';
+        this.serverAddr = 'http://tabutask.ru:8080';
+        // this.serverAddr = 'http://127.0.0.1:8080';
         this.requestGet = {
             mode: 'cors',
             credentials: 'include',
