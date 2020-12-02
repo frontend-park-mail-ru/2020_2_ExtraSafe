@@ -15,11 +15,11 @@
                 <div class="adaptive-navigation">
                     <input id="navigation__toggle" type="checkbox" />
                     <label class="adaptive-navigation__button" for="navigation__toggle">
-                        <span></span>
+                        <span/>
                     </label>
 
                     <div class="adaptive-navigation__container">
-                        <div class="adaptive-navigation__element adaptive-navigation__element_active" id="profileLink">
+                        <div class="adaptive-navigation__element adaptive-navigation__element_active" id="profileLinkAdaptive">
                             Профиль
                         </div>
 
@@ -27,7 +27,7 @@
 <!--                            Аккаунты-->
 <!--                        </div>-->
 
-                        <div class="adaptive-navigation__element" id="securityLink">
+                        <div class="adaptive-navigation__element" id="securityLinkAdaptive">
                             Безопасность
                         </div>
                     </div>

@@ -20,16 +20,44 @@ export default class AddBoardPopup {
      * Hide popup
      */
     hide() {
-        for (const el of this.el.children) {
-            el.remove();
-        }
+        this.el.innerHTML = '';
         this.el.style.display = 'none';
+        this.el.removeEventListener('keydown', this.onKeyDownSubmitBind);
+        this.el.removeEventListener('keydown', this.onKeyDownHideBind);
+    }
+
+    /**
+     * On key down callback
+     * @param {KeyboardEvent} event
+     */
+    onKeyDownSubmit(event) {
+        if (event.keyCode === 13) {
+            const boardName = document.getElementById('popupBoardName').innerText;
+            // TODO: сделать проверку на имя из пробелов
+            if (boardName !== '') {
+                this.eventBus.emit('addBoardPopup:addBoard', boardName);
+            }
+        }
+    }
+
+    /**
+     * On key down callback
+     * @param {KeyboardEvent} event
+     */
+    onKeyDownHide(event) {
+        if (event.keyCode === 27) {
+            this.hide();
+        }
     }
 
     /**
      * Add all event listeners
      */
     addEventListeners() {
+        this.onKeyDownSubmitBind = this.onKeyDownSubmit.bind(this);
+        this.onKeyDownHideBind = this.onKeyDownHide.bind(this);
+        this.el.addEventListener('keydown', this.onKeyDownSubmitBind);
+        this.el.addEventListener('keydown', this.onKeyDownHideBind);
         document.getElementById('createBoard').addEventListener('click', () => {
             const boardName = document.getElementById('popupBoardName').innerText;
             // TODO: сделать проверку на имя из пробелов

@@ -21,19 +21,10 @@ export default class SettingsView extends BaseView {
      */
     renderProfileSettings() {
         this.profileLink.className = 'navigation__element_active';
-        this.accountsLink.className = 'navigation__element';
+        this.profileLinkAdaptive.className = 'adaptive-navigation__element adaptive-navigation__element_active';
         this.securityLink.className = 'navigation__element';
+        this.securityLinkAdaptive.className = 'adaptive-navigation__element';
         this.eventBus.emit('settingsView:renderProfile', this.settingsBody);
-    }
-
-    /**
-     * Render accounts settings
-     */
-    renderAccountsSettings() {
-        this.profileLink.className = 'navigation__element';
-        this.accountsLink.className = 'navigation__element_active';
-        this.securityLink.className = 'navigation__element';
-        this.eventBus.emit('settingsView:renderAccounts', this.settingsBody);
     }
 
     /**
@@ -41,8 +32,9 @@ export default class SettingsView extends BaseView {
      */
     renderSecuritySettings() {
         this.profileLink.className = 'navigation__element';
-        this.accountsLink.className = 'navigation__element';
+        this.profileLinkAdaptive.className = 'adaptive-navigation__element';
         this.securityLink.className = 'navigation__element_active';
+        this.securityLinkAdaptive.className = 'adaptive-navigation__element adaptive-navigation__element_active';
         this.eventBus.emit('settingsView:renderSecurity', this.settingsBody);
     }
 
@@ -51,8 +43,9 @@ export default class SettingsView extends BaseView {
      */
     addEventListeners() {
         this.profileLink.addEventListener('click', this.renderProfileSettings.bind(this), false);
-        this.accountsLink.addEventListener('click', this.renderAccountsSettings.bind(this), false);
         this.securityLink.addEventListener('click', this.renderSecuritySettings.bind(this), false);
+        this.profileLinkAdaptive.addEventListener('click', this.renderProfileSettings.bind(this), false);
+        this.securityLinkAdaptive.addEventListener('click', this.renderSecuritySettings.bind(this), false);
     }
 
     /**
@@ -63,9 +56,11 @@ export default class SettingsView extends BaseView {
         this.el.innerHTML = settingsViewTemplate();
 
         this.profileLink = document.getElementById('profileLink');
-        this.accountsLink = document.getElementById('accountsLink');
         this.securityLink = document.getElementById('securityLink');
         this.settingsBody = document.getElementById('settingsBody');
+
+        this.profileLinkAdaptive = document.getElementById('profileLinkAdaptive');
+        this.securityLinkAdaptive = document.getElementById('securityLinkAdaptive');
 
         this.addEventListeners();
         this.renderProfileSettings();

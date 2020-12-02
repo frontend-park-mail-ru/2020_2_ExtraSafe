@@ -8,7 +8,7 @@ import checkListElementTemplate from './CheckListElement.tmpl.xml';
 import taskAssignerTemplate from './TaskAssigner.tmpl.xml';
 import commentTemplate from './Comment.tmpl.xml';
 import userSession from '../../utils/userSession.js';
-import globalEventBus from '../../utils/globalEventBus.js';
+// import globalEventBus from '../../utils/globalEventBus.js';
 
 /**
  * Task detailed view
@@ -156,8 +156,10 @@ export default class TaskDetailedView extends BaseView {
      * @param {KeyboardEvent} event
      */
     onKeyDownBlur(event) {
-        if (event.keyCode === 13) {
-            document.activeElement.blur();
+        if (event.keyCode === 13 || event.keyCode === 27) {
+            if (document.activeElement !== document.body) {
+                document.activeElement.blur();
+            }
         }
     }
 
@@ -184,7 +186,8 @@ export default class TaskDetailedView extends BaseView {
         this.el.innerHTML = '';
         this.el.style.display = 'none';
         // там прикол с bind(this)
-        window.removeEventListener('keydown', this.onKeyDownHide);
+        // window.removeEventListener('keydown', this.onKeyDownHide);
+        window.removeEventListener('keydown', this.onKeyDownBlur);
         this.eventBus.emit('taskDetailedView:closed', null);
     }
 
@@ -193,10 +196,11 @@ export default class TaskDetailedView extends BaseView {
      * @param {Object} task
      */
     addEventListeners(task) {
-        window.addEventListener('keydown', this.onKeyDownHide.bind(this));
-        globalEventBus.on('popupClosed', () => {
-            this.el.addEventListener('keydown', this.onKeyDownHide.bind(this));
-        });
+        // window.addEventListener('keydown', this.onKeyDownHide.bind(this));
+        // globalEventBus.on('popupClosed', () => {
+        //     this.el.addEventListener('keydown', this.onKeyDownHide.bind(this));
+        // });
+        window.addEventListener('keydown', this.onKeyDownBlur);
         document.getElementById('closeTask').addEventListener('click', () => {
             this.hide();
         });
@@ -210,11 +214,11 @@ export default class TaskDetailedView extends BaseView {
             const description = document.getElementById('taskDescription').innerText;
             this.eventBus.emit('taskDetailedView:updateTaskDescription', description);
         });
-        document.getElementById('taskName').addEventListener('focus', () => {
-            window.addEventListener('keydown', this.onKeyDownBlur);
-        });
+        // document.getElementById('taskName').addEventListener('focus', () => {
+        //     window.addEventListener('keydown', this.onKeyDownBlur);
+        // });
         document.getElementById('taskName').addEventListener('focusout', () => {
-            window.removeEventListener('keydown', this.onKeyDownBlur);
+            // window.removeEventListener('keydown', this.onKeyDownBlur);
             const el = document.getElementById('taskName');
             const taskName = el.innerText;
             // TODO: сделать проверку на название из пробелов
@@ -229,15 +233,15 @@ export default class TaskDetailedView extends BaseView {
             this.eventBus.emit('taskDetailedView:deleteTask', null);
         });
         document.getElementById('addTag').addEventListener('click', () => {
-            window.removeEventListener('keydown', this.onKeyDownHide);
+            // window.removeEventListener('keydown', this.onKeyDownHide);
             this.eventBus.emit('taskDetailedView:addTag', null);
         });
         document.getElementById('checkListCreate').addEventListener('click', () => {
-            window.removeEventListener('keydown', this.onKeyDownHide.bind(this));
+            // window.removeEventListener('keydown', this.onKeyDownHide.bind(this));
             this.eventBus.emit('taskDetailedView:addCheckList', null);
         });
         document.getElementById('taskAssignersAdd').addEventListener('click', () => {
-            window.removeEventListener('keydown', this.onKeyDownHide.bind(this));
+            // window.removeEventListener('keydown', this.onKeyDownHide.bind(this));
             this.eventBus.emit('taskDetailedView:addAssigners', null);
         });
 
