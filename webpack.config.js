@@ -16,10 +16,6 @@ module.exports = {
                 use: [{loader: 'fest-webpack-loader'}],
             },
             {
-                test: /\.css$/i,
-                use: [MiniCssExtractPlugin.loader, 'css-loader'],
-            },
-            {
                 test: /\.s[ac]ss$/i,
                 use: [
                     MiniCssExtractPlugin.loader,
@@ -28,11 +24,7 @@ module.exports = {
                         loader: 'postcss-loader',
                         options: {
                             postcssOptions: {
-                                plugins: [
-                                    autoprefixer({
-                                        browsers: ['ie >= 8', 'last 4 version'],
-                                    }),
-                                ],
+                                plugins: [autoprefixer],
                             },
                             sourceMap: true,
                         },
@@ -40,6 +32,16 @@ module.exports = {
                     // Compiles Sass to CSS
                     'sass-loader',
                 ],
+            },
+            {
+                test: /\.m?js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env'],
+                    },
+                },
             },
         ],
     },

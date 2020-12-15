@@ -72,7 +72,7 @@ export default class TaskController extends BaseController {
             this.view.deleteTask(this.model.task);
             this.model.deleteTask();
             globalEventBus.emit('taskController:deleteTaskFromArray', this.model.task.taskID);
-            delete this;
+            // delete this;
         });
         this.taskDetailed.eventBus.on('taskDetailedView:closed', () => {
             this.model.updateTaskForServer();
