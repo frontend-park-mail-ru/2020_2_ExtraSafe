@@ -25,6 +25,11 @@ export default class Router {
             this.isAuth = false;
             this.renderIfNotAuth('/login');
         });
+
+        window.onpopstate = (event) => {
+            // this.routesMap.get(event.state).render();
+            this.open(event.state, false);
+        };
     }
 
     /**
@@ -86,28 +91,41 @@ export default class Router {
     /**
      * Open route
      * @param {string} route
+     * @param {boolean} pushState
      */
-    open(route) {
-        window.history.replaceState({}, '', route);
+    open(route, pushState = true) {
+        // window.history.pushState({}, '', route);
+        // window.history.replaceState({}, '', route);
 
         // TODO: переписать для перехода на публичные доски, которых нет в userSession
         if (!this.isAuth) {
             this.authorize().then((response) => {
                 this.isAuth = response;
                 if (this.routesMap.has(route)) {
+                    if (pushState) {
+                        window.history.pushState(route, '', route);
+                    }
+
                     if (response === true) {
                         this.renderIfAuth(route);
                     } else {
                         this.renderIfNotAuth(route);
                     }
                 } else {
-                    window.history.replaceState({}, '', '/');
+                    if (pushState) {
+                        window.history.pushState('/', '', '/');
+                    }
+                    // window.history.replaceState({}, '', '/');
 
                     const page = this.routesMap.get('/');
                     page.render();
                 }
             });
         } else {
+            if (pushState) {
+                window.history.pushState(route, '', route);
+            }
+
             this.renderIfAuth(route);
         }
     }
