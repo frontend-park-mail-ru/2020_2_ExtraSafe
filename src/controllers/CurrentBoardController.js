@@ -6,6 +6,7 @@ import globalEventBus from '../utils/globalEventBus.js';
 import CardController from '../components/Card/CardController.js';
 import MembersPopup from '../components/MembersPopup/MembersPopup.js';
 import MemberInvitePopup from '../components/MemberInvitePopup/MemberInvitePopup.js';
+import network from '../utils/network.js';
 
 /**
  * Current board controller
@@ -184,6 +185,17 @@ export default class CurrentBoardController extends BaseController {
     }
 
     /**
+     * Add event listeners related to web sockets
+     */
+    addWsEventListeners() {
+        this.ws.addEventListener('message', (event) => {
+            const card = JSON.parse(event.data);
+            console.log(card);
+            this.addCard(card.cardID, card.cardName, card.cardOrder);
+        });
+    }
+
+    /**
      * Render view
      */
     render() {
@@ -193,6 +205,8 @@ export default class CurrentBoardController extends BaseController {
             this.eventBus.emit('currentBoardModel:getBoardSuccess', responseBody);
             this.initMembersPopups();
             this.addMembersEventListeners();
+            this.ws = network.webSocketConnection(this.model.board.boardID);
+            this.addWsEventListeners();
         });
         // this.view.render(this.model.board);
 
