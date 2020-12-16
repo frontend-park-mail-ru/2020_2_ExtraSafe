@@ -26,7 +26,7 @@ const homeController = new HomeController(contentDiv, router);
 const settingsController = new SettingsController(contentDiv, router);
 
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js', {scope: '/'})
+    navigator.serviceWorker.register('/sw.js', {scope: '/'})
         .then((registration) => {
             console.log('sw registration on scope:', registration.scope);
         })
