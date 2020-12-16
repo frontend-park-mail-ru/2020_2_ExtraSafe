@@ -35,6 +35,10 @@ if ('serviceWorker' in navigator) {
         });
 }
 
+window.addEventListener('offline', () => {
+    window.alert('offline');
+});
+
 router.addRoute('/login', loginController);
 router.addRoute('/reg', regController);
 router.addRoute('/settings', settingsController);
