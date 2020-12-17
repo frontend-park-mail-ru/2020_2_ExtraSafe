@@ -50,9 +50,11 @@ module.exports = {
             filename: 'main.css',
         }),
         new HtmlWebpackPlugin({
-            hash: true,
             template: './src/index.html',
         }),
+        // new HtmlWebpackPlugin({
+        //     filename: 'offline.html',
+        // }),
         new CopyPlugin({
             patterns: [
                 {from: './src/img', to: './img'},
@@ -60,6 +62,10 @@ module.exports = {
         }),
         new InjectManifest({
             swSrc: './src/sw.js',
+            additionalManifestEntries: [
+                './index.html',
+                // './offline.html',
+            ],
         }),
     ],
 };

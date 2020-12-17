@@ -1,17 +1,27 @@
-import {precacheAndRoute} from 'workbox-precaching/precacheAndRoute';
+// import 'regenerator-runtime/runtime.js';
+import {precacheAndRoute} from 'workbox-precaching';
+// import {matchPrecache} from 'workbox-precaching';
+// import {setCatchHandler} from 'workbox-routing';
+import {registerRoute} from 'workbox-routing';
+import {StaleWhileRevalidate} from 'workbox-strategies';
 
 precacheAndRoute(self.__WB_MANIFEST);
 
-// TODO: разобраться почему не регистрируется sw на страницах досок
+registerRoute(
+    ({url}) => url.origin === 'https://fonts.googleapis.com' ||
+        url.origin === 'https://fonts.gstatic.com',
+    new StaleWhileRevalidate(),
+);
 
-self.addEventListener('fetch', (event) => {
-    event.respondWith(
-        caches.match(event.request)
-            .then((response) => response || fetch(event.request))
-            .catch(() => {
-                if (event.request.mode === 'navigate') {
-                    return new Response('offline');
-                }
-            }),
-    );
-});
+registerRoute(
+    ({request}) => request.destination === 'image',
+    new StaleWhileRevalidate(),
+);
+
+// setCatchHandler(async ({event}) => {
+//     if (event.request.destination === 'document') {
+//         return matchPrecache('/offline.html');
+//     }
+//
+//     return Response.error();
+// });
