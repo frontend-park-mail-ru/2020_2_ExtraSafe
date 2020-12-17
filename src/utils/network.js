@@ -10,6 +10,7 @@ class Network {
     constructor() {
         // this.serverAddr = 'http://tabutask.ru:8080';
         this.serverAddr = 'http://127.0.0.1:8080';
+        this.serverAddrWS = 'ws://127.0.0.1:8080';
         this.requestGet = {
             mode: 'cors',
             credentials: 'include',
@@ -542,6 +543,23 @@ class Network {
         this.requestDelete.body = JSON.stringify(data);
 
         return fetch(url, this.requestDelete);
+    }
+
+    /**
+     * request to stand websocket connection
+     * @param {string} boardID
+     * @return {WebSocket}
+     */
+    webSocketConnection(boardID) {
+        const url = this.serverAddrWS + '/board-ws/' + boardID + '/';
+
+        const ws = new WebSocket(url);
+
+        ws.onopen = function() {
+            console.log('Connected');
+        };
+
+        return ws;
     }
 
     /**
