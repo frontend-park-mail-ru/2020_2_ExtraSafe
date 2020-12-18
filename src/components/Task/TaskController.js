@@ -66,7 +66,7 @@ export default class TaskController extends BaseController {
             globalEventBus.emit('taskController:deleteTaskFromArray', this.model.task.taskID);
         });
         this.taskDetailed.eventBus.on('taskDetailedController:taskNameUpdated', () => {
-            this.view.updateTaskName(this.model.task);
+            this.view.updateTaskName(this.model.task.taskName);
         });
         this.taskDetailed.eventBus.on('taskDetailedView:deleteTask', () => {
             this.view.deleteTask(this.model.task);
@@ -103,6 +103,27 @@ export default class TaskController extends BaseController {
         });
 
         this.addDragAndDropEventListeners();
+    }
+
+    /**
+     * Add event listeners related to web sockets
+     */
+    addWsEventListeners() {
+        this.model.board.ws.addEventListener('message', (event) => {
+            // const data = JSON.parse(event.data);
+
+            // TODO: маше надо добавить cardID
+            // if (data.body.cardID === this.model.card.cardID) {
+            //     switch (data.method) {
+            //     case 'ChangeTask':
+            //         this.model.updateTaskByID(data.body.taskID, data.body.taskName, data.body.taskDescription);
+            //         this.view.updateTaskName(data.body.taskName);
+            //         break;
+            //     default:
+            //         break;
+            //     }
+            // }
+        });
     }
 
     /**
@@ -150,5 +171,6 @@ export default class TaskController extends BaseController {
         this.addEventListeners();
         this.view.render(this.model.task);
         this.addTagEventListeners();
+        this.addWsEventListeners();
     }
 }

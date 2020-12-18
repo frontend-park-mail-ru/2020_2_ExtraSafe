@@ -36,6 +36,14 @@ export default class CardView extends BaseView {
     }
 
     /**
+     * Update card name view
+     * @param {string} name
+     */
+    updateCardName(name) {
+        document.getElementById(this.card.cardNameID).innerText = name;
+    }
+
+    /**
      * Render task
      * @param {TaskController} task
      */
@@ -114,6 +122,7 @@ export default class CardView extends BaseView {
      * @param {JSON} card
      */
     render(card) {
+        this.card = card;
         const html = cardTemplate(card);
         this.el.appendChild(rendering.createElementsFromTmpl(html));
         this.tasksDiv = document.getElementById(card.tasksDiv);

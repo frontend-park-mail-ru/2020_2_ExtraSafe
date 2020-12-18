@@ -138,10 +138,10 @@ export default class TaskView extends BaseView {
 
     /**
      * Update task name view
-     * @param {Object} task
+     * @param {string} name
      */
-    updateTaskName(task) {
-        document.getElementById(task.taskNameID).innerHTML = task.taskName;
+    updateTaskName(name) {
+        document.getElementById(this.task.taskNameID).innerHTML = name;
     }
 
     /**
@@ -192,6 +192,7 @@ export default class TaskView extends BaseView {
      * @param {Object} task
      */
     render(task) {
+        this.task = task;
         const html = taskTemplate(task);
         this.el.appendChild(rendering.createElementsFromTmpl(html));
         this.addEventListeners(task);

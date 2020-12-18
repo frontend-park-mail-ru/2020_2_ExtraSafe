@@ -99,9 +99,12 @@ export default class TaskModel {
                 const checkListElementID = Math.floor(Math.random() * Math.floor(10000));
                 checkListElement.checkListID = checkList.checkListID;
                 checkListElement.checkListElementID = checkListElementID;
-                checkListElement.checkListElementHtmlID = `checkList${checkList.checkListID}Element${checkListElementID}`;
-                checkListElement.checkListElementCheckID = `checkList${checkList.checkListID}ElementCheck${checkListElementID}`;
-                checkListElement.checkListElementNameID = `checkList${checkList.checkListID}ElementName${checkListElementID}`;
+                checkListElement.checkListElementHtmlID =
+                    `checkList${checkList.checkListID}Element${checkListElementID}`;
+                checkListElement.checkListElementCheckID =
+                    `checkList${checkList.checkListID}ElementCheck${checkListElementID}`;
+                checkListElement.checkListElementNameID =
+                    `checkList${checkList.checkListID}ElementName${checkListElementID}`;
                 checkListElement.isInitialized = true;
             }
         }
@@ -152,6 +155,17 @@ export default class TaskModel {
         }).catch((error) => {
             return;
         });
+    }
+
+    /**
+     * Update task data by its ID
+     * @param {number} taskID
+     * @param {string} taskName
+     * @param {string} taskDescription
+     */
+    updateTaskByID(taskID, taskName, taskDescription) {
+        this.task.taskName = taskName;
+        this.task.taskDescription = taskDescription;
     }
 
     /**

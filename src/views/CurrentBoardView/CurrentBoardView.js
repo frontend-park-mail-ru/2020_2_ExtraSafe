@@ -25,6 +25,14 @@ export default class CurrentBoardView extends BaseView {
     }
 
     /**
+     * Update card name view
+     * @param {string} name
+     */
+    updateBoardName(name) {
+        document.getElementById('boardName').innerText = name;
+    }
+
+    /**
      * Update card order in HTML
      * @param {string} cardHtmlID
      * @param {number} order

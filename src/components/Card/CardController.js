@@ -227,6 +227,31 @@ export default class CardController extends BaseController {
     }
 
     /**
+     * Add event listeners related to web sockets
+     */
+    addWsEventListeners() {
+        this.model.board.ws.addEventListener('message', (event) => {
+            const data = JSON.parse(event.data);
+
+            if (data.body.cardID === this.model.card.cardID) {
+                switch (data.method) {
+                // TODO: удаление карточки
+                case 'ChangeCard':
+                    this.model.card.cardName = data.body.cardName;
+                    this.view.updateCardName(data.body.cardName);
+                    break;
+                case 'CreateTask':
+                    this.createTask(data.body.taskID, data.body.taskName,
+                        data.body.taskDescription, data.body.taskOrder);
+                    break;
+                default:
+                    break;
+                }
+            }
+        });
+    }
+
+    /**
      * Add event listeners related to drag and drop
      */
     addDragAndDropEventListeners() {
@@ -275,5 +300,6 @@ export default class CardController extends BaseController {
         this.addEventListeners();
         this.view.render(this.model.card);
         this.addDragAndDropEventListeners();
+        this.addWsEventListeners();
     }
 }
