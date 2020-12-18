@@ -52,9 +52,9 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './src/index.html',
         }),
-        // new HtmlWebpackPlugin({
-        //     filename: 'offline.html',
-        // }),
+        new HtmlWebpackPlugin({
+            filename: 'offline.html',
+        }),
         new CopyPlugin({
             patterns: [
                 {from: './src/img', to: './img'},
@@ -64,7 +64,7 @@ module.exports = {
             swSrc: './src/sw.js',
             additionalManifestEntries: [
                 './index.html',
-                // './offline.html',
+                './offline.html',
             ],
         }),
     ],

@@ -35,7 +35,13 @@ if ('serviceWorker' in navigator) {
         });
 }
 
+if (!navigator.onLine) {
+    // TODO: event для оффлайн
+    window.alert('offline');
+}
+
 window.addEventListener('offline', () => {
+    // TODO: event для оффлайн
     window.alert('offline');
 });
 

@@ -1,27 +1,21 @@
-// import 'regenerator-runtime/runtime.js';
-import {precacheAndRoute} from 'workbox-precaching';
-// import {matchPrecache} from 'workbox-precaching';
-// import {setCatchHandler} from 'workbox-routing';
-import {registerRoute} from 'workbox-routing';
-import {StaleWhileRevalidate} from 'workbox-strategies';
+import {StaleWhileRevalidate, NetworkFirst} from 'workbox-strategies';
+import {matchPrecache, precache} from 'workbox-precaching';
+import {registerRoute, setDefaultHandler, setCatchHandler} from 'workbox-routing';
 
-precacheAndRoute(self.__WB_MANIFEST);
+precache(self.__WB_MANIFEST);
 
 registerRoute(
-    ({url}) => url.origin === 'https://fonts.googleapis.com' ||
-        url.origin === 'https://fonts.gstatic.com',
-    new StaleWhileRevalidate(),
+    ({request}) => request.destination === '',
+    new NetworkFirst(),
 );
 
-registerRoute(
-    ({request}) => request.destination === 'image',
-    new StaleWhileRevalidate(),
-);
+setDefaultHandler(new StaleWhileRevalidate());
 
-// setCatchHandler(async ({event}) => {
-//     if (event.request.destination === 'document') {
-//         return matchPrecache('/offline.html');
-//     }
-//
-//     return Response.error();
-// });
+setCatchHandler(({event}) => {
+    switch (event.request.destination) {
+    case 'document':
+        return matchPrecache('/offline.html');
+    default:
+        return Response.error();
+    }
+});
