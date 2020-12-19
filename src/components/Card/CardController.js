@@ -62,8 +62,6 @@ export default class CardController extends BaseController {
         order = this.tasks.length, tags = [], attachments = [],
         checkLists = [], taskAssigners = []) {
         const taskObj = {
-            boardID: this.model.card.boardID,
-            cardID: this.model.card.cardID,
             taskID: taskID,
             taskName: taskName,
             taskDescription: taskDescription,
@@ -75,7 +73,7 @@ export default class CardController extends BaseController {
             contentEditable: (taskID === -1).toString(),
             isInitialized: taskID !== -1,
         };
-        const newTask = new TaskController(this.tasksDiv, this.model.board, taskObj);
+        const newTask = new TaskController(this.tasksDiv, this.model.board, this.model.card, taskObj);
         this.tasks.push(newTask);
 
         this.view.renderTask(newTask);
@@ -87,7 +85,8 @@ export default class CardController extends BaseController {
      * @param {TaskController} taskController
      */
     addTask(taskHTML, taskController) {
-        taskController.updateTaskIDs(undefined, this.model.card.cardID);
+        taskController.model.card = this.model.card;
+        taskController.updateTaskIDs();
         let newElementIndex = 0;
         for (const taskEl of document.getElementById(this.model.card.tasksDiv).children) {
             if (taskEl === taskHTML) {
@@ -239,6 +238,10 @@ export default class CardController extends BaseController {
                 case 'ChangeCard':
                     this.model.card.cardName = data.body.cardName;
                     this.view.updateCardName(data.body.cardName);
+                    break;
+                case 'DeleteCard':
+                    this.view.removeCard();
+                    globalEventBus.emit('cardController:deleteCardFromArray', this.model.card.cardID);
                     break;
                 case 'CreateTask':
                     this.createTask(data.body.taskID, data.body.taskName,

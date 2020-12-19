@@ -16,7 +16,6 @@ export default class CurrentBoardModel {
             boardID: boardID,
             boardName: boardName,
             boardMembers: [],
-            ws: network.webSocketConnection(boardID),
         };
     }
 

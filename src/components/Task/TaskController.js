@@ -15,12 +15,13 @@ export default class TaskController extends BaseController {
      * @constructor
      * @param {HTMLElement} el
      * @param {Object} board
+     * @param {Object} card
      * @param {Object} task
      */
-    constructor(el, board, task) {
+    constructor(el, board, card, task) {
         super(el);
         this.view = new TaskView(el, this.eventBus);
-        this.model = new TaskModel(this.eventBus, board, task);
+        this.model = new TaskModel(this.eventBus, board, card, task);
         const taskDetailedDiv = document.getElementById('taskDetailed');
         this.taskDetailed = new TaskDetailedController(taskDetailedDiv);
     }
@@ -36,12 +37,10 @@ export default class TaskController extends BaseController {
 
     /**
      * Update task IDs
-     * @param {number} newTaskID
-     * @param {number} newCardID
      */
-    updateTaskIDs(newTaskID= this.model.task.taskID, newCardID= this.model.task.cardID) {
-        this.view.updateTaskHtmlIDs(this.model.task, newTaskID, newCardID);
-        this.model.updateTaskIDs(newTaskID, newCardID);
+    updateTaskIDs() {
+        this.view.updateTaskHtmlIDs(this.model.task, this.model.task.taskID, this.model.card.cardID);
+        this.model.updateTaskIDs();
     }
 
     /**
@@ -60,7 +59,7 @@ export default class TaskController extends BaseController {
         });
         this.eventBus.on('taskModel:getTaskDetailedSuccess', (responseBody) => {
             console.log(responseBody);
-            this.taskDetailed.render(this.model.board, this.model.task);
+            this.taskDetailed.render(this.model.board, this.model.card, this.model.task);
         });
         this.eventBus.on('taskView:deleteTaskFromArray', () => {
             globalEventBus.emit('taskController:deleteTaskFromArray', this.model.task.taskID);
@@ -72,7 +71,6 @@ export default class TaskController extends BaseController {
             this.view.deleteTask(this.model.task);
             this.model.deleteTask();
             globalEventBus.emit('taskController:deleteTaskFromArray', this.model.task.taskID);
-            // delete this;
         });
         this.taskDetailed.eventBus.on('taskDetailedView:closed', () => {
             this.model.updateTaskForServer();
@@ -87,7 +85,7 @@ export default class TaskController extends BaseController {
         });
         this.eventBus.on('taskModel:createTaskSuccess', (responseBody) => {
             console.log(responseBody);
-            this.view.updateTaskHtmlIDs(this.model.task, responseBody.taskID);
+            this.view.updateTaskHtmlIDs(this.model.task, responseBody.taskID, this.model.card.cardID);
             this.model.updateTaskIDs(responseBody.taskID);
         });
         this.eventBus.on('taskModel:setTaskFailed', (errorCodes) => {
@@ -131,7 +129,7 @@ export default class TaskController extends BaseController {
      */
     addDragAndDropEventListeners() {
         this.eventBus.on('taskView:taskOrderChanged', (draggedTask) => {
-            globalEventBus.emit('taskController:taskOrderChanged', [this.model.task.cardID, draggedTask]);
+            globalEventBus.emit('taskController:taskOrderChanged', [this.model.card.cardID, draggedTask]);
         });
         this.eventBus.on('taskView:taskMovedToAnotherCard', ([draggedTask, startTasksDiv]) => {
             globalEventBus.emit('taskController:taskMovedToAnotherCard', [draggedTask, startTasksDiv]);

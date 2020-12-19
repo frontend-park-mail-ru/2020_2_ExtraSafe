@@ -9,19 +9,18 @@ export default class TaskModel {
      * Task model constructor
      * @param {EventBus} eventBus
      * @param {Object} board
+     * @param {Object} card
      * @param {object} task
      */
-    constructor(eventBus, board, task) {
+    constructor(eventBus, board, card, task) {
         this.eventBus = eventBus;
-        // TODO: переделеать под board и card
         this.board = board;
+        this.card = card;
         this.task = {
-            boardID: task.boardID,
-            cardID: task.cardID,
             taskID: task.taskID,
-            taskHtmlID: `card${task.cardID}Task${task.taskID}`,
-            taskNameID: `card${task.cardID}Task${task.taskID}Name`,
-            tagsDivID: `card${task.cardID}Task${task.taskID}TagsDiv`,
+            taskHtmlID: `card${this.card.cardID}Task${task.taskID}`,
+            taskNameID: `card${this.card.cardID}Task${task.taskID}Name`,
+            tagsDivID: `card${this.card.cardID}Task${task.taskID}TagsDiv`,
             taskName: task.taskName,
             taskDescription: task.taskDescription,
             order: task.order,
@@ -173,13 +172,13 @@ export default class TaskModel {
      */
     createTaskForServer() {
         const data = {
-            cardID: this.task.cardID,
+            cardID: this.card.cardID,
             taskName: this.task.taskName,
             taskDescription: this.task.taskDescription,
             taskOrder: this.task.order,
             taskTags: this.task.tags,
         };
-        network.taskCreate(data, this.task.boardID).then((response) => {
+        network.taskCreate(data, this.board.boardID).then((response) => {
             return response.json();
         }).then((responseBody) => {
             if (responseBody.status > 200) {
@@ -201,7 +200,7 @@ export default class TaskModel {
     updateTaskForServer() {
         const data = {
             taskID: this.task.taskID,
-            cardID: this.task.cardID,
+            cardID: this.card.cardID,
             taskName: this.task.taskName,
             taskDescription: this.task.taskDescription,
             taskOrder: this.task.order,
@@ -226,12 +225,10 @@ export default class TaskModel {
     /**
      * Update task IDs
      * @param {number} newTaskID
-     * @param {number} newCardID
      */
-    updateTaskIDs(newTaskID= this.task.taskID, newCardID = this.task.cardID) {
-        this.task.cardID = newCardID;
+    updateTaskIDs(newTaskID= this.task.taskID) {
         this.task.taskID = newTaskID;
-        this.task.taskHtmlID = `card${this.task.cardID}Task${newTaskID}`;
+        this.task.taskHtmlID = `card${this.card.cardID}Task${newTaskID}`;
         this.task.taskNameID = `${this.task.taskHtmlID}Name`;
         this.task.tagsDivID = `${this.task.taskHtmlID}TagsDiv`;
     }

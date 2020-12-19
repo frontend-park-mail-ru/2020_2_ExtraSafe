@@ -23,7 +23,7 @@ export default class TaskView extends BaseView {
      * @param {number} newTaskID
      * @param {number} newCardID
      */
-    updateTaskHtmlIDs(task, newTaskID, newCardID = task.cardID) {
+    updateTaskHtmlIDs(task, newTaskID, newCardID) {
         const taskEl = document.getElementById(task.taskHtmlID);
         const taskNameEl = document.getElementById(task.taskNameID);
         const taskTagsDivEl = document.getElementById(task.tagsDivID);

@@ -6,6 +6,7 @@ import globalEventBus from '../utils/globalEventBus.js';
 import CardController from '../components/Card/CardController.js';
 import MembersPopup from '../components/MembersPopup/MembersPopup.js';
 import MemberInvitePopup from '../components/MemberInvitePopup/MemberInvitePopup.js';
+import network from '../utils/network.js';
 
 /**
  * Current board controller
@@ -224,6 +225,7 @@ export default class CurrentBoardController extends BaseController {
      */
     render() {
         super.render();
+        this.model.board.ws = network.webSocketConnection(this.model.board.boardID);
         this.model.getBoardData().then((responseBody) => {
             this.view.render(this.model.board);
             this.eventBus.emit('currentBoardModel:getBoardSuccess', responseBody);

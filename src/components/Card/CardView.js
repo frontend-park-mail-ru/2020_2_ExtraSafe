@@ -52,6 +52,13 @@ export default class CardView extends BaseView {
     }
 
     /**
+     * Remove card view
+     */
+    removeCard() {
+        document.getElementById(this.card.cardHtmlID).remove();
+    }
+
+    /**
      * Add all event listeners
      * @param {JSON} card
      */

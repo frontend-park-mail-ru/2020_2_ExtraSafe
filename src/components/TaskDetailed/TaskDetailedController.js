@@ -225,10 +225,12 @@ export default class TaskDetailedController extends BaseController {
     /**
      * Render task detailed view
      * @param {Object} board
+     * @param {Object} card
      * @param {Object} task
      */
-    render(board, task) {
+    render(board, card, task) {
         this.model.task = task;
+        this.model.card = card;
         this.model.board = board;
 
         this.view.render(task);
