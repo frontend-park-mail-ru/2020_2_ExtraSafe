@@ -60,19 +60,21 @@ export default class CurrentBoardView extends BaseView {
                 this.eventBus.emit('currentBoardView:addNewCard', null);
             }, 50);
         }, false);
-        document.getElementById('boardName').addEventListener('focus', () => {
-            event.target.addEventListener('keydown', this.onKeyDownBlur);
-        });
-        document.getElementById('boardName').addEventListener('focusout', (event) => {
-            event.target.removeEventListener('keydown', this.onKeyDownBlur);
-            this.eventBus.emit('currentBoardView:boardNameUpdate', event.target.innerText);
-        });
-        document.getElementById('boardSettings').addEventListener('click', () => {
-            this.eventBus.emit('currentBoardView:deleteBoard', null);
-        });
-        document.getElementById('addMember').addEventListener('click', () => {
-            this.eventBus.emit('currentBoardView:addMember', null);
-        });
+        if (this.board.isAdmin) {
+            document.getElementById('boardName').addEventListener('focus', () => {
+                event.target.addEventListener('keydown', this.onKeyDownBlur);
+            });
+            document.getElementById('boardName').addEventListener('focusout', (event) => {
+                event.target.removeEventListener('keydown', this.onKeyDownBlur);
+                this.eventBus.emit('currentBoardView:boardNameUpdate', event.target.innerText);
+            });
+            document.getElementById('boardSettings').addEventListener('click', () => {
+                this.eventBus.emit('currentBoardView:deleteBoard', null);
+            });
+            document.getElementById('addMember').addEventListener('click', () => {
+                this.eventBus.emit('currentBoardView:addMember', null);
+            });
+        }
     }
 
     /**
@@ -80,6 +82,7 @@ export default class CurrentBoardView extends BaseView {
      * @param {JSON} board
      */
     render(board) {
+        this.board = board;
         Navbar.navbarShow();
         this.el.innerHTML = currentBoardTemplate(board);
 

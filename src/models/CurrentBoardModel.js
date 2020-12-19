@@ -1,4 +1,5 @@
 import network from '../utils/network.js';
+import userSession from '../utils/userSession.js';
 
 /**
  * Current board model
@@ -38,6 +39,7 @@ export default class CurrentBoardModel {
                 this.board.boardName = responseBody.boardName;
                 this.board.boardTags = responseBody.boardTags;
                 this.board.boardMembers = responseBody.boardMembers;
+                this.board.isAdmin = responseBody.boardAdmin.username === userSession.data.username;
                 this.initTags();
                 this.initMembers();
                 // this.eventBus.emit('currentBoardModel:getBoardSuccess', responseBody);
