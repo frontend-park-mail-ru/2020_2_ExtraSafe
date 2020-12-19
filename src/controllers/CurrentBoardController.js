@@ -225,7 +225,7 @@ export default class CurrentBoardController extends BaseController {
      */
     render() {
         super.render();
-        this.model.board.ws = network.webSocketConnection(this.model.board.boardID);
+        this.model.board.ws = network.webSocketBoardConnection(this.model.board.boardID);
         this.model.getBoardData().then((responseBody) => {
             if (this.model.board.isAdmin) {
                 this.model.getSharedUrl(this.model.board.boardID);

@@ -551,13 +551,29 @@ class Network {
      * @param {string} boardID
      * @return {WebSocket}
      */
-    webSocketConnection(boardID) {
+    webSocketBoardConnection(boardID) {
         const url = this.serverAddrWS + '/board-ws/' + boardID + '/';
 
         const ws = new WebSocket(url);
 
         ws.onopen = function() {
-            console.log('Connected');
+            console.log('Connected webSocketBoard');
+        };
+
+        return ws;
+    }
+
+    /**
+     * request to stand websocket connection
+     * @return {WebSocket}
+     */
+    webSocketNotificationsConnection() {
+        const url = this.serverAddrWS + '/notification-ws/';
+
+        const ws = new WebSocket(url);
+
+        ws.onopen = function() {
+            console.log('Connected webSocketNotifications');
         };
 
         return ws;
