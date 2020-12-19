@@ -176,6 +176,22 @@ export default class TaskDetailedView extends BaseView {
         }
     }
 
+    /**
+     * Update task name view
+     * @param {string} name
+     */
+    updateName(name) {
+        document.getElementById('taskName').innerText = name;
+    }
+
+    /**
+     * Update task description view
+     * @param {string} description
+     */
+    updateDescription(description) {
+        document.getElementById('taskDescription').innerText = description;
+    }
+
     // /**
     //  * On key down callback
     //  * @param {KeyboardEvent} event

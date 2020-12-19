@@ -11,6 +11,7 @@ export default class InvitationHandler {
     constructor(router) {
         this.router = router;
     }
+
     /**
      * Handle invitation
      * @param {string} boardID

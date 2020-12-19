@@ -223,6 +223,29 @@ export default class TaskDetailedController extends BaseController {
     }
 
     /**
+     * Add event listeners related to web sockets
+     */
+    addWsEventListeners() {
+        this.model.board.ws.addEventListener('message', (event) => {
+            const data = JSON.parse(event.data);
+
+            if (data.body.cardID === this.model.card.cardID && data.body.taskID === this.model.task.taskID) {
+                switch (data.method) {
+                case 'ChangeTask':
+                    this.view.updateDescription(data.body.taskDescription);
+                    this.view.updateName(data.body.taskName);
+                    break;
+                case 'DeleteTask':
+                    this.view.hide();
+                    break;
+                default:
+                    break;
+                }
+            }
+        });
+    }
+
+    /**
      * Render task detailed view
      * @param {Object} board
      * @param {Object} card
@@ -243,5 +266,6 @@ export default class TaskDetailedController extends BaseController {
         this.addCheckListsElementsEventListeners();
         this.addAssignersEventListeners();
         this.addCommentsEventListeners();
+        this.addWsEventListeners();
     }
 }

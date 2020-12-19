@@ -73,7 +73,6 @@ export default class TaskController extends BaseController {
             globalEventBus.emit('taskController:deleteTaskFromArray', this.model.task.taskID);
         });
         this.taskDetailed.eventBus.on('taskDetailedView:closed', () => {
-            this.model.updateTaskForServer();
             // TODO: костыль
             this.taskDetailed.model.task.attachments = [];
             this.taskDetailed.model.task.comments = [];
@@ -108,19 +107,22 @@ export default class TaskController extends BaseController {
      */
     addWsEventListeners() {
         this.model.board.ws.addEventListener('message', (event) => {
-            // const data = JSON.parse(event.data);
+            const data = JSON.parse(event.data);
 
-            // TODO: маше надо добавить cardID
-            // if (data.body.cardID === this.model.card.cardID) {
-            //     switch (data.method) {
-            //     case 'ChangeTask':
-            //         this.model.updateTaskByID(data.body.taskID, data.body.taskName, data.body.taskDescription);
-            //         this.view.updateTaskName(data.body.taskName);
-            //         break;
-            //     default:
-            //         break;
-            //     }
-            // }
+            if (data.body.cardID === this.model.card.cardID && data.body.taskID === this.model.task.taskID) {
+                switch (data.method) {
+                case 'ChangeTask':
+                    this.model.updateTaskByID(data.body.taskID, data.body.taskName, data.body.taskDescription);
+                    this.view.updateTaskName(data.body.taskName);
+                    break;
+                case 'DeleteTask':
+                    this.view.deleteTask(this.model.task);
+                    globalEventBus.emit('taskController:deleteTaskFromArray', this.model.task.taskID);
+                    break;
+                default:
+                    break;
+                }
+            }
         });
     }
 
