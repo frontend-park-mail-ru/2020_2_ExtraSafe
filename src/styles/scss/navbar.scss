@@ -100,6 +100,152 @@
     }
 }
 
+// Показать контент
 .show {
     display: flex;
 }
+
+// Нет интернета
+.no-connection {
+
+    &__container {
+        display: none;
+
+        position: fixed;
+
+        z-index: 4;
+
+        right: 0;
+        top: 40px;
+
+        padding: 10px;
+        margin: 5px;
+
+        width: 250px;
+
+        @include standard-font(normal, 14px, 16px);
+        color: $white;
+        text-align: left;
+
+        @include standard-border-radius;
+
+        @include standard-shadow;
+
+        background: $no-connection;
+    }
+}
+
+// Уведомления
+.notifications {
+    @include flex-column;
+
+    position: fixed;
+
+    z-index: 1;
+
+    top: 45px;
+    right: 15px;
+
+    width: 220px;
+
+    padding: 10px;
+
+    @include standard-border-radius;
+
+    @include standard-shadow;
+
+    background: $white;
+
+    cursor: default;
+
+    &-close {
+        position: fixed;
+
+        width: 16px;
+        height: 16px;
+
+        top: 60px;
+        right: 30px;
+
+        cursor: pointer;
+    }
+}
+
+// Уведомление
+.notification {
+
+    // Уведомление, которое показывается внизу
+    &-bottom {
+        position: fixed;
+
+        bottom: 15px;
+        right: 15px;
+
+        max-width: 220px;
+
+        padding: 10px 10px 15px 10px;
+
+        @include standard-font(300, 15px, 17px);
+        text-align: left;
+
+        @include standard-border-radius;
+
+        @include standard-shadow;
+
+        background: $white;
+
+        cursor: default;
+
+        // Заголовок
+        &__title {
+            margin: 5px 0 12px 0;
+
+            @include standard-font(400, 16px, 18px);
+
+            cursor: default;
+        }
+    }
+
+    &-top {
+        display: flex;
+
+        position: relative;
+
+        width: 200px;
+
+        padding: 10px;
+        margin: 10px 0 0 0;
+
+        @include standard-font(300, 15px, 17px);
+        text-align: left;
+
+        @include standard-border-radius;
+
+        background: $light-grey;
+
+        cursor: default;
+
+        // Заголовок
+        &__title {
+            margin: 5px 0 5px 20px;
+
+            @include standard-font(400, 16px, 18px);
+
+            cursor: default;
+        }
+    }
+
+    // Удаление
+    &-delete {
+        position: absolute;
+
+        top: -7px;
+        right: -7px;
+
+        width: 17px;
+        height: 17px;
+
+        cursor: pointer;
+    }
+}
+
