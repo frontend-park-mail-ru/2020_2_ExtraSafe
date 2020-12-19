@@ -7,6 +7,10 @@
                 Добавить пользователя
             </div>
 
+            <div>
+                <fest:value>json.sharedUrl</fest:value>
+            </div>
+
             <div class="add-collaborator__input" id="memberInvitePopupName" contenteditable="true"/>
 
             <button class="add-collaborator__button" id="memberInvitePopupAdd">Добавить</button>

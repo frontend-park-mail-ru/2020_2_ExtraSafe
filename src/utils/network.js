@@ -9,6 +9,7 @@ class Network {
      */
     constructor() {
         // this.serverAddr = 'http://tabutask.ru:8080';
+        this.frontAddr = 'http://127.0.0.1';
         this.serverAddr = 'http://127.0.0.1:8080';
         this.serverAddrWS = 'ws://127.0.0.1:8080';
         this.requestGet = {
@@ -584,6 +585,27 @@ class Network {
         this.requestPut.headers['X-CSRF-Token'] = token;
         this.requestDelete.headers['X-CSRF-Token'] = token;
         this.requestFormData.headers['X-CSRF-Token'] = token;
+    }
+
+    /**
+     * get shared url from server
+     * @param {string} boardID
+     * @return {Promise<Response>}
+     */
+    getSharedUrl(boardID) {
+        const url = this.serverAddr + '/shared-url/' + boardID + '/';
+        return fetch(url, this.requestGet);
+    }
+
+    /**
+     * Accept invitation on board
+     * @param {string} boardID
+     * @param {string} sharedUrl
+     * @return {Promise<Response>}
+     */
+    acceptInvitation(boardID, sharedUrl) {
+        const url = this.serverAddr + '/invite/board/' + boardID + '/' + sharedUrl;
+        return fetch(url, this.requestGet);
     }
 }
 

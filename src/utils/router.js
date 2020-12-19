@@ -55,36 +55,36 @@ export default class Router {
     /**
      * render if user is authorised
      * @param {string} route
+     * @param {BaseController} handler
+     * @param {[*]} args
      */
-    renderIfAuth(route) {
+    renderIfAuth(route, handler, ...args) {
         if (route === '/login' || route === '/reg') {
             window.history.replaceState({}, '', '/');
 
-            const page = this.routesMap.get('/');
             this.currentPage = '/';
-            page.render();
+            handler.render(...args);
         } else {
-            const page = this.routesMap.get(route);
             this.currentPage = route;
-            page.render();
+            handler.render(...args);
         }
     }
 
     /**
      * render if user is not authorised
      * @param {string} route
+     * @param {BaseController} handler
+     * @param {[*]} args
      */
-    renderIfNotAuth(route) {
+    renderIfNotAuth(route, handler, ...args) {
         if (route === '/login' || route === '/reg') {
-            const page = this.routesMap.get(route);
             this.currentPage = route;
-            page.render();
+            handler.render(...args);
         } else {
             window.history.replaceState({}, '', '/login');
 
-            const page = this.routesMap.get('/login');
             this.currentPage = '/login';
-            page.render();
+            handler.render(...args);
         }
     }
 
@@ -94,40 +94,37 @@ export default class Router {
      * @param {boolean} pushState
      */
     open(route, pushState = true) {
-        // window.history.pushState({}, '', route);
-        // window.history.replaceState({}, '', route);
-
-        // TODO: переписать для перехода на публичные доски, которых нет в userSession
-        if (!this.isAuth) {
-            this.authorize().then((response) => {
-                this.isAuth = response;
-                if (this.routesMap.has(route)) {
-                    if (pushState) {
-                        window.history.pushState(route, '', route);
-                    }
-
-                    if (response === true) {
-                        this.renderIfAuth(route);
-                    } else {
-                        this.renderIfNotAuth(route);
-                    }
-                } else {
-                    if (pushState) {
-                        window.history.pushState('/', '', '/');
-                    }
-                    // window.history.replaceState({}, '', '/');
-
-                    const page = this.routesMap.get('/');
-                    page.render();
+        // let found = false;
+        for (const [regExp, controller] of this.routesMap.entries()) {
+            if (regExp.test(route)) {
+                // found = true;
+                if (pushState) {
+                    window.history.pushState(route, '', route);
                 }
-            });
-        } else {
-            if (pushState) {
-                window.history.pushState(route, '', route);
-            }
 
-            this.renderIfAuth(route);
+                console.log(regExp);
+
+                const args = regExp.exec(route);
+                args.shift();
+                console.log(args);
+
+                if (!this.isAuth) {
+                    this.authorize().then((response) => {
+                        this.isAuth = response;
+
+                        if (response === true) {
+                            this.renderIfAuth(route, controller, ...args);
+                        } else {
+                            this.renderIfNotAuth(route, controller, ...args);
+                        }
+                    });
+                } else {
+                    this.renderIfAuth(route, controller, ...args);
+                }
+                return;
+            }
         }
+        this.open('/');
     }
 
     /**
@@ -164,7 +161,7 @@ export default class Router {
 
     /**
      * Add route function
-     * @param {string} route
+     * @param {RegExp} route
      * @param {BaseController} handler
      */
     addRoute(route, handler) {

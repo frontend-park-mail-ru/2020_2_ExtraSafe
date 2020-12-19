@@ -166,7 +166,7 @@ export default class CurrentBoardController extends BaseController {
             this.model.memberExpel(member);
         });
         this.membersPopup.eventBus.on('membersPopup:memberInvite', () => {
-            this.memberInvitePopup.render();
+            this.memberInvitePopup.render({sharedUrl: this.model.board.sharedUrl});
         });
         this.memberInvitePopup.eventBus.on('memberInvitePopup:memberInvite', (memberUsername) => {
             this.model.memberInvite(memberUsername);
@@ -227,6 +227,9 @@ export default class CurrentBoardController extends BaseController {
         super.render();
         this.model.board.ws = network.webSocketConnection(this.model.board.boardID);
         this.model.getBoardData().then((responseBody) => {
+            if (this.model.board.isAdmin) {
+                this.model.getSharedUrl(this.model.board.boardID);
+            }
             this.view.render(this.model.board);
             this.eventBus.emit('currentBoardModel:getBoardSuccess', responseBody);
             this.initMembersPopups();

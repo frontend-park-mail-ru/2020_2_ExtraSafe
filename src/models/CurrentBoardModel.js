@@ -219,4 +219,24 @@ export default class CurrentBoardModel {
         this.board.boardMembers.push(newMember);
         this.initMembers();
     }
+
+    /**
+     * Get shared url for board
+     */
+    getSharedUrl() {
+        network.getSharedUrl(this.board.boardID).then((response) => {
+            return response.json();
+        }).then((responseBody) => {
+            if (responseBody.status > 200) {
+                if (!network.ifTokenValid(responseBody)) {
+                    this.getSharedUrl();
+                    return;
+                }
+            } else {
+                this.board.sharedUrl = `${network.frontAddr}/invite/board/${this.board.boardID}/${responseBody.sharedURL}/`;
+            }
+        }).catch((error) => {
+            return;
+        });
+    }
 }
