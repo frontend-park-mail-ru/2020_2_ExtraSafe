@@ -42,6 +42,7 @@ export default class TaskDetailedController extends BaseController {
     addEventListeners() {
         this.eventBus.on('taskDetailedView:updateTaskDescription', (newDescription) => {
             this.model.updateTaskDescription(newDescription);
+            this.eventBus.emit('taskDetailedController:taskDescriptionUpdated', null);
         });
         this.eventBus.on('taskDetailedView:updateTaskName', (newTaskName) => {
             this.model.updateTaskName(newTaskName);
@@ -237,6 +238,31 @@ export default class TaskDetailedController extends BaseController {
                     break;
                 case 'DeleteTask':
                     this.view.hide();
+                    break;
+                case 'CreateComment':
+                    const newComment = this.model.addComment(data.body);
+                    this.view.addComment(newComment);
+                    break;
+                case 'DeleteComment':
+                    const comment = this.model.deleteCommentByID(data.body.commentID);
+                    this.view.deleteComment(comment);
+                    break;
+                case 'CreateChecklist':
+                    const newCheckList = this.model.addCheckList(data.body);
+                    this.view.addCheckList(newCheckList);
+                    break;
+                case 'DeleteChecklist':
+                    const checkList = this.model.deleteCheckListByID(data.body.checklistID);
+                    this.view.removeCheckList(checkList);
+                    break;
+                case 'ChangeChecklist':
+                    const checkListChange = this.model.task.checkLists.find((cl) => {
+                        return cl.checkListID === data.body.checklistID;
+                    });
+                    checkListChange.checkListName = data.body.checklistName;
+                    checkListChange.checkListElements = data.body.checklistItems;
+                    this.eventBus.emit('taskDetailedController:checkListUpdated', checkListChange);
+                    this.view.updateChecklist(checkListChange);
                     break;
                 default:
                     break;

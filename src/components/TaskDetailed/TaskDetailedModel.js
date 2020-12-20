@@ -298,15 +298,24 @@ export default class TaskDetailedModel {
                 this.eventBus.emit('taskDetailedModel:removeCheckListFailed', responseBody.codes);
             } else {
                 this.eventBus.emit('taskDetailedModel:removeCheckListSuccess', responseBody);
+                this.deleteCheckListByID(checkListObj.checkListID);
             }
         }).catch((error) => {
             return;
         });
+    }
 
-        const removedCheckListIndex = this.task.checkLists.findIndex((checkList) => {
-            return checkList.checkListID === checkList.checkListID;
+    /**
+     * Delete comment by ID from array
+     * @param {number} checkListID
+     * @return {Object}
+     */
+    deleteCheckListByID(checkListID) {
+        const index = this.task.checkLists.findIndex((checkList) => {
+            return checkList.checkListID === checkListID;
         });
-        this.task.checkLists.splice(removedCheckListIndex, 1);
+
+        return this.task.checkLists.splice(index, 1)[0];
     }
 
     /**
@@ -528,6 +537,19 @@ export default class TaskDetailedModel {
         }).catch((error) => {
             return;
         });
+    }
+
+    /**
+     * Delete comment by ID from array
+     * @param {number} commentID
+     * @return {Object}
+     */
+    deleteCommentByID(commentID) {
+        const index = this.task.comments.findIndex((comment) => {
+            return comment.commentID === commentID;
+        });
+
+        return this.task.comments.splice(index, 1)[0];
     }
 
     /**

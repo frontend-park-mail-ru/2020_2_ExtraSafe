@@ -66,6 +66,10 @@ export default class TaskController extends BaseController {
         });
         this.taskDetailed.eventBus.on('taskDetailedController:taskNameUpdated', () => {
             this.view.updateTaskName(this.model.task.taskName);
+            this.model.updateTaskForServer();
+        });
+        this.taskDetailed.eventBus.on('taskDetailedController:taskDescriptionUpdated', () => {
+            this.model.updateTaskForServer();
         });
         this.taskDetailed.eventBus.on('taskDetailedView:deleteTask', () => {
             this.view.deleteTask(this.model.task);
@@ -76,6 +80,9 @@ export default class TaskController extends BaseController {
             // TODO: костыль
             this.taskDetailed.model.task.attachments = [];
             this.taskDetailed.model.task.comments = [];
+        });
+        this.taskDetailed.eventBus.on('taskDetailedController:checkListUpdated', (checkList) => {
+            this.model.initCheckListElements(checkList);
         });
         this.eventBus.on('taskModel:createTaskFailed', (errorCodes) => {
             for (const code of errorCodes) {
