@@ -168,6 +168,7 @@ class Network {
      */
     boardCreate(data) {
         const url = this.serverAddr + '/board/';
+        console.log(data);
         this.requestPost.body = JSON.stringify(data);
 
         return fetch(url, this.requestPost);
@@ -620,7 +621,7 @@ class Network {
      * @return {Promise<Response>}
      */
     acceptInvitation(boardID, sharedUrl) {
-        const url = this.serverAddr + '/invite/board/' + boardID + '/' + sharedUrl;
+        const url = this.serverAddr + '/invite/board/' + boardID + '/' + sharedUrl + '/';
         return fetch(url, this.requestGet);
     }
 }

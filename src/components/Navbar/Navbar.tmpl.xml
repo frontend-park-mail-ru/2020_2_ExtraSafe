@@ -2,7 +2,7 @@
     <div class="navbar">
         <img class="navbar__icon" data-href="/" title="Домой" src="/img/icons/home.svg"/>
         <img class="navbar__tabutask-logotype" data-href="/" title="Домой" src="/img/icons/tabutask_logo_white.svg"/>
-        <img class="navbar__icon" title="Уведомления" style="position: fixed; right: 65px" src="/img/icons/bell.svg"/>
+<!--        <img class="navbar__icon" title="Уведомления" style="position: fixed; right: 65px" src="/img/icons/bell.svg"/>-->
         <img class="navbar__avatar" id="avatarMini" title="Профиль" src=""/>
     </div>
     <div id="myDropdown" class="dropdown__content">
@@ -18,46 +18,37 @@
         </div>
     </div>
 
-    <div class="notifications">
-        <div class="notification-top__title">
-            Уведомления
-        </div>
+<!--    <div class="notifications">-->
+<!--        <div class="notification-top__title">-->
+<!--            Уведомления-->
+<!--        </div>-->
 
-        <img class="notifications-close" title="Закрыть уведомления" src="../img/icons/close.svg"/>
+<!--        <img class="notifications-close" title="Закрыть уведомления" src="../img/icons/close.svg"/>-->
 
-        <div class="notification-top">
-            <img class="notification-delete" title="Удалить уведомление" src="../img/icons/close_notification.svg"/>
+<!--        <div class="notification-top">-->
+<!--            <img class="notification-delete" title="Удалить уведомление" src="../img/icons/close_notification.svg"/>-->
 
-            Username пригласил(а) Вас на доску Boardname
-        </div>
+<!--            Username пригласил(а) Вас на доску Boardname-->
+<!--        </div>-->
 
-        <div class="notification-top">
-            <img class="notification-delete" title="Удалить уведомление" src="../img/icons/close_notification.svg"/>
+<!--        <div class="notification-top">-->
+<!--            <img class="notification-delete" title="Удалить уведомление" src="../img/icons/close_notification.svg"/>-->
 
-            Username пригласил(а) Вас на доску Boardname
-        </div>
+<!--            Username пригласил(а) Вас на доску Boardname-->
+<!--        </div>-->
 
-        <div class="notification-top">
-            <img class="notification-delete" title="Удалить уведомление" src="../img/icons/close_notification.svg"/>
+<!--        <div class="notification-top">-->
+<!--            <img class="notification-delete" title="Удалить уведомление" src="../img/icons/close_notification.svg"/>-->
 
-            Username пригласил(а) Вас на доску Boardname
-        </div>
+<!--            Username пригласил(а) Вас на доску Boardname-->
+<!--        </div>-->
 
-        <div class="notification-top">
-            <img class="notification-delete" title="Удалить уведомление" src="../img/icons/close_notification.svg"/>
+<!--        <div class="notification-top">-->
+<!--            <img class="notification-delete" title="Удалить уведомление" src="../img/icons/close_notification.svg"/>-->
 
-            Username пригласил(а) Вас на доску Boardname
-        </div>
+<!--            Username пригласил(а) Вас на доску Boardname-->
+<!--        </div>-->
 
-    </div>
-
-    <div class="notification-bottom">
-        <div class="notification-bottom__title">
-            Уведомление
-        </div>
-
-        <img class="notification-delete" title="Удалить уведомление" src="../img/icons/close_notification.svg"/>
-
-        Username пригласил(а) Вас на доску Boardname
-    </div>
+<!--    </div>-->
+    <div id="notificationsDiv"/>
 </fest:template>
