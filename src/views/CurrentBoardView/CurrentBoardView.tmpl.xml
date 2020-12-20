@@ -3,7 +3,12 @@
         <div class="board-info__left-side__container">
             <div class="board-info__left-side__name-favorite__container">
 
-                <div class="board-info__left-side__name-favorite__board-name" id="boardName" contenteditable="true">
+                <div class="board-info__left-side__name-favorite__board-name" id="boardName">
+                    <fest:attributes>
+                        <fest:if test="json.isAdmin">
+                            <fest:attribute name="contenteditable" value="true"/>
+                        </fest:if>
+                    </fest:attributes>
                     <fest:value>json.boardName</fest:value>
                 </div>
 
@@ -14,14 +19,27 @@
                 <fest:for iterate="json.boardMembers" index="i" value="v">
                     <img class="board-info__left-side__collaborator" src="{v.memberAvatarSrc}" id="{v.memberBoardHtmlID}" alt="collaborator"/>
                 </fest:for>
-                <img class="board-info__left-side__collaborator" src="../../img/icons/members_dots.svg" id="addMember" title="Управление участниками" alt="add-collaborator"/>
-
+                    <img class="board-info__left-side__collaborator" src="../../img/icons/members_dots.svg"
+                         id="addMember" title="Управление участниками" alt="add-collaborator">
+                        <fest:attributes>
+                            <fest:if test="json.isAdmin">
+                                <fest:attribute name="style" value="display: flex;"/>
+                            </fest:if>
+                            <fest:attribute name="style" value="display: none;"/>
+                        </fest:attributes>
+                    </img>
                 <div class="add-collaborator__container" id="membersPopup"/>
             </div>
         </div>
 
         <div class="board-info__right-side__container">
-            <img class="board-info__right-side__settings__icon" src="../../img/icons/bin.svg" id="boardSettings" title="Удалить доску" alt="settings"/>
+            <img class="board-info__right-side__settings__icon" src="../../img/icons/bin.svg" id="boardSettings" title="Удалить доску" alt="settings">
+                <fest:attributes>
+                    <fest:if test="json.isAdmin">
+                        <fest:attribute name="style" value="display: flex;"/>
+                    </fest:if>
+                </fest:attributes>
+            </img>
         </div>
 
     </div>

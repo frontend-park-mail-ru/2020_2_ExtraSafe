@@ -2,6 +2,7 @@ import UserSession from '../../utils/userSession.js';
 import Network from '../../utils/network.js';
 import globalEventBus from '../../utils/globalEventBus.js';
 import navbarTemplate from './Navbar.tmpl.xml';
+import network from '../../utils/network.js';
 
 /**
  * Navbar
@@ -19,6 +20,9 @@ class Navbar {
         globalEventBus.on('userSession:set', (input) => {
             this.setAvatarURL(input.avatar);
         });
+
+        this.ws = network.webSocketNotificationsConnection();
+        this.addWsEventListeners();
     }
 
     /**
@@ -72,6 +76,16 @@ class Navbar {
                 this.navbarPopupHide();
             }
         }, false);
+    }
+
+    /**
+     * Add event listeners related to web sockets
+     */
+    addWsEventListeners() {
+        this.ws.addEventListener('message', (event) => {
+            const data = JSON.parse(event.data);
+            console.log(data);
+        });
     }
 }
 

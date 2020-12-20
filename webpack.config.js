@@ -16,10 +16,6 @@ module.exports = {
                 use: [{loader: 'fest-webpack-loader'}],
             },
             {
-                test: /\.css$/i,
-                use: [MiniCssExtractPlugin.loader, 'css-loader'],
-            },
-            {
                 test: /\.s[ac]ss$/i,
                 use: [
                     MiniCssExtractPlugin.loader,
@@ -28,11 +24,7 @@ module.exports = {
                         loader: 'postcss-loader',
                         options: {
                             postcssOptions: {
-                                plugins: [
-                                    autoprefixer({
-                                        browsers: ['ie >= 8', 'last 4 version'],
-                                    }),
-                                ],
+                                plugins: [autoprefixer],
                             },
                             sourceMap: true,
                         },
@@ -41,6 +33,16 @@ module.exports = {
                     'sass-loader',
                 ],
             },
+            {
+                test: /\.m?js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env'],
+                    },
+                },
+            },
         ],
     },
     plugins: [
@@ -48,8 +50,10 @@ module.exports = {
             filename: 'main.css',
         }),
         new HtmlWebpackPlugin({
-            hash: true,
             template: './src/index.html',
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'offline.html',
         }),
         new CopyPlugin({
             patterns: [
@@ -58,6 +62,10 @@ module.exports = {
         }),
         new InjectManifest({
             swSrc: './src/sw.js',
+            additionalManifestEntries: [
+                './index.html',
+                './offline.html',
+            ],
         }),
     ],
 };

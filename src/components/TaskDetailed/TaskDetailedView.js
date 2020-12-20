@@ -176,6 +176,22 @@ export default class TaskDetailedView extends BaseView {
         }
     }
 
+    /**
+     * Update task name view
+     * @param {string} name
+     */
+    updateName(name) {
+        document.getElementById('taskName').innerText = name;
+    }
+
+    /**
+     * Update task description view
+     * @param {string} description
+     */
+    updateDescription(description) {
+        document.getElementById('taskDescription').innerText = description;
+    }
+
     // /**
     //  * On key down callback
     //  * @param {KeyboardEvent} event
@@ -191,6 +207,25 @@ export default class TaskDetailedView extends BaseView {
     //         // event.stopImmediatePropagation();
     //     }
     // }
+
+    /**
+     * Remove comment view
+     * @param {Object} comment
+     */
+    deleteComment(comment) {
+        document.getElementById(comment.commentHtmlID).remove();
+    }
+
+    /**
+     * Update checklist
+     * @param {Object} checkList
+     */
+    updateChecklist(checkList) {
+        const checkListEl = document.getElementById(checkList.checkListHtmlID);
+        document.getElementById('checkListsDiv')
+            .replaceChild(rendering.createElementsFromTmpl(checkListTemplate(checkList)), checkListEl);
+        this.addCheckListEventListeners(checkList);
+    }
 
     /**
      * Hide view
@@ -223,7 +258,6 @@ export default class TaskDetailedView extends BaseView {
         document.getElementById('saveTaskDescription').addEventListener('mousedown', (event) => {
             const description = document.getElementById('taskDescription').innerText;
             this.eventBus.emit('taskDetailedView:updateTaskDescription', description);
-            this.eventBus.emit('taskDetailedView:closed', null);
             event.target.removeAttribute('style');
         });
         document.getElementById('taskName').addEventListener('focus', () => {
@@ -238,7 +272,6 @@ export default class TaskDetailedView extends BaseView {
                 el.innerHTML = task.taskName;
             } else {
                 this.eventBus.emit('taskDetailedView:updateTaskName', taskName);
-                this.eventBus.emit('taskDetailedView:closed', null);
             }
         });
         document.getElementById('deleteTask').addEventListener('click', () => {

@@ -12,10 +12,8 @@ export default class CardModel {
      */
     constructor(eventBus, board, card) {
         this.eventBus = eventBus;
-        // TODO: переделеать под board
         this.board = board;
         this.card = {
-            boardID: card.boardID,
             cardID: card.cardID,
             cardName: card.cardName,
             cardHtmlID: `card${card.cardID}`,
@@ -51,12 +49,12 @@ export default class CardModel {
      */
     createCardForServer() {
         const data = {
-            boardID: this.card.boardID,
+            boardID: this.board.boardID,
             cardName: this.card.cardName,
             cardOrder: this.card.order,
         };
         console.log(data);
-        network.cardCreate(data, this.card.boardID).then((response) => {
+        network.cardCreate(data, this.board.boardID).then((response) => {
             return response.json();
         }).then((responseBody) => {
             if (responseBody.status > 200) {
@@ -77,7 +75,7 @@ export default class CardModel {
      */
     updateCardForServer() {
         const data = {
-            boardID: this.card.boardID,
+            boardID: this.board.boardID,
             cardID: this.card.cardID,
             cardName: this.card.cardName,
             cardOrder: this.card.order,
@@ -119,7 +117,7 @@ export default class CardModel {
             });
         }
 
-        network.tasksOrder(data, this.card.boardID).then((response) => {});
+        network.tasksOrder(data, this.board.boardID).then((response) => {});
     }
 
     /**
@@ -155,7 +153,7 @@ export default class CardModel {
             });
         }
 
-        network.tasksOrder(data, this.card.boardID).then((response) => {});
+        network.tasksOrder(data, this.board.boardID).then((response) => {});
     }
 
     /**

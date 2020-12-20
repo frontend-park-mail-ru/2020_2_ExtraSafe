@@ -1,4 +1,5 @@
 import network from '../utils/network.js';
+import userSession from '../utils/userSession.js';
 
 /**
  * Current board model
@@ -38,6 +39,7 @@ export default class CurrentBoardModel {
                 this.board.boardName = responseBody.boardName;
                 this.board.boardTags = responseBody.boardTags;
                 this.board.boardMembers = responseBody.boardMembers;
+                this.board.isAdmin = responseBody.boardAdmin.username === userSession.data.username;
                 this.initTags();
                 this.initMembers();
                 // this.eventBus.emit('currentBoardModel:getBoardSuccess', responseBody);
@@ -138,7 +140,7 @@ export default class CurrentBoardModel {
      * Delete member from board
      * @param {Object} member
      */
-    memberDelete(member) {
+    memberExpel(member) {
         const data = {
             boardID: this.board.boardID,
             memberUsername: member.memberUsername,
@@ -151,18 +153,26 @@ export default class CurrentBoardModel {
         }).then((responseBody) => {
             if (responseBody.status > 200) {
                 if (!network.ifTokenValid(responseBody)) {
-                    this.memberDelete(member);
+                    this.memberExpel(member);
                     return;
                 }
-                this.eventBus.emit('currentBoardModel:memberDeleteFailed', responseBody.codes);
+                this.eventBus.emit('currentBoardModel:memberExpelFailed', responseBody.codes);
             } else {
-                this.eventBus.emit('currentBoardModel:memberDeleteSuccess', responseBody);
+                this.deleteMember(member.memberUsername);
+                this.eventBus.emit('currentBoardModel:memberExpelSuccess', responseBody);
             }
         }).catch((error) => {
             return;
         });
+    }
+
+    /**
+     * Delete member from array
+     * @param {string} username
+     */
+    deleteMember(username) {
         const index = this.board.boardMembers.findIndex((m) => {
-            return m.username === member.username;
+            return m.username === username;
         });
         this.board.boardMembers.splice(index, 1);
     }
@@ -187,15 +197,43 @@ export default class CurrentBoardModel {
                 }
                 this.eventBus.emit('currentBoardModel:memberInviteFailed', responseBody.codes);
             } else {
-                const newMember = {
-                    email: responseBody.email,
-                    username: responseBody.username,
-                    fullName: responseBody.fullName,
-                    avatar: responseBody.avatar,
-                };
-                this.board.boardMembers.push(newMember);
-                this.initMembers();
+                this.addMember(responseBody);
                 this.eventBus.emit('currentBoardModel:memberInviteSuccess', responseBody);
+            }
+        }).catch((error) => {
+            return;
+        });
+    }
+
+    /**
+     * Add new member to array
+     * @param {Object} memberData
+     */
+    addMember(memberData) {
+        const newMember = {
+            email: memberData.email,
+            username: memberData.username,
+            fullName: memberData.fullName,
+            avatar: memberData.avatar,
+        };
+        this.board.boardMembers.push(newMember);
+        this.initMembers();
+    }
+
+    /**
+     * Get shared url for board
+     */
+    getSharedUrl() {
+        network.getSharedUrl(this.board.boardID).then((response) => {
+            return response.json();
+        }).then((responseBody) => {
+            if (responseBody.status > 200) {
+                if (!network.ifTokenValid(responseBody)) {
+                    this.getSharedUrl();
+                    return;
+                }
+            } else {
+                this.board.sharedUrl = `${network.frontAddr}/invite/board/${this.board.boardID}/${responseBody.sharedURL}/`;
             }
         }).catch((error) => {
             return;

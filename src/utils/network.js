@@ -8,8 +8,10 @@ class Network {
      * Constructor network
      */
     constructor() {
-        this.serverAddr = 'http://tabutask.ru:8080';
-        // this.serverAddr = 'http://127.0.0.1:8080';
+        // this.serverAddr = 'http://tabutask.ru:8080';
+        this.frontAddr = 'http://127.0.0.1';
+        this.serverAddr = 'http://127.0.0.1:8080';
+        this.serverAddrWS = 'ws://127.0.0.1:8080';
         this.requestGet = {
             mode: 'cors',
             credentials: 'include',
@@ -545,6 +547,39 @@ class Network {
     }
 
     /**
+     * request to stand websocket connection
+     * @param {string} boardID
+     * @return {WebSocket}
+     */
+    webSocketBoardConnection(boardID) {
+        const url = this.serverAddrWS + '/board-ws/' + boardID + '/';
+
+        const ws = new WebSocket(url);
+
+        ws.onopen = function() {
+            console.log('Connected webSocketBoard');
+        };
+
+        return ws;
+    }
+
+    /**
+     * request to stand websocket connection
+     * @return {WebSocket}
+     */
+    webSocketNotificationsConnection() {
+        const url = this.serverAddrWS + '/notification-ws/';
+
+        const ws = new WebSocket(url);
+
+        ws.onopen = function() {
+            console.log('Connected webSocketNotifications');
+        };
+
+        return ws;
+    }
+
+    /**
      * Check token error from server
      * @param {JSON} responseBody
      * @return {boolean}
@@ -566,6 +601,27 @@ class Network {
         this.requestPut.headers['X-CSRF-Token'] = token;
         this.requestDelete.headers['X-CSRF-Token'] = token;
         this.requestFormData.headers['X-CSRF-Token'] = token;
+    }
+
+    /**
+     * get shared url from server
+     * @param {string} boardID
+     * @return {Promise<Response>}
+     */
+    getSharedUrl(boardID) {
+        const url = this.serverAddr + '/shared-url/' + boardID + '/';
+        return fetch(url, this.requestGet);
+    }
+
+    /**
+     * Accept invitation on board
+     * @param {string} boardID
+     * @param {string} sharedUrl
+     * @return {Promise<Response>}
+     */
+    acceptInvitation(boardID, sharedUrl) {
+        const url = this.serverAddr + '/invite/board/' + boardID + '/' + sharedUrl;
+        return fetch(url, this.requestGet);
     }
 }
 

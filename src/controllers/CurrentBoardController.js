@@ -6,6 +6,7 @@ import globalEventBus from '../utils/globalEventBus.js';
 import CardController from '../components/Card/CardController.js';
 import MembersPopup from '../components/MembersPopup/MembersPopup.js';
 import MemberInvitePopup from '../components/MemberInvitePopup/MemberInvitePopup.js';
+import network from '../utils/network.js';
 
 /**
  * Current board controller
@@ -162,10 +163,10 @@ export default class CurrentBoardController extends BaseController {
             this.membersPopup.render(this.model.board);
         });
         this.membersPopup.eventBus.on('membersPopup:memberDelete', (member) => {
-            this.model.memberDelete(member);
+            this.model.memberExpel(member);
         });
         this.membersPopup.eventBus.on('membersPopup:memberInvite', () => {
-            this.memberInvitePopup.render();
+            this.memberInvitePopup.render({sharedUrl: this.model.board.sharedUrl});
         });
         this.memberInvitePopup.eventBus.on('memberInvitePopup:memberInvite', (memberUsername) => {
             this.model.memberInvite(memberUsername);
@@ -175,11 +176,47 @@ export default class CurrentBoardController extends BaseController {
         });
         this.eventBus.on('currentBoardModel:memberInviteSuccess', (responseBody) => {
             console.log('currentBoardModel:memberInviteSuccess', responseBody);
-            // TODO: сделать добавление на вьюху доски
+            // TODO: сделать добавление на вьюху доски и разобраться с рендером попапа тут
             this.membersPopup.render(this.model.board);
+        });
+        this.eventBus.on('currentBoardModel:memberExpelFailed', (codes) => {
+            console.log('currentBoardModel:memberExpelFailed', codes);
+        });
+        this.eventBus.on('currentBoardModel:memberExpelSuccess', (responseBody) => {
+            console.log('currentBoardModel:memberExpelSuccess', responseBody);
+            // TODO: сделать удаление с вьюхи доски
         });
         this.memberInvitePopup.eventBus.on('memberInvitePopup:popupClose', () => {
             this.membersPopup.render(this.model.board);
+        });
+    }
+
+    /**
+     * Add event listeners related to web sockets
+     */
+    addWsEventListeners() {
+        this.model.board.ws.addEventListener('message', (event) => {
+            const data = JSON.parse(event.data);
+            console.log(data);
+
+            switch (data.method) {
+            case 'ChangeBoard':
+                this.view.updateBoardName(data.body.boardName);
+                break;
+            case 'AddMember':
+                this.model.addMember(data.body);
+                // TODO: сделать добавление на вьюху доски
+                break;
+            case 'RemoveMember':
+                this.model.deleteMember(data.body.memberUsername);
+                // TODO: сделать удаление с вьюхи доски
+                break;
+            case 'CreateCard':
+                this.addCard(data.body.cardID, data.body.cardName);
+                break;
+            default:
+                break;
+            }
         });
     }
 
@@ -188,15 +225,16 @@ export default class CurrentBoardController extends BaseController {
      */
     render() {
         super.render();
+        this.model.board.ws = network.webSocketBoardConnection(this.model.board.boardID);
         this.model.getBoardData().then((responseBody) => {
+            if (this.model.board.isAdmin) {
+                this.model.getSharedUrl(this.model.board.boardID);
+            }
             this.view.render(this.model.board);
             this.eventBus.emit('currentBoardModel:getBoardSuccess', responseBody);
             this.initMembersPopups();
             this.addMembersEventListeners();
+            this.addWsEventListeners();
         });
-        // this.view.render(this.model.board);
-
-        // this.initMembersPopups();
-        // this.addMembersEventListeners();
     }
 }

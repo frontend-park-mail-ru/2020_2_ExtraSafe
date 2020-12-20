@@ -55,11 +55,12 @@ export default class MemberInvitePopup {
 
     /**
      * Render popup
+     * @param {Object} data
      */
-    render() {
+    render(data) {
         this.el.style.display = 'flex';
 
-        this.el.innerHTML = memberInvitePopupTemplate();
+        this.el.innerHTML = memberInvitePopupTemplate(data);
         this.addEventListeners();
         document.getElementById('memberInvitePopupName').focus();
     }
