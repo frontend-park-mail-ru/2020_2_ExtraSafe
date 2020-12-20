@@ -14,11 +14,20 @@ export default class TaskDetailedController extends BaseController {
     /**
      * Task detailed controller constructor
      * @param {HTMLElement} el
+     * @param {Object} board
+     * @param {Object} card
+     * @param {Object} task
      */
-    constructor(el) {
+    constructor(el, board, card, task) {
         super(el);
         this.model = new TaskDetailedModel(this.eventBus);
+        this.model.task = task;
+        this.model.card = card;
+        this.model.board = board;
+
         this.view = new TaskDetailedView(el, this.eventBus);
+
+        this.addWsEventListeners();
     }
 
     /**
@@ -95,6 +104,7 @@ export default class TaskDetailedController extends BaseController {
         });
         this.eventBus.on('taskDetailedModel:createTagSuccess', (responseBody) => {
             const tag = this.model.addCreatedTag(responseBody);
+            this.model.addTag(tag);
             this.view.addTag(tag);
             this.eventBus.emit('taskDetailedController:tagAdded', tag);
             this.tagAddPopup.render(this.model.task.tags, this.model.board.boardTags);
@@ -183,6 +193,7 @@ export default class TaskDetailedController extends BaseController {
     addAssignersEventListeners() {
         this.taskAssignersPopup.eventBus.on('taskAssignersPopup:assignerAdded', (user) => {
             this.model.addAssigner(user);
+            // this.eventBus.emit('taskDetailedController:assignerAdded', user);
             this.view.addAssigner(user);
         });
         this.taskAssignersPopup.eventBus.on('taskAssignersPopup:assignerRemoved', (user) => {
@@ -230,7 +241,8 @@ export default class TaskDetailedController extends BaseController {
         this.model.board.ws.addEventListener('message', (event) => {
             const data = JSON.parse(event.data);
 
-            if (data.body.cardID === this.model.card.cardID && data.body.taskID === this.model.task.taskID) {
+            if (!this.view.hidden && data.body.cardID === this.model.card.cardID &&
+                data.body.taskID === this.model.task.taskID) {
                 switch (data.method) {
                 case 'ChangeTask':
                     this.view.updateDescription(data.body.taskDescription);
@@ -264,25 +276,38 @@ export default class TaskDetailedController extends BaseController {
                     this.eventBus.emit('taskDetailedController:checkListUpdated', checkListChange);
                     this.view.updateChecklist(checkListChange);
                     break;
+                case 'CreateAttachment':
+                    const newFile = this.model.addFile(data.body);
+                    this.view.addAttachment(newFile);
+                    break;
+                case 'DeleteAttachment':
+                    const attachment = this.model.deleteAttachmentByID(data.body.attachmentID);
+                    this.view.removeAttachment(attachment);
+                    break;
                 default:
                     break;
                 }
             }
         });
+        this.eventBus.on('taskController:tagRemoved', (tag) => {
+            this.view.removeTag(tag);
+        });
+        this.eventBus.on('taskController:tagAdded', (tag) => {
+            this.view.addTag(tag);
+        });
+        this.eventBus.on('taskController:userAssigned', (assigner) => {
+            this.view.addAssigner(assigner);
+        });
+        this.eventBus.on('taskController:userDismissed', (assigner) => {
+            this.view.removeAssigner(assigner);
+        });
     }
 
     /**
      * Render task detailed view
-     * @param {Object} board
-     * @param {Object} card
-     * @param {Object} task
      */
-    render(board, card, task) {
-        this.model.task = task;
-        this.model.card = card;
-        this.model.board = board;
-
-        this.view.render(task);
+    render() {
+        this.view.render(this.model.task);
         this.addEventListeners();
 
         this.initPopups();
@@ -292,6 +317,5 @@ export default class TaskDetailedController extends BaseController {
         this.addCheckListsElementsEventListeners();
         this.addAssignersEventListeners();
         this.addCommentsEventListeners();
-        this.addWsEventListeners();
     }
 }

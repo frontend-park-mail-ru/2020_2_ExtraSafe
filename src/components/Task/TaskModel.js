@@ -249,6 +249,30 @@ export default class TaskModel {
     }
 
     /**
+     * Delete tag from array
+     * @param {number} tagID
+     * @return {Object}
+     */
+    deleteTagFromArray(tagID) {
+        const tagIndex = this.task.tags.findIndex((tag) => {
+            return tag.tagID === tagID;
+        });
+        return this.task.tags.splice(tagIndex, 1)[0];
+    }
+
+    /**
+     * Delete assigner from array
+     * @param {string} username
+     * @return {Object}
+     */
+    deleteAssigner(username) {
+        const assignerIndex = this.task.taskAssigners.findIndex((assigner) => {
+            return assigner.username === username;
+        });
+        return this.task.taskAssigners.splice(assignerIndex, 1)[0];
+    }
+
+    /**
      * Get task detailed
      */
     getTaskDetailed() {
@@ -262,6 +286,7 @@ export default class TaskModel {
                 }
                 this.eventBus.emit('taskModel:getTaskDetailedFailed', responseBody.codes);
             } else {
+                this.task.attachments = [];
                 // TODO: полукостыль
                 for (const attachment of responseBody.taskAttachments) {
                     this.task.attachments.push({
@@ -275,6 +300,7 @@ export default class TaskModel {
                         fileRemoveID: `fileRemove${attachment.attachmentID}`,
                     });
                 }
+                this.task.comments = [];
                 for (const comment of responseBody.taskComments) {
                     this.task.comments.push({
                         commentID: comment.commentID,
