@@ -6,9 +6,11 @@ node_js:
 services:
   - docker
 
+addons:
+  - ssh_known_hosts: 95.163.213.142
+
 install:
   - npm ci
-  - echo ${SSH_KEY_BASE64} | base64 -d >> $HOME/.ssh/known_hosts
 
 script:
   - npm run build
