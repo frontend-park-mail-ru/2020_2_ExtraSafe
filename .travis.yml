@@ -8,7 +8,7 @@ services:
 
 install:
   - npm ci
-  - echo ${SSH_KEY} | base64 -d >> $HOME/.ssh/known_hosts
+  - echo ${SSH_KEY_BASE64} | base64 -d >> $HOME/.ssh/known_hosts
 
 script:
   - npm run build
