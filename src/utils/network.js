@@ -9,8 +9,8 @@ class Network {
      */
     constructor() {
         this.frontAddr = 'http://tabutask.ru';
-        this.serverAddr = 'http://tabutask.ru:8080';
-        this.serverAddrWS = 'ws://tabutask.ru:8080';
+        this.serverAddr = 'http://tabutask.ru';
+        this.serverAddrWS = 'ws://tabutask.ru';
         // this.frontAddr = 'http://127.0.0.1';
         // this.serverAddr = 'http://127.0.0.1:8080';
         // this.serverAddrWS = 'ws://127.0.0.1:8080';
