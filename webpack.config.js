@@ -4,7 +4,6 @@ const CopyPlugin = require('copy-webpack-plugin');
 const {InjectManifest} = require('workbox-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 
-// TODO: разобраться с мусорным <style>
 module.exports = {
     output: {
         publicPath: '/',
@@ -50,9 +49,11 @@ module.exports = {
             filename: 'main.css',
         }),
         new HtmlWebpackPlugin({
+            hash: true,
             template: './src/index.html',
         }),
         new HtmlWebpackPlugin({
+            hash: true,
             filename: 'offline.html',
         }),
         new CopyPlugin({
@@ -62,10 +63,6 @@ module.exports = {
         }),
         new InjectManifest({
             swSrc: './src/sw.js',
-            additionalManifestEntries: [
-                './index.html',
-                './offline.html',
-            ],
         }),
     ],
 };

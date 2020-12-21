@@ -39,10 +39,12 @@ if ('serviceWorker' in navigator) {
 }
 
 if (!navigator.onLine) {
+    console.log('offline');
     rendering.showOfflineMessage();
 }
 
 window.addEventListener('offline', () => {
+    console.log('offline');
     rendering.showOfflineMessage();
 });
 

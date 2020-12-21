@@ -1,4 +1,4 @@
-import {StaleWhileRevalidate, NetworkFirst} from 'workbox-strategies';
+import {NetworkFirst, CacheFirst} from 'workbox-strategies';
 import {matchPrecache, precache} from 'workbox-precaching';
 import {registerRoute, setDefaultHandler, setCatchHandler} from 'workbox-routing';
 
@@ -9,7 +9,12 @@ registerRoute(
     new NetworkFirst(),
 );
 
-setDefaultHandler(new StaleWhileRevalidate());
+registerRoute(
+    ({request}) => request.destination === 'document',
+    new NetworkFirst(),
+);
+
+setDefaultHandler(new CacheFirst());
 
 setCatchHandler(({event}) => {
     switch (event.request.destination) {
