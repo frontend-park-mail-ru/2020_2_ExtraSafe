@@ -11,3 +11,9 @@ install:
 
 script:
   - npm run build
+
+deploy:
+  provider: script
+  script: bash deploy/deploy.sh
+  on:
+    branch: develop
