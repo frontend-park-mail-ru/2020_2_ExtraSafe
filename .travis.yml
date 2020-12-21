@@ -15,5 +15,7 @@ script:
 deploy:
   provider: script
   script: bash deploy.sh
+  install:
+    - echo ${SSH_KEY} | base64 -d >> $HOME/.ssh/known_hosts
   on:
     branch: cicd
