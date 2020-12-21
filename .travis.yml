@@ -16,4 +16,4 @@ deploy:
   provider: script
   script: bash deploy/deploy.sh
   on:
-    branch: develop
+    branch: cicd
