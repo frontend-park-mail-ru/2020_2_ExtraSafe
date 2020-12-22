@@ -57,4 +57,6 @@ jobs:
           host: 95.163.213.142
           username: ubuntu
           key: ${{ secrets.PRIVATE_KEY }}
-          script: sudo nginx -s reload
+          script: |
+            sudo cp /home/ubuntu/Tabutask/Frontend/build/nginx.conf /etc/nginx/conf.d/tabutask.ru.conf
+            sudo nginx -s reload
