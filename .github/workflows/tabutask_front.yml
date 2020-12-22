@@ -30,8 +30,8 @@ jobs:
         with:
           name: build
           path: |
-            dist
-            nginx.conf
+            ./dist
+            ./nginx.conf
 
   deploy:
     runs-on: ubuntu-latest
