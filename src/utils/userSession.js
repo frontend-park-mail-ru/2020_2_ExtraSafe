@@ -40,7 +40,7 @@ class UserSession {
             email: '',
             username: '',
             fullName: '',
-            avatar: `/static/default/default_avatar.png`,
+            avatar: `default/default_avatar.png`,
         });
     }
 

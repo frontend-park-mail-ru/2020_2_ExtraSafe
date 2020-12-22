@@ -8,8 +8,8 @@ class Network {
      * Constructor network
      */
     constructor() {
-        this.serverAddr = 'http://tabutask.ru';
-        this.serverAddrWS = 'ws://tabutask.ru';
+        this.serverAddr = 'https://tabutask.ru';
+        this.serverAddrWS = 'wss://tabutask.ru';
         // this.serverAddr = 'http://127.0.0.1';
         // this.serverAddrWS = 'ws://127.0.0.1';
         this.requestGet = {
