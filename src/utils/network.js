@@ -8,12 +8,10 @@ class Network {
      * Constructor network
      */
     constructor() {
-        this.frontAddr = 'http://tabutask.ru';
         this.serverAddr = 'http://tabutask.ru';
         this.serverAddrWS = 'ws://tabutask.ru';
-        // this.frontAddr = 'http://127.0.0.1';
-        // this.serverAddr = 'http://127.0.0.1:8080';
-        // this.serverAddrWS = 'ws://127.0.0.1:8080';
+        // this.serverAddr = 'http://127.0.0.1';
+        // this.serverAddrWS = 'ws://127.0.0.1';
         this.requestGet = {
             mode: 'cors',
             credentials: 'include',
@@ -102,16 +100,6 @@ class Network {
     }
 
     /**
-     * get accounts information from server
-     * @return {Promise<Response>}
-     */
-    accountsGet() {
-        const url = this.serverAddr + '/api/accounts/';
-
-        return fetch(url, this.requestGet);
-    }
-
-    /**
      * request to change profile data on server
      * @param {requestData} data
      * @return {Promise<Response>}
@@ -121,21 +109,6 @@ class Network {
         this.requestFormData.body = data;
 
         return fetch(url, this.requestFormData);
-    }
-
-    /**
-     * request to change accounts data on server
-     * @param {requestData} data
-     * @return {Promise<Response>}
-     */
-    accountsSet(data) {
-        const url = this.serverAddr + '/api/accounts/';
-        // this.requestPost.body = JSON.stringify(data);
-        const request = this.requestPost;
-        request.body = JSON.stringify(data);
-        request.headers['X-CSRF-Token'] = '4444';
-
-        return fetch(url, request);
     }
 
     /**
@@ -555,7 +528,7 @@ class Network {
      * @return {WebSocket}
      */
     webSocketBoardConnection(boardID) {
-        const url = this.serverAddrWS + '/api/board-ws/' + boardID + '/';
+        const url = this.serverAddrWS + '/api/ws/board/' + boardID + '/';
 
         const ws = new WebSocket(url);
 
@@ -571,7 +544,7 @@ class Network {
      * @return {WebSocket}
      */
     webSocketNotificationsConnection() {
-        const url = this.serverAddrWS + '/api/notification-ws/';
+        const url = this.serverAddrWS + '/api/ws/notification/';
 
         const ws = new WebSocket(url);
 

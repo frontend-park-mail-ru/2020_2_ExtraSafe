@@ -185,7 +185,7 @@ export default class TaskDetailedModel {
         const newAttachment = {
             attachmentID: responseBody.attachmentID,
             fileName: responseBody.attachmentFileName,
-            fileUrl: `${network.serverAddr}/files/${responseBody.attachmentFilePath}`,
+            fileUrl: `${network.serverAddr}/static/files/${responseBody.attachmentFilePath}`,
             fileUrlForDelete: responseBody.attachmentFilePath,
             fileHtmlID: `file${responseBody.attachmentID}`,
             fileNameID: `fileName${responseBody.attachmentID}`,
@@ -506,7 +506,7 @@ export default class TaskDetailedModel {
         const newComment = {
             commentID: responseBody.commentID,
             commentHtmlID: `comment${responseBody.commentID}`,
-            commentAvatar: `${network.serverAddr}/avatar/${responseBody.commentAuthor.avatar}`,
+            commentAvatar: `${network.serverAddr}/static/avatar/${responseBody.commentAuthor.avatar}`,
             commentUsername: responseBody.commentAuthor.username,
             commentRemove: `comment${responseBody.commentID}Remove`,
             commentText: responseBody.commentMessage,

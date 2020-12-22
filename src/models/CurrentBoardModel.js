@@ -74,7 +74,7 @@ export default class CurrentBoardModel {
                 member.memberTaskHtmlID = `${member.username}Task`;
                 member.memberTaskPopupHtmlID = `${member.username}TaskPopup`;
                 member.memberTaskPopupCheckID = `${member.username}TaskPopupCheck`;
-                member.memberAvatarSrc = `${network.serverAddr}/avatar/${member.avatar}`;
+                member.memberAvatarSrc = `${network.serverAddr}/static/avatar/${member.avatar}`;
                 member.memberUsername = member.username;
             }
         }
@@ -233,7 +233,7 @@ export default class CurrentBoardModel {
                     return;
                 }
             } else {
-                this.board.sharedUrl = `${network.frontAddr}/invite/board/${this.board.boardID}/${responseBody.sharedURL}/`;
+                this.board.sharedUrl = `${network.serverAddr}/invite/board/${this.board.boardID}/${responseBody.sharedURL}/`;
             }
         }).catch((error) => {
             return;

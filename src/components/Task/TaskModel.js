@@ -120,7 +120,7 @@ export default class TaskModel {
                 assigner.memberTaskHtmlID = `${assigner.username}Task`;
                 assigner.memberTaskPopupHtmlID = `${assigner.username}TaskPopup`;
                 assigner.memberTaskPopupCheckID = `${assigner.username}TaskPopupCheck`;
-                assigner.memberAvatarSrc = `${network.serverAddr}/avatar/${assigner.avatar}`;
+                assigner.memberAvatarSrc = `${network.serverAddr}/static/avatar/${assigner.avatar}`;
                 assigner.memberUsername = assigner.username;
             }
         }
@@ -292,7 +292,7 @@ export default class TaskModel {
                     this.task.attachments.push({
                         attachmentID: attachment.attachmentID,
                         fileName: attachment.attachmentFileName,
-                        fileUrl: `${network.serverAddr}/files/${attachment.attachmentFilePath}`,
+                        fileUrl: `${network.serverAddr}/static/files/${attachment.attachmentFilePath}`,
                         fileUrlForDelete: attachment.attachmentFilePath,
                         fileHtmlID: `file${attachment.attachmentID}`,
                         fileNameID: `fileName${attachment.attachmentID}`,
@@ -305,7 +305,7 @@ export default class TaskModel {
                     this.task.comments.push({
                         commentID: comment.commentID,
                         commentHtmlID: `comment${comment.commentID}`,
-                        commentAvatar: `${network.serverAddr}/avatar/${comment.commentAuthor.avatar}`,
+                        commentAvatar: `${network.serverAddr}/static/avatar/${comment.commentAuthor.avatar}`,
                         commentUsername: comment.commentAuthor.username,
                         commentRemove: `comment${comment.commentID}Remove`,
                         commentText: comment.commentMessage,
