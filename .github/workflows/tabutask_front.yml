@@ -29,7 +29,9 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: build
-          path: ./dist
+          path: |
+            dist
+            nginx.conf
 
   deploy:
     runs-on: ubuntu-latest
@@ -46,5 +48,5 @@ jobs:
           host: 95.163.213.142
           username: ubuntu
           key: ${{ secrets.PRIVATE_KEY }}
-          source: "./dist/*,nginx.conf"
+          source: "dist,nginx.conf"
           target: "/home/ubuntu/Tabutask/Frontend"
