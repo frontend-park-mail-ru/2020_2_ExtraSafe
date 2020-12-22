@@ -69,6 +69,7 @@
         // Контейнер настройки содержимого задачи
         &__container {
             @include flex-column;
+            flex-shrink: 0;
 
             // position: absolute;
 
@@ -473,7 +474,6 @@
 
                     @include standard-border-radius;
 
-                    gap: 10px;
 
                     cursor: pointer;
 
@@ -487,6 +487,7 @@
                 &__icon {
                     height: 24px;
                     width: 24px;
+                    margin-right: 10px;
                 }
 
                 // Текст добавления нового вложения
@@ -621,7 +622,6 @@
 
                             @include standard-border-radius;
 
-                            gap: 10px;
 
                             cursor: pointer;
 
@@ -635,6 +635,8 @@
                         &__icon {
                             height: 24px;
                             width: 24px;
+
+                            margin-right: 10px;
                         }
 
                         // Текст добавления нового элемента в чек-листе
@@ -667,7 +669,6 @@
 
                     @include standard-border-radius;
 
-                    gap: 10px;
 
                     cursor: pointer;
 
@@ -682,6 +683,8 @@
                 &__icon {
                     height: 24px;
                     width: 24px;
+
+                    margin-right: 10px;
                 }
 
                 // Текст добавления нового чек-листа
@@ -1037,8 +1040,6 @@
                 padding: 8px;
                 margin: 5px;
 
-                gap: 10px;
-
                 @include standard-border-radius;
 
                 cursor: pointer;
@@ -1052,6 +1053,8 @@
             &__icon {
                 height: 18px;
                 width: 18px;
+
+                margin-right: 10px;
             }
 
             &__text {

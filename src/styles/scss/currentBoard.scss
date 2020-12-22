@@ -51,7 +51,6 @@
         &__container {
             display: flex;
             flex-direction: row;
-            gap: 50px;
         }
 
         // Название доски и иконка избранного
@@ -64,6 +63,8 @@
                 @include content-center;
 
                 flex-flow: row wrap;
+
+                margin-right: 50px;
             }
 
             // Название доски
@@ -281,8 +282,6 @@
 
             @include standard-border-radius;
 
-            gap: 10px;
-
             cursor: pointer;
 
             &:hover {
@@ -294,6 +293,8 @@
         &__icon {
             height: 18px;
             width: 18px;
+
+            margin-right: 10px;
         }
 
         &__text {
@@ -648,8 +649,6 @@
 
                 margin: 10px;
 
-                gap: 10px;
-
                 @include standard-border-radius;
 
                 cursor: pointer;
@@ -664,6 +663,8 @@
             &__icon {
                 height: 18px;
                 width: 18px;
+
+                margin-right: 10px;
             }
 
             // Текст добавления новой задачи
@@ -721,8 +722,6 @@
             height: 45px;
             width: 290px;
 
-            gap: 10px;
-
             border-radius: 5px 5px 0 0;
 
             border-right: 1px solid $card-violet;
@@ -752,6 +751,8 @@
 
                 width: 18px;
                 height: 18px;
+
+                margin-right: 10px;
             }
         }
     }
