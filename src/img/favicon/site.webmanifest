@@ -1,11 +1,8 @@
 {
   "name": "Tabutask",
   "short_name": "Tabutask",
-  "start_url": ".",
-  "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#ffffff",
-  "description": "The best looking kanban task manager on the net :)",
+  "start_url": "https://tabutask.ru",
+  "display": "fullscreen",
   "icons": [
     {
       "src": "./android-chrome-192x192.png",
