@@ -23,7 +23,7 @@ export default class Router {
         this.root.addEventListener('click', this.catchMouseClick);
         globalEventBus.on('network:logout', () => {
             this.isAuth = false;
-            this.renderIfNotAuth('/login');
+            this.open('/login');
         });
 
         window.onpopstate = (event) => {
@@ -43,7 +43,6 @@ export default class Router {
                 return false;
             } else {
                 UserSession.setData(responseBody);
-                // UserSession.setAccounts(responseBody.links);
                 UserSession.setBoards(responseBody.boards);
                 Network.setToken(responseBody.token);
                 return true;
@@ -59,8 +58,6 @@ export default class Router {
      */
     renderIfAuth(route, handler, ...args) {
         if (route === '/login' || route === '/reg') {
-            window.history.replaceState({}, '', '/');
-
             this.currentPage = '/';
             for (const [regExp, controller] of this.routesMap.entries()) {
                 if (regExp.test('/')) {
@@ -84,8 +81,6 @@ export default class Router {
             this.currentPage = route;
             handler.render(...args);
         } else {
-            window.history.replaceState({}, '', '/login');
-
             this.currentPage = '/login';
             for (const [regExp, controller] of this.routesMap.entries()) {
                 if (regExp.test('/login')) {
@@ -103,15 +98,8 @@ export default class Router {
     open(route, pushState = true) {
         for (const [regExp, controller] of this.routesMap.entries()) {
             if (regExp.test(route)) {
-                if (pushState) {
-                    window.history.pushState(route, '', route);
-                }
-
-                console.log(regExp);
-
                 const args = regExp.exec(route);
                 args.shift();
-                console.log(args);
 
                 if (!this.isAuth) {
                     this.authorize().then((response) => {
