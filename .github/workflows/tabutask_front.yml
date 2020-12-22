@@ -29,9 +29,9 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: build
-          path: |
-            ./dist
-            ./nginx.conf
+          path:
+            dist
+            nginx.conf
 
   deploy:
     runs-on: ubuntu-latest
