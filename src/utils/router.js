@@ -61,7 +61,7 @@ export default class Router {
             this.currentPage = '/';
             for (const [regExp, controller] of this.routesMap.entries()) {
                 if (regExp.test('/')) {
-                    controller.render(...args);
+                    controller.render();
                 }
             }
         } else {
@@ -84,7 +84,7 @@ export default class Router {
             this.currentPage = '/login';
             for (const [regExp, controller] of this.routesMap.entries()) {
                 if (regExp.test('/login')) {
-                    controller.render(...args);
+                    controller.render();
                 }
             }
         }
@@ -106,16 +106,25 @@ export default class Router {
                         this.isAuth = response;
 
                         if (response === true) {
-                            this.renderIfAuth(route, controller, pushState, ...args);
+                            this.renderIfAuth(route, controller, ...args);
                         } else {
                             this.renderIfNotAuth(route, controller, ...args);
+                        }
+
+                        if (pushState) {
+                            window.history.pushState(this.currentPage,
+                                `Tabutask ${this.currentPage.slice(1).replace('/', ' ')}`,
+                                this.currentPage);
                         }
                     });
                 } else {
                     this.renderIfAuth(route, controller, ...args);
-                }
-                if (pushState) {
-                    window.history.pushState(this.currentPage, '', this.currentPage);
+
+                    if (pushState) {
+                        window.history.pushState(this.currentPage,
+                            `Tabutask ${this.currentPage.slice(1).replace('/', ' ')}`,
+                            this.currentPage);
+                    }
                 }
                 return;
             }
