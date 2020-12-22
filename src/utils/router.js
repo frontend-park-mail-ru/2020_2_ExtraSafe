@@ -27,7 +27,6 @@ export default class Router {
         });
 
         window.onpopstate = (event) => {
-            // this.routesMap.get(event.state).render();
             this.open(event.state, false);
         };
     }
@@ -63,7 +62,11 @@ export default class Router {
             window.history.replaceState({}, '', '/');
 
             this.currentPage = '/';
-            handler.render(...args);
+            for (const [regExp, controller] of this.routesMap.entries()) {
+                if (regExp.test('/')) {
+                    controller.render(...args);
+                }
+            }
         } else {
             this.currentPage = route;
             handler.render(...args);
@@ -84,7 +87,11 @@ export default class Router {
             window.history.replaceState({}, '', '/login');
 
             this.currentPage = '/login';
-            handler.render(...args);
+            for (const [regExp, controller] of this.routesMap.entries()) {
+                if (regExp.test('/login')) {
+                    controller.render(...args);
+                }
+            }
         }
     }
 
@@ -94,10 +101,8 @@ export default class Router {
      * @param {boolean} pushState
      */
     open(route, pushState = true) {
-        // let found = false;
         for (const [regExp, controller] of this.routesMap.entries()) {
             if (regExp.test(route)) {
-                // found = true;
                 if (pushState) {
                     window.history.pushState(route, '', route);
                 }
@@ -113,13 +118,16 @@ export default class Router {
                         this.isAuth = response;
 
                         if (response === true) {
-                            this.renderIfAuth(route, controller, ...args);
+                            this.renderIfAuth(route, controller, pushState, ...args);
                         } else {
                             this.renderIfNotAuth(route, controller, ...args);
                         }
                     });
                 } else {
                     this.renderIfAuth(route, controller, ...args);
+                }
+                if (pushState) {
+                    window.history.pushState(this.currentPage, '', this.currentPage);
                 }
                 return;
             }
@@ -165,7 +173,6 @@ export default class Router {
      * @param {BaseController} handler
      */
     addRoute(route, handler) {
-    // handler is a callable function or method
         if (!this.routesMap.has(route)) {
             this.routesMap.set(route, handler);
         }
