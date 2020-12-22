@@ -48,5 +48,5 @@ jobs:
           host: 95.163.213.142
           username: ubuntu
           key: ${{ secrets.PRIVATE_KEY }}
-          source: "dist,nginx.conf"
+          source: "build"
           target: "/home/ubuntu/Tabutask/Frontend"
