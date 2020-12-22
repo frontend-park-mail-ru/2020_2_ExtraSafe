@@ -26,12 +26,12 @@ jobs:
         run: npm run build
 
       - name: Upload build result
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
           name: build
-          path:
-            dist |
-            nginx.conf
+          path: |
+            ./dist
+            ./nginx.conf
 
   deploy:
     runs-on: ubuntu-latest
