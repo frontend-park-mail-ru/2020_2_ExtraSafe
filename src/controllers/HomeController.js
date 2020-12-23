@@ -84,7 +84,7 @@ export default class HomeController extends BaseController {
                 }
             }
         });
-        globalEventBus.on('AddMemberNotification', (wsBoard) => {
+        globalEventBus.on('navbar:addBoard', (wsBoard) => {
             this.render();
         });
     }

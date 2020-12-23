@@ -39,7 +39,7 @@ export default class CurrentBoardModel {
                 this.board.boardName = responseBody.boardName;
                 this.board.boardTags = responseBody.boardTags;
                 this.board.boardMembers = responseBody.boardMembers;
-                this.board.boardMembers.push(userSession.data);
+                this.board.boardMembers.push(responseBody.boardAdmin);
                 this.board.isAdmin = responseBody.boardAdmin.username === userSession.data.username;
                 this.initTags();
                 this.initMembers();
@@ -76,6 +76,7 @@ export default class CurrentBoardModel {
                 member.memberTaskPopupCheckID = `${member.username}TaskPopupCheck`;
                 member.memberAvatarSrc = `${network.serverAddr}/static/avatar/${member.avatar}`;
                 member.memberUsername = member.username;
+                member.isMe = member.username === userSession.data.username;
             }
         }
     }
