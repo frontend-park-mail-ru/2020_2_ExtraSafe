@@ -309,7 +309,9 @@
             border: 2px $electric-indigo solid !important;
         }
 
-        width: 80%;
+        width: 100%;
+
+        align-self: center;
 
         padding: 10px;
 
@@ -340,7 +342,7 @@
         max-height: 30px;
 
         padding: 10px;
-        margin: 10px 0 10px 0;
+        margin: 12px 0 12px 0;
 
         @include standard-button;
     }
@@ -781,5 +783,41 @@
         &:hover {
             background: $scroll-active;
         }
+    }
+}
+
+//
+.invite {
+    @include flex-column;
+    width: 80%;
+
+
+    &-link {
+        align-self: center !important;
+
+        width: 100% !important;
+
+        padding: 10px !important;
+        margin: 0 0 15px 0 !important;
+
+        border: 2px $light-grey solid !important;
+
+        &:focus {
+            border: 2px $electric-indigo solid !important;
+            box-shadow: none !important;
+        }
+
+        &:hover {
+            cursor: pointer !important;
+        }
+    }
+
+    &-text {
+        margin: 0 0 3px -5px;
+
+        @include standard-font(300, 12px, normal);
+        //color: $grey-text-color;
+
+        cursor: default;
     }
 }
