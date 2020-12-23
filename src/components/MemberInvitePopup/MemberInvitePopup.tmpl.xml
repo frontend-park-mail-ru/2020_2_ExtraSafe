@@ -7,11 +7,21 @@
                 Добавить пользователя
             </div>
 
-            <div>
+            <div class="invite">
+                <div class="invite-text">
+                    Пригласить с помощью ссылки
+                </div>
+                <input class="invite-link" onClick="this.select();" value="https://tabutask.ru/board/bibabobibabo" readonly="readonly"/>
                 <fest:value>json.sharedUrl</fest:value>
             </div>
 
-            <div class="add-collaborator__input" id="memberInvitePopupName" contenteditable="true"/>
+            <div class="invite">
+                <div class="invite-text">
+                    Пригласить по имени пользователя
+                </div>
+                <div class="add-collaborator__input" id="memberInvitePopupName" data-placeholder="Введите имя пользователя" contenteditable="true"/>
+            </div>
+
 
             <button class="add-collaborator__button" id="memberInvitePopupAdd">Добавить</button>
         </div>
