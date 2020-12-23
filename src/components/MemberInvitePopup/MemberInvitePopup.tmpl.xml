@@ -11,8 +11,7 @@
                 <div class="invite-text">
                     Пригласить с помощью ссылки
                 </div>
-                <input class="invite-link" onClick="this.select();" value="https://tabutask.ru/board/bibabobibabo" readonly="readonly"/>
-                <fest:value>json.sharedUrl</fest:value>
+                <input class="invite-link" onClick="this.select();document.execCommand('copy');" value="{json.sharedUrl}" readonly="readonly"/>
             </div>
 
             <div class="invite">

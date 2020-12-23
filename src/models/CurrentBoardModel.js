@@ -233,7 +233,8 @@ export default class CurrentBoardModel {
                     return;
                 }
             } else {
-                this.board.sharedUrl = `${network.serverAddr}/invite/board/${this.board.boardID}/${responseBody.sharedURL}/`;
+                this.board.sharedUrl =
+                    `${network.serverAddr}/invite/board/${this.board.boardID}/${responseBody.sharedURL}`;
             }
         }).catch((error) => {
             return;
