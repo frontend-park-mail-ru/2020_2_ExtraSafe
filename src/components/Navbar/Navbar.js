@@ -21,8 +21,6 @@ class Navbar {
         globalEventBus.on('userSession:set', (input) => {
             this.setAvatarURL(input.avatar);
         });
-
-        this.addWsEventListeners();
     }
 
     /**
@@ -31,6 +29,7 @@ class Navbar {
     navbarShow() {
         this.el.hidden = false;
         this.ws = network.webSocketNotificationsConnection();
+        this.addWsEventListeners();
     }
 
     /**
