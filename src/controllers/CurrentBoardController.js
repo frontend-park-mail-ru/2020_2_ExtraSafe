@@ -219,6 +219,9 @@ export default class CurrentBoardController extends BaseController {
                 break;
             }
         });
+        globalEventBus.on('AddMemberNotification', () => {
+            this.render();
+        });
     }
 
     /**

@@ -89,6 +89,7 @@ class Navbar {
             switch (data.body.method) {
             case 'AddMemberNotification':
                 showNotification(`${data.body.body.initiator} пригласил(а) Вас на доску ${data.body.body.boardName}`);
+                globalEventBus.emit('navbar:addBoard', data.body.body);
                 break;
             case 'AssignUserNotification':
                 showNotification(`${data.body.body.initiator} назначил(а) Вас на задачу ${data.body.body.taskName}`);
