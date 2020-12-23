@@ -99,7 +99,7 @@ export default class CurrentBoardController extends BaseController {
             card.model.card.order = cardIndex;
             cards.push({
                 cardID: card.model.card.cardID,
-                order: card.model.card.cardOrder,
+                cardOrder: card.model.card.order,
             });
 
             this.view.updateCardOrder(card.model.card.cardHtmlID, cardIndex);
