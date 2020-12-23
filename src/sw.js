@@ -1,4 +1,4 @@
-import {NetworkFirst, CacheFirst} from 'workbox-strategies';
+import {NetworkFirst, CacheFirst, NetworkOnly} from 'workbox-strategies';
 import {matchPrecache, precache} from 'workbox-precaching';
 import {registerRoute, setDefaultHandler, setCatchHandler} from 'workbox-routing';
 
@@ -12,6 +12,11 @@ registerRoute(
 registerRoute(
     ({request}) => request.destination === 'document',
     new NetworkFirst(),
+);
+
+registerRoute(
+    /\/static\/files\/*/,
+    new NetworkOnly(),
 );
 
 setDefaultHandler(new CacheFirst());
