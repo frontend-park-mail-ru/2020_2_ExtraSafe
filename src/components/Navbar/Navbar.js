@@ -93,7 +93,7 @@ class Navbar {
                 globalEventBus.emit('navbar:addBoard', data.body.body);
                 break;
             case 'AssignUserNotification':
-                if (data.body.body.initiator.username !== userSession.data.username) {
+                if (data.body.body.initiator !== userSession.data.username) {
                     showNotification(
                         `${data.body.body.initiator} назначил(а) Вас на задачу ${data.body.body.taskName}`);
                 }

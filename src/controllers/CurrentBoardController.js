@@ -163,7 +163,7 @@ export default class CurrentBoardController extends BaseController {
             this.model.memberExpel(member);
             setTimeout(() => {
                 this.render();
-            }, 100);
+            }, 200);
         });
         this.membersPopup.eventBus.on('membersPopup:memberInvite', () => {
             this.memberInvitePopup.render({sharedUrl: this.model.board.sharedUrl});

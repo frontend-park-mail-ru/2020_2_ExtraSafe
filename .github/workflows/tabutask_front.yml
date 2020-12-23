@@ -2,9 +2,7 @@ name: Build and deploy Tabutask frontend
 
 on:
   push:
-    branches: [cicd]
-  pull_request:
-    branches: [cicd]
+    branches: [develop]
 
 jobs:
 
