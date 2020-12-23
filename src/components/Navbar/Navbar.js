@@ -22,7 +22,6 @@ class Navbar {
             this.setAvatarURL(input.avatar);
         });
 
-        this.ws = network.webSocketNotificationsConnection();
         this.addWsEventListeners();
     }
 
@@ -31,6 +30,7 @@ class Navbar {
      */
     navbarShow() {
         this.el.hidden = false;
+        this.ws = network.webSocketNotificationsConnection();
     }
 
     /**
@@ -38,6 +38,7 @@ class Navbar {
      */
     navbarHide() {
         this.el.hidden = true;
+        delete this.ws;
     }
 
     /**
@@ -86,7 +87,14 @@ class Navbar {
         this.ws.addEventListener('message', (event) => {
             const data = JSON.parse(event.data);
             console.log(data);
-            showNotification(`${data.body.body.initiator} пригласил(а) Вас на доску ${data.body.body.boardName}`);
+            switch (data.method) {
+            case 'AddMemberNotification':
+                showNotification(`${data.body.body.initiator} пригласил(а) Вас на доску ${data.body.body.boardName}`);
+                break;
+            case 'AssignUser':
+                showNotification(`${data.body.body.initiator} назначил(а) Вас на задачу ${data.body.body.taskName}`);
+                break;
+            }
         });
     }
 }
