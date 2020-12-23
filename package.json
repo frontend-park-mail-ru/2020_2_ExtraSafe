@@ -8,12 +8,11 @@
   },
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint .",
     "lint-fix": "eslint --fix .",
-    "start": "webpack; node server.js",
-    "dev-start": "npm run lint && npm run start",
-    "build": "webpack"
+    "start": "npm run build-dev; node server.js",
+    "build-prod": "webpack --mode=production",
+    "build-dev": "webpack --mode=development"
   },
   "pre-commit": [
     "lint-fix"
