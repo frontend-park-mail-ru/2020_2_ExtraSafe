@@ -23,7 +23,7 @@
 /* Стиль для всего body */
 body {
   margin: 0;
-  background: $navbar-gradient;
+  background-color: $card-violet;
 }
 
 /* Базовый стиль для всего приложения */
@@ -49,7 +49,7 @@ body {
 
         height: 100%;
 
-        background-color: $card-violet;
+        background: $main-background-color;
     }
 
 }
