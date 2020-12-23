@@ -202,10 +202,12 @@ export default class CurrentBoardController extends BaseController {
                 break;
             case 'AddMember':
                 this.model.addMember(data.body);
+                this.render();
                 // TODO: сделать добавление на вьюху доски
                 break;
             case 'RemoveMember':
                 this.model.deleteMember(data.body.memberUsername);
+                this.render();
                 // TODO: сделать удаление с вьюхи доски
                 break;
             case 'CreateCard':
@@ -215,12 +217,12 @@ export default class CurrentBoardController extends BaseController {
                 this.model.board.boardTags.push(data.body);
                 this.model.initTags();
                 break;
+            case 'TasksOrderChange':
+                this.render();
+                break;
             default:
                 break;
             }
-        });
-        globalEventBus.on('AddMemberNotification', () => {
-            this.render();
         });
     }
 

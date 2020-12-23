@@ -39,10 +39,10 @@ export default class CurrentBoardModel {
                 this.board.boardName = responseBody.boardName;
                 this.board.boardTags = responseBody.boardTags;
                 this.board.boardMembers = responseBody.boardMembers;
+                this.board.boardMembers.push(userSession.data);
                 this.board.isAdmin = responseBody.boardAdmin.username === userSession.data.username;
                 this.initTags();
                 this.initMembers();
-                // this.eventBus.emit('currentBoardModel:getBoardSuccess', responseBody);
             }
             return responseBody;
         });
