@@ -1,12 +1,16 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const {InjectManifest} = require('workbox-webpack-plugin');
 const autoprefixer = require('autoprefixer');
+const path = require('path');
 
 module.exports = {
     output: {
         publicPath: '/',
+        path: path.resolve(process.cwd(), 'dist'),
     },
     module: {
         rules: [
@@ -45,6 +49,7 @@ module.exports = {
         ],
     },
     plugins: [
+        new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
             filename: 'main.css',
         }),
@@ -60,6 +65,17 @@ module.exports = {
             patterns: [
                 {from: './src/img', to: './img'},
             ],
+        }),
+        new ImageMinimizerPlugin({
+            test: /\.(jpe?g|png|gif|svg)$/i,
+            minimizerOptions: {
+                plugins: [
+                    ['gifsicle', {interlaced: true}],
+                    ['jpegtran', {progressive: true}],
+                    ['optipng', {optimizationLevel: 5}],
+                    ['svgo', {plugins: [{removeViewBox: false}]}],
+                ],
+            },
         }),
         new InjectManifest({
             swSrc: './src/sw.js',
