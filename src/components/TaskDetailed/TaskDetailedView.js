@@ -8,7 +8,6 @@ import checkListElementTemplate from './CheckListElement.tmpl.xml';
 import taskAssignerTemplate from './TaskAssigner.tmpl.xml';
 import commentTemplate from './Comment.tmpl.xml';
 import userSession from '../../utils/userSession.js';
-// import globalEventBus from '../../utils/globalEventBus.js';
 
 /**
  * Task detailed view
@@ -21,6 +20,7 @@ export default class TaskDetailedView extends BaseView {
      */
     constructor(el, eventBus) {
         super(el, eventBus);
+        this.hidden = true;
     }
 
     /**
@@ -236,6 +236,7 @@ export default class TaskDetailedView extends BaseView {
         // там прикол с bind(this)
         // window.removeEventListener('keydown', this.onKeyDownHide);
         window.removeEventListener('keydown', this.onKeyDownBlur);
+        this.hidden = true;
         this.eventBus.emit('taskDetailedView:closed', null);
     }
 
@@ -406,5 +407,6 @@ export default class TaskDetailedView extends BaseView {
         task.commentAvatar = userSession.data.avatar;
         this.el.innerHTML = taskDetailedViewTemplate(task);
         this.addEventListeners(task);
+        this.hidden = false;
     }
 }

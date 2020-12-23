@@ -23,11 +23,10 @@ export default class Router {
         this.root.addEventListener('click', this.catchMouseClick);
         globalEventBus.on('network:logout', () => {
             this.isAuth = false;
-            this.renderIfNotAuth('/login');
+            this.open('/login');
         });
 
         window.onpopstate = (event) => {
-            // this.routesMap.get(event.state).render();
             this.open(event.state, false);
         };
     }
@@ -44,7 +43,6 @@ export default class Router {
                 return false;
             } else {
                 UserSession.setData(responseBody);
-                // UserSession.setAccounts(responseBody.links);
                 UserSession.setBoards(responseBody.boards);
                 Network.setToken(responseBody.token);
                 return true;
@@ -60,10 +58,12 @@ export default class Router {
      */
     renderIfAuth(route, handler, ...args) {
         if (route === '/login' || route === '/reg') {
-            window.history.replaceState({}, '', '/');
-
             this.currentPage = '/';
-            handler.render(...args);
+            for (const [regExp, controller] of this.routesMap.entries()) {
+                if (regExp.test('/')) {
+                    controller.render();
+                }
+            }
         } else {
             this.currentPage = route;
             handler.render(...args);
@@ -81,10 +81,12 @@ export default class Router {
             this.currentPage = route;
             handler.render(...args);
         } else {
-            window.history.replaceState({}, '', '/login');
-
             this.currentPage = '/login';
-            handler.render(...args);
+            for (const [regExp, controller] of this.routesMap.entries()) {
+                if (regExp.test('/login')) {
+                    controller.render();
+                }
+            }
         }
     }
 
@@ -94,19 +96,10 @@ export default class Router {
      * @param {boolean} pushState
      */
     open(route, pushState = true) {
-        // let found = false;
         for (const [regExp, controller] of this.routesMap.entries()) {
             if (regExp.test(route)) {
-                // found = true;
-                if (pushState) {
-                    window.history.pushState(route, '', route);
-                }
-
-                console.log(regExp);
-
                 const args = regExp.exec(route);
                 args.shift();
-                console.log(args);
 
                 if (!this.isAuth) {
                     this.authorize().then((response) => {
@@ -117,9 +110,21 @@ export default class Router {
                         } else {
                             this.renderIfNotAuth(route, controller, ...args);
                         }
+
+                        if (pushState) {
+                            window.history.pushState(this.currentPage,
+                                `Tabutask ${this.currentPage.slice(1).replace('/', ' ')}`,
+                                this.currentPage);
+                        }
                     });
                 } else {
                     this.renderIfAuth(route, controller, ...args);
+
+                    if (pushState) {
+                        window.history.pushState(this.currentPage,
+                            `Tabutask ${this.currentPage.slice(1).replace('/', ' ')}`,
+                            this.currentPage);
+                    }
                 }
                 return;
             }
@@ -165,7 +170,6 @@ export default class Router {
      * @param {BaseController} handler
      */
     addRoute(route, handler) {
-    // handler is a callable function or method
         if (!this.routesMap.has(route)) {
             this.routesMap.set(route, handler);
         }

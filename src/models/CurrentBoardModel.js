@@ -39,10 +39,10 @@ export default class CurrentBoardModel {
                 this.board.boardName = responseBody.boardName;
                 this.board.boardTags = responseBody.boardTags;
                 this.board.boardMembers = responseBody.boardMembers;
+                this.board.boardMembers.unshift(responseBody.boardAdmin);
                 this.board.isAdmin = responseBody.boardAdmin.username === userSession.data.username;
                 this.initTags();
                 this.initMembers();
-                // this.eventBus.emit('currentBoardModel:getBoardSuccess', responseBody);
             }
             return responseBody;
         });
@@ -74,8 +74,9 @@ export default class CurrentBoardModel {
                 member.memberTaskHtmlID = `${member.username}Task`;
                 member.memberTaskPopupHtmlID = `${member.username}TaskPopup`;
                 member.memberTaskPopupCheckID = `${member.username}TaskPopupCheck`;
-                member.memberAvatarSrc = `${network.serverAddr}/avatar/${member.avatar}`;
+                member.memberAvatarSrc = `${network.serverAddr}/static/avatar/${member.avatar}`;
                 member.memberUsername = member.username;
+                member.isMe = member.username === userSession.data.username;
             }
         }
     }
@@ -233,7 +234,8 @@ export default class CurrentBoardModel {
                     return;
                 }
             } else {
-                this.board.sharedUrl = `${network.frontAddr}/invite/board/${this.board.boardID}/${responseBody.sharedURL}/`;
+                this.board.sharedUrl =
+                    `${network.serverAddr}/invite/board/${this.board.boardID}/${responseBody.sharedURL}`;
             }
         }).catch((error) => {
             return;

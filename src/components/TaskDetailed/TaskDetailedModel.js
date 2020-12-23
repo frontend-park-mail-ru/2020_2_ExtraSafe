@@ -14,7 +14,7 @@ export default class TaskDetailedModel {
     }
 
     /**
-     * Add tag to array
+     * Add tag
      * @param {Object} tag
      */
     addTag(tag) {
@@ -37,7 +37,6 @@ export default class TaskDetailedModel {
         });
 
         this.task.tags.push(tag);
-        // TODO: запрос в сеть +
     }
 
     /**
@@ -70,7 +69,6 @@ export default class TaskDetailedModel {
         });
         this.board.boardTags[tagBoardIndex].tagColor = changedTag.tagColor;
         this.board.boardTags[tagBoardIndex].tagName = changedTag.tagName;
-        // TODO: запрос в сеть +
     }
 
     /**
@@ -100,7 +98,6 @@ export default class TaskDetailedModel {
         }).catch((error) => {
             return;
         });
-        // TODO: запрос в сеть +
     }
 
     /**
@@ -130,7 +127,6 @@ export default class TaskDetailedModel {
         }).catch((error) => {
             return;
         });
-        // TODO: запрос в сеть, тут еще она это добавляется к задаче короч +-
     }
 
     /**
@@ -149,9 +145,7 @@ export default class TaskDetailedModel {
             tagColor: responseBody.tagColor,
             tagName: responseBody.tagName,
         };
-        // this.task.tags.push(newTag);
         this.board.boardTags.push(newTag);
-        this.addTag(newTag);
         return newTag;
     }
 
@@ -191,7 +185,7 @@ export default class TaskDetailedModel {
         const newAttachment = {
             attachmentID: responseBody.attachmentID,
             fileName: responseBody.attachmentFileName,
-            fileUrl: `${network.serverAddr}/files/${responseBody.attachmentFilePath}`,
+            fileUrl: `${network.serverAddr}/static/files/${responseBody.attachmentFilePath}`,
             fileUrlForDelete: responseBody.attachmentFilePath,
             fileHtmlID: `file${responseBody.attachmentID}`,
             fileNameID: `fileName${responseBody.attachmentID}`,
@@ -207,9 +201,6 @@ export default class TaskDetailedModel {
      * @param {Object} fileObj
      */
     removeAttachment(fileObj) {
-        const removedFileIndex = this.task.attachments.findIndex((attachment) => {
-            return attachment.attachmentID === fileObj.attachmentID;
-        });
         const data = {
             taskID: this.task.taskID,
             attachmentID: fileObj.attachmentID,
@@ -227,7 +218,20 @@ export default class TaskDetailedModel {
         }).catch((error) => {
             return;
         });
-        this.task.attachments.splice(removedFileIndex, 1);
+        this.deleteAttachmentByID(fileObj.attachmentID);
+    }
+
+    /**
+     * Delete attachment by ID from array
+     * @param {number} attachmentID
+     * @return {Object}
+     */
+    deleteAttachmentByID(attachmentID) {
+        const index = this.task.attachments.findIndex((attachment) => {
+            return attachment.attachmentID === attachmentID;
+        });
+
+        return this.task.attachments.splice(index, 1)[0];
     }
 
     /**
@@ -502,7 +506,7 @@ export default class TaskDetailedModel {
         const newComment = {
             commentID: responseBody.commentID,
             commentHtmlID: `comment${responseBody.commentID}`,
-            commentAvatar: `${network.serverAddr}/avatar/${responseBody.commentAuthor.avatar}`,
+            commentAvatar: `${network.serverAddr}/static/avatar/${responseBody.commentAuthor.avatar}`,
             commentUsername: responseBody.commentAuthor.username,
             commentRemove: `comment${responseBody.commentID}Remove`,
             commentText: responseBody.commentMessage,

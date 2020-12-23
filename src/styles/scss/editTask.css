@@ -84,6 +84,9 @@
   word-break: break-all;
   cursor: pointer;
 }
+.edit-task__content__name__text:focus {
+  cursor: text;
+}
 .edit-task__content__info {
   display: flex;
   flex-direction: row;
@@ -136,6 +139,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  position: relative;
   width: 100%;
   max-width: 140px;
   margin: 0 35px 0 0;
@@ -910,10 +914,8 @@
   z-index: 2;
   align-items: flex-start;
   justify-content: center;
-  max-width: 250px;
-  width: 100%;
-  top: 135px;
-  left: 40px;
+  width: 250px;
+  top: 65px;
 }
 .edit-add-collaborator__body {
   display: flex;

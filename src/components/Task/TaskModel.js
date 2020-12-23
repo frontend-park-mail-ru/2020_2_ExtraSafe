@@ -120,7 +120,7 @@ export default class TaskModel {
                 assigner.memberTaskHtmlID = `${assigner.username}Task`;
                 assigner.memberTaskPopupHtmlID = `${assigner.username}TaskPopup`;
                 assigner.memberTaskPopupCheckID = `${assigner.username}TaskPopupCheck`;
-                assigner.memberAvatarSrc = `${network.serverAddr}/avatar/${assigner.avatar}`;
+                assigner.memberAvatarSrc = `${network.serverAddr}/static/avatar/${assigner.avatar}`;
                 assigner.memberUsername = assigner.username;
             }
         }
@@ -249,6 +249,30 @@ export default class TaskModel {
     }
 
     /**
+     * Delete tag from array
+     * @param {number} tagID
+     * @return {Object}
+     */
+    deleteTagFromArray(tagID) {
+        const tagIndex = this.task.tags.findIndex((tag) => {
+            return tag.tagID === tagID;
+        });
+        return this.task.tags.splice(tagIndex, 1)[0];
+    }
+
+    /**
+     * Delete assigner from array
+     * @param {string} username
+     * @return {Object}
+     */
+    deleteAssigner(username) {
+        const assignerIndex = this.task.taskAssigners.findIndex((assigner) => {
+            return assigner.username === username;
+        });
+        return this.task.taskAssigners.splice(assignerIndex, 1)[0];
+    }
+
+    /**
      * Get task detailed
      */
     getTaskDetailed() {
@@ -262,12 +286,13 @@ export default class TaskModel {
                 }
                 this.eventBus.emit('taskModel:getTaskDetailedFailed', responseBody.codes);
             } else {
+                this.task.attachments = [];
                 // TODO: полукостыль
                 for (const attachment of responseBody.taskAttachments) {
                     this.task.attachments.push({
                         attachmentID: attachment.attachmentID,
                         fileName: attachment.attachmentFileName,
-                        fileUrl: `${network.serverAddr}/files/${attachment.attachmentFilePath}`,
+                        fileUrl: `${network.serverAddr}/static/files/${attachment.attachmentFilePath}`,
                         fileUrlForDelete: attachment.attachmentFilePath,
                         fileHtmlID: `file${attachment.attachmentID}`,
                         fileNameID: `fileName${attachment.attachmentID}`,
@@ -275,11 +300,12 @@ export default class TaskModel {
                         fileRemoveID: `fileRemove${attachment.attachmentID}`,
                     });
                 }
+                this.task.comments = [];
                 for (const comment of responseBody.taskComments) {
                     this.task.comments.push({
                         commentID: comment.commentID,
                         commentHtmlID: `comment${comment.commentID}`,
-                        commentAvatar: `${network.serverAddr}/avatar/${comment.commentAuthor.avatar}`,
+                        commentAvatar: `${network.serverAddr}/static/avatar/${comment.commentAuthor.avatar}`,
                         commentUsername: comment.commentAuthor.username,
                         commentRemove: `comment${comment.commentID}Remove`,
                         commentText: comment.commentMessage,

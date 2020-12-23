@@ -5,6 +5,7 @@ import SettingsController from './controllers/SettingsController.js';
 import HomeController from './controllers/HomeController.js';
 import InvitationHandler from './utils/invitationHandler.js';
 import BoardRoutesHandler from './utils/boardRoutesHandler.js';
+import rendering from './utils/rendering.js';
 
 import './styles/scss/navbar.scss';
 import './styles/scss/base.scss';
@@ -38,13 +39,13 @@ if ('serviceWorker' in navigator) {
 }
 
 if (!navigator.onLine) {
-    // TODO: event для оффлайн
-    window.alert('offline');
+    console.log('offline');
+    rendering.showOfflineMessage();
 }
 
 window.addEventListener('offline', () => {
-    // TODO: event для оффлайн
-    window.alert('offline');
+    console.log('offline');
+    rendering.showOfflineMessage();
 });
 
 router.addRoute(/^\/login$/, loginController);

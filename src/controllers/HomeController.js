@@ -4,6 +4,7 @@ import HomeModel from '../models/HomeModel.js';
 import AddBoardPopup from '../components/AddBoardPopup/AddBoardPopup.js';
 import userSession from '../utils/userSession.js';
 import BoardController from '../components/Board/BoardController.js';
+import globalEventBus from '../utils/globalEventBus.js';
 
 /**
  * Home controller
@@ -82,6 +83,9 @@ export default class HomeController extends BaseController {
                     this.addBoard(board.boardID, board.boardName);
                 }
             }
+        });
+        globalEventBus.on('navbar:addBoard', (wsBoard) => {
+            this.render();
         });
     }
 

@@ -8,10 +8,10 @@ class Network {
      * Constructor network
      */
     constructor() {
-        // this.serverAddr = 'http://tabutask.ru:8080';
-        this.frontAddr = 'http://127.0.0.1';
-        this.serverAddr = 'http://127.0.0.1:8080';
-        this.serverAddrWS = 'ws://127.0.0.1:8080';
+        this.serverAddr = 'https://tabutask.ru';
+        this.serverAddrWS = 'wss://tabutask.ru';
+        // this.serverAddr = 'http://127.0.0.1';
+        // this.serverAddrWS = 'ws://127.0.0.1';
         this.requestGet = {
             mode: 'cors',
             credentials: 'include',
@@ -60,7 +60,7 @@ class Network {
      * @return {Promise<Response>}
      */
     loginRequest(data) {
-        const url = this.serverAddr + '/login/';
+        const url = this.serverAddr + '/api/login/';
         this.requestPost.body = JSON.stringify(data);
 
         return fetch(url, this.requestPost);
@@ -72,7 +72,7 @@ class Network {
      * @return {Promise<Response>}
      */
     regRequest(data) {
-        const url = this.serverAddr + '/reg/';
+        const url = this.serverAddr + '/api/reg/';
         this.requestPost.body = JSON.stringify(data);
 
         return fetch(url, this.requestPost);
@@ -84,7 +84,7 @@ class Network {
      * @return {Promise<Response>}
      */
     authRequest() {
-        const url = this.serverAddr + '/';
+        const url = this.serverAddr + '/api/';
 
         return fetch(url, this.requestGet);
     }
@@ -94,17 +94,7 @@ class Network {
      * @return {Promise<Response>}
      */
     profileGet() {
-        const url = this.serverAddr + '/profile/';
-
-        return fetch(url, this.requestGet);
-    }
-
-    /**
-     * get accounts information from server
-     * @return {Promise<Response>}
-     */
-    accountsGet() {
-        const url = this.serverAddr + '/accounts/';
+        const url = this.serverAddr + '/api/profile/';
 
         return fetch(url, this.requestGet);
     }
@@ -115,25 +105,10 @@ class Network {
      * @return {Promise<Response>}
      */
     profileSet(data) {
-        const url = this.serverAddr + '/profile/';
+        const url = this.serverAddr + '/api/profile/';
         this.requestFormData.body = data;
 
         return fetch(url, this.requestFormData);
-    }
-
-    /**
-     * request to change accounts data on server
-     * @param {requestData} data
-     * @return {Promise<Response>}
-     */
-    accountsSet(data) {
-        const url = this.serverAddr + '/accounts/';
-        // this.requestPost.body = JSON.stringify(data);
-        const request = this.requestPost;
-        request.body = JSON.stringify(data);
-        request.headers['X-CSRF-Token'] = '4444';
-
-        return fetch(url, request);
     }
 
     /**
@@ -142,7 +117,7 @@ class Network {
      * @return {Promise<Response>}
      */
     passwordSet(data) {
-        const url = this.serverAddr + '/password/';
+        const url = this.serverAddr + '/api/password/';
         this.requestPost.body = JSON.stringify(data);
 
         return fetch(url, this.requestPost);
@@ -153,7 +128,7 @@ class Network {
      * @return {Promise<void>}
      */
     logout() {
-        const url = this.serverAddr + '/logout/';
+        const url = this.serverAddr + '/api/logout/';
         return fetch(url, this.requestGet).then((response) => {
             if (response.ok) {
                 globalEventBus.emit('network:logout', null);
@@ -167,7 +142,8 @@ class Network {
      * @return {Promise<Response>}
      */
     boardCreate(data) {
-        const url = this.serverAddr + '/board/';
+        const url = this.serverAddr + '/api/board/';
+        console.log(data);
         this.requestPost.body = JSON.stringify(data);
 
         return fetch(url, this.requestPost);
@@ -179,7 +155,7 @@ class Network {
      * @return {Promise<Response>}
      */
     boardGet(boardID) {
-        const url = this.serverAddr + '/board/' + boardID + '/';
+        const url = this.serverAddr + '/api/board/' + boardID + '/';
 
         return fetch(url, this.requestGet);
     }
@@ -190,7 +166,7 @@ class Network {
      * @return {Promise<Response>}
      */
     boardSet(data) {
-        const url = this.serverAddr + '/board/' + data.boardID + '/';
+        const url = this.serverAddr + '/api/board/' + data.boardID + '/';
         this.requestPut.body = JSON.stringify(data);
 
         return fetch(url, this.requestPut);
@@ -202,7 +178,7 @@ class Network {
      * @return {Promise<Response>}
      */
     boardDelete(boardID) {
-        const url = this.serverAddr + '/board/' + boardID + '/';
+        const url = this.serverAddr + '/api/board/' + boardID + '/';
 
         return fetch(url, this.requestDelete);
     }
@@ -213,7 +189,7 @@ class Network {
      * @return {Promise<Response>}
      */
     userAddToBoard(data) {
-        const url = this.serverAddr + '/board/' + data.boardID + '/user-add/';
+        const url = this.serverAddr + '/api/board/' + data.boardID + '/user-add/';
         this.requestPut.body = JSON.stringify(data);
 
         return fetch(url, this.requestPut);
@@ -225,7 +201,7 @@ class Network {
      * @return {Promise<Response>}
      */
     userRemoveFromBoard(data) {
-        const url = this.serverAddr + '/board/' + data.boardID + '/user-remove/';
+        const url = this.serverAddr + '/api/board/' + data.boardID + '/user-remove/';
         this.requestPut.body = JSON.stringify(data);
 
         return fetch(url, this.requestPut);
@@ -238,7 +214,7 @@ class Network {
      * @return {Promise<Response>}
      */
     cardCreate(data, boardID) {
-        const url = this.serverAddr + '/card/' + boardID + '/';
+        const url = this.serverAddr + '/api/card/' + boardID + '/';
         this.requestPost.body = JSON.stringify(data);
 
         return fetch(url, this.requestPost);
@@ -250,7 +226,7 @@ class Network {
      * @return {Promise<Response>}
      */
     cardGet(cardID) {
-        const url = this.serverAddr + '/card/' + cardID + '/';
+        const url = this.serverAddr + '/api/card/' + cardID + '/';
 
         return fetch(url, this.requestGet);
     }
@@ -261,7 +237,7 @@ class Network {
      * @return {Promise<Response>}
      */
     cardSet(data) {
-        const url = this.serverAddr + '/card/' + data.cardID + '/';
+        const url = this.serverAddr + '/api/card/' + data.cardID + '/';
         this.requestPut.body = JSON.stringify(data);
 
         return fetch(url, this.requestPut);
@@ -273,7 +249,7 @@ class Network {
      * @return {Promise<Response>}
      */
     cardDelete(cardID) {
-        const url = this.serverAddr + '/card/' + cardID + '/';
+        const url = this.serverAddr + '/api/card/' + cardID + '/';
 
         return fetch(url, this.requestDelete);
     }
@@ -285,7 +261,7 @@ class Network {
      * @return {Promise<Response>}
      */
     cardsOrder(data, boardID) {
-        const url = this.serverAddr + '/card-order/' + boardID + '/';
+        const url = this.serverAddr + '/api/card-order/' + boardID + '/';
         this.requestPost.body = JSON.stringify(data);
 
         return fetch(url, this.requestPost);
@@ -298,7 +274,7 @@ class Network {
      * @return {Promise<Response>}
      */
     taskCreate(data, boardID) {
-        const url = this.serverAddr + '/task/' + boardID + '/';
+        const url = this.serverAddr + '/api/task/' + boardID + '/';
         this.requestPost.body = JSON.stringify(data);
 
         return fetch(url, this.requestPost);
@@ -310,7 +286,7 @@ class Network {
      * @return {Promise<Response>}
      */
     taskGet(taskID) {
-        const url = this.serverAddr + '/task/' + taskID + '/';
+        const url = this.serverAddr + '/api/task/' + taskID + '/';
 
         return fetch(url, this.requestGet);
     }
@@ -321,7 +297,7 @@ class Network {
      * @return {Promise<Response>}
      */
     taskSet(data) {
-        const url = this.serverAddr + '/task/' + data.taskID + '/';
+        const url = this.serverAddr + '/api/task/' + data.taskID + '/';
         this.requestPut.body = JSON.stringify(data);
 
         return fetch(url, this.requestPut);
@@ -333,7 +309,7 @@ class Network {
      * @return {Promise<Response>}
      */
     taskDelete(taskID) {
-        const url = this.serverAddr + '/task/' + taskID + '/';
+        const url = this.serverAddr + '/api/task/' + taskID + '/';
 
         return fetch(url, this.requestDelete);
     }
@@ -345,7 +321,7 @@ class Network {
      * @return {Promise<Response>}
      */
     tasksOrder(data, boardID) {
-        const url = this.serverAddr + '/task-order/' + boardID + '/';
+        const url = this.serverAddr + '/api/task-order/' + boardID + '/';
         this.requestPost.body = JSON.stringify(data);
 
         return fetch(url, this.requestPost);
@@ -356,7 +332,7 @@ class Network {
      * @return {Promise<Response>}
      */
     getBoards() {
-        const url = this.serverAddr + '/boards/';
+        const url = this.serverAddr + '/api/boards/';
         return fetch(url, this.requestGet);
     }
 
@@ -367,7 +343,7 @@ class Network {
      * @return {Promise<Response>}
      */
     tagCreate(data) {
-        const url = this.serverAddr + '/tag/' + data.boardID + '/';
+        const url = this.serverAddr + '/api/tag/' + data.boardID + '/';
         this.requestPost.body = JSON.stringify(data);
 
         return fetch(url, this.requestPost);
@@ -379,7 +355,7 @@ class Network {
      * @return {Promise<Response>}
      */
     tagSet(data) {
-        const url = this.serverAddr + '/tag/' + data.boardID + '/';
+        const url = this.serverAddr + '/api/tag/' + data.boardID + '/';
         this.requestPut.body = JSON.stringify(data);
 
         return fetch(url, this.requestPut);
@@ -391,7 +367,7 @@ class Network {
      * @return {Promise<Response>}
      */
     tagDelete(data) {
-        const url = this.serverAddr + '/tag/' + data.boardID + '/';
+        const url = this.serverAddr + '/api/tag/' + data.boardID + '/';
         this.requestDelete.body = JSON.stringify(data);
 
         return fetch(url, this.requestDelete);
@@ -403,7 +379,7 @@ class Network {
      * @return {Promise<Response>}
      */
     tagAddToTask(data) {
-        const url = this.serverAddr + '/task/' + data.taskID + '/tag-add/';
+        const url = this.serverAddr + '/api/task/' + data.taskID + '/tag-add/';
         this.requestPut.body = JSON.stringify(data);
 
         return fetch(url, this.requestPut);
@@ -415,7 +391,7 @@ class Network {
      * @return {Promise<Response>}
      */
     tagRemoveFromTask(data) {
-        const url = this.serverAddr + '/task/' + data.taskID + '/tag-remove/';
+        const url = this.serverAddr + '/api/task/' + data.taskID + '/tag-remove/';
         this.requestPut.body = JSON.stringify(data);
 
         return fetch(url, this.requestPut);
@@ -427,7 +403,7 @@ class Network {
      * @return {Promise<Response>}
      */
     userAddToTask(data) {
-        const url = this.serverAddr + '/task/' + data.taskID + '/user-add/';
+        const url = this.serverAddr + '/api/task/' + data.taskID + '/user-add/';
         this.requestPut.body = JSON.stringify(data);
 
         return fetch(url, this.requestPut);
@@ -439,7 +415,7 @@ class Network {
      * @return {Promise<Response>}
      */
     userRemoveFromTask(data) {
-        const url = this.serverAddr + '/task/' + data.taskID + '/user-remove/';
+        const url = this.serverAddr + '/api/task/' + data.taskID + '/user-remove/';
         this.requestPut.body = JSON.stringify(data);
 
         return fetch(url, this.requestPut);
@@ -453,7 +429,7 @@ class Network {
      * @return {Promise<Response>}
      */
     commentCreate(data) {
-        const url = this.serverAddr + '/comment/' + data.taskID + '/';
+        const url = this.serverAddr + '/api/comment/' + data.taskID + '/';
         this.requestPost.body = JSON.stringify(data);
 
         return fetch(url, this.requestPost);
@@ -465,7 +441,7 @@ class Network {
      * @return {Promise<Response>}
      */
     commentSet(data) {
-        const url = this.serverAddr + '/comment/' + data.commentID + '/';
+        const url = this.serverAddr + '/api/comment/' + data.commentID + '/';
         this.requestPut.body = JSON.stringify(data);
 
         return fetch(url, this.requestPut);
@@ -477,7 +453,7 @@ class Network {
      * @return {Promise<Response>}
      */
     commentDelete(data) {
-        const url = this.serverAddr + '/comment/' + data.commentID + '/';
+        const url = this.serverAddr + '/api/comment/' + data.commentID + '/';
         this.requestDelete.body = JSON.stringify(data);
 
         return fetch(url, this.requestDelete);
@@ -490,7 +466,7 @@ class Network {
      * @return {Promise<Response>}
      */
     checklistCreate(data) {
-        const url = this.serverAddr + '/checklist/' + data.taskID + '/';
+        const url = this.serverAddr + '/api/checklist/' + data.taskID + '/';
         this.requestPost.body = JSON.stringify(data);
 
         return fetch(url, this.requestPost);
@@ -502,7 +478,7 @@ class Network {
      * @return {Promise<Response>}
      */
     checklistSet(data) {
-        const url = this.serverAddr + '/checklist/' + data.taskID + '/';
+        const url = this.serverAddr + '/api/checklist/' + data.taskID + '/';
         this.requestPut.body = JSON.stringify(data);
 
         return fetch(url, this.requestPut);
@@ -514,7 +490,7 @@ class Network {
      * @return {Promise<Response>}
      */
     checklistDelete(data) {
-        const url = this.serverAddr + '/checklist/' + data.taskID + '/';
+        const url = this.serverAddr + '/api/checklist/' + data.taskID + '/';
         this.requestDelete.body = JSON.stringify(data);
 
         return fetch(url, this.requestDelete);
@@ -528,7 +504,7 @@ class Network {
      */
     attachmentCreate(data) {
         console.log(data);
-        const url = this.serverAddr + '/attachment/' + data.get('taskID') + '/';
+        const url = this.serverAddr + '/api/attachment/' + data.get('taskID') + '/';
         this.requestFormData.body = data;
 
         return fetch(url, this.requestFormData);
@@ -540,7 +516,7 @@ class Network {
      * @return {Promise<Response>}
      */
     attachmentDelete(data) {
-        const url = this.serverAddr + '/attachment/' + data.taskID + '/';
+        const url = this.serverAddr + '/api/attachment/' + data.taskID + '/';
         this.requestDelete.body = JSON.stringify(data);
 
         return fetch(url, this.requestDelete);
@@ -552,7 +528,7 @@ class Network {
      * @return {WebSocket}
      */
     webSocketBoardConnection(boardID) {
-        const url = this.serverAddrWS + '/board-ws/' + boardID + '/';
+        const url = this.serverAddrWS + '/api/ws/board/' + boardID + '/';
 
         const ws = new WebSocket(url);
 
@@ -568,7 +544,7 @@ class Network {
      * @return {WebSocket}
      */
     webSocketNotificationsConnection() {
-        const url = this.serverAddrWS + '/notification-ws/';
+        const url = this.serverAddrWS + '/api/ws/notification/';
 
         const ws = new WebSocket(url);
 
@@ -609,7 +585,7 @@ class Network {
      * @return {Promise<Response>}
      */
     getSharedUrl(boardID) {
-        const url = this.serverAddr + '/shared-url/' + boardID + '/';
+        const url = this.serverAddr + '/api/shared-url/' + boardID + '/';
         return fetch(url, this.requestGet);
     }
 
@@ -620,7 +596,7 @@ class Network {
      * @return {Promise<Response>}
      */
     acceptInvitation(boardID, sharedUrl) {
-        const url = this.serverAddr + '/invite/board/' + boardID + '/' + sharedUrl;
+        const url = this.serverAddr + '/api/invite/board/' + boardID + '/' + sharedUrl + '/';
         return fetch(url, this.requestGet);
     }
 }

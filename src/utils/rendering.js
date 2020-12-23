@@ -56,12 +56,14 @@ class Rendering {
      * @return {DocumentFragment}
      */
     createElementsFromTmpl(html) {
-        // const el = document.createElement('div');
-        // el.innerHTML = html;
-        // console.log(el);
-        // console.log(el.firstElementChild);
-        // return el.children;
         return document.createRange().createContextualFragment(html);
+    }
+
+    /**
+     * Show offline message
+     */
+    showOfflineMessage() {
+        document.getElementsByClassName('no-connection__container')[0].style.display = 'flex';
     }
 }
 

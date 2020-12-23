@@ -3,10 +3,8 @@
         <div class="profile-form" onsubmit="return false">
             <div class="navigation">
                 <div class="navigation__element_active" id="profileLink">Профиль</div>
-                <!--<div class="navigation__element">Внешний вид</div>-->
                 <span class="navigation__element" id="accountsLink" style="display: none">Аккаунты</span>
                 <span class="navigation__element" id="securityLink">Безопасность</span>
-                <!--<a class="navigation__element">Уведомления</a>-->
             </div>
 
             <div style="display: flex; position: relative; width: 100%; height: 100%;">
@@ -22,10 +20,6 @@
                         <div class="adaptive-navigation__element adaptive-navigation__element_active" id="profileLinkAdaptive">
                             Профиль
                         </div>
-
-<!--                        <div class="adaptive-navigation__element">-->
-<!--                            Аккаунты-->
-<!--                        </div>-->
 
                         <div class="adaptive-navigation__element" id="securityLinkAdaptive">
                             Безопасность

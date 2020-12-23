@@ -51,7 +51,6 @@
         &__container {
             display: flex;
             flex-direction: row;
-            gap: 50px;
         }
 
         // Название доски и иконка избранного
@@ -64,6 +63,8 @@
                 @include content-center;
 
                 flex-flow: row wrap;
+
+                margin-right: 50px;
             }
 
             // Название доски
@@ -281,8 +282,6 @@
 
             @include standard-border-radius;
 
-            gap: 10px;
-
             cursor: pointer;
 
             &:hover {
@@ -294,6 +293,8 @@
         &__icon {
             height: 18px;
             width: 18px;
+
+            margin-right: 10px;
         }
 
         &__text {
@@ -308,7 +309,9 @@
             border: 2px $electric-indigo solid !important;
         }
 
-        width: 80%;
+        width: 100%;
+
+        align-self: center;
 
         padding: 10px;
 
@@ -339,7 +342,7 @@
         max-height: 30px;
 
         padding: 10px;
-        margin: 10px 0 10px 0;
+        margin: 12px 0 12px 0;
 
         @include standard-button;
     }
@@ -648,8 +651,6 @@
 
                 margin: 10px;
 
-                gap: 10px;
-
                 @include standard-border-radius;
 
                 cursor: pointer;
@@ -664,6 +665,8 @@
             &__icon {
                 height: 18px;
                 width: 18px;
+
+                margin-right: 10px;
             }
 
             // Текст добавления новой задачи
@@ -721,8 +724,6 @@
             height: 45px;
             width: 290px;
 
-            gap: 10px;
-
             border-radius: 5px 5px 0 0;
 
             border-right: 1px solid $card-violet;
@@ -752,6 +753,8 @@
 
                 width: 18px;
                 height: 18px;
+
+                margin-right: 10px;
             }
         }
     }
@@ -780,5 +783,41 @@
         &:hover {
             background: $scroll-active;
         }
+    }
+}
+
+//
+.invite {
+    @include flex-column;
+    width: 80%;
+
+
+    &-link {
+        align-self: center !important;
+
+        width: 100% !important;
+
+        padding: 10px !important;
+        margin: 0 0 15px 0 !important;
+
+        border: 2px $light-grey solid !important;
+
+        &:focus {
+            border: 2px $electric-indigo solid !important;
+            box-shadow: none !important;
+        }
+
+        &:hover {
+            cursor: pointer !important;
+        }
+    }
+
+    &-text {
+        margin: 0 0 3px -5px;
+
+        @include standard-font(300, 12px, normal);
+        //color: $grey-text-color;
+
+        cursor: default;
     }
 }

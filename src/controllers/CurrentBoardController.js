@@ -1,7 +1,6 @@
 import BaseController from './BaseController.js';
 import CurrentBoardView from '../views/CurrentBoardView/CurrentBoardView.js';
 import CurrentBoardModel from '../models/CurrentBoardModel.js';
-import TaskDetailedController from '../components/TaskDetailed/TaskDetailedController.js';
 import globalEventBus from '../utils/globalEventBus.js';
 import CardController from '../components/Card/CardController.js';
 import MembersPopup from '../components/MembersPopup/MembersPopup.js';
@@ -114,8 +113,6 @@ export default class CurrentBoardController extends BaseController {
     addEventListeners() {
         this.eventBus.on('currentBoardView:viewRendered', ([cardsDiv, taskDetailed]) => {
             this.cardsDiv = cardsDiv;
-            this.taskDetailed = new TaskDetailedController(taskDetailed);
-            // this.model.getBoardData();
         });
         this.eventBus.on('currentBoardModel:getBoardFailed', (errorCodes) => {
             console.log('currentBoardModel:getBoardFailed');
@@ -205,14 +202,23 @@ export default class CurrentBoardController extends BaseController {
                 break;
             case 'AddMember':
                 this.model.addMember(data.body);
+                this.render();
                 // TODO: сделать добавление на вьюху доски
                 break;
             case 'RemoveMember':
                 this.model.deleteMember(data.body.memberUsername);
+                this.render();
                 // TODO: сделать удаление с вьюхи доски
                 break;
             case 'CreateCard':
                 this.addCard(data.body.cardID, data.body.cardName);
+                break;
+            case 'CreateTag':
+                this.model.board.boardTags.push(data.body);
+                this.model.initTags();
+                break;
+            case 'TasksOrderChange':
+                this.render();
                 break;
             default:
                 break;

@@ -83,7 +83,7 @@
   display: flex;
 }
 .board-info__right-side__settings__icon {
-  display: flex;
+  display: none;
   justify-self: flex-end;
   width: 23px;
   height: 23px;
@@ -191,7 +191,8 @@
   line-height: 16px;
 }
 .add-collaborator__input {
-  width: 80%;
+  width: 100%;
+  align-self: center;
   padding: 10px;
   font-family: Roboto, sans-serif;
   font-style: normal;
@@ -217,7 +218,7 @@
   height: 100%;
   max-height: 30px;
   padding: 10px;
-  margin: 10px 0 10px 0;
+  margin: 12px 0 12px 0;
   border-radius: 5px;
   border-style: none;
   background: linear-gradient(90deg, #A32CDF 0%, #4F4FD7 100%);
@@ -306,6 +307,7 @@
   display: flex;
   flex-direction: column;
   margin: 0 7px 10px 10px;
+  min-height: fit-content;
   border-radius: 5px;
   background: #F3F3F3;
   cursor: pointer;
@@ -502,6 +504,35 @@
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #C7C7C7;
+}
+
+.invite {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+.invite-link {
+  align-self: center !important;
+  width: 100% !important;
+  padding: 10px !important;
+  margin: 0 0 15px 0 !important;
+  border: 2px #F3F3F3 solid !important;
+}
+.invite-link:focus {
+  border: 2px #6D27E7 solid !important;
+  box-shadow: none !important;
+}
+.invite-link:hover {
+  cursor: pointer !important;
+}
+.invite-text {
+  margin: 0 0 3px -5px;
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: normal;
+  cursor: default;
 }
 
 /*# sourceMappingURL=currentBoard.css.map */

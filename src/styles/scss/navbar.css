@@ -69,4 +69,108 @@
   display: flex;
 }
 
+.no-connection__container {
+  display: none;
+  position: fixed;
+  z-index: 4;
+  right: 0;
+  top: 40px;
+  padding: 10px;
+  margin: 5px;
+  width: 250px;
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 16px;
+  color: #FFFFFF;
+  text-align: left;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  background: #FF8080;
+}
+
+.notifications {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  z-index: 1;
+  top: 45px;
+  right: 15px;
+  width: 220px;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  background: #FFFFFF;
+  cursor: default;
+}
+.notifications-close {
+  position: fixed;
+  width: 16px;
+  height: 16px;
+  top: 60px;
+  right: 30px;
+  cursor: pointer;
+}
+
+.notification-bottom {
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  max-width: 220px;
+  padding: 10px 10px 15px 10px;
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 17px;
+  text-align: left;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  background: #FFFFFF;
+  cursor: default;
+}
+.notification-bottom__title {
+  margin: 5px 0 12px 0;
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+  cursor: default;
+}
+.notification-top {
+  display: flex;
+  position: relative;
+  width: 200px;
+  padding: 10px;
+  margin: 10px 0 0 0;
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 17px;
+  text-align: left;
+  border-radius: 5px;
+  background: #F3F3F3;
+  cursor: default;
+}
+.notification-top__title {
+  margin: 5px 0 5px 20px;
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+  cursor: default;
+}
+.notification-delete {
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  width: 17px;
+  height: 17px;
+  cursor: pointer;
+}
+
 /*# sourceMappingURL=navbar.css.map */
