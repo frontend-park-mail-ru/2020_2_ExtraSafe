@@ -39,7 +39,7 @@ export default class CurrentBoardModel {
                 this.board.boardName = responseBody.boardName;
                 this.board.boardTags = responseBody.boardTags;
                 this.board.boardMembers = responseBody.boardMembers;
-                this.board.boardMembers.push(responseBody.boardAdmin);
+                this.board.boardMembers.unshift(responseBody.boardAdmin);
                 this.board.isAdmin = responseBody.boardAdmin.username === userSession.data.username;
                 this.initTags();
                 this.initMembers();
