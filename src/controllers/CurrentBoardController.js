@@ -161,6 +161,7 @@ export default class CurrentBoardController extends BaseController {
         });
         this.membersPopup.eventBus.on('membersPopup:memberDelete', (member) => {
             this.model.memberExpel(member);
+            this.render();
         });
         this.membersPopup.eventBus.on('membersPopup:memberInvite', () => {
             this.memberInvitePopup.render({sharedUrl: this.model.board.sharedUrl});
@@ -174,6 +175,7 @@ export default class CurrentBoardController extends BaseController {
         this.eventBus.on('currentBoardModel:memberInviteSuccess', (responseBody) => {
             console.log('currentBoardModel:memberInviteSuccess', responseBody);
             // TODO: сделать добавление на вьюху доски и разобраться с рендером попапа тут
+            this.render();
             this.membersPopup.render(this.model.board);
         });
         this.eventBus.on('currentBoardModel:memberExpelFailed', (codes) => {
