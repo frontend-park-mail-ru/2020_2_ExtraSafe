@@ -86,7 +86,7 @@ class Navbar {
         this.ws.addEventListener('message', (event) => {
             const data = JSON.parse(event.data);
             console.log(data);
-            switch (data.method) {
+            switch (data.body.method) {
             case 'AddMemberNotification':
                 showNotification(`${data.body.body.initiator} пригласил(а) Вас на доску ${data.body.body.boardName}`);
                 break;
