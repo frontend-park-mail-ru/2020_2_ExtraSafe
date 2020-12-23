@@ -90,7 +90,7 @@ class Navbar {
             case 'AddMemberNotification':
                 showNotification(`${data.body.body.initiator} пригласил(а) Вас на доску ${data.body.body.boardName}`);
                 break;
-            case 'AssignUser':
+            case 'AssignUserNotification':
                 showNotification(`${data.body.body.initiator} назначил(а) Вас на задачу ${data.body.body.taskName}`);
                 break;
             }
