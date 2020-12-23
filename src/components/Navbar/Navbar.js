@@ -4,6 +4,7 @@ import globalEventBus from '../../utils/globalEventBus.js';
 import navbarTemplate from './Navbar.tmpl.xml';
 import network from '../../utils/network.js';
 import showNotification from '../NotificationPopup/NotificationPopup.js';
+import userSession from '../../utils/userSession.js';
 
 /**
  * Navbar
@@ -92,7 +93,10 @@ class Navbar {
                 globalEventBus.emit('navbar:addBoard', data.body.body);
                 break;
             case 'AssignUserNotification':
-                showNotification(`${data.body.body.initiator} назначил(а) Вас на задачу ${data.body.body.taskName}`);
+                if (data.body.body.initiator.username !== userSession.data.username) {
+                    showNotification(
+                        `${data.body.body.initiator} назначил(а) Вас на задачу ${data.body.body.taskName}`);
+                }
                 break;
             }
         });
