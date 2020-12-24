@@ -2,6 +2,9 @@ import UserSession from '../../utils/userSession.js';
 import Network from '../../utils/network.js';
 import globalEventBus from '../../utils/globalEventBus.js';
 import navbarTemplate from './Navbar.tmpl.xml';
+import network from '../../utils/network.js';
+import showNotification from '../NotificationPopup/NotificationPopup.js';
+import userSession from '../../utils/userSession.js';
 
 /**
  * Navbar
@@ -26,6 +29,8 @@ class Navbar {
      */
     navbarShow() {
         this.el.hidden = false;
+        this.ws = network.webSocketNotificationsConnection();
+        this.addWsEventListeners();
     }
 
     /**
@@ -33,6 +38,7 @@ class Navbar {
      */
     navbarHide() {
         this.el.hidden = true;
+        delete this.ws;
     }
 
     /**
@@ -72,6 +78,28 @@ class Navbar {
                 this.navbarPopupHide();
             }
         }, false);
+    }
+
+    /**
+     * Add event listeners related to web sockets
+     */
+    addWsEventListeners() {
+        this.ws.addEventListener('message', (event) => {
+            const data = JSON.parse(event.data);
+            console.log(data);
+            switch (data.body.method) {
+            case 'AddMemberNotification':
+                showNotification(`${data.body.body.initiator} пригласил(а) Вас на доску ${data.body.body.boardName}`);
+                globalEventBus.emit('navbar:addBoard', data.body.body);
+                break;
+            case 'AssignUserNotification':
+                if (data.body.body.initiator !== userSession.data.username) {
+                    showNotification(
+                        `${data.body.body.initiator} назначил(а) Вас на задачу ${data.body.body.taskName}`);
+                }
+                break;
+            }
+        });
     }
 }
 

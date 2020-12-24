@@ -1,0 +1,60 @@
+name: Build and deploy Tabutask frontend
+
+on:
+  push:
+    branches: [develop]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build-prod
+
+      - name: Upload build result
+        uses: actions/upload-artifact@v2
+        with:
+          name: build
+          path: |
+            ./dist
+            ./nginx.conf
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Download build
+        uses: actions/download-artifact@v1
+        with:
+          name: build
+
+      - name: Transfer build files to server
+        uses: appleboy/scp-action@master
+        with:
+          host: 95.163.213.142
+          username: ubuntu
+          key: ${{ secrets.PRIVATE_KEY }}
+          source: "build"
+          target: "/home/ubuntu/Tabutask/Frontend"
+
+      - name: Restart nginx
+        uses: appleboy/ssh-action@master
+        with:
+          host: 95.163.213.142
+          username: ubuntu
+          key: ${{ secrets.PRIVATE_KEY }}
+          script: |
+            sudo cp /home/ubuntu/Tabutask/Frontend/build/nginx.conf /etc/nginx/conf.d/tabutask.ru.conf
+            sudo nginx -s reload

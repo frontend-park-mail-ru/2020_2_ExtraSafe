@@ -1,6 +1,8 @@
 import BaseView from '../BaseView/BaseView.js';
 import Navbar from '../../components/Navbar/Navbar.js';
 import loginViewTemplate from './LoginView.tmpl.xml';
+import Rendering from '../../utils/rendering.js';
+import Validation from '../../utils/validation.js';
 
 /**
  * Class Login view.
@@ -21,7 +23,10 @@ export default class LoginView extends BaseView {
     addEventListeners() {
         document.getElementById('loginForm')
             .addEventListener('submit', () => {
-                this.eventBus.emit('loginView:formSubmit', null);
+                if (Rendering.renderInputError('email', Validation.validateEmail()) &&
+                    Rendering.renderInputError('password', Validation.validatePassword())) {
+                    this.eventBus.emit('loginView:formSubmit', null);
+                }
             }, false);
     }
 

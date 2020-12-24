@@ -20,6 +20,7 @@ export default class TaskDetailedView extends BaseView {
      */
     constructor(el, eventBus) {
         super(el, eventBus);
+        this.hidden = true;
     }
 
     /**
@@ -74,6 +75,8 @@ export default class TaskDetailedView extends BaseView {
     addCheckList(checkListObj) {
         const addCheckListEl = document.getElementById('checkListCreate');
         const checkListEl = rendering.createElementsFromTmpl(checkListTemplate(checkListObj));
+        console.log(document.getElementById('checkListsDiv'));
+        console.log(checkListEl);
         document.getElementById('checkListsDiv').insertBefore(checkListEl, addCheckListEl);
         this.addCheckListEventListeners(checkListObj);
     }
@@ -145,6 +148,96 @@ export default class TaskDetailedView extends BaseView {
     addComment(comment) {
         const commentEl = rendering.createElementsFromTmpl(commentTemplate(comment));
         document.getElementById('commentsDiv').appendChild(commentEl);
+        this.addCommentEventListeners(comment);
+    }
+
+    /**
+     * On key down callback
+     * @param {KeyboardEvent} event
+     */
+    onKeyDownBlur(event) {
+        if (event.keyCode === 27) {
+            if (document.activeElement !== document.body) {
+                document.activeElement.blur();
+            }
+        }
+    }
+
+    /**
+     * On key down callback
+     * @param {KeyboardEvent} event
+     */
+    onKeyDownSubmit(event) {
+        if (event.keyCode === 13) {
+            document.activeElement.blur();
+            // if (document.activeElement !== document.body) {
+            //     document.activeElement.blur();
+            // }
+        }
+    }
+
+    /**
+     * Update task name view
+     * @param {string} name
+     */
+    updateName(name) {
+        document.getElementById('taskName').innerText = name;
+    }
+
+    /**
+     * Update task description view
+     * @param {string} description
+     */
+    updateDescription(description) {
+        document.getElementById('taskDescription').innerText = description;
+    }
+
+    // /**
+    //  * On key down callback
+    //  * @param {KeyboardEvent} event
+    //  */
+    // onKeyDownHide(event) {
+    //     if (event.keyCode === 27) {
+    //         console.log('taskView');
+    //         if (document.activeElement !== document.body) {
+    //             document.activeElement.blur();
+    //         } else {
+    //             this.hide();
+    //         }
+    //         // event.stopImmediatePropagation();
+    //     }
+    // }
+
+    /**
+     * Remove comment view
+     * @param {Object} comment
+     */
+    deleteComment(comment) {
+        document.getElementById(comment.commentHtmlID).remove();
+    }
+
+    /**
+     * Update checklist
+     * @param {Object} checkList
+     */
+    updateChecklist(checkList) {
+        const checkListEl = document.getElementById(checkList.checkListHtmlID);
+        document.getElementById('checkListsDiv')
+            .replaceChild(rendering.createElementsFromTmpl(checkListTemplate(checkList)), checkListEl);
+        this.addCheckListEventListeners(checkList);
+    }
+
+    /**
+     * Hide view
+     */
+    hide() {
+        this.el.innerHTML = '';
+        this.el.style.display = 'none';
+        // там прикол с bind(this)
+        // window.removeEventListener('keydown', this.onKeyDownHide);
+        window.removeEventListener('keydown', this.onKeyDownBlur);
+        this.hidden = true;
+        this.eventBus.emit('taskDetailedView:closed', null);
     }
 
     /**
@@ -152,16 +245,27 @@ export default class TaskDetailedView extends BaseView {
      * @param {Object} task
      */
     addEventListeners(task) {
+        // window.addEventListener('keydown', this.onKeyDownHide.bind(this));
+        // globalEventBus.on('popupClosed', () => {
+        //     this.el.addEventListener('keydown', this.onKeyDownHide.bind(this));
+        // });
+        window.addEventListener('keydown', this.onKeyDownBlur);
         document.getElementById('closeTask').addEventListener('click', () => {
-            this.el.innerHTML = '';
-            this.el.style.display = 'none';
-            this.eventBus.emit('taskDetailedView:closed', null);
+            this.hide();
         });
-        document.getElementById('saveTaskDescription').addEventListener('click', () => {
+        document.getElementById('taskDescription').addEventListener('focus', () => {
+            document.getElementById('saveTaskDescription').style.display = 'flex';
+        });
+        document.getElementById('saveTaskDescription').addEventListener('mousedown', (event) => {
             const description = document.getElementById('taskDescription').innerText;
             this.eventBus.emit('taskDetailedView:updateTaskDescription', description);
+            event.target.removeAttribute('style');
+        });
+        document.getElementById('taskName').addEventListener('focus', () => {
+            window.addEventListener('keydown', this.onKeyDownSubmit);
         });
         document.getElementById('taskName').addEventListener('focusout', () => {
+            window.removeEventListener('keydown', this.onKeyDownSubmit);
             const el = document.getElementById('taskName');
             const taskName = el.innerText;
             // TODO: сделать проверку на название из пробелов
@@ -176,12 +280,15 @@ export default class TaskDetailedView extends BaseView {
             this.eventBus.emit('taskDetailedView:deleteTask', null);
         });
         document.getElementById('addTag').addEventListener('click', () => {
+            // window.removeEventListener('keydown', this.onKeyDownHide);
             this.eventBus.emit('taskDetailedView:addTag', null);
         });
         document.getElementById('checkListCreate').addEventListener('click', () => {
+            // window.removeEventListener('keydown', this.onKeyDownHide.bind(this));
             this.eventBus.emit('taskDetailedView:addCheckList', null);
         });
         document.getElementById('taskAssignersAdd').addEventListener('click', () => {
+            // window.removeEventListener('keydown', this.onKeyDownHide.bind(this));
             this.eventBus.emit('taskDetailedView:addAssigners', null);
         });
 
@@ -256,14 +363,23 @@ export default class TaskDetailedView extends BaseView {
      * @param {[Object]} comments
      */
     addCommentsEventListeners(comments) {
-        document.getElementById('commentSaveID').addEventListener('click', () => {
-            const text = document.getElementById('commentInputID').innerText;
-            if (text !== '') {
-                this.eventBus.emit('taskDetailedView:addComment', text);
+        const commentInput = document.getElementById('commentInputID');
+        const commentSave = document.getElementById('commentSaveID');
+
+        commentInput.addEventListener('focus', () => {
+            commentSave.style.display = 'flex';
+        });
+        commentInput.addEventListener('focusout', () => {
+            if (commentInput.innerText === '') {
+                commentSave.style.display = 'none';
             }
         });
-        document.getElementById('commentInputID').addEventListener('focus', (event) => {
-            event.target.select();
+        commentSave.addEventListener('mousedown', () => {
+            if (commentInput.innerText !== '') {
+                this.eventBus.emit('taskDetailedView:addComment', commentInput.innerText);
+                commentInput.innerHTML = '';
+                commentSave.style.display = 'none';
+            }
         });
 
         for (const comment of comments) {
@@ -276,7 +392,7 @@ export default class TaskDetailedView extends BaseView {
      * @param {Object} comment
      */
     addCommentEventListeners(comment) {
-        document.getElementById(comment.commentRemove).addEventListener('click', (event) => {
+        document.getElementById(comment.commentRemove).addEventListener('click', () => {
             document.getElementById(comment.commentHtmlID).remove();
             this.eventBus.emit('taskDetailedView:removeComment', comment);
         });
@@ -288,9 +404,9 @@ export default class TaskDetailedView extends BaseView {
      */
     render(task) {
         this.el.style.display = 'flex';
-        // task.commentAvatar = `${network.serverAddr}/avatar/${userSession.data.avatar}`;
         task.commentAvatar = userSession.data.avatar;
         this.el.innerHTML = taskDetailedViewTemplate(task);
         this.addEventListeners(task);
+        this.hidden = false;
     }
 }

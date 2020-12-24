@@ -1,23 +1,22 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const {InjectManifest} = require('workbox-webpack-plugin');
 const autoprefixer = require('autoprefixer');
+const path = require('path');
 
-// TODO: разобраться с мусорным <style>
 module.exports = {
     output: {
         publicPath: '/',
+        path: path.resolve(process.cwd(), 'dist'),
     },
     module: {
         rules: [
             {
                 test: /\.tmpl\.xml$/,
                 use: [{loader: 'fest-webpack-loader'}],
-            },
-            {
-                test: /\.css$/i,
-                use: [MiniCssExtractPlugin.loader, 'css-loader'],
             },
             {
                 test: /\.s[ac]ss$/i,
@@ -28,11 +27,7 @@ module.exports = {
                         loader: 'postcss-loader',
                         options: {
                             postcssOptions: {
-                                plugins: [
-                                    autoprefixer({
-                                        browsers: ['ie >= 8', 'last 4 version'],
-                                    }),
-                                ],
+                                plugins: [autoprefixer],
                             },
                             sourceMap: true,
                         },
@@ -41,9 +36,20 @@ module.exports = {
                     'sass-loader',
                 ],
             },
+            {
+                test: /\.m?js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env'],
+                    },
+                },
+            },
         ],
     },
     plugins: [
+        new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
             filename: 'main.css',
         }),
@@ -51,10 +57,25 @@ module.exports = {
             hash: true,
             template: './src/index.html',
         }),
+        new HtmlWebpackPlugin({
+            hash: true,
+            filename: 'offline.html',
+        }),
         new CopyPlugin({
             patterns: [
                 {from: './src/img', to: './img'},
             ],
+        }),
+        new ImageMinimizerPlugin({
+            test: /\.(jpe?g|png|gif|svg)$/i,
+            minimizerOptions: {
+                plugins: [
+                    ['gifsicle', {interlaced: true}],
+                    ['jpegtran', {progressive: true}],
+                    ['optipng', {optimizationLevel: 5}],
+                    ['svgo', {plugins: [{removeViewBox: false}]}],
+                ],
+            },
         }),
         new InjectManifest({
             swSrc: './src/sw.js',

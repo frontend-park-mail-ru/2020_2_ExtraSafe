@@ -25,6 +25,14 @@ export default class CurrentBoardView extends BaseView {
     }
 
     /**
+     * Update card name view
+     * @param {string} name
+     */
+    updateBoardName(name) {
+        document.getElementById('boardName').innerText = name;
+    }
+
+    /**
      * Update card order in HTML
      * @param {string} cardHtmlID
      * @param {number} order
@@ -34,21 +42,39 @@ export default class CurrentBoardView extends BaseView {
     }
 
     /**
+     * On key down callback
+     * @param {KeyboardEvent} event
+     */
+    onKeyDownBlur(event) {
+        if (event.keyCode === 13 || event.keyCode === 27) {
+            event.target.blur();
+        }
+    }
+
+    /**
      * add all event listeners
      */
     addEventListeners() {
         document.getElementById('addCardButton').addEventListener('click', () => {
-            this.eventBus.emit('currentBoardView:addNewCard', null);
+            setTimeout(() => {
+                this.eventBus.emit('currentBoardView:addNewCard', null);
+            }, 50);
         }, false);
-        document.getElementById('boardName').addEventListener('focusout', (event) => {
-            this.eventBus.emit('currentBoardView:boardNameUpdate', event.target.innerText);
-        });
-        document.getElementById('boardSettings').addEventListener('click', () => {
-            this.eventBus.emit('currentBoardView:deleteBoard', null);
-        });
-        document.getElementById('addMember').addEventListener('click', () => {
-            this.eventBus.emit('currentBoardView:addMember', null);
-        });
+        if (this.board.isAdmin) {
+            document.getElementById('boardName').addEventListener('focus', () => {
+                event.target.addEventListener('keydown', this.onKeyDownBlur);
+            });
+            document.getElementById('boardName').addEventListener('focusout', (event) => {
+                event.target.removeEventListener('keydown', this.onKeyDownBlur);
+                this.eventBus.emit('currentBoardView:boardNameUpdate', event.target.innerText);
+            });
+            document.getElementById('boardSettings').addEventListener('click', () => {
+                this.eventBus.emit('currentBoardView:deleteBoard', null);
+            });
+            document.getElementById('addMember').addEventListener('click', () => {
+                this.eventBus.emit('currentBoardView:addMember', null);
+            });
+        }
     }
 
     /**
@@ -56,6 +82,7 @@ export default class CurrentBoardView extends BaseView {
      * @param {JSON} board
      */
     render(board) {
+        this.board = board;
         Navbar.navbarShow();
         this.el.innerHTML = currentBoardTemplate(board);
 

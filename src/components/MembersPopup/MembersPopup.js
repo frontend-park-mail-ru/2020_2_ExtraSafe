@@ -37,10 +37,12 @@ export default class MembersPopup {
         });
 
         for (const member of board.boardMembers) {
-            document.getElementById(member.memberDeleteID).addEventListener('click', () => {
-                document.getElementById(member.memberHtmlID).remove();
-                this.eventBus.emit('membersPopup:memberDelete', member);
-            });
+            if (!member.isMe) {
+                document.getElementById(member.memberDeleteID).addEventListener('click', () => {
+                    document.getElementById(member.memberHtmlID).remove();
+                    this.eventBus.emit('membersPopup:memberDelete', member);
+                });
+            }
         }
 
         // document.addEventListener('click', (event) => {

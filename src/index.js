@@ -3,8 +3,9 @@ import LoginController from './controllers/LoginController.js';
 import RegController from './controllers/RegController.js';
 import SettingsController from './controllers/SettingsController.js';
 import HomeController from './controllers/HomeController.js';
-import CurrentBoardController from './controllers/CurrentBoardController.js';
-import globalEventBus from './utils/globalEventBus.js';
+import InvitationHandler from './utils/invitationHandler.js';
+import BoardRoutesHandler from './utils/boardRoutesHandler.js';
+import rendering from './utils/rendering.js';
 
 import './styles/scss/navbar.scss';
 import './styles/scss/base.scss';
@@ -24,9 +25,11 @@ const loginController = new LoginController(contentDiv, router);
 const regController = new RegController(contentDiv, router);
 const homeController = new HomeController(contentDiv, router);
 const settingsController = new SettingsController(contentDiv, router);
+const invitationHandler = new InvitationHandler(router);
+const boardRoutesHandler = new BoardRoutesHandler(contentDiv, router);
 
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js', {scope: '/'})
+    navigator.serviceWorker.register('/sw.js', {scope: '/'})
         .then((registration) => {
             console.log('sw registration on scope:', registration.scope);
         })
@@ -35,19 +38,21 @@ if ('serviceWorker' in navigator) {
         });
 }
 
-router.addRoute('/login', loginController);
-router.addRoute('/reg', regController);
-router.addRoute('/settings', settingsController);
-router.addRoute('/', homeController);
+if (!navigator.onLine) {
+    console.log('offline');
+    rendering.showOfflineMessage();
+}
 
-// TODO: переписать для перехода на публичные доски, которых нет в userSession
-globalEventBus.on('userSession:setBoards', (boards) => {
-    if (Array.isArray(boards) && boards.length) {
-        for (const board of boards) {
-            router.addRoute(`/board/${board.boardID}`,
-                new CurrentBoardController(contentDiv, router, board.boardName, board.boardID));
-        }
-    }
+window.addEventListener('offline', () => {
+    console.log('offline');
+    rendering.showOfflineMessage();
 });
+
+router.addRoute(/^\/login$/, loginController);
+router.addRoute(/^\/reg$/, regController);
+router.addRoute(/^\/settings$/, settingsController);
+router.addRoute(/^\/$/, homeController);
+router.addRoute(/^\/invite\/board\/(\d+)\/(\d+)$/, invitationHandler);
+router.addRoute(/^\/board\/(\d+)$/, boardRoutesHandler);
 
 router.open(window.location.pathname);

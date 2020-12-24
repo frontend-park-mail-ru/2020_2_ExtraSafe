@@ -21,43 +21,46 @@
     top: 210px !important;
   }
 }
+[data-placeholder]:empty:before {
+  content: attr(data-placeholder);
+  color: #808080;
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 16px;
+}
+
 .edit-task__container {
   display: none;
-  position: absolute;
-  align-items: flex-start;
-  justify-content: center;
+  flex-direction: column;
+  position: fixed;
+  align-items: center;
   overflow-y: auto;
   top: 0;
   width: 100vw;
-  height: 80vh;
-  padding: 20vh 0 0 0;
+  height: 100vh;
   background-color: rgba(0, 0, 0, 0.3);
 }
 .edit-task__container::-webkit-scrollbar {
   width: 0;
 }
-.edit-task__container::after {
-  content: "";
-  display: flex;
-  /*position: absolute;*/
-  width: 100%;
-  height: 20vh;
-}
 .edit-task__content__container {
   display: flex;
   flex-direction: column;
-  position: absolute;
   align-items: center;
   justify-content: flex-start;
   width: 100%;
   max-width: 615px;
   height: fit-content;
+  margin: 10vh 0;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   background: #FFFFFF;
 }
 .edit-task__content__name__container {
   display: flex;
+  position: relative;
   justify-content: flex-start;
   justify-self: center;
   z-index: 1;
@@ -80,6 +83,9 @@
   line-height: 21px;
   word-break: break-all;
   cursor: pointer;
+}
+.edit-task__content__name__text:focus {
+  cursor: text;
 }
 .edit-task__content__info {
   display: flex;
@@ -133,6 +139,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  position: relative;
   width: 100%;
   max-width: 140px;
   margin: 0 35px 0 0;
@@ -174,6 +181,7 @@
   width: 100%;
   max-width: 550px;
   padding: 20px 0 0 0;
+  margin: 0 0 20px 0;
 }
 .edit-task__content__description__title {
   display: flex;
@@ -188,12 +196,15 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin: 10px 0 20px 0;
+  margin: 10px 0 0 0;
   border-radius: 5px;
   background: #F3F3F3;
 }
+.edit-task__content__description__body:focus-within {
+  box-shadow: 0 0 0 2px #A32CDF inset;
+}
 .edit-task__content__description__body__text {
-  display: flex;
+  white-space: pre-wrap;
   margin: 10px;
   font-family: Roboto, sans-serif;
   font-style: normal;
@@ -205,7 +216,7 @@
   outline: none;
   cursor: pointer;
 }
-.edit-task__content__description__body__text:hover {
+.edit-task__content__description__body__text:focus {
   cursor: text;
 }
 .edit-task__content__description__body__footer {
@@ -216,14 +227,14 @@
   border-top: 1px solid #CCCCCC;
 }
 .edit-task__content__description__body__footer__save-button {
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   width: 100%;
   max-width: 105px;
   height: 100%;
   max-height: 30px;
-  margin: 10px 0 0 10px;
+  margin: 5px 0 0 0;
   padding: 10px;
   border-radius: 5px;
   border-style: none;
@@ -370,6 +381,7 @@
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
+  margin: 0 0 5px 0;
 }
 .edit-task__content__check-lists__delete {
   display: flex;
@@ -389,7 +401,7 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  margin: 10px 0 0 0;
+  margin: 10px 0 20px 0;
   border-radius: 5px;
   background: #F3F3F3;
 }
@@ -399,7 +411,12 @@
   align-items: center;
   justify-content: flex-start;
   width: 95%;
-  margin: 10px 0 0 0;
+  padding: 10px 0 5px 10px;
+}
+.edit-task__content__check-lists__body__elements {
+  border-radius: 5px;
+  background: #FFFFFF;
+  padding: 5px;
 }
 .edit-task__content__check-lists__body__element__icon {
   width: 24px;
@@ -427,8 +444,8 @@
   width: fit-content;
   justify-content: center;
   align-self: center;
-  margin: 5px 10px 5px 10px;
-  padding: 10px 20px 10px 20px;
+  padding: 5px;
+  margin: 0 0 0 5px;
   border-radius: 5px;
   gap: 10px;
   cursor: pointer;
@@ -455,7 +472,7 @@
   position: relative;
   width: fit-content;
   justify-content: center;
-  align-self: flex-start;
+  align-self: center;
   margin: 5px 10px 5px 0;
   padding: 10px 20px 10px 20px;
   border-radius: 5px;
@@ -534,9 +551,10 @@
 }
 .edit-task__content__comments__add__comment__text:focus {
   border: 2px #6D27E7 solid !important;
+  cursor: text;
 }
 .edit-task__content__comments__add__comment__button {
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   width: 100%;
@@ -558,7 +576,7 @@
 }
 .edit-task__content__comments__body {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   width: 100%;
 }
 .edit-task__content__comments__body__comment {
@@ -597,7 +615,7 @@
   cursor: default;
 }
 .edit-task__content__comments__body__comment__right__header__delete {
-  display: flex;
+  display: none;
   align-self: flex-end;
   font-family: Roboto, sans-serif;
   font-style: normal;
@@ -611,7 +629,7 @@
   color: #6D27E7;
 }
 .edit-task__content__comments__body__comment__right__text {
-  display: flex;
+  white-space: pre-wrap;
   padding: 10px;
   font-family: Roboto, sans-serif;
   font-style: normal;
@@ -620,7 +638,10 @@
   line-height: 16px;
   border-radius: 5px;
   background: #F3F3F3;
-  cursor: default;
+  cursor: pointer;
+}
+.edit-task__content__comments__body__comment__right__text:focus {
+  cursor: text;
 }
 .edit-task__content__delete__icon {
   display: flex;
@@ -638,7 +659,6 @@
   width: 17px;
   height: 17px;
   align-self: flex-start;
-  margin: 25px 25px 0 0;
   cursor: pointer;
 }
 
@@ -738,7 +758,6 @@
   font-weight: normal;
   font-size: 14px;
   line-height: 16px;
-  color: #808080;
 }
 .edit-tags__create__container {
   display: flex;
@@ -895,15 +914,14 @@
   z-index: 2;
   align-items: flex-start;
   justify-content: center;
-  max-width: 250px;
-  width: 100%;
-  top: 135px;
-  left: 40px;
+  width: 250px;
+  top: 65px;
 }
 .edit-add-collaborator__body {
   display: flex;
   flex-direction: column;
   position: relative;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   align-items: center;
   justify-content: space-between;
   width: 100%;
@@ -957,9 +975,8 @@
   color: #333333;
 }
 .edit-add-collaborator__element__selected {
-  display: flex;
+  display: none;
   width: 20px;
-  height: 20px;
   cursor: pointer;
 }
 .edit-add-collaborator__close {

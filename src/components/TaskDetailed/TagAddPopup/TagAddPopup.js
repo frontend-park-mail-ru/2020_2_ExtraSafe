@@ -1,5 +1,6 @@
 import tagAddPopup from './TagAddPopup.tmpl.xml';
 import EventBus from '../../../utils/eventBus.js';
+import globalEventBus from '../../../utils/globalEventBus.js';
 
 /**
  * TagAddPopup class
@@ -21,6 +22,24 @@ export default class TagAddPopup {
     hide() {
         this.el.innerHTML = '';
         this.el.style.removeProperty('display');
+        this.el.removeEventListener('keydown', this.onKeyDownHide.bind(this));
+        globalEventBus.emit('popupClosed', null);
+    }
+
+    /**
+     * On key down callback
+     * @param {KeyboardEvent} event
+     */
+    onKeyDownHide(event) {
+        if (event.keyCode === 27) {
+            console.log('popup');
+            if (document.activeElement !== document.body) {
+                document.activeElement.blur();
+            } else {
+                this.hide();
+            }
+            event.stopImmediatePropagation();
+        }
     }
 
     /**
@@ -29,6 +48,7 @@ export default class TagAddPopup {
      */
     addEventListeners(tags) {
         // TODO: изменить id
+        this.el.addEventListener('keydown', this.onKeyDownHide.bind(this));
         for (const tag of tags) {
             const tagEl = document.getElementById(tag.tagBodyHtmlID);
             const tagCheckEl = document.getElementById(tag.tagCheckID);

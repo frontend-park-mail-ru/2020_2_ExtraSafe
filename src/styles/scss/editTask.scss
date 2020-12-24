@@ -28,17 +28,26 @@
     }
 }
 
+// div contenteditable placeholder как Vk!
+[data-placeholder]:empty:before {
+    content: attr(data-placeholder);
+
+    color: $grey-text-color;
+
+    @include standard-font(normal, 14px, 16px);
+}
+
 // Настройка задачи
 .edit-task {
 
     // Контейнер настройки задачи
     &__container {
         display: none;
+        flex-direction: column;
 
-        position: absolute;
+        position: fixed;
 
-        align-items: flex-start;
-        justify-content: center;
+        align-items: center;
 
         overflow-y: auto;
 
@@ -49,20 +58,9 @@
         top: 0;
 
         width: 100vw;
-        height: 80vh;
-
-        padding: 20vh 0 0 0 ;
+        height: 100vh;
 
         background-color: $background_inactive;
-
-        &::after {
-            content: "";
-            display: flex;
-            /*position: absolute;*/
-            // right: -2rem;
-            width: 100%;
-            height: 20vh;
-        }
     }
 
     // Содержимое настройки задачи
@@ -71,8 +69,9 @@
         // Контейнер настройки содержимого задачи
         &__container {
             @include flex-column;
+            flex-shrink: 0;
 
-            position: absolute;
+            // position: absolute;
 
             align-items: center;
             justify-content: flex-start;
@@ -80,6 +79,7 @@
             width: 100%;
             max-width: 615px;
             height: fit-content;
+            margin: 10vh 0;
 
             @include standard-border-radius;
             @include standard-shadow;
@@ -93,6 +93,7 @@
             // Контейнер названия задачи
             &__container {
                 display: flex;
+                position: relative;
 
                 justify-content: flex-start;
                 justify-self: center;
@@ -123,6 +124,10 @@
                 word-break: break-all;
 
                 cursor: pointer;
+
+                &:focus {
+                    cursor: text;
+                }
             }
         }
 
@@ -198,6 +203,8 @@
                     @include flex-column;
                     justify-content: flex-start;
 
+                    position: relative;
+
                     width: 100%;
                     max-width: 140px;
 
@@ -260,6 +267,7 @@
                 max-width: 550px;
 
                 padding: 20px 0 0 0;
+                margin: 0 0 20px 0;
             }
 
             // Заголовок описания задачи, слово "Описание",
@@ -279,15 +287,19 @@
 
                 width: 100%;
 
-                margin: 10px 0 20px 0;
+                margin: 10px 0 0 0;
 
                 @include standard-border-radius;
 
                 background: $light-grey;
 
+                &:focus-within {
+                    box-shadow: 0 0 0 2px $violet inset;
+                }
+
                 // Стиль текста описания задачи
                 &__text {
-                    display: flex;
+                    white-space: pre-wrap;
 
                     margin: 10px;
 
@@ -300,7 +312,7 @@
                     cursor: pointer;
 
                     // Поведение при наведении
-                    &:hover {
+                    &:focus {
                         cursor: text;
                     }
                 }
@@ -317,7 +329,7 @@
                     border-top: 1px solid $input-border-color;
 
                     &__save-button {
-                        display: flex;
+                        display: none;
 
                         @include content-center;
 
@@ -326,7 +338,7 @@
                         height: 100%;
                         max-height: 30px;
 
-                        margin: 10px 0 0 10px;
+                        margin: 5px 0 0 0;
                         padding: 10px;
 
                         @include standard-button;
@@ -462,7 +474,6 @@
 
                     @include standard-border-radius;
 
-                    gap: 10px;
 
                     cursor: pointer;
 
@@ -476,6 +487,7 @@
                 &__icon {
                     height: 24px;
                     width: 24px;
+                    margin-right: 10px;
                 }
 
                 // Текст добавления нового вложения
@@ -511,6 +523,8 @@
                     justify-content: space-between;
 
                     width: 100%;
+
+                    margin: 0 0 5px 0;
                 }
 
                 display: flex;
@@ -543,7 +557,7 @@
 
                 width: 100%;
 
-                margin: 10px 0 0 0;
+                margin: 10px 0 20px 0;
 
                 @include standard-border-radius;
 
@@ -557,7 +571,15 @@
 
                     width: 95%;
 
-                    margin: 10px 0 0 0;
+                    padding: 10px 0 5px 10px;
+
+                    &s {
+                        @include standard-border-radius;
+
+                        background: $white;
+
+                        padding: 5px;
+                    }
 
                     &__icon {
                         width: 24px;
@@ -595,12 +617,11 @@
                             justify-content: center;
                             align-self: center;
 
-                            margin: 5px 10px 5px 10px;
-                            padding: 10px 20px 10px 20px;
+                            padding: 5px;
+                            margin: 0 0 0 5px;
 
                             @include standard-border-radius;
 
-                            gap: 10px;
 
                             cursor: pointer;
 
@@ -614,6 +635,8 @@
                         &__icon {
                             height: 24px;
                             width: 24px;
+
+                            margin-right: 10px;
                         }
 
                         // Текст добавления нового элемента в чек-листе
@@ -639,14 +662,13 @@
                     width: fit-content;
 
                     justify-content: center;
-                    align-self: flex-start;
+                    align-self: center;
 
                     margin: 5px 10px 5px 0;
                     padding: 10px 20px 10px 20px;
 
                     @include standard-border-radius;
 
-                    gap: 10px;
 
                     cursor: pointer;
 
@@ -661,6 +683,8 @@
                 &__icon {
                     height: 24px;
                     width: 24px;
+
+                    margin-right: 10px;
                 }
 
                 // Текст добавления нового чек-листа
@@ -730,6 +754,7 @@
 
                         &:focus {
                             border: 2px $electric-indigo solid !important;
+                            cursor: text;
                         }
 
                         padding: 10px;
@@ -752,7 +777,7 @@
                     }
 
                     &__button {
-                        display: flex;
+                        display: none;
 
                         @include content-center;
 
@@ -836,7 +861,7 @@
                         }
 
                         &__text {
-                            display: flex;
+                            white-space: pre-wrap;
 
                             padding: 10px;
 
@@ -846,7 +871,11 @@
 
                             background: $light-grey;
 
-                            cursor: default;
+                            cursor: pointer;
+
+                            &:focus {
+                                cursor: text;
+                            }
                         }
                     }
                 }
@@ -891,7 +920,6 @@
 
         align-self: flex-start;
 
-        margin: 25px 25px 0 0;
         cursor: pointer;
     }
 }
@@ -1012,8 +1040,6 @@
                 padding: 8px;
                 margin: 5px;
 
-                gap: 10px;
-
                 @include standard-border-radius;
 
                 cursor: pointer;
@@ -1027,12 +1053,12 @@
             &__icon {
                 height: 18px;
                 width: 18px;
+
+                margin-right: 10px;
             }
 
             &__text {
                 @include standard-font(normal, 14px, 16px);
-
-                color: $grey-text-color;
             }
         }
 
@@ -1252,11 +1278,11 @@
         align-items: flex-start;
         justify-content: center;
 
-        max-width: 250px;
-        width: 100%;
+        width: 250px;
+        // width: 100%;
 
-        top: 135px;
-        left: 40px;
+        top: 65px;
+        // left: 40px;
     }
 
     &__body {

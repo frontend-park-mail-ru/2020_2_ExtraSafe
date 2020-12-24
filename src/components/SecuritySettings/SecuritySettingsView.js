@@ -92,18 +92,30 @@ export default class SecuritySettingsView extends BaseView {
                         id: 'oldPassword',
                         placeholder: 'Введите старый пароль',
                         hasError: true,
+                        params: [{
+                            name: 'autocomplete',
+                            value: 'current-password',
+                        }],
                     },
                     {
                         type: 'password',
                         id: 'password',
                         placeholder: 'Введите новый пароль',
                         hasError: true,
+                        params: [{
+                            name: 'autocomplete',
+                            value: 'new-password',
+                        }],
                     },
                     {
                         type: 'password',
                         id: 'repeatPassword',
                         placeholder: 'Повторите новый пароль',
                         hasError: true,
+                        params: [{
+                            name: 'autocomplete',
+                            value: 'new-password',
+                        }],
                     },
                 ],
             },

@@ -28,7 +28,7 @@ class UserSession {
         this.data.email = val.email;
         this.data.username = val.username;
         this.data.fullName = val.fullName;
-        this.data.avatar = network.serverAddr + '/avatar/' + val.avatar;
+        this.data.avatar = network.serverAddr + '/static/avatar/' + val.avatar;
         globalEventBus.emit('userSession:set', this.data);
     }
 

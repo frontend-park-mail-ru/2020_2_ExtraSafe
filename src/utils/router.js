@@ -23,8 +23,12 @@ export default class Router {
         this.root.addEventListener('click', this.catchMouseClick);
         globalEventBus.on('network:logout', () => {
             this.isAuth = false;
-            this.renderIfNotAuth('/login');
+            this.open('/login');
         });
+
+        window.onpopstate = (event) => {
+            this.open(event.state, false);
+        };
     }
 
     /**
@@ -39,7 +43,6 @@ export default class Router {
                 return false;
             } else {
                 UserSession.setData(responseBody);
-                // UserSession.setAccounts(responseBody.links);
                 UserSession.setBoards(responseBody.boards);
                 Network.setToken(responseBody.token);
                 return true;
@@ -50,66 +53,83 @@ export default class Router {
     /**
      * render if user is authorised
      * @param {string} route
+     * @param {BaseController} handler
+     * @param {[*]} args
      */
-    renderIfAuth(route) {
+    renderIfAuth(route, handler, ...args) {
         if (route === '/login' || route === '/reg') {
-            window.history.replaceState({}, '', '/');
-
-            const page = this.routesMap.get('/');
             this.currentPage = '/';
-            page.render();
+            for (const [regExp, controller] of this.routesMap.entries()) {
+                if (regExp.test('/')) {
+                    controller.render();
+                }
+            }
         } else {
-            const page = this.routesMap.get(route);
             this.currentPage = route;
-            page.render();
+            handler.render(...args);
         }
     }
 
     /**
      * render if user is not authorised
      * @param {string} route
+     * @param {BaseController} handler
+     * @param {[*]} args
      */
-    renderIfNotAuth(route) {
+    renderIfNotAuth(route, handler, ...args) {
         if (route === '/login' || route === '/reg') {
-            const page = this.routesMap.get(route);
             this.currentPage = route;
-            page.render();
+            handler.render(...args);
         } else {
-            window.history.replaceState({}, '', '/login');
-
-            const page = this.routesMap.get('/login');
             this.currentPage = '/login';
-            page.render();
+            for (const [regExp, controller] of this.routesMap.entries()) {
+                if (regExp.test('/login')) {
+                    controller.render();
+                }
+            }
         }
     }
 
     /**
      * Open route
      * @param {string} route
+     * @param {boolean} pushState
      */
-    open(route) {
-        window.history.replaceState({}, '', route);
+    open(route, pushState = true) {
+        for (const [regExp, controller] of this.routesMap.entries()) {
+            if (regExp.test(route)) {
+                const args = regExp.exec(route);
+                args.shift();
 
-        // TODO: переписать для перехода на публичные доски, которых нет в userSession
-        if (!this.isAuth) {
-            this.authorize().then((response) => {
-                this.isAuth = response;
-                if (this.routesMap.has(route)) {
-                    if (response === true) {
-                        this.renderIfAuth(route);
-                    } else {
-                        this.renderIfNotAuth(route);
-                    }
+                if (!this.isAuth) {
+                    this.authorize().then((response) => {
+                        this.isAuth = response;
+
+                        if (response === true) {
+                            this.renderIfAuth(route, controller, ...args);
+                        } else {
+                            this.renderIfNotAuth(route, controller, ...args);
+                        }
+
+                        if (pushState) {
+                            window.history.pushState(this.currentPage,
+                                `Tabutask ${this.currentPage.slice(1).replace('/', ' ')}`,
+                                this.currentPage);
+                        }
+                    });
                 } else {
-                    window.history.replaceState({}, '', '/');
+                    this.renderIfAuth(route, controller, ...args);
 
-                    const page = this.routesMap.get('/');
-                    page.render();
+                    if (pushState) {
+                        window.history.pushState(this.currentPage,
+                            `Tabutask ${this.currentPage.slice(1).replace('/', ' ')}`,
+                            this.currentPage);
+                    }
                 }
-            });
-        } else {
-            this.renderIfAuth(route);
+                return;
+            }
         }
+        this.open('/');
     }
 
     /**
@@ -146,11 +166,10 @@ export default class Router {
 
     /**
      * Add route function
-     * @param {string} route
+     * @param {RegExp} route
      * @param {BaseController} handler
      */
     addRoute(route, handler) {
-    // handler is a callable function or method
         if (!this.routesMap.has(route)) {
             this.routesMap.set(route, handler);
         }

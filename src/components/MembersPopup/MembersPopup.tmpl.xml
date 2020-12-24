@@ -13,12 +13,14 @@
                     <div class="add-collaborator__element__name">
                         <fest:value>v.memberUsername</fest:value>
                     </div>
-                    <img class="add-collaborator__element__delete" src="../../img/icons/delete_member.svg" id="{v.memberDeleteID}" alt="delete"/>
+                    <fest:if test="!v.isMe">
+                        <img class="add-collaborator__element__delete" src="../../img/icons/delete_member.svg" id="{v.memberDeleteID}" alt="delete"/>
+                    </fest:if>
                 </div>
             </fest:for>
 
             <div class="add-collaborator__add-new__container" id="membersPopupInvite">
-                <img class="add-collaborator__add-new__icon" src="../../img/icons/add_grey.svg" alt="add"/>
+                <img class="add-collaborator__add-new__icon" src="../../img/icons/add.svg" alt="add"/>
 
                 <div class="add-collaborator__add-new__text">
                     Добавить пользователя

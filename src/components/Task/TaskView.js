@@ -23,7 +23,7 @@ export default class TaskView extends BaseView {
      * @param {number} newTaskID
      * @param {number} newCardID
      */
-    updateTaskHtmlIDs(task, newTaskID, newCardID = task.cardID) {
+    updateTaskHtmlIDs(task, newTaskID, newCardID) {
         const taskEl = document.getElementById(task.taskHtmlID);
         const taskNameEl = document.getElementById(task.taskNameID);
         const taskTagsDivEl = document.getElementById(task.tagsDivID);
@@ -39,7 +39,11 @@ export default class TaskView extends BaseView {
      */
     addEventListeners(task) {
         const taskNameEl = document.getElementById(task.taskNameID);
-        taskNameEl.addEventListener('focusout', () => {
+        taskNameEl.addEventListener('focus', (event) => {
+            event.target.addEventListener('keydown', this.onKeyDownBlur);
+        });
+        taskNameEl.addEventListener('focusout', (event) => {
+            event.target.removeEventListener('keydown', this.onKeyDownBlur);
             const newName = taskNameEl.innerText;
             // TODO: сделать проверку на название из пробелов
             if (newName === '') {
@@ -123,11 +127,21 @@ export default class TaskView extends BaseView {
     }
 
     /**
-     * Update task name view
-     * @param {Object} task
+     * On key down callback
+     * @param {KeyboardEvent} event
      */
-    updateTaskName(task) {
-        document.getElementById(task.taskNameID).innerHTML = task.taskName;
+    onKeyDownBlur(event) {
+        if (event.keyCode === 13 || event.keyCode === 27) {
+            event.target.blur();
+        }
+    }
+
+    /**
+     * Update task name view
+     * @param {string} name
+     */
+    updateTaskName(name) {
+        document.getElementById(this.task.taskNameID).innerHTML = name;
     }
 
     /**
@@ -178,6 +192,7 @@ export default class TaskView extends BaseView {
      * @param {Object} task
      */
     render(task) {
+        this.task = task;
         const html = taskTemplate(task);
         this.el.appendChild(rendering.createElementsFromTmpl(html));
         this.addEventListeners(task);

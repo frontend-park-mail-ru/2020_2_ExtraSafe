@@ -36,6 +36,14 @@ export default class CardView extends BaseView {
     }
 
     /**
+     * Update card name view
+     * @param {string} name
+     */
+    updateCardName(name) {
+        document.getElementById(this.card.cardNameID).innerText = name;
+    }
+
+    /**
      * Render task
      * @param {TaskController} task
      */
@@ -44,11 +52,22 @@ export default class CardView extends BaseView {
     }
 
     /**
+     * Remove card view
+     */
+    removeCard() {
+        document.getElementById(this.card.cardHtmlID).remove();
+    }
+
+    /**
      * Add all event listeners
      * @param {JSON} card
      */
     addEventListeners(card) {
+        document.getElementById(card.cardNameID).addEventListener('focus', (event) => {
+            event.target.addEventListener('keydown', this.onKeyDownBlur);
+        });
         document.getElementById(card.cardNameID).addEventListener('focusout', (event) => {
+            event.target.removeEventListener('keydown', this.onKeyDownBlur);
             const newName = event.target.innerText;
             // TODO: сделать проверку на название из пробелов
             if (newName === '') {
@@ -63,7 +82,9 @@ export default class CardView extends BaseView {
             }
         });
         document.getElementById(card.addTaskID).addEventListener('click', () => {
-            this.eventBus.emit('cardView:addNewTask', null);
+            setTimeout(() => {
+                this.eventBus.emit('cardView:addNewTask', null);
+            }, 50);
         });
         document.getElementById(card.cardSettingsID).addEventListener('click', () => {
             document.getElementById(card.cardHtmlID).remove();
@@ -94,10 +115,21 @@ export default class CardView extends BaseView {
     }
 
     /**
+     * On key down callback
+     * @param {KeyboardEvent} event
+     */
+    onKeyDownBlur(event) {
+        if (event.keyCode === 13 || event.keyCode === 27) {
+            event.target.blur();
+        }
+    }
+
+    /**
      * Render card
      * @param {JSON} card
      */
     render(card) {
+        this.card = card;
         const html = cardTemplate(card);
         this.el.appendChild(rendering.createElementsFromTmpl(html));
         this.tasksDiv = document.getElementById(card.tasksDiv);

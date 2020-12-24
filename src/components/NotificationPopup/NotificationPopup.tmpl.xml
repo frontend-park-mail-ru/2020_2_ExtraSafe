@@ -1,0 +1,11 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
+    <div class="notification-bottom">
+        <div class="notification-bottom__title">
+            Уведомление
+        </div>
+
+        <img class="notification-delete" title="Удалить уведомление" src="../img/icons/close_notification.svg"/>
+
+        <fest:value>json.notificationText</fest:value>
+    </div>
+</fest:template>
