@@ -34,7 +34,6 @@ export default class MemberInvitePopup {
         });
         document.getElementById('memberInvitePopupAdd').addEventListener('click', () => {
             const memberUsername = document.getElementById('memberInvitePopupName').innerText;
-            this.hide();
             this.eventBus.emit('memberInvitePopup:memberInvite', memberUsername);
         });
 

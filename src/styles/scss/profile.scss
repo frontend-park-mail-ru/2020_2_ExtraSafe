@@ -24,16 +24,12 @@
 @media screen and (max-width: $mobile-breakpoint){
 
     .login-reg__button {
-        width: 75% !important;
+        width: 80% !important;
     }
 
     .login-reg__input {
-        width: 75% !important;
+        width: 80% !important;
     }
-
-    /*    .settings__input__container {
-            width: 75vh !important;
-        }*/
 }
 
 @media screen and (max-height: 450px) {
