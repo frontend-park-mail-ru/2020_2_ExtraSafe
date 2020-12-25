@@ -25,6 +25,13 @@ export default class CurrentBoardView extends BaseView {
     }
 
     /**
+     * Delete all cards view
+     */
+    deleteCards() {
+        this.cardsDiv.innerHTML = '';
+    }
+
+    /**
      * Update card name view
      * @param {string} name
      */

@@ -75,6 +75,14 @@ export default class CurrentBoardController extends BaseController {
     }
 
     /**
+     * Delete all cards
+     */
+    deleteCards() {
+        delete this.cards;
+        this.view.deleteCards();
+    }
+
+    /**
      * Delete card by it's ID
      * @param {string} cardID
      */
@@ -211,12 +219,10 @@ export default class CurrentBoardController extends BaseController {
             case 'AddMember':
                 this.model.addMember(data.body);
                 this.render();
-                // TODO: сделать добавление на вьюху доски
                 break;
             case 'RemoveMember':
                 this.model.deleteMember(data.body.memberUsername);
                 this.render();
-                // TODO: сделать удаление с вьюхи доски
                 break;
             case 'CreateCard':
                 this.addCard(data.body.cardID, data.body.cardName);
@@ -226,7 +232,10 @@ export default class CurrentBoardController extends BaseController {
                 this.model.initTags();
                 break;
             case 'TasksOrderChange':
-                this.render();
+                this.model.getBoardData().then((responseBody) => {
+                    this.deleteCards();
+                    this.addCardsFromJSON(responseBody.boardCards);
+                });
                 break;
             default:
                 break;
