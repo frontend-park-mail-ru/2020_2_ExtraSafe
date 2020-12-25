@@ -68,11 +68,15 @@ export default class CurrentBoardView extends BaseView {
                 event.target.removeEventListener('keydown', this.onKeyDownBlur);
                 this.eventBus.emit('currentBoardView:boardNameUpdate', event.target.innerText);
             });
+            document.getElementById('addMember').addEventListener('click', () => {
+                this.eventBus.emit('currentBoardView:addMember', null);
+            });
             document.getElementById('boardSettings').addEventListener('click', () => {
                 this.eventBus.emit('currentBoardView:deleteBoard', null);
             });
-            document.getElementById('addMember').addEventListener('click', () => {
-                this.eventBus.emit('currentBoardView:addMember', null);
+        } else {
+            document.getElementById('boardSettings').addEventListener('click', () => {
+                this.eventBus.emit('currentBoardView:leaveBoard', null);
             });
         }
     }

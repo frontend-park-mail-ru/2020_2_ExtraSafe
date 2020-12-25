@@ -6,6 +6,7 @@ import CardController from '../components/Card/CardController.js';
 import MembersPopup from '../components/MembersPopup/MembersPopup.js';
 import MemberInvitePopup from '../components/MemberInvitePopup/MemberInvitePopup.js';
 import network from '../utils/network.js';
+import userSession from '../utils/userSession.js';
 
 /**
  * Current board controller
@@ -133,6 +134,9 @@ export default class CurrentBoardController extends BaseController {
         });
         this.eventBus.on('currentBoardView:deleteBoard', () => {
             this.model.deleteBoard();
+        });
+        this.eventBus.on('currentBoardView:leaveBoard', () => {
+            this.model.memberExpel({memberUsername: userSession.data.username});
         });
         this.eventBus.on('currentBoardModel:boardDeleted', () => {
             console.log('currentBoardModel:boardDeleted');

@@ -33,11 +33,12 @@
         </div>
 
         <div class="board-info__right-side__container">
-            <img class="board-info__right-side__settings__icon" src="../../img/icons/bin.svg" id="boardSettings" title="Удалить доску" alt="settings">
+            <img class="board-info__right-side__settings__icon" id="boardSettings" title="Удалить доску" alt="settings">
                 <fest:attributes>
                     <fest:if test="json.isAdmin">
-                        <fest:attribute name="style" value="display: flex;"/>
+                        <fest:attribute name="src" value="../../img/icons/bin.svg"/>
                     </fest:if>
+                    <fest:attribute name="src" value="../../img/icons/exit.svg"/>
                 </fest:attributes>
             </img>
         </div>
