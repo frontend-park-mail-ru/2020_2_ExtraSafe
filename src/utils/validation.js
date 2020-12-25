@@ -11,9 +11,6 @@ class Validation {
         this.passwordRegExp = new RegExp('^[a-zA-Z0-9~!@#$%^&*-_+=`|(){}:;"\'<>,.?/]+$');
         this.usernameRegExp = new RegExp('^[a-zA-Z0-9_]+$');
         this.fullNameRegExp = new RegExp('^[a-zA-Zа-яА-Я _]+$');
-        // this.lowerCaseRegExp = new RegExp('[a-z]+');
-        // this.upperCaseRegExp = new RegExp('[A-Z]+');
-        // this.numbersRegExp = new RegExp('[0-9]+');
     }
 
     /**

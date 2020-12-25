@@ -7,20 +7,8 @@
                 Добавить пользователя
             </div>
 
-            <div class="invite">
-                <div class="invite-text">
-                    Пригласить с помощью ссылки
-                </div>
-                <input class="invite-link" onClick="this.select();document.execCommand('copy');" value="{json.sharedUrl}" readonly="readonly"/>
-            </div>
-
-            <div class="invite">
-                <div class="invite-text">
-                    Пригласить по имени пользователя
-                </div>
-                <div class="add-collaborator__input" id="memberInvitePopupName" data-placeholder="Введите имя пользователя" contenteditable="true"/>
-            </div>
-
+            <fest:include context="json.inviteUrlInput" src="../NamedInput/NamedInput.tmpl.xml"/>
+            <fest:include context="json.inviteUsernameInput" src="../NamedInput/NamedInput.tmpl.xml"/>
 
             <button class="add-collaborator__button" id="memberInvitePopupAdd">Добавить</button>
         </div>

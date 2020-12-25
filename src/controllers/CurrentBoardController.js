@@ -176,16 +176,18 @@ export default class CurrentBoardController extends BaseController {
             this.model.memberExpel(member);
         });
         this.membersPopup.eventBus.on('membersPopup:memberInvite', () => {
-            this.memberInvitePopup.render({sharedUrl: this.model.board.sharedUrl});
+            this.memberInvitePopup.render(this.model.board.sharedUrl);
         });
         this.memberInvitePopup.eventBus.on('memberInvitePopup:memberInvite', (memberUsername) => {
             this.model.memberInvite(memberUsername);
         });
         this.eventBus.on('currentBoardModel:memberInviteFailed', (codes) => {
             console.log('currentBoardModel:memberInviteFailed', codes);
+            this.memberInvitePopup.eventBus.emit('currentBoardController:inviteFailed', null);
         });
         this.eventBus.on('currentBoardModel:memberInviteSuccess', (responseBody) => {
             console.log('currentBoardModel:memberInviteSuccess', responseBody);
+            this.memberInvitePopup.eventBus.emit('currentBoardController:inviteSuccess', null);
             this.render();
             this.membersPopup.render(this.model.board);
         });
