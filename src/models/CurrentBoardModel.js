@@ -160,6 +160,7 @@ export default class CurrentBoardModel {
                 this.eventBus.emit('currentBoardModel:memberExpelFailed', responseBody.codes);
             } else {
                 this.deleteMember(member.memberUsername);
+                responseBody.memberUsername = member.memberUsername;
                 this.eventBus.emit('currentBoardModel:memberExpelSuccess', responseBody);
             }
         }).catch((error) => {

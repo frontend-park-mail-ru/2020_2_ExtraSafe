@@ -137,6 +137,7 @@ export default class CurrentBoardController extends BaseController {
         });
         this.eventBus.on('currentBoardView:leaveBoard', () => {
             this.model.memberExpel({memberUsername: userSession.data.username});
+            this.router.open('/');
         });
         this.eventBus.on('currentBoardModel:boardDeleted', () => {
             console.log('currentBoardModel:boardDeleted');
@@ -165,9 +166,6 @@ export default class CurrentBoardController extends BaseController {
         });
         this.membersPopup.eventBus.on('membersPopup:memberDelete', (member) => {
             this.model.memberExpel(member);
-            setTimeout(() => {
-                this.render();
-            }, 200);
         });
         this.membersPopup.eventBus.on('membersPopup:memberInvite', () => {
             this.memberInvitePopup.render({sharedUrl: this.model.board.sharedUrl});
@@ -180,7 +178,6 @@ export default class CurrentBoardController extends BaseController {
         });
         this.eventBus.on('currentBoardModel:memberInviteSuccess', (responseBody) => {
             console.log('currentBoardModel:memberInviteSuccess', responseBody);
-            // TODO: сделать добавление на вьюху доски и разобраться с рендером попапа тут
             this.render();
             this.membersPopup.render(this.model.board);
         });
@@ -189,7 +186,10 @@ export default class CurrentBoardController extends BaseController {
         });
         this.eventBus.on('currentBoardModel:memberExpelSuccess', (responseBody) => {
             console.log('currentBoardModel:memberExpelSuccess', responseBody);
-            // TODO: сделать удаление с вьюхи доски
+            if (responseBody.memberUsername === userSession.data.username) {
+                this.router.open('/');
+            }
+            this.render();
         });
         this.memberInvitePopup.eventBus.on('memberInvitePopup:popupClose', () => {
             this.membersPopup.render(this.model.board);
