@@ -78,7 +78,7 @@ export default class CurrentBoardController extends BaseController {
      * Delete all cards
      */
     deleteCards() {
-        delete this.cards;
+        this.cards = [];
         this.view.deleteCards();
     }
 
