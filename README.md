@@ -3,7 +3,7 @@ Frontend репозиторий команды ExtraSafe
 
 ## Попробовать онлайн
 
-http://tabutask.ru/
+https://tabutask.ru/
 
 ## Установка и запуск
 
@@ -14,8 +14,12 @@ cd 2020_2_ExtraSafe
 
 npm i
 
-npm run dev-start
+npm run start
 ```
+
+## Ссылка на backend
+
+https://github.com/go-park-mail-ru/2020_2_ExtraSafe
 
 ## Авторы
 
