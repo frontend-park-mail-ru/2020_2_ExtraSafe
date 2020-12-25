@@ -33,7 +33,7 @@ export default class MemberInvitePopup {
             this.eventBus.emit('memberInvitePopup:popupClose', null);
         });
         document.getElementById('memberInvitePopupAdd').addEventListener('click', () => {
-            const memberUsername = document.getElementById('memberInvitePopupName').innerText;
+            const memberUsername = document.getElementById('memberInvitePopupName').value;
             this.eventBus.emit('memberInvitePopup:memberInvite', memberUsername);
         });
 
