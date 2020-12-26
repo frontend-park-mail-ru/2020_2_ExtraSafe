@@ -145,7 +145,6 @@ export default class CurrentBoardController extends BaseController {
         });
         this.eventBus.on('currentBoardView:leaveBoard', () => {
             this.model.memberExpel({memberUsername: userSession.data.username});
-            this.router.open('/');
         });
         this.eventBus.on('currentBoardModel:boardDeleted', () => {
             console.log('currentBoardModel:boardDeleted');
@@ -198,6 +197,7 @@ export default class CurrentBoardController extends BaseController {
             console.log('currentBoardModel:memberExpelSuccess', responseBody);
             if (responseBody.memberUsername === userSession.data.username) {
                 this.router.open('/');
+                return;
             }
             this.render();
         });
