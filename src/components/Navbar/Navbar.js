@@ -18,7 +18,7 @@ class Navbar {
         this.el.innerHTML = navbarTemplate();
         this.setAvatarURL(UserSession.data.avatar);
         this.addEventListeners();
-        this.hidden = true;
+        this.hidden = false;
         this.navbarHide();
         globalEventBus.on('userSession:set', (input) => {
             this.setAvatarURL(input.avatar);
