@@ -16,7 +16,6 @@ export default class ProfileSettingsView extends BaseView {
      */
     constructor(el, eventBus) {
         super(el, eventBus);
-        this.serverSuccessHidden = true;
     }
 
     /**
@@ -59,7 +58,7 @@ export default class ProfileSettingsView extends BaseView {
             this.serverSuccessHidden = false;
             profileSuccess.className = 'changes__success';
             profileSuccess.innerHTML = 'Данные изменены';
-            profileSuccess.hidden = false;
+            profileSuccess.removeAttribute('hidden');
         }
     }
 
@@ -166,6 +165,7 @@ export default class ProfileSettingsView extends BaseView {
     render() {
         const templateInput = this.templateJSONSetup();
         this.el.innerHTML = profileSettingsViewTemplate(templateInput);
+        this.serverSuccessHidden = true;
         this.setParams(userSession.data);
         this.addEventListeners();
     }

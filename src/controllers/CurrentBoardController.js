@@ -46,6 +46,7 @@ export default class CurrentBoardController extends BaseController {
             }
         });
 
+        this.cards = [];
         for (const card of cards) {
             const newCard = this.addCard(card.cardID, card.cardName, card.cardOrder);
             newCard.addTasksFromJSON(card.cardTasks);
