@@ -16,6 +16,7 @@ export default class ProfileSettingsView extends BaseView {
      */
     constructor(el, eventBus) {
         super(el, eventBus);
+        this.serverSuccessHidden = true;
     }
 
     /**
@@ -54,7 +55,8 @@ export default class ProfileSettingsView extends BaseView {
      */
     showServerSuccess() {
         const profileSuccess = document.getElementById('emailError');
-        if (profileSuccess.hidden === true) {
+        if (this.serverSuccessHidden) {
+            this.serverSuccessHidden = false;
             profileSuccess.className = 'changes__success';
             profileSuccess.innerHTML = 'Данные изменены';
             profileSuccess.hidden = false;

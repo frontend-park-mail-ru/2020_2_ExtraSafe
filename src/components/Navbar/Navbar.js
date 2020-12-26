@@ -18,6 +18,7 @@ class Navbar {
         this.el.innerHTML = navbarTemplate();
         this.setAvatarURL(UserSession.data.avatar);
         this.addEventListeners();
+        this.hidden = true;
         this.navbarHide();
         globalEventBus.on('userSession:set', (input) => {
             this.setAvatarURL(input.avatar);
@@ -28,17 +29,23 @@ class Navbar {
      * Show navbar
      */
     navbarShow() {
-        this.el.hidden = false;
-        this.ws = network.webSocketNotificationsConnection();
-        this.addWsEventListeners();
+        if (this.hidden) {
+            this.hidden = false;
+            this.el.hidden = false;
+            this.ws = network.webSocketNotificationsConnection();
+            this.addWsEventListeners();
+        }
     }
 
     /**
      * Hide navbar
      */
     navbarHide() {
-        this.el.hidden = true;
-        delete this.ws;
+        if (!this.hidden) {
+            this.hidden = true;
+            this.el.hidden = true;
+            delete this.ws;
+        }
     }
 
     /**
