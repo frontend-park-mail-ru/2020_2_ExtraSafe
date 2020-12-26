@@ -1,9 +1,9 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
-    <div class="board-info__container">
-        <div class="board-info__left-side__container">
-            <div class="board-info__left-side__name-favorite__container">
+    <div class="board-info">
+        <div class="board-info-left-side">
+            <div class="board-info-left-side-name-favorite">
 
-                <div class="board-info__left-side__name-favorite__board-name" id="boardName">
+                <div class="board-info-left-side-name-favorite__board-name" id="boardName">
                     <fest:attributes>
                         <fest:if test="json.isAdmin">
                             <fest:attribute name="contenteditable" value="true"/>
@@ -15,11 +15,11 @@
 <!--                <img class="board-info__left-side__name-favorite__favorite__icon" src="../../img/icons/favorite.svg" alt="favorite"/>-->
             </div>
 
-            <div class="board-info__left-side__collaborators">
+            <div class="board-info-left-side-collaborators">
                 <fest:for iterate="json.boardMembers" index="i" value="v">
-                    <img class="board-info__left-side__collaborator" src="{v.memberAvatarSrc}" id="{v.memberBoardHtmlID}" alt="collaborator"/>
+                    <img class="board-info-left-side-collaborator" src="{v.memberAvatarSrc}" id="{v.memberBoardHtmlID}" alt="collaborator"/>
                 </fest:for>
-                    <img class="board-info__left-side__collaborator" src="../../img/icons/members_dots.svg"
+                    <img class="board-info-left-side-collaborator" src="../../img/icons/members_dots.svg"
                          id="addMember" title="Управление участниками" alt="add-collaborator">
                         <fest:attributes>
                             <fest:if test="json.isAdmin">
@@ -28,12 +28,12 @@
                             <fest:attribute name="style" value="display: none;"/>
                         </fest:attributes>
                     </img>
-                <div class="add-collaborator__container" id="membersPopup"/>
+                <div class="add-collaborator" id="membersPopup"/>
             </div>
         </div>
 
-        <div class="board-info__right-side__container">
-            <img class="board-info__right-side__settings__icon" id="boardSettings" title="Удалить доску" alt="settings">
+        <div class="board-info-right-side">
+            <img class="board-info-right-side__settings-icon" id="boardSettings" title="Удалить доску" alt="settings">
                 <fest:attributes>
                     <fest:if test="json.isAdmin">
                         <fest:attribute name="src" value="../../img/icons/bin.svg"/>
@@ -45,16 +45,16 @@
 
     </div>
 
-    <div class="scroll-cards__container">
+    <div class="scroll-cards-container">
 
         <div id="cardsDiv" style="display: flex"/>
 
-        <div class="new-card__container">
-            <div class="new-card__content__container">
-                <div class="new-card__title__container" id="addCardButton">
-                    <img class="new-card__title__add-new__icon" src="../../img/icons/add_white.svg" alt="add"/>
+        <div class="new-card">
+            <div class="new-card-content">
+                <div class="new-card-title" id="addCardButton">
+                    <img class="new-card-title__add-new-icon" src="../../img/icons/add_white.svg" alt="add"/>
 
-                    <div class="new-card__title__text">
+                    <div class="new-card-title__text">
                         Добавить колонку
                     </div>
                 </div>
@@ -62,5 +62,5 @@
         </div>
 
     </div>
-    <div class="edit-task__container" id="taskDetailed"/>
+    <div class="edit-task" id="taskDetailed"/>
 </fest:template>

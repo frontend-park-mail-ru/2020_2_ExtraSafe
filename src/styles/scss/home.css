@@ -1,5 +1,5 @@
 @media screen and (max-width: 850px) {
-  .home__left-side__container {
+  .home-left-side {
     display: none !important;
   }
 
@@ -8,22 +8,22 @@
   }
 }
 @media screen and (max-width: 470px) {
-  .boards__container {
+  .boards {
     justify-content: space-between !important;
   }
 
-  .board__container {
+  .board {
     width: calc(50% - 12px) !important;
   }
 }
-.main__container {
+.main {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
 }
 
-.home__container {
+.home {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -31,7 +31,7 @@
   max-width: 1300px;
   margin: 35px 0 0 0;
 }
-.home__left-side__container {
+.home-left-side {
   display: flex;
   flex-direction: column;
   justify-content: end;
@@ -40,7 +40,7 @@
   max-width: 200px;
   gap: 25px;
 }
-.home__left-side__menu__container {
+.home-left-side-menu {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -51,7 +51,7 @@
   background: white;
   filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.15));
 }
-.home__left-side__menu__element {
+.home-left-side-menu__element {
   display: flex;
   margin-left: 20px;
   width: fit-content;
@@ -65,10 +65,10 @@
   transition: 0.05s linear;
   cursor: pointer;
 }
-.home__left-side__menu__element:hover {
+.home-left-side-menu__element:hover {
   color: #6D27E7;
 }
-.home__left-side__menu__element_active {
+.home-left-side-menu__element_active {
   display: flex;
   width: fit-content;
   margin: 0 0 0 20px;
@@ -80,7 +80,7 @@
   color: #6D27E7;
   cursor: default;
 }
-.home__left-side__team__container {
+.home-left-side-team {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -91,7 +91,7 @@
   background: white;
   filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.15));
 }
-.home__left-side__team__title {
+.home-left-side-team__title {
   display: flex;
   align-self: center;
   justify-self: flex-start;
@@ -104,14 +104,14 @@
   color: #333333;
   cursor: default;
 }
-.home__left-side__team__title__container {
+.home-left-side-team__title-container {
   display: flex;
   align-items: center;
   height: 35px;
   width: 100%;
   border-bottom: 1px solid #CCCCCC;
 }
-.home__left-side__team__add-new__container {
+.home-left-side-team__add-new {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -120,7 +120,7 @@
   gap: 10px;
   cursor: pointer;
 }
-.home__left-side__team__add-new__text {
+.home-left-side-team__add-new-text {
   display: flex;
   align-items: center;
   font-family: Roboto, sans-serif;
@@ -130,19 +130,19 @@
   line-height: 16px;
   color: #808080;
 }
-.home__left-side__team__add-new__icon {
+.home-left-side-team__add-new-icon {
   display: flex;
   width: 18px;
   height: 18px;
 }
-.home__right-side__container {
+.home-right-side {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 97%;
   max-width: 1000px;
 }
-.home__right-side__title__container {
+.home-right-side-title {
   display: flex;
   flex-direction: row;
   flex-flow: wrap;
@@ -153,7 +153,7 @@
   margin: 0 0 25px 0;
   border-bottom: 1px solid #333333;
 }
-.home__right-side__title__text {
+.home-right-side-title__text {
   display: flex;
   margin: 0 0 5px 20px;
   font-family: Roboto, sans-serif;
@@ -166,7 +166,7 @@
   cursor: default;
 }
 
-.boards__container {
+.boards {
   display: flex;
   flex-direction: row;
   flex-flow: wrap;
@@ -176,7 +176,7 @@
   height: -webkit-fill-available;
 }
 
-.board__container {
+.board {
   flex: 0 0 auto;
   text-align: center;
   width: calc(25% - 12px);
@@ -188,7 +188,7 @@
   background: #FFFFFF;
   cursor: pointer;
 }
-.board__name__container {
+.board-name {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -198,7 +198,7 @@
   border-right: 1px solid #7653DE;
   background: #7653DE;
 }
-.board__name__text {
+.board-name__text {
   display: flex;
   margin: 0 0 0 10px;
   font-family: Roboto, sans-serif;
@@ -209,19 +209,19 @@
   color: #F3F3F3;
   cursor: pointer;
 }
-.board__name__dots-icon {
+.board-name__dots-icon {
   width: 16px;
   height: 16px;
   margin: 0 10px 0 0;
   cursor: pointer;
 }
-.board__description__container {
+.board-description {
   display: flex;
   flex-direction: row;
   align-items: center;
   padding: 10px;
 }
-.board__description__text {
+.board-description__text {
   display: flex;
   flex-grow: 10;
   justify-self: center;
@@ -234,7 +234,7 @@
   text-align: left;
   cursor: default;
 }
-.board__description__favorite {
+.board-description__favorite {
   flex-grow: 1;
   align-self: flex-end;
   height: 15px;

@@ -1,11 +1,11 @@
 @charset "UTF-8";
 @media screen and (max-width: 470px) {
-  .default__container__without-navbar {
+  .default-container-without-navbar {
     background: #FFFFFF !important;
   }
 }
 @media screen and (max-height: 500px) {
-  .default__container__with-navbar {
+  .default-container-with-navbar {
     justify-content: start !important;
   }
 }
@@ -17,7 +17,7 @@
 /* Стиль для всего body */
 body {
   margin: 0;
-  background: #F2F2F2;
+  background-color: #000000;
 }
 
 /* Базовый стиль для всего приложения */
@@ -39,6 +39,7 @@ body {
   flex-direction: column;
   flex-grow: 1;
   height: 100%;
+  background: #F2F2F2;
 }
 
 /* Стандартный input */
@@ -54,7 +55,7 @@ input:focus {
 }
 
 /* Контейнер с навбаром */
-.default__container__with-navbar {
+.default-container-with-navbar {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -68,12 +69,12 @@ input:focus {
   line-height: normal;
   overflow-y: auto;
 }
-.default__container__with-navbar::-webkit-scrollbar {
+.default-container-with-navbar::-webkit-scrollbar {
   width: 0;
 }
 
 /* Контейнер без навбара */
-.default__container__without-navbar {
+.default-container-without-navbar {
   display: flex;
   flex-direction: column;
   align-items: center;

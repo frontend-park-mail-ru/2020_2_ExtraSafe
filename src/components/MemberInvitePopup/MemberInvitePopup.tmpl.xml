@@ -1,8 +1,8 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
     <img class="add-collaborator__close" src="../../img/icons/close.svg" id="memberInvitePopupClose" alt="close"/>
 
-    <div class="invite-users" style="display: flex; width: 100%">
-        <div class="add-collaborator__body">
+    <div class="invite-users">
+        <div class="add-collaborator-body">
             <div class="add-collaborator__title">
                 Добавить пользователя
             </div>

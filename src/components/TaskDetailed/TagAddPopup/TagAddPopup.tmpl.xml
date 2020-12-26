@@ -1,14 +1,14 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
     <img class="edit-tags__close" src="../../img/icons/close.svg" id="closeTagPopup" alt="close"/>
 
-    <div class="edit-tags__add__container">
-        <div class="edit-tags__add__title">
+    <div class="edit-tags-add">
+        <div class="edit-tags-add__title">
             Добавить метку
         </div>
 
-        <div class="edit-tags__add__tags__container">
+        <div class="edit-tags-add-tags">
             <fest:for iterate="json.tags" index="i" value="v">
-                <div class="edit-tags__add__tag__line" id="{v.tagHtmlID}">
+                <div class="edit-tags-add-tag__line" id="{v.tagHtmlID}">
                     <div id="{v.tagBodyHtmlID}" style="background: {v.tagColor}">
                         <fest:attributes>
                             <fest:if test="v.isSelected">
@@ -20,11 +20,11 @@
                                 edit-tags__add__tag
                             </fest:attribute>
                         </fest:attributes>
-                        <div class="edit-tags__add__tag__name">
+                        <div class="edit-tags-add-tag__name">
                             <fest:value>v.tagName</fest:value>
                         </div>
 
-                        <img class="edit-tags__selected__icon" src="../../img/icons/selected.svg" id="{v.tagCheckID}"
+                        <img class="edit-tags__selected-icon" src="../../img/icons/selected.svg" id="{v.tagCheckID}"
                              alt="selected_tag">
                             <fest:attributes>
                                 <fest:if test="v.isSelected">
@@ -36,15 +36,15 @@
                         </img>
                     </div>
 
-                    <img class="edit-tags__add__pen-icon" src="../../img/icons/edit_tag.svg" id="{v.tagEditID}" alt="edit_tag"/>
+                    <img class="edit-tags-add__pen-icon" src="../../img/icons/edit_tag.svg" id="{v.tagEditID}" alt="edit_tag"/>
                 </div>
             </fest:for>
         </div>
 
-        <div class="edit-tags__add-new__container" id="createTag">
-            <img class="edit-tags__add-new__icon" src="../../img/icons/add.svg" alt="add"/>
+        <div class="edit-tags-add-new" id="createTag">
+            <img class="edit-tags-add-new__icon" src="../../img/icons/add.svg" alt="add"/>
 
-            <div class="edit-tags__add-new__text">
+            <div class="edit-tags-add-new__text">
                 Создать метку
             </div>
         </div>

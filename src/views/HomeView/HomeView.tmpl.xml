@@ -1,6 +1,6 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
-    <div class="main__container">
-        <div class="home__container">
+    <div class="main">
+        <div class="home">
 
 <!--            <div class="home__left-side__container">-->
 <!--                <div class="home__left-side__menu__container">-->
@@ -30,7 +30,7 @@
 <!--                </div>-->
 <!--            </div>-->
 
-            <div class="home__right-side__container">
+            <div class="home-right-side">
 
 <!--                <div class="home__right-side__title__container">-->
 <!--                    <div class="home__right-side__title__text">-->
@@ -40,21 +40,21 @@
 
 <!--                <div class="boards__container" id="favoriteBoardsDiv"/>-->
 
-                <div class="home__right-side__title__container">
-                    <div class="home__right-side__title__text">
+                <div class="home-right-side-title">
+                    <div class="home-right-side-title__text">
                         Мои доски
                     </div>
                 </div>
 
-                <div class="boards__container">
+                <div class="boards">
                     <div id="boardsDiv" style="display: contents"/>
 
 <!--                    TODO: сверстать добавление доски-->
-                    <div class="board__container">
-                        <div class="board__name__container" id="addBoard" style="justify-content: center">
-                            <img class="new-card__title__icon_add-new" src="../../img/icons/add_white.svg" alt="add"/>
+                    <div class="board">
+                        <div class="board-name" id="addBoard" style="justify-content: center">
+                            <img class="new-card-title__add-new-icon" src="../../img/icons/add_white.svg" alt="add"/>
 
-                            <div class="board__name__text">
+                            <div class="board-name__text">
                                 Добавить
                             </div>
                         </div>
@@ -70,5 +70,5 @@
             </div>
         </div>
     </div>
-    <div class="edit-task__container" id="addBoardPopup"/>
+    <div class="edit-task" id="addBoardPopup"/>
 </fest:template>

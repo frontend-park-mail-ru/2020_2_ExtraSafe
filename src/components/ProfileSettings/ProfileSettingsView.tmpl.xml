@@ -8,7 +8,7 @@
         </label>
         <input id="imageInput" style="display: none" type="file" accept="image/jpeg,image/png"/>
 
-        <div class="settings__input__container">
+        <div class="settings__input-container">
             <fest:include context="json.usernameInput" src="../../components/NamedInput/NamedInput.tmpl.xml"/>
             <fest:include context="json.fullNameInput" src="../../components/NamedInput/NamedInput.tmpl.xml"/>
             <fest:include context="json.emailInput" src="../../components/NamedInput/NamedInput.tmpl.xml"/>

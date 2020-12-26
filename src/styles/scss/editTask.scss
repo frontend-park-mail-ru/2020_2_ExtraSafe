@@ -4,26 +4,26 @@
 // Адаптивная верстка для телефона
 @media screen and (max-width: $mobile-breakpoint) {
 
-    .edit-task__content__container,
-    .edit-task__content__name__container,
-    .edit-task__content__info__container
+    .edit-task-content,
+    .edit-task-content-name,
+    .edit-task-content-info
     {
         width: 90% !important;
     }
 
-    .edit-task__content__container {
+    .edit-task-content {
         top: 10%
     }
 
-    .edit-task__content__info {
+    .edit-task-content-info {
         flex-flow: wrap !important;
     }
 
-    .edit-task__content__info__elements {
+    .edit-task-content-info-elements {
         margin: 0 0 15px 0 !important;
     }
 
-    .edit-tags__container {
+    .edit-tags {
         top: 210px !important;
     }
 }
@@ -39,74 +39,62 @@
 
 // Настройка задачи
 .edit-task {
+    display: none;
+    flex-direction: column;
 
-    // Контейнер настройки задачи
-    &__container {
-        display: none;
-        flex-direction: column;
+    position: fixed;
 
-        position: fixed;
+    align-items: center;
 
-        align-items: center;
+    overflow-y: auto;
 
-        overflow-y: auto;
-
-        &::-webkit-scrollbar {
-            width: 0;
-        }
-
-        top: 0;
-
-        width: 100vw;
-        height: 100vh;
-
-        background-color: $background_inactive;
+    &::-webkit-scrollbar {
+        width: 0;
     }
 
+    top: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    background-color: $background_inactive;
+
     // Содержимое настройки задачи
-    &__content {
+    &-content {
+        @include flex-column;
+        flex-shrink: 0;
 
-        // Контейнер настройки содержимого задачи
-        &__container {
-            @include flex-column;
-            flex-shrink: 0;
+        // position: absolute;
 
-            // position: absolute;
+        align-items: center;
+        justify-content: flex-start;
 
-            align-items: center;
-            justify-content: flex-start;
+        width: 100%;
+        max-width: 615px;
+        height: fit-content;
+        margin: 10vh 0;
 
-            width: 100%;
-            max-width: 615px;
-            height: fit-content;
-            margin: 10vh 0;
+        @include standard-border-radius;
+        @include standard-shadow;
 
-            @include standard-border-radius;
-            @include standard-shadow;
-
-            background: $white;
-        }
+        background: $white;
 
         // Название задачи
-        &__name {
+        &-name {
+            display: flex;
+            position: relative;
 
-            // Контейнер названия задачи
-            &__container {
-                display: flex;
-                position: relative;
+            justify-content: flex-start;
+            justify-self: center;
 
-                justify-content: flex-start;
-                justify-self: center;
+            z-index: 1;
 
-                z-index: 1;
+            width: 100%;
+            max-width: 555px;
 
-                width: 100%;
-                max-width: 555px;
+            padding: 25px 0 10px 0;
 
-                padding: 25px 0 10px 0;
-
-                border-bottom: 1px solid $dark-grey;
-            }
+            border-bottom: 1px solid $dark-grey;
 
             // Текст названия задачи
             &__text {
@@ -132,14 +120,14 @@
         }
 
         // Информация по коллабораторам и тегам задачи
-        &__info {
+        &-info {
             @include flex-row;
 
             width: 100%;
             max-width: 540px;
 
             // Контейнер информации |~|
-            &__container {
+            &-container {
                 @include flex-column;
 
                 justify-content: flex-start;
@@ -161,7 +149,7 @@
             }
 
             // Набор элементов: коллабораторы и теги
-            &__elements {
+            &-elements {
                 @include flex-row;
 
                 position: relative;
@@ -169,7 +157,7 @@
                 flex-wrap: wrap;
 
                 // Иконка добавления тега или коллаборатора
-                &__add-new__icon {
+                &__add-new-icon {
                     display: flex;
 
                     height: 28px;
@@ -184,7 +172,7 @@
             }
 
             // Коллабораторы
-            &__collaborator {
+            &-collaborator {
                 position: relative;
 
                 height: 28px;
@@ -199,7 +187,7 @@
                 cursor: pointer;
 
                 // Контейнер коллабораторов
-                &__container {
+                &-container {
                     @include flex-column;
                     justify-content: flex-start;
 
@@ -213,7 +201,7 @@
             }
 
             // Теги
-            &__tag {
+            &-tag {
                 display: flex;
 
                 @include content-center;
@@ -231,7 +219,7 @@
                 cursor: pointer;
 
                 // Контейнер тегов
-                &__container {
+                &-container {
                     @include flex-column;
 
                     justify-content: flex-start;
@@ -254,21 +242,17 @@
         }
 
         // Описание задачи
-        &__description {
+        &-description {
+            @include flex-column;
 
-            // Контейнер описания задачи
-            &__container {
-                @include flex-column;
+            align-items: flex-start;
+            justify-content: flex-start;
 
-                align-items: flex-start;
-                justify-content: flex-start;
+            width: 100%;
+            max-width: 550px;
 
-                width: 100%;
-                max-width: 550px;
-
-                padding: 20px 0 0 0;
-                margin: 0 0 20px 0;
-            }
+            padding: 20px 0 0 0;
+            margin: 0 0 20px 0;
 
             // Заголовок описания задачи, слово "Описание",
             // Возможно, стоит проработать этот момент и
@@ -282,7 +266,7 @@
             }
 
             // Тело описания задачи
-            &__body {
+            &-body {
                 @include flex-column;
 
                 width: 100%;
@@ -328,7 +312,7 @@
 
                     border-top: 1px solid $input-border-color;
 
-                    &__save-button {
+                    &-save-button {
                         display: none;
 
                         @include content-center;
@@ -352,18 +336,14 @@
         }
 
         // Вложения задачи
-        &__attachments {
+        &-attachments {
+            @include flex-column;
 
-            // Контейнер вложений
-            &__container {
-                @include flex-column;
+            align-items: flex-start;
+            justify-content: flex-start;
 
-                align-items: flex-start;
-                justify-content: flex-start;
-
-                width: 100%;
-                max-width: 550px;
-            }
+            width: 100%;
+            max-width: 550px;
 
             // Заголовок
             &__title {
@@ -375,7 +355,7 @@
             }
 
             // Тело с вложениями
-            &__body {
+            &-body {
                 @include flex-column;
 
                 align-items: center;
@@ -388,7 +368,7 @@
 
                 background: $light-grey;
 
-                &__element {
+                &-element {
                     @include flex-row;
 
                     align-items: center;
@@ -399,7 +379,7 @@
 
                     margin: 10px 0 0 0;
 
-                    &__left {
+                    &-left {
                         @include flex-row;
 
                         align-items: center;
@@ -408,7 +388,7 @@
 
                         cursor: pointer;
 
-                        &:hover ~ .edit-task__content__attachments__body__element__right {
+                        &:hover ~ .edit-task-content-attachments-body-element-right {
                             color: $grey-text-color;
                         }
 
@@ -430,7 +410,7 @@
 
                     }
 
-                    &__right {
+                    &-right {
                         display: flex;
                         justify-content: flex-end;
 
@@ -458,29 +438,24 @@
             }
 
             // Добавление нового вложения
-            &__add-new {
+            &-add-new {
+                @include flex-row;
 
-                // Контейнер добавления нового вложения
-                &__container {
-                    @include flex-row;
+                width: fit-content;
 
-                    width: fit-content;
+                justify-content: center;
+                align-self: center;
 
-                    justify-content: center;
-                    align-self: center;
+                margin: 5px 10px 5px 10px;
+                padding: 10px 20px 10px 20px;
 
-                    margin: 5px 10px 5px 10px;
-                    padding: 10px 20px 10px 20px;
+                @include standard-border-radius;
 
-                    @include standard-border-radius;
+                cursor: pointer;
 
-
-                    cursor: pointer;
-
-                    &:hover {
-                        background: $element-active;
-                        transition: 0.1s linear;
-                    }
+                &:hover {
+                    background: $element-active;
+                    transition: 0.1s linear;
                 }
 
                 // Иконка добавления нового вложения
@@ -501,23 +476,20 @@
         }
 
         // Чек-листы
-        &__check-lists {
+        &-check-lists {
+            @include flex-column;
 
-            // Контейнер вложений
-            &__container {
-                @include flex-column;
+            align-items: flex-start;
+            justify-content: flex-start;
 
-                align-items: flex-start;
-                justify-content: flex-start;
-
-                width: 100%;
-                max-width: 550px;
-            }
+            width: 100%;
+            max-width: 550px;
 
             // Заголовок
             &__title {
 
-                &__container {
+
+                &-container {
                     @include flex-row;
 
                     justify-content: space-between;
@@ -550,7 +522,7 @@
             }
 
             // Тело чек-листа
-            &__body {
+            &-body {
                 @include flex-column;
 
                 align-items: center;
@@ -563,7 +535,7 @@
 
                 background: $light-grey;
 
-                &__element {
+                &-element {
                     @include flex-row;
 
                     align-items: center;
@@ -606,30 +578,27 @@
                         cursor: pointer;
                     }
 
-                    &__add-new {
+                    &-add-new {
+                        @include flex-row;
 
-                        // Контейнер добавления нового элемента в чек-листе
-                        &__container {
-                            @include flex-row;
+                        width: fit-content;
 
-                            width: fit-content;
+                        justify-content: center;
+                        align-self: center;
 
-                            justify-content: center;
-                            align-self: center;
+                        padding: 5px;
+                        margin: 0 0 0 5px;
 
-                            padding: 5px;
-                            margin: 0 0 0 5px;
-
-                            @include standard-border-radius;
+                        @include standard-border-radius;
 
 
-                            cursor: pointer;
+                        cursor: pointer;
 
-                            &:hover {
-                                background: $element-active;
-                                transition: 0.1s linear;
-                            }
+                        &:hover {
+                            background: $element-active;
+                            transition: 0.1s linear;
                         }
+
 
                         // Иконка добавления нового элемента в чек-листе
                         &__icon {
@@ -651,33 +620,30 @@
             }
 
             // добавление нового чек-листа
-            &__add-new {
+            &-add-new {
+                @include flex-row;
 
-                // контейнер создания нового чек-листа
-                &__container {
-                    @include flex-row;
+                position: relative;
 
-                    position: relative;
+                width: fit-content;
 
-                    width: fit-content;
+                justify-content: center;
+                align-self: center;
 
-                    justify-content: center;
-                    align-self: center;
+                margin: 5px 10px 5px 0;
+                padding: 10px 20px 10px 20px;
 
-                    margin: 5px 10px 5px 0;
-                    padding: 10px 20px 10px 20px;
-
-                    @include standard-border-radius;
+                @include standard-border-radius;
 
 
-                    cursor: pointer;
+                cursor: pointer;
 
-                    // поведение при наведении
-                    &:hover {
-                        background: $element-active;
-                        transition: 0.1s linear;
-                    }
+                // поведение при наведении
+                &:hover {
+                    background: $element-active;
+                    transition: 0.1s linear;
                 }
+
 
                 // Иконка добавления нового чек-листа
                 &__icon {
@@ -698,20 +664,17 @@
         }
 
         // Комментарии к задаче
-        &__comments {
+        &-comments {
+            @include flex-column;
 
-            // Контейнер комментариев
-            &__container {
-                @include flex-column;
+            align-items: flex-start;
+            justify-content: flex-start;
 
-                align-items: flex-start;
-                justify-content: flex-start;
+            width: 100%;
+            max-width: 550px;
 
-                width: 100%;
-                max-width: 550px;
+            margin: 0 0 10px 0;
 
-                margin: 0 0 10px 0;
-            }
 
             // Заголовок
             &__title {
@@ -723,7 +686,7 @@
             }
 
             // Блок написания новых комментариев
-            &__add {
+            &-add {
                 @include flex-row;
 
                 width: 100%;
@@ -745,7 +708,7 @@
                     @include standard-shadow;
                 }
 
-                &__comment {
+                &-comment {
                     @include flex-column;
 
                     width: 100%;
@@ -796,14 +759,14 @@
             }
 
             // Тело с написанными комментариями
-            &__body {
+            &-body {
 
                 display: flex;
                 flex-direction: column-reverse;
 
                 width: 100%;
 
-                &__comment {
+                &-comment {
 
                     @include flex-row;
 
@@ -824,11 +787,11 @@
                         @include standard-shadow;
                     }
 
-                    &__right {
+                    &-right {
                         @include flex-column;
                         width: 100%;
 
-                        &__header {
+                        &-header {
                             @include flex-row;
 
                             justify-content: space-between;
@@ -888,7 +851,7 @@
         }
 
         // Удаление задачи
-        &__delete {
+        &-delete {
 
             // Иконка удаления задачи
             &__icon {
@@ -926,37 +889,31 @@
 
 // PopUp с тегами
 .edit-tags {
+    display: none;
 
-    &__container {
-        display: none;
+    position: absolute;
 
-        position: absolute;
+    z-index: 1;
 
-        z-index: 1;
+    align-items: flex-start;
+    justify-content: center;
 
-        align-items: flex-start;
-        justify-content: center;
+    top: 140px;
 
-        top: 140px
-    }
+    &-add {
+        @include flex-column;
 
-    &__add {
+        justify-content: space-between;
+        align-items: center;
 
-        &__container {
-            @include flex-column;
+        width: 100vw;
+        max-width: 225px;
 
-            justify-content: space-between;
-            align-items: center;
+        @include standard-border-radius;
 
-            width: 100vw;
-            max-width: 225px;
+        @include standard-shadow;
 
-            @include standard-border-radius;
-
-            @include standard-shadow;
-
-            background: $white;
-        }
+        background: $white;
 
         &__title {
             display: flex;
@@ -968,7 +925,7 @@
             cursor: default;
         }
 
-        &__tag {
+        &-tag {
             display: flex;
 
             position: relative;
@@ -1018,36 +975,29 @@
             cursor: pointer;
         }
 
-        &__tags {
+        &-tags {
+            @include flex-column;
 
-            &__container {
-                @include flex-column;
+            align-items: center;
 
-                align-items: center;
-
-                margin: 10px 0 0 0;
-            }
-
+            margin: 10px 0 0 0;
         }
 
         &-new {
+            @include flex-row;
 
-            &__container {
-                @include flex-row;
+            justify-content: center;
 
-                justify-content: center;
+            padding: 8px;
+            margin: 5px;
 
-                padding: 8px;
-                margin: 5px;
+            @include standard-border-radius;
 
-                @include standard-border-radius;
+            cursor: pointer;
 
-                cursor: pointer;
-
-                &:hover {
-                    background: $element-active;
-                    transition: 0.1s linear;
-                }
+            &:hover {
+                background: $element-active;
+                transition: 0.1s linear;
             }
 
             &__icon {
@@ -1064,23 +1014,20 @@
 
     }
 
-    &__create {
+    &-create {
+        @include flex-column;
 
-        &__container {
-            @include flex-column;
+        justify-content: space-between;
+        align-items: center;
 
-            justify-content: space-between;
-            align-items: center;
+        width: 100vw;
+        max-width: 225px;
 
-            width: 100vw;
-            max-width: 225px;
+        @include standard-border-radius;
 
-            @include standard-border-radius;
+        @include standard-shadow;
 
-            @include standard-shadow;
-
-            background: $white;
-        }
+        background: $white;
 
         &__title {
             display: flex;
@@ -1092,7 +1039,14 @@
             cursor: default;
         }
 
-        &__tag {
+        &-tag {
+            @include flex-row;
+
+            @include content-center;
+
+            flex-flow: wrap;
+
+            max-width: 200px;
 
             &__name {
                 display: flex;
@@ -1100,16 +1054,6 @@
                 max-width: 200px;
 
                 margin: 15px 0 15px 0;
-            }
-
-            &__container {
-                @include flex-row;
-
-                @include content-center;
-
-                flex-flow: wrap;
-
-                max-width: 200px;
             }
 
             &__color {
@@ -1130,8 +1074,6 @@
 
                 cursor: pointer;
             }
-
-
         }
 
         &__button {
@@ -1151,7 +1093,7 @@
         outline: none;
         box-shadow: 0 0 0 2px $electric-indigo inset !important;
 
-        &__icon {
+        &-icon {
             display: none;
 
             width: 17px;
@@ -1189,21 +1131,18 @@
 
 // PopUp с чек-листами
 .edit-check-lists {
+    display: none;
 
-    &__container {
-        display: none;
+    position: absolute;
 
-        position: absolute;
+    z-index: 1;
 
-        z-index: 1;
+    align-items: flex-start;
+    justify-content: center;
 
-        align-items: flex-start;
-        justify-content: center;
+    margin: 10px 0 0 0;
 
-        margin: 10px 0 0 0;
-    }
-
-    &__body {
+    &-body {
         @include flex-column;
 
         position: relative;
@@ -1267,25 +1206,22 @@
 
 // Добавление коллаборатора на задачу
 .edit-add-collaborator {
+    display: flex;
 
-    &__container {
-        display: flex;
+    position: absolute;
 
-        position: absolute;
+    z-index: 2;
 
-        z-index: 2;
+    align-items: flex-start;
+    justify-content: center;
 
-        align-items: flex-start;
-        justify-content: center;
+    width: 250px;
+    // width: 100%;
 
-        width: 250px;
-        // width: 100%;
+    top: 65px;
+    // left: 40px;
 
-        top: 65px;
-        // left: 40px;
-    }
-
-    &__body {
+    &-body {
         @include flex-column;
 
         position: relative;
@@ -1316,7 +1252,7 @@
         cursor: default;
     }
 
-    &__left-side {
+    &-left-side {
         display: flex;
 
         width: 100%;
@@ -1324,7 +1260,7 @@
         cursor: pointer;
     }
 
-    &__element {
+    &-element {
         @include flex-row;
 
         align-items: center;
@@ -1361,7 +1297,7 @@
             color: $dark-grey;
         }
 
-        &__selected{
+        &_selected{
             display: none;
 
             width: 20px;

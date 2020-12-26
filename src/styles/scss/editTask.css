@@ -1,23 +1,23 @@
 @media screen and (max-width: 470px) {
-  .edit-task__content__container,
-.edit-task__content__name__container,
-.edit-task__content__info__container {
+  .edit-task-content,
+.edit-task-content-name,
+.edit-task-content-info {
     width: 90% !important;
   }
 
-  .edit-task__content__container {
+  .edit-task-content {
     top: 10%;
   }
 
-  .edit-task__content__info {
+  .edit-task-content-info {
     flex-flow: wrap !important;
   }
 
-  .edit-task__content__info__elements {
+  .edit-task-content-info-elements {
     margin: 0 0 15px 0 !important;
   }
 
-  .edit-tags__container {
+  .edit-tags {
     top: 210px !important;
   }
 }
@@ -31,7 +31,7 @@
   line-height: 16px;
 }
 
-.edit-task__container {
+.edit-task {
   display: none;
   flex-direction: column;
   position: fixed;
@@ -42,12 +42,13 @@
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.3);
 }
-.edit-task__container::-webkit-scrollbar {
+.edit-task::-webkit-scrollbar {
   width: 0;
 }
-.edit-task__content__container {
+.edit-task-content {
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
   align-items: center;
   justify-content: flex-start;
   width: 100%;
@@ -58,7 +59,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   background: #FFFFFF;
 }
-.edit-task__content__name__container {
+.edit-task-content-name {
   display: flex;
   position: relative;
   justify-content: flex-start;
@@ -69,7 +70,7 @@
   padding: 25px 0 10px 0;
   border-bottom: 1px solid #333333;
 }
-.edit-task__content__name__text {
+.edit-task-content-name__text {
   display: flex;
   width: 100%;
   max-width: 450px;
@@ -84,16 +85,16 @@
   word-break: break-all;
   cursor: pointer;
 }
-.edit-task__content__name__text:focus {
+.edit-task-content-name__text:focus {
   cursor: text;
 }
-.edit-task__content__info {
+.edit-task-content-info {
   display: flex;
   flex-direction: row;
   width: 100%;
   max-width: 540px;
 }
-.edit-task__content__info__container {
+.edit-task-content-info-container {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -102,7 +103,7 @@
   max-width: 540px;
   margin: 20px 0 0 0;
 }
-.edit-task__content__info__title {
+.edit-task-content-info__title {
   display: flex;
   font-family: Roboto, sans-serif;
   font-style: normal;
@@ -111,13 +112,13 @@
   line-height: 16px;
   cursor: default;
 }
-.edit-task__content__info__elements {
+.edit-task-content-info-elements {
   display: flex;
   flex-direction: row;
   position: relative;
   flex-wrap: wrap;
 }
-.edit-task__content__info__elements__add-new__icon {
+.edit-task-content-info-elements__add-new-icon {
   display: flex;
   height: 28px;
   width: 28px;
@@ -125,7 +126,7 @@
   filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.15));
   cursor: pointer;
 }
-.edit-task__content__info__collaborator {
+.edit-task-content-info-collaborator {
   position: relative;
   height: 28px;
   width: 28px;
@@ -135,7 +136,7 @@
   filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.15));
   cursor: pointer;
 }
-.edit-task__content__info__collaborator__container {
+.edit-task-content-info-collaborator-container {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -144,7 +145,7 @@
   max-width: 140px;
   margin: 0 35px 0 0;
 }
-.edit-task__content__info__tag {
+.edit-task-content-info-tag {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -156,7 +157,7 @@
   box-shadow: 0 0 9px rgba(0, 0, 0, 0.15);
   cursor: pointer;
 }
-.edit-task__content__info__tag__container {
+.edit-task-content-info-tag-container {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -164,7 +165,7 @@
   max-width: 350px;
   margin: 0 35px 0 0;
 }
-.edit-task__content__info__tag__text {
+.edit-task-content-info-tag__text {
   display: flex;
   margin: 0 8px 0 8px;
   font-family: Roboto, sans-serif;
@@ -173,7 +174,7 @@
   font-size: 15px;
   line-height: 17px;
 }
-.edit-task__content__description__container {
+.edit-task-content-description {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -183,7 +184,7 @@
   padding: 20px 0 0 0;
   margin: 0 0 20px 0;
 }
-.edit-task__content__description__title {
+.edit-task-content-description__title {
   display: flex;
   font-family: Roboto, sans-serif;
   font-style: normal;
@@ -192,7 +193,7 @@
   line-height: 16px;
   cursor: default;
 }
-.edit-task__content__description__body {
+.edit-task-content-description-body {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -200,10 +201,10 @@
   border-radius: 5px;
   background: #F3F3F3;
 }
-.edit-task__content__description__body:focus-within {
+.edit-task-content-description-body:focus-within {
   box-shadow: 0 0 0 2px #A32CDF inset;
 }
-.edit-task__content__description__body__text {
+.edit-task-content-description-body__text {
   white-space: pre-wrap;
   margin: 10px;
   font-family: Roboto, sans-serif;
@@ -216,17 +217,17 @@
   outline: none;
   cursor: pointer;
 }
-.edit-task__content__description__body__text:focus {
+.edit-task-content-description-body__text:focus {
   cursor: text;
 }
-.edit-task__content__description__body__footer {
+.edit-task-content-description-body__footer {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   margin: 0 0 10px 0;
   border-top: 1px solid #CCCCCC;
 }
-.edit-task__content__description__body__footer__save-button {
+.edit-task-content-description-body__footer-save-button {
   display: none;
   align-items: center;
   justify-content: center;
@@ -248,7 +249,7 @@
   cursor: pointer;
   cursor: pointer;
 }
-.edit-task__content__attachments__container {
+.edit-task-content-attachments {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -256,7 +257,7 @@
   width: 100%;
   max-width: 550px;
 }
-.edit-task__content__attachments__title {
+.edit-task-content-attachments__title {
   display: flex;
   font-family: Roboto, sans-serif;
   font-style: normal;
@@ -265,7 +266,7 @@
   line-height: 16px;
   cursor: default;
 }
-.edit-task__content__attachments__body {
+.edit-task-content-attachments-body {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -274,7 +275,7 @@
   border-radius: 5px;
   background: #F3F3F3;
 }
-.edit-task__content__attachments__body__element {
+.edit-task-content-attachments-body-element {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -283,22 +284,22 @@
   height: 25px;
   margin: 10px 0 0 0;
 }
-.edit-task__content__attachments__body__element__left {
+.edit-task-content-attachments-body-element-left {
   display: flex;
   flex-direction: row;
   align-items: center;
   max-width: 75%;
   cursor: pointer;
 }
-.edit-task__content__attachments__body__element__left:hover ~ .edit-task__content__attachments__body__element__right {
+.edit-task-content-attachments-body-element-left:hover ~ .edit-task-content-attachments-body-element-right {
   color: #808080;
 }
-.edit-task__content__attachments__body__element__left__icon {
+.edit-task-content-attachments-body-element-left__icon {
   width: 24px;
   height: 24px;
   margin: 0 20px 0 0;
 }
-.edit-task__content__attachments__body__element__left__text {
+.edit-task-content-attachments-body-element-left__text {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -309,17 +310,17 @@
   line-height: 16px;
   color: #6D27E7;
 }
-.edit-task__content__attachments__body__element__right {
+.edit-task-content-attachments-body-element-right {
   display: flex;
   justify-content: flex-end;
   color: #F3F3F3;
   width: 100%;
   min-height: 25px;
 }
-.edit-task__content__attachments__body__element__right:hover {
+.edit-task-content-attachments-body-element-right:hover {
   color: #808080;
 }
-.edit-task__content__attachments__body__element__right__delete {
+.edit-task-content-attachments-body-element-right__delete {
   align-self: center;
   font-family: Roboto, sans-serif;
   font-style: normal;
@@ -328,10 +329,10 @@
   line-height: 18px;
   cursor: pointer;
 }
-.edit-task__content__attachments__body__element__right__delete:hover {
+.edit-task-content-attachments-body-element-right__delete:hover {
   color: #6D27E7;
 }
-.edit-task__content__attachments__add-new__container {
+.edit-task-content-attachments-add-new {
   display: flex;
   flex-direction: row;
   width: fit-content;
@@ -340,18 +341,18 @@
   margin: 5px 10px 5px 10px;
   padding: 10px 20px 10px 20px;
   border-radius: 5px;
-  gap: 10px;
   cursor: pointer;
 }
-.edit-task__content__attachments__add-new__container:hover {
+.edit-task-content-attachments-add-new:hover {
   background: #e3e3e3;
   transition: 0.1s linear;
 }
-.edit-task__content__attachments__add-new__icon {
+.edit-task-content-attachments-add-new__icon {
   height: 24px;
   width: 24px;
+  margin-right: 10px;
 }
-.edit-task__content__attachments__add-new__text {
+.edit-task-content-attachments-add-new__text {
   align-self: center;
   font-family: Roboto, sans-serif;
   font-style: normal;
@@ -359,7 +360,7 @@
   font-size: 14px;
   line-height: 16px;
 }
-.edit-task__content__check-lists__container {
+.edit-task-content-check-lists {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -367,7 +368,7 @@
   width: 100%;
   max-width: 550px;
 }
-.edit-task__content__check-lists__title {
+.edit-task-content-check-lists__title {
   display: flex;
   font-family: Roboto, sans-serif;
   font-style: normal;
@@ -376,14 +377,14 @@
   line-height: 16px;
   cursor: default;
 }
-.edit-task__content__check-lists__title__container {
+.edit-task-content-check-lists__title-container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
   margin: 0 0 5px 0;
 }
-.edit-task__content__check-lists__delete {
+.edit-task-content-check-lists__delete {
   display: flex;
   font-family: Roboto, sans-serif;
   font-style: normal;
@@ -393,10 +394,10 @@
   color: #808080;
   cursor: pointer;
 }
-.edit-task__content__check-lists__delete:hover {
+.edit-task-content-check-lists__delete:hover {
   color: #6D27E7;
 }
-.edit-task__content__check-lists__body {
+.edit-task-content-check-lists-body {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -405,7 +406,7 @@
   border-radius: 5px;
   background: #F3F3F3;
 }
-.edit-task__content__check-lists__body__element {
+.edit-task-content-check-lists-body-element {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -413,18 +414,18 @@
   width: 95%;
   padding: 10px 0 5px 10px;
 }
-.edit-task__content__check-lists__body__elements {
+.edit-task-content-check-lists-body-elements {
   border-radius: 5px;
   background: #FFFFFF;
   padding: 5px;
 }
-.edit-task__content__check-lists__body__element__icon {
+.edit-task-content-check-lists-body-element__icon {
   width: 24px;
   height: 24px;
   margin: 0 20px 0 0;
   cursor: pointer;
 }
-.edit-task__content__check-lists__body__element__text {
+.edit-task-content-check-lists-body-element__text {
   width: 100%;
   font-family: Roboto, sans-serif;
   font-style: normal;
@@ -438,7 +439,7 @@
   color: #333333;
   cursor: pointer;
 }
-.edit-task__content__check-lists__body__element__add-new__container {
+.edit-task-content-check-lists-body-element-add-new {
   display: flex;
   flex-direction: row;
   width: fit-content;
@@ -447,18 +448,18 @@
   padding: 5px;
   margin: 0 0 0 5px;
   border-radius: 5px;
-  gap: 10px;
   cursor: pointer;
 }
-.edit-task__content__check-lists__body__element__add-new__container:hover {
+.edit-task-content-check-lists-body-element-add-new:hover {
   background: #e3e3e3;
   transition: 0.1s linear;
 }
-.edit-task__content__check-lists__body__element__add-new__icon {
+.edit-task-content-check-lists-body-element-add-new__icon {
   height: 24px;
   width: 24px;
+  margin-right: 10px;
 }
-.edit-task__content__check-lists__body__element__add-new__text {
+.edit-task-content-check-lists-body-element-add-new__text {
   align-self: center;
   font-family: Roboto, sans-serif;
   font-style: normal;
@@ -466,7 +467,7 @@
   font-size: 14px;
   line-height: 16px;
 }
-.edit-task__content__check-lists__add-new__container {
+.edit-task-content-check-lists-add-new {
   display: flex;
   flex-direction: row;
   position: relative;
@@ -476,18 +477,18 @@
   margin: 5px 10px 5px 0;
   padding: 10px 20px 10px 20px;
   border-radius: 5px;
-  gap: 10px;
   cursor: pointer;
 }
-.edit-task__content__check-lists__add-new__container:hover {
+.edit-task-content-check-lists-add-new:hover {
   background: #e3e3e3;
   transition: 0.1s linear;
 }
-.edit-task__content__check-lists__add-new__icon {
+.edit-task-content-check-lists-add-new__icon {
   height: 24px;
   width: 24px;
+  margin-right: 10px;
 }
-.edit-task__content__check-lists__add-new__text {
+.edit-task-content-check-lists-add-new__text {
   align-self: center;
   font-family: Roboto, sans-serif;
   font-style: normal;
@@ -495,7 +496,7 @@
   font-size: 14px;
   line-height: 16px;
 }
-.edit-task__content__comments__container {
+.edit-task-content-comments {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -504,7 +505,7 @@
   max-width: 550px;
   margin: 0 0 10px 0;
 }
-.edit-task__content__comments__title {
+.edit-task-content-comments__title {
   display: flex;
   font-family: Roboto, sans-serif;
   font-style: normal;
@@ -513,13 +514,13 @@
   line-height: 16px;
   cursor: default;
 }
-.edit-task__content__comments__add {
+.edit-task-content-comments-add {
   display: flex;
   flex-direction: row;
   width: 100%;
   margin: 10px 0 10px 0;
 }
-.edit-task__content__comments__add__collaborator {
+.edit-task-content-comments-add__collaborator {
   display: flex;
   align-self: flex-start;
   width: 28px;
@@ -529,12 +530,12 @@
   object-fit: cover;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
 }
-.edit-task__content__comments__add__comment {
+.edit-task-content-comments-add-comment {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
-.edit-task__content__comments__add__comment__text {
+.edit-task-content-comments-add-comment__text {
   padding: 10px;
   font-family: Roboto, sans-serif;
   font-style: normal;
@@ -549,11 +550,11 @@
   color: #333333;
   cursor: pointer;
 }
-.edit-task__content__comments__add__comment__text:focus {
+.edit-task-content-comments-add-comment__text:focus {
   border: 2px #6D27E7 solid !important;
   cursor: text;
 }
-.edit-task__content__comments__add__comment__button {
+.edit-task-content-comments-add-comment__button {
   display: none;
   align-items: center;
   justify-content: center;
@@ -574,17 +575,17 @@
   color: #FFFFFF;
   cursor: pointer;
 }
-.edit-task__content__comments__body {
+.edit-task-content-comments-body {
   display: flex;
   flex-direction: column-reverse;
   width: 100%;
 }
-.edit-task__content__comments__body__comment {
+.edit-task-content-comments-body-comment {
   display: flex;
   flex-direction: row;
   margin: 10px 0 5px 0;
 }
-.edit-task__content__comments__body__comment__collaborator {
+.edit-task-content-comments-body-comment__collaborator {
   display: flex;
   align-self: flex-start;
   width: 28px;
@@ -594,18 +595,18 @@
   object-fit: cover;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
 }
-.edit-task__content__comments__body__comment__right {
+.edit-task-content-comments-body-comment-right {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
-.edit-task__content__comments__body__comment__right__header {
+.edit-task-content-comments-body-comment-right-header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   margin: 0 0 5px 0;
 }
-.edit-task__content__comments__body__comment__right__header__name {
+.edit-task-content-comments-body-comment-right-header__name {
   display: flex;
   font-family: Roboto, sans-serif;
   font-style: normal;
@@ -614,7 +615,7 @@
   line-height: 16px;
   cursor: default;
 }
-.edit-task__content__comments__body__comment__right__header__delete {
+.edit-task-content-comments-body-comment-right-header__delete {
   display: none;
   align-self: flex-end;
   font-family: Roboto, sans-serif;
@@ -625,10 +626,10 @@
   color: #808080;
   cursor: pointer;
 }
-.edit-task__content__comments__body__comment__right__header__delete:hover {
+.edit-task-content-comments-body-comment-right-header__delete:hover {
   color: #6D27E7;
 }
-.edit-task__content__comments__body__comment__right__text {
+.edit-task-content-comments-body-comment-right__text {
   white-space: pre-wrap;
   padding: 10px;
   font-family: Roboto, sans-serif;
@@ -640,10 +641,10 @@
   background: #F3F3F3;
   cursor: pointer;
 }
-.edit-task__content__comments__body__comment__right__text:focus {
+.edit-task-content-comments-body-comment-right__text:focus {
   cursor: text;
 }
-.edit-task__content__delete__icon {
+.edit-task-content-delete__icon {
   display: flex;
   position: absolute;
   align-self: flex-end;
@@ -662,7 +663,7 @@
   cursor: pointer;
 }
 
-.edit-tags__container {
+.edit-tags {
   display: none;
   position: absolute;
   z-index: 1;
@@ -670,7 +671,7 @@
   justify-content: center;
   top: 140px;
 }
-.edit-tags__add__container {
+.edit-tags-add {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -681,7 +682,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   background: #FFFFFF;
 }
-.edit-tags__add__title {
+.edit-tags-add__title {
   display: flex;
   font-family: Roboto, sans-serif;
   font-style: normal;
@@ -691,7 +692,7 @@
   margin: 15px 45px 0 0;
   cursor: default;
 }
-.edit-tags__add__tag {
+.edit-tags-add-tag {
   display: flex;
   position: relative;
   align-items: center;
@@ -706,7 +707,7 @@
   background: #CCCCCC;
   cursor: pointer;
 }
-.edit-tags__add__tag__name {
+.edit-tags-add-tag__name {
   font-family: Roboto, sans-serif;
   font-style: normal;
   font-weight: normal;
@@ -714,52 +715,52 @@
   line-height: 16px;
   margin: 0 0 0 10px;
 }
-.edit-tags__add__tag__line {
+.edit-tags-add-tag__line {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
   width: 90%;
 }
-.edit-tags__add__pen-icon {
+.edit-tags-add__pen-icon {
   display: flex;
   width: 18px;
   height: 18px;
   margin: 0 0 0 5px;
   cursor: pointer;
 }
-.edit-tags__add__tags__container {
+.edit-tags-add-tags {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 10px 0 0 0;
 }
-.edit-tags__add-new__container {
+.edit-tags-add-new {
   display: flex;
   flex-direction: row;
   justify-content: center;
   padding: 8px;
   margin: 5px;
-  gap: 10px;
   border-radius: 5px;
   cursor: pointer;
 }
-.edit-tags__add-new__container:hover {
+.edit-tags-add-new:hover {
   background: #e3e3e3;
   transition: 0.1s linear;
 }
-.edit-tags__add-new__icon {
+.edit-tags-add-new__icon {
   height: 18px;
   width: 18px;
+  margin-right: 10px;
 }
-.edit-tags__add-new__text {
+.edit-tags-add-new__text {
   font-family: Roboto, sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
   line-height: 16px;
 }
-.edit-tags__create__container {
+.edit-tags-create {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -770,7 +771,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   background: #FFFFFF;
 }
-.edit-tags__create__title {
+.edit-tags-create__title {
   display: flex;
   font-family: Roboto, sans-serif;
   font-style: normal;
@@ -780,12 +781,7 @@
   margin: 15px 45px 0 0;
   cursor: default;
 }
-.edit-tags__create__tag__name {
-  display: flex;
-  max-width: 200px;
-  margin: 15px 0 15px 0;
-}
-.edit-tags__create__tag__container {
+.edit-tags-create-tag {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -793,7 +789,12 @@
   flex-flow: wrap;
   max-width: 200px;
 }
-.edit-tags__create__tag__color {
+.edit-tags-create-tag__name {
+  display: flex;
+  max-width: 200px;
+  margin: 15px 0 15px 0;
+}
+.edit-tags-create-tag__color {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -805,7 +806,7 @@
   background: #CCCCCC;
   cursor: pointer;
 }
-.edit-tags__create__button {
+.edit-tags-create__button {
   border-radius: 5px;
   border-style: none;
   background: linear-gradient(90deg, #A32CDF 0%, #4F4FD7 100%);
@@ -825,13 +826,13 @@
   outline: none;
   box-shadow: 0 0 0 2px #6D27E7 inset !important;
 }
-.edit-tags__selected__icon {
+.edit-tags__selected-icon {
   display: none;
   width: 17px;
   height: 17px;
   margin: 0 10px 0 0;
 }
-.edit-tags__selected__icon-color {
+.edit-tags__selected-icon-color {
   display: none;
   width: 17px;
   height: 17px;
@@ -847,7 +848,7 @@
   cursor: pointer;
 }
 
-.edit-check-lists__container {
+.edit-check-lists {
   display: none;
   position: absolute;
   z-index: 1;
@@ -855,7 +856,7 @@
   justify-content: center;
   margin: 10px 0 0 0;
 }
-.edit-check-lists__body {
+.edit-check-lists-body {
   display: flex;
   flex-direction: column;
   position: relative;
@@ -908,7 +909,7 @@
   cursor: pointer;
 }
 
-.edit-add-collaborator__container {
+.edit-add-collaborator {
   display: flex;
   position: absolute;
   z-index: 2;
@@ -917,7 +918,7 @@
   width: 250px;
   top: 65px;
 }
-.edit-add-collaborator__body {
+.edit-add-collaborator-body {
   display: flex;
   flex-direction: column;
   position: relative;
@@ -940,12 +941,12 @@
   line-height: 19px;
   cursor: default;
 }
-.edit-add-collaborator__left-side {
+.edit-add-collaborator-left-side {
   display: flex;
   width: 100%;
   cursor: pointer;
 }
-.edit-add-collaborator__element {
+.edit-add-collaborator-element {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -953,7 +954,7 @@
   width: 85%;
   margin: 0 0 10px 0;
 }
-.edit-add-collaborator__element__avatar {
+.edit-add-collaborator-element__avatar {
   display: flex;
   align-self: flex-start;
   clip-path: circle();
@@ -962,7 +963,7 @@
   height: 28px;
   cursor: pointer;
 }
-.edit-add-collaborator__element__name {
+.edit-add-collaborator-element__name {
   display: flex;
   align-items: center;
   width: 100%;
@@ -974,7 +975,7 @@
   line-height: 16px;
   color: #333333;
 }
-.edit-add-collaborator__element__selected {
+.edit-add-collaborator-element_selected {
   display: none;
   width: 20px;
   cursor: pointer;

@@ -16,7 +16,7 @@
         display: flex !important;
     }
 
-    .adaptive-navigation__container {
+    .adaptive-navigation-container {
         display: flex !important;
     }
 }
@@ -39,7 +39,7 @@
         height: 100vh !important;
     }
 
-    .adaptive-navigation__container {
+    .adaptive-navigation-container {
         height: 55% !important;
     }
 }
@@ -148,7 +148,7 @@
         color: var(--grey-text-color);
 
         // Контейнер, содержащий input'ы
-        &__container {
+        &-container {
             @include flex-column;
 
             align-items: center;
@@ -313,7 +313,7 @@
     }
 
     // Выплывающее меню
-    &__container {
+    &-container {
         display: none;
         flex-direction: column;
 
@@ -387,7 +387,7 @@
         transform: rotate(90deg);
     }
 
-    &:checked ~ .adaptive-navigation__container {
+    &:checked ~ .adaptive-navigation-container {
         visibility: visible;
         left: 0;
     }
