@@ -13,11 +13,11 @@
                         <fest:attributes>
                             <fest:if test="v.isSelected">
                                 <fest:attribute name="class">
-                                    edit-tags__add__tag edit-tags__selected
+                                    edit-tags-add-tag edit-tags__selected
                                 </fest:attribute>
                             </fest:if>
                             <fest:attribute name="class">
-                                edit-tags__add__tag
+                                edit-tags-add-tag
                             </fest:attribute>
                         </fest:attributes>
                         <div class="edit-tags-add-tag__name">

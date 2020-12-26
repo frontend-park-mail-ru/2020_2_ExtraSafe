@@ -30,19 +30,19 @@ body {
 .application {
 
     /* Приложение во весь экран */
-    &__base {
+    &-base {
         @include flex-column;
 
         height: 100vh;
     }
 
     /* Ограничения для навбара */
-    &__navbar {
+    &-navbar {
         max-height: 10vh;
     }
 
     /* Стили для контента страницы без навбара */
-    &__content {
+    &-content {
         @include flex-column;
 
         flex-grow: 1;
