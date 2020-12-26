@@ -1,83 +1,83 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
-    <div class="edit-task__content__container">
+    <div class="edit-task-content">
 
-        <div class="edit-task__content__name__container">
-            <div class="edit-task__content__name__text" id="taskName" contenteditable="true">
+        <div class="edit-task-content-name">
+            <div class="edit-task-content-name__text" id="taskName" contenteditable="true">
                 <fest:value>json.taskName</fest:value>
             </div>
             <img class="edit-task__close" src="../../img/icons/close.svg" id="closeTask" alt="close"/>
         </div>
 
-        <div class="edit-task__content__info__container">
+        <div class="edit-task-content-info-container">
 
-            <img class="edit-task__content__delete__icon" src="../../img/icons/bin.svg" id="deleteTask" title="Удалить задачу" alt="delete task"/>
+            <img class="edit-task-content-delete__icon" src="../../img/icons/bin.svg" id="deleteTask" title="Удалить задачу" alt="delete task"/>
 
-            <div class="edit-task__content__info">
-                <div class="edit-task__content__info__collaborator__container ">
-                    <div class="edit-task__content__info__title">
+            <div class="edit-task-content-info">
+                <div class="edit-task-content-info-collaborator-container ">
+                    <div class="edit-task-content-info__title">
                         Участники
                     </div>
 
-                    <div class="edit-task__content__info__elements" id="taskAssignersDiv">
+                    <div class="edit-task-content-info-elements" id="taskAssignersDiv">
                         <fest:for iterate="json.taskAssigners" index="i" value="v">
                             <fest:include context="v" src="./TaskAssigner.tmpl.xml"/>
                         </fest:for>
-                        <img src="../../img/icons/add_collaborator.svg" class="edit-task__content__info__elements__add-new__icon"
+                        <img src="../../img/icons/add_collaborator.svg" class="edit-task-content-info-elements__add-new-icon"
                              id="taskAssignersAdd" title="Добавить участника" alt="add new collaborator"/>
                     </div>
 
-                    <div class="edit-add-collaborator__container" id="taskAssignersPopup"/>
+                    <div class="edit-add-collaborator" id="taskAssignersPopup"/>
                 </div>
 
-                <div class="edit-task__content__info__tag__container">
-                    <div class="edit-tags__container" id="tagPopup"/>
+                <div class="edit-task-content-info-tag-container">
+                    <div class="edit-tags" id="tagPopup"/>
 
-                    <div class="edit-task__content__info__title">
+                    <div class="edit-task-content-info__title">
                         Метки
                     </div>
 
-                    <div class="edit-task__content__info__elements">
+                    <div class="edit-task-content-info-elements">
                         <div id="tagsDetailedDiv" style="display: flex">
                             <fest:for iterate="json.tags" index="i" value="v">
                                 <fest:include context="v" src="./TagDetailed.tmpl.xml"/>
                             </fest:for>
                         </div>
 
-                        <img src="../../img/icons/add_tag.svg" class="edit-task__content__info__elements__add-new__icon"
+                        <img src="../../img/icons/add_tag.svg" class="edit-task-content-info-elements__add-new-icon"
                              id="addTag" title="Добавить метку" alt="add new tag"/>
                     </div>
                 </div>
             </div>
 
-            <div class="edit-task__content__description__container">
-                <div class="edit-task__content__description__title">
+            <div class="edit-task-content-description">
+                <div class="edit-task-content-description__title">
                     Описание
                 </div>
 
-                <div class="edit-task__content__description__body">
-                    <div class="edit-task__content__description__body__text" data-placeholder="Напишите описание..." id="taskDescription" contenteditable="true">
+                <div class="edit-task-content-description-body">
+                    <div class="edit-task-content-description-body__text" data-placeholder="Напишите описание..." id="taskDescription" contenteditable="true">
                         <fest:value>json.taskDescription</fest:value>
                     </div>
                 </div>
-                <button class="edit-task__content__description__body__footer__save-button" id="saveTaskDescription">
+                <button class="edit-task-content-description-body__footer-save-button" id="saveTaskDescription">
                     Сохранить
                 </button>
             </div>
 
-            <div class="edit-task__content__attachments__container">
-                <div class="edit-task__content__attachments__title">
+            <div class="edit-task-content-attachments">
+                <div class="edit-task-content-attachments__title">
                     Вложения
                 </div>
 
-                <div class="edit-task__content__attachments__body" id="attachmentsDiv">
+                <div class="edit-task-content-attachments-body" id="attachmentsDiv">
                     <fest:for iterate="json.attachments" index="i" value="v">
                         <fest:include context="v" src="./Attachment.tmpl.xml"/>
                     </fest:for>
 
-                    <label for="fileInput" class="edit-task__content__attachments__add-new__container" id="uploadFile">
-                        <img class="edit-task__content__attachments__add-new__icon" src="../../img/icons/add.svg" alt="add"/>
+                    <label for="fileInput" class="edit-task-content-attachments-add-new" id="uploadFile">
+                        <img class="edit-task-content-attachments-add-new__icon" src="../../img/icons/add.svg" alt="add"/>
 
-                        <div class="edit-task__content__attachments__add-new__text">
+                        <div class="edit-task-content-attachments-add-new__text">
                             Загрузить новый файл
                         </div>
                     </label>
@@ -85,23 +85,23 @@
                 </div>
             </div>
 
-            <div class="edit-task__content__check-lists__container">
+            <div class="edit-task-content-check-lists">
 
-                <div class="edit-task__content__check-lists__title">
+                <div class="edit-task-content-check-lists__title">
                     Чек-листы
                 </div>
 
-                <div class="edit-task__content__check-lists__body" id="checkListsDiv">
-                    <div class="edit-check-lists__container" id="checkListPopup"/>
+                <div class="edit-task-content-check-lists-body" id="checkListsDiv">
+                    <div class="edit-check-lists" id="checkListPopup"/>
 
                     <fest:for iterate="json.checkLists" index="i" value="v">
                         <fest:include context="v" src="./CheckList.tmpl.xml"/>
                     </fest:for>
 
-                    <div class="edit-task__content__check-lists__add-new__container" id="checkListCreate">
-                        <img class="edit-task__content__check-lists__add-new__icon" src="../../img/icons/add.svg" alt="add"/>
+                    <div class="edit-task-content-check-lists-add-new" id="checkListCreate">
+                        <img class="edit-task-content-check-lists-add-new__icon" src="../../img/icons/add.svg" alt="add"/>
 
-                        <div class="edit-task__content__check-lists__add-new__text">
+                        <div class="edit-task-content-check-lists-add-new__text">
                             Создать чек-лист
                         </div>
                     </div>
@@ -109,24 +109,24 @@
                 </div>
             </div>
 
-            <div class="edit-task__content__comments__container">
-                <div class="edit-task__content__comments__title">
+            <div class="edit-task-content-comments">
+                <div class="edit-task-content-comments__title">
                     Комментарии
                 </div>
 
-                <div class="edit-task__content__comments__add">
-                    <img class="edit-task__content__comments__add__collaborator" src="{json.commentAvatar}" alt="author"/>
+                <div class="edit-task-content-comments-add">
+                    <img class="edit-task-content-comments-add__collaborator" src="{json.commentAvatar}" alt="author"/>
 
-                    <div class="edit-task__content__comments__add__comment">
+                    <div class="edit-task-content-comments-add-comment">
 
-                            <div class="edit-task__content__comments__add__comment__text" contenteditable="true"
+                            <div class="edit-task-content-comments-add-comment__text" contenteditable="true"
                                  id="commentInputID" data-placeholder="Напишите комментарий..."/>
 
-                        <button class="edit-task__content__comments__add__comment__button" id="commentSaveID"> Сохранить </button>
+                        <button class="edit-task-content-comments-add-comment__button" id="commentSaveID"> Сохранить </button>
                     </div>
                 </div>
 
-                <div class="edit-task__content__comments__body" id="commentsDiv">
+                <div class="edit-task-content-comments-body" id="commentsDiv">
                     <fest:for iterate="json.comments" index="i" value="v">
                         <fest:include context="v" src="./Comment.tmpl.xml"/>
                     </fest:for>

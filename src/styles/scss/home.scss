@@ -4,7 +4,7 @@
 // Особенности верстки для планшета
 @media screen and (max-width: $tablet-breakpoint) {
     // Убираем левую часть меню
-    .home__left-side__container {
+    .home-left-side {
         display: none !important;
     }
 
@@ -18,18 +18,18 @@
 @media screen and (max-width: $mobile-breakpoint) {
 
     // Более логичное расположение досок, когда их 2
-    .boards__container {
+    .boards {
         justify-content: space-between !important;
     }
 
     // Расположение 2 досок
-    .board__container {
+    .board {
         width: calc(50% - 12px) !important;
     }
 }
 
 // Выравнивание контента
-.main__container {
+.main {
     @include flex-column;
 
     justify-content: flex-start;
@@ -38,55 +38,43 @@
 
 // Домашняя страница
 .home {
+    @include flex-row;
 
-    // Контейнер домашней страницы
-    &__container {
-        @include flex-row;
+    justify-content: space-around;
 
-        justify-content: space-around;
+    width: 100%;
+    max-width: 1300px;
 
-        width: 100%;
-        max-width: 1300px;
-
-        margin: 35px 0 0 0;
-    }
+    margin: 35px 0 0 0;
 
     // Левая сторона с меню и командами
-    &__left-side {
+    &-left-side {
+        @include flex-column;
 
-        // Контейнер левой стороны
-        &__container {
+        justify-content: end;
+
+        padding: 0 25px 0 25px;
+
+        width: 100%;
+        max-width: 200px;
+
+        gap: 25px;
+
+        // Меню
+        &-menu {
             @include flex-column;
 
-            justify-content: end;
-
-            padding: 0 25px 0 25px;
+            justify-content: space-evenly;
 
             width: 100%;
             max-width: 200px;
+            height: 70px;
 
-            gap: 25px;
-        }
+            @include standard-border-radius;
 
-        // Меню
-        &__menu {
+            background: white;
 
-            // Контейнер меню
-            &__container {
-                @include flex-column;
-
-                justify-content: space-evenly;
-
-                width: 100%;
-                max-width: 200px;
-                height: 70px;
-
-                @include standard-border-radius;
-
-                background: white;
-
-                filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.15));
-            }
+            filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.15));
 
             // Элемент меню
             &__element {
@@ -126,24 +114,21 @@
         }
 
         // Команды и добавление новых команд
-        &__team {
+        &-team {
+            @include flex-column;
 
-            // Контейнер команд
-            &__container {
-                @include flex-column;
+            align-items: center;
 
-                align-items: center;
+            width: 100%;
+            max-width: 200px;
+            height: fit-content;
 
-                width: 100%;
-                max-width: 200px;
-                height: fit-content;
+            @include standard-border-radius;
 
-                @include standard-border-radius;
+            background: white;
 
-                background: white;
+            filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.15));
 
-                filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.15));
-            }
 
             // Заголовок
             &__title {
@@ -160,7 +145,7 @@
                 cursor: default;
 
                 // Контейнер заголовка
-                &__container {
+                &-container {
                     display: flex;
 
                     align-items: center;
@@ -170,28 +155,25 @@
 
                     border-bottom: 1px solid $input-border-color;
                 }
-
             }
 
             // Добавление новых команд
             &__add-new {
 
-                // Контейнер добавления команд
-                &__container {
-                    @include flex-row;
+                @include flex-row;
 
-                    align-items: center;
-                    justify-content: space-evenly;
+                align-items: center;
+                justify-content: space-evenly;
 
-                    height: 35px;
+                height: 35px;
 
-                    gap: 10px;
+                gap: 10px;
 
-                    cursor: pointer;
-                }
+                cursor: pointer;
+
 
                 // Текст добавления новых команд
-                &__text {
+                &-text {
                     display: flex;
 
                     align-items: center;
@@ -201,7 +183,7 @@
                 }
 
                 // Иконка добавления новых команд
-                &__icon {
+                &-icon {
                     display: flex;
 
                     width: 18px;
@@ -212,36 +194,29 @@
     }
 
     // Правая сторона с досками и избранными досками
-    &__right-side {
+    &-right-side {
 
-        // Контейнер правой стороны
-        &__container {
-            @include flex-column;
+        @include flex-column;
 
-            align-items: center;
+        align-items: center;
 
-            width: 97%;
-            max-width: 1000px;
-        }
+        width: 97%;
+        max-width: 1000px;
 
         // Заголовок
-        &__title {
+        &-title {
+            @include flex-row;
+            flex-flow: wrap;
 
-            // Контейнер заголовка
-            &__container {
-                @include flex-row;
-                flex-flow: wrap;
+            align-content: center;
+            justify-content: flex-start;
 
-                align-content: center;
-                justify-content: flex-start;
+            width: 100%;
+            max-width: 930px;
 
-                width: 100%;
-                max-width: 930px;
+            margin: 0 0 25px 0;
 
-                margin: 0 0 25px 0;
-
-                border-bottom: 1px solid $dark-grey;
-            }
+            border-bottom: 1px solid $dark-grey;
 
             // Текст заголовка
             &__text {
@@ -261,69 +236,56 @@
 
 // Доски
 .boards {
+    @include flex-row;
+    flex-flow: wrap;
 
-    // Контейнер с досками
-    &__container {
-        @include flex-row;
-        flex-flow: wrap;
+    justify-content: flex-start;
+    width: 95%;
+    max-width: 930px;
+    height: -webkit-fill-available;
 
-        justify-content: flex-start;
-
-        // width: 100%;
-        width: 95%;
-        max-width: 930px;
-        height: -webkit-fill-available;
-    }
-
-    &-all {
+    &-div {
         display: contents;
     }
 }
 
 // Доска
 .board {
+    flex: 0 0 auto;
 
-    // Контейнер доски
-    &__container {
-        flex: 0 0 auto;
+    // flex-grow: 1;
 
-        // flex-grow: 1;
-
-        text-align: center;
+    text-align: center;
 
 
-        width: calc(25% - 12px);
-        // max-width: 220px;
-        height: 100%;
-        max-height: 100px;
+    width: calc(25% - 12px);
+    // max-width: 220px;
+    height: 100%;
+    max-height: 100px;
 
-        margin: 6px;
+    margin: 6px;
 
-        @include standard-border-radius;
-        @include standard-shadow;
+    @include standard-border-radius;
+    @include standard-shadow;
 
-        background: $white;
+    background: $white;
 
-        cursor: pointer;
-    }
+    cursor: pointer;
 
     // Название доски
-    &__name {
+    &-name {
+        @include flex-row;
 
-        // Контейнер названия доски
-        &__container {
-            @include flex-row;
+        align-items: center;
+        justify-content: space-between;
 
-            align-items: center;
-            justify-content: space-between;
+        height: 35px;
 
-            height: 35px;
+        border-radius: 5px 5px 0 0;
+        border-right: 1px solid $card-violet;
 
-            border-radius: 5px 5px 0 0;
-            border-right: 1px solid $card-violet;
+        background: $card-violet;
 
-            background: $card-violet;
-        }
 
         // Текст названия доски
         &__text {
@@ -350,16 +312,12 @@
     }
 
     // Описание доски
-    &__description {
+    &-description {
+        @include flex-row;
 
-        // Контейнер описания доски
-        &__container {
-            @include flex-row;
+        align-items: center;
 
-            align-items: center;
-
-            padding: 10px;
-        }
+        padding: 10px;
 
         // Текст описания доски
         &__text {

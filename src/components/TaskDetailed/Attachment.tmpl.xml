@@ -1,17 +1,17 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
-    <div class="edit-task__content__attachments__body__element" id="{json.fileHtmlID}">
-        <div class="edit-task__content__attachments__body__element__left">
-            <img class="edit-task__content__attachments__body__element__left__icon" src="../../img/icons/file.svg"
+    <div class="edit-task-content-attachments-body-element" id="{json.fileHtmlID}">
+        <div class="edit-task-content-attachments-body-element-left">
+            <img class="edit-task-content-attachments-body-element-left__icon" src="../../img/icons/file.svg"
                  id="{json.fileIconID}" data-outhref="{json.fileUrl}" alt="remove"/>
 
-            <a class="edit-task__content__attachments__body__element__left__text" id="{json.fileNameID}"
+            <a class="edit-task-content-attachments-body-element-left__text" id="{json.fileNameID}"
                data-outhref="{json.fileUrl}">
                 <fest:value>json.fileName</fest:value>
             </a>
         </div>
 
-        <div class="edit-task__content__attachments__body__element__right">
-            <div class="edit-task__content__attachments__body__element__right__delete"
+        <div class="edit-task-content-attachments-body-element-right">
+            <div class="edit-task-content-attachments-body-element-right__delete"
                  id="{json.fileRemoveID}" alt="remove"> Удалить </div>
 
         </div>

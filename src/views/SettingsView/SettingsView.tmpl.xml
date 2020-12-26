@@ -1,5 +1,5 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
-    <div class="default__container__with-navbar">
+    <div class="default-container-with-navbar">
         <div class="profile-form" onsubmit="return false">
             <div class="navigation">
                 <div class="navigation__element_active" id="profileLink">Профиль</div>
@@ -16,7 +16,7 @@
                         <span/>
                     </label>
 
-                    <div class="adaptive-navigation__container">
+                    <div class="adaptive-navigation-container">
                         <div class="adaptive-navigation__element adaptive-navigation__element_active" id="profileLinkAdaptive">
                             Профиль
                         </div>

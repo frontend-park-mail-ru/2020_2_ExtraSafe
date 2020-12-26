@@ -1,12 +1,12 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
-    <div class="edit-task__content__container">
-        <div class="edit-task__content__name__container">
-            <div class="edit-task__content__name__text" id="popupBoardName" contenteditable="true" placeholder="Введите название доски"/>
+    <div class="edit-task-content">
+        <div class="edit-task-content-name">
+            <div class="edit-task-content-name__text" id="popupBoardName" contenteditable="true" placeholder="Введите название доски"/>
             <img class="edit-task__close" src="../../img/icons/close.svg" id="closePopup" alt="close"/>
         </div>
 
-        <div class="edit-task__content__info__container" style="margin-bottom: 20px;">
-            <button class="edit-task__content__description__body__footer__save-button" id="createBoard"
+        <div class="edit-task-content-info-container" style="margin-bottom: 20px;">
+            <button class="edit-task-content-description-body-footer__save-button" id="createBoard"
                     style="display: flex; margin-left: 20px; margin-top: 0; max-width: 150px;">
                 Создать доску
             </button>

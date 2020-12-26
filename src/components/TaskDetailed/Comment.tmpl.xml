@@ -1,14 +1,14 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
-    <div class="edit-task__content__comments__body__comment" id="{json.commentHtmlID}">
-        <img class="edit-task__content__comments__body__comment__collaborator" src="{json.commentAvatar}" alt="author"/>
+    <div class="edit-task-content-comments-body-comment" id="{json.commentHtmlID}">
+        <img class="edit-task-content-comments-body-comment__collaborator" src="{json.commentAvatar}" alt="author"/>
 
-        <div class="edit-task__content__comments__body__comment__right">
-            <div class="edit-task__content__comments__body__comment__right__header">
-                <div class="edit-task__content__comments__body__comment__right__header__name">
+        <div class="edit-task-content-comments-body-comment-right">
+            <div class="edit-task-content-comments-body-comment-right-header">
+                <div class="edit-task-content-comments-body-comment-right-header__name">
                     <fest:value>json.commentUsername</fest:value>
                 </div>
 
-                <div class="edit-task__content__comments__body__comment__right__header__delete" id="{json.commentRemove}">
+                <div class="edit-task-content-comments-body-comment-right-header__delete" id="{json.commentRemove}">
                     <fest:attributes>
                         <fest:if test="json.isMine">
                             <fest:attribute name="style">
@@ -20,7 +20,7 @@
                 </div>
             </div>
 
-            <div class="edit-task__content__comments__body__comment__right__text">
+            <div class="edit-task-content-comments-body-comment-right__text">
                 <fest:value>json.commentText</fest:value>
             </div>
         </div>

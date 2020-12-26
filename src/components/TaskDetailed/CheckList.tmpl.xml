@@ -1,26 +1,26 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
     <div id="{json.checkListHtmlID}" style="width: 95%; margin: 10px 0;">
-        <div class="edit-task__content__check-lists__title__container">
-            <div class="edit-task__content__check-lists__title">
+        <div class="edit-task-content-check-lists__title-container">
+            <div class="edit-task-content-check-lists__title">
                 <fest:value>json.checkListName</fest:value>
             </div>
 
-            <div class="edit-task__content__check-lists__delete" id="{json.checkListRemoveID}">
+            <div class="edit-task-content-check-lists__delete" id="{json.checkListRemoveID}">
                 Удалить
             </div>
         </div>
 
-        <div class="edit-task__content__check-lists__body__elements" id="{json.checkListElementsDivID}">
+        <div class="edit-task-content-check-lists-body-elements" id="{json.checkListElementsDivID}">
             <fest:for iterate="json.checkListElements" index="i" value="v">
                 <fest:include context="v" src="./CheckListElement.tmpl.xml"/>
             </fest:for>
 
-            <div class="edit-task__content__check-lists__body__element__add-new__container"
+            <div class="edit-task-content-check-lists-body-element-add-new"
                  id="{json.checkListAddNewElementID}">
-                <img class="edit-task__content__check-lists__body__element__add-new__icon" src="../../img/icons/add.svg"
+                <img class="edit-task-content-check-lists-body-element-add-new__icon" src="../../img/icons/add.svg"
                      alt="add"/>
 
-                <div class="edit-task__content__check-lists__body__element__add-new__text">
+                <div class="edit-task-content-check-lists-body-element-add-new__text">
                     Добавить элемент
                 </div>
             </div>

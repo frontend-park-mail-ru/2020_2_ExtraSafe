@@ -1,3 +1,3 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
-    <img src="{json.memberAvatarSrc}" class="edit-task__content__info__collaborator" id="{json.memberTaskHtmlID}" alt="collaborator"/>
+    <img src="{json.memberAvatarSrc}" class="edit-task-content-info-collaborator" id="{json.memberTaskHtmlID}" alt="collaborator"/>
 </fest:template>

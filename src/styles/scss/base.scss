@@ -2,14 +2,14 @@
 @import "colors";
 
 @media screen and (max-width: $mobile-breakpoint) {
-    .default__container__without-navbar {
+    .default-container-without-navbar {
         background: $white !important;
     }
 }
 
 @media screen and (max-height: 500px) {
 
-    .default__container__with-navbar {
+    .default-container-with-navbar {
         justify-content: start !important;
     }
 
@@ -30,19 +30,19 @@ body {
 .application {
 
     /* Приложение во весь экран */
-    &__base {
+    &-base {
         @include flex-column;
 
         height: 100vh;
     }
 
     /* Ограничения для навбара */
-    &__navbar {
+    &-navbar {
         max-height: 10vh;
     }
 
     /* Стили для контента страницы без навбара */
-    &__content {
+    &-content {
         @include flex-column;
 
         flex-grow: 1;
@@ -78,8 +78,8 @@ input {
 }
 
 /* Контейнер с навбаром */
-.default__container__with-navbar {
-    @include default__container(calc(100vh - 40px));
+.default-container-with-navbar {
+    @include default-container(calc(100vh - 40px));
 
     overflow-y: auto;
 
@@ -89,6 +89,6 @@ input {
 }
 
 /* Контейнер без навбара */
-.default__container__without-navbar {
-    @include default__container(100vh);
+.default-container-without-navbar {
+    @include default-container(100vh);
 }

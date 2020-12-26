@@ -1,6 +1,6 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
-    <div class="edit-task__content__check-lists__body__element" id="{json.checkListElementHtmlID}">
-        <img class="edit-task__content__check-lists__body__element__icon"
+    <div class="edit-task-content-check-lists-body-element" id="{json.checkListElementHtmlID}">
+        <img class="edit-task-content-check-lists-body-element__icon"
              id="{json.checkListElementCheckID}" alt="check">
             <fest:attributes>
                 <fest:if test="json.isChecked">
@@ -14,7 +14,7 @@
             </fest:attributes>
         </img>
 
-        <div class="edit-task__content__check-lists__body__element__text" id="{json.checkListElementNameID}"
+        <div class="edit-task-content-check-lists-body-element__text" id="{json.checkListElementNameID}"
              contenteditable="true">
             <fest:value>json.checkListElementName</fest:value>
         </div>

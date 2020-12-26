@@ -2,27 +2,27 @@
     <img class="add-collaborator__close" src="../../img/icons/close.svg" id="membersPopupClose" alt="close"/>
 
     <div class="board-users" id="membersPopupDiv" style="display: flex; width: 100%">
-        <div class="add-collaborator__body">
+        <div class="add-collaborator-body">
             <div class="add-collaborator__title">
                 Участники
             </div>
 
             <fest:for iterate="json.boardMembers" index="i" value="v">
-                <div class="add-collaborator__element" id="{v.memberHtmlID}">
-                    <img class="add-collaborator__element__avatar" src="{v.memberAvatarSrc}" alt="user"/>
-                    <div class="add-collaborator__element__name">
+                <div class="add-collaborator-element" id="{v.memberHtmlID}">
+                    <img class="add-collaborator-element__avatar" src="{v.memberAvatarSrc}" alt="user"/>
+                    <div class="add-collaborator-element__name">
                         <fest:value>v.memberUsername</fest:value>
                     </div>
                     <fest:if test="!v.isMe">
-                        <img class="add-collaborator__element__delete" src="../../img/icons/delete_member.svg" id="{v.memberDeleteID}" alt="delete"/>
+                        <img class="add-collaborator-element__delete" src="../../img/icons/delete_member.svg" id="{v.memberDeleteID}" alt="delete"/>
                     </fest:if>
                 </div>
             </fest:for>
 
-            <div class="add-collaborator__add-new__container" id="membersPopupInvite">
-                <img class="add-collaborator__add-new__icon" src="../../img/icons/add.svg" alt="add"/>
+            <div class="add-collaborator-add-new" id="membersPopupInvite">
+                <img class="add-collaborator-add-new__icon" src="../../img/icons/add.svg" alt="add"/>
 
-                <div class="add-collaborator__add-new__text">
+                <div class="add-collaborator-add-new__text">
                     Добавить пользователя
                 </div>
             </div>

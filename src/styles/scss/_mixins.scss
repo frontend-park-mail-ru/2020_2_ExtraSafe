@@ -62,7 +62,7 @@ $tablet-breakpoint: 850px;
 }
 
 // Контейнер по-умолчанию (на вход height - высота контейнера)
-@mixin default__container($height) {
+@mixin default-container($height) {
     @include flex-column;
     @include content-center;
 

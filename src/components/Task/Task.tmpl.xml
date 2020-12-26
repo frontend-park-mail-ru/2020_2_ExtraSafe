@@ -1,13 +1,13 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
-    <div class="card__content__task" id="{json.taskHtmlID}" data-order="{json.order}" draggable="true">
+    <div class="card-content-task" id="{json.taskHtmlID}" data-order="{json.order}" draggable="true">
 
-        <div class="card__content__task__tags" id="{json.tagsDivID}">
+        <div class="card-content-task-tags" id="{json.tagsDivID}">
             <fest:for iterate="json.tags" index="i" value="v">
                 <fest:include context="v" src="./Tag.tmpl.xml"/>
             </fest:for>
         </div>
 
-        <div class="card__content__task__description" id="{json.taskNameID}" role="textarea">
+        <div class="card-content-task-description" id="{json.taskNameID}" role="textarea">
             <fest:attributes>
                 <fest:if test="json.contentEditable">
                     <fest:attribute name="contenteditable">
