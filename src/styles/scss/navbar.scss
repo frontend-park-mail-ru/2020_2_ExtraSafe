@@ -57,8 +57,6 @@
 
 // Выпадающее меню
 .dropdown {
-    // Содержимое
-    &__content {
         display: none;
 
         flex-direction: column;
@@ -97,7 +95,6 @@
                 color: $electric-indigo;
             }
         }
-    }
 }
 
 // Показать контент

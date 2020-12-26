@@ -18,7 +18,7 @@
 
 @media screen and (max-height: 450px) {
 
-    .card__container {
+    .card {
         max-height: 65vh !important;
     }
 
@@ -471,35 +471,35 @@
                 margin: 0 7px 0 10px;
             }
 
-            // Тег
-            &-tag {
-                display: flex;
+            // Контейнер тегов
+            &-tags {
+                @include flex-row;
 
-                width: 30px;
-                height: 7px;
+                width: fit-content;
 
-                top: -0.1px;
+                border-radius: 5px 0 5px 0;
 
-                border-radius: 0;
+                overflow: auto;
 
-                background: $darkolivegreen;
+                background: $light-grey;
 
-                // Контейнер тегов
-                &s {
-                    @include flex-row;
+                // Тег
+                &__tag {
+                    display: flex;
 
-                    width: fit-content;
+                    width: 30px;
+                    height: 7px;
 
-                    border-radius: 5px 0 5px 0;
+                    top: -0.1px;
 
-                    overflow: auto;
+                    border-radius: 0;
 
-                    background: $light-grey;
+                    background: $darkolivegreen;
                 }
             }
 
             // Описание задачи
-            &-description {
+            &__description {
                 min-height: 17px;
 
                 padding: 10px;

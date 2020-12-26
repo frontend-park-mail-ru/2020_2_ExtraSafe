@@ -27,14 +27,14 @@
         width: 80% !important;
     }
 
-    .login-reg__input {
+    .login-reg-input {
         width: 80% !important;
     }
 }
 
 @media screen and (max-height: 450px) {
 
-    .profile-form {
+    .settings-form {
         margin: 15px 0 0 0 !important;
         height: 100vh !important;
     }
@@ -44,23 +44,6 @@
     }
 }
 
-
-// Форма profile
-.profile-form {
-    @include flex-row;
-
-    align-items: start;
-    justify-content: space-evenly;
-
-    width: 95%;
-    max-width: 840px;
-    flex-basis: 600px;
-
-    @include standard-border-radius;
-    @include standard-shadow;
-
-    background: $white;
-}
 
 // Навигация по меню
 .navigation {
@@ -109,6 +92,28 @@
 
 // Настройки
 .settings {
+    &-form {
+        @include flex-row;
+
+        align-items: start;
+        justify-content: space-evenly;
+
+        width: 95%;
+        max-width: 840px;
+        flex-basis: 600px;
+
+        @include standard-border-radius;
+        @include standard-shadow;
+
+        background: $white;
+
+        &-content {
+            display: flex;
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+    }
 
     // Область с настройками
     &-body {

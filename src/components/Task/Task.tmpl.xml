@@ -7,7 +7,7 @@
             </fest:for>
         </div>
 
-        <div class="card-content-task-description" id="{json.taskNameID}" role="textarea">
+        <div class="card-content-task__description" id="{json.taskNameID}" role="textarea">
             <fest:attributes>
                 <fest:if test="json.contentEditable">
                     <fest:attribute name="contenteditable">

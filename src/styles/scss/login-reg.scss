@@ -28,7 +28,7 @@
 
 .login-reg {
     // Поле ввода
-    &__input {
+    &-input {
         @include flex-column;
 
         width: 75%;

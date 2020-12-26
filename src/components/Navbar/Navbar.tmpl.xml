@@ -5,7 +5,7 @@
 <!--        <img class="navbar__icon" title="Уведомления" style="position: fixed; right: 65px" src="/img/icons/bell.svg"/>-->
         <img class="navbar__avatar" id="avatarMini" title="Профиль" src=""/>
     </div>
-    <div id="myDropdown" class="dropdown__content">
+    <div id="myDropdown" class="dropdown">
         <a id="navbarSettings" href="/settings">Настройки</a>
         <a id="navbarLogout" href="">Выйти</a>
     </div>

@@ -156,6 +156,10 @@
 
                 flex-wrap: wrap;
 
+                &-tags-div {
+                    display: flex;
+                }
+
                 // Иконка добавления тега или коллаборатора
                 &__add-new-icon {
                     display: flex;
