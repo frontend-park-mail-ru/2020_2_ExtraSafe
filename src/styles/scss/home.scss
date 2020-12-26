@@ -274,6 +274,10 @@
         max-width: 930px;
         height: -webkit-fill-available;
     }
+
+    &-all {
+        display: contents;
+    }
 }
 
 // Доска

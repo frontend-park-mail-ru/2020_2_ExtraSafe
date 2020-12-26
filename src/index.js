@@ -10,7 +10,6 @@ import rendering from './utils/rendering.js';
 import './styles/scss/navbar.scss';
 import './styles/scss/base.scss';
 import './styles/scss/editTask.scss';
-import './styles/scss/test.scss';
 import './styles/scss/profile.scss';
 import './styles/scss/login-reg.scss';
 import './styles/scss/home.scss';

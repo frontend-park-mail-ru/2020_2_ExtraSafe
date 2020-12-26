@@ -60,6 +60,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             hash: true,
             filename: 'offline.html',
+            template: './src/offline.html',
         }),
         new CopyPlugin({
             patterns: [

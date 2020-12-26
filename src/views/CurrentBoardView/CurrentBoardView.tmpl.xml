@@ -47,7 +47,7 @@
 
     <div class="scroll-cards__container">
 
-        <div id="cardsDiv" style="display: flex"/>
+        <div class="cards__container" id="cardsDiv"/>
 
         <div class="new-card__container">
             <div class="new-card__content__container">

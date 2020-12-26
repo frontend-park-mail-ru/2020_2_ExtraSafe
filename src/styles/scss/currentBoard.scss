@@ -400,6 +400,10 @@
         background: white;
     }
 
+    &s__container {
+        display: flex;
+    }
+
     // Имя карточки
     &__name {
 

@@ -85,6 +85,7 @@ export default class HomeController extends BaseController {
             }
         });
         globalEventBus.on('navbar:addBoard', (wsBoard) => {
+            this.boards = [];
             this.render();
         });
     }

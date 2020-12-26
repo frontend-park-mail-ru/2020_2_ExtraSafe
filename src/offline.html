@@ -2,9 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Tabutask</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/img/favicon/site.webmanifest">
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto" rel="stylesheet">
 </head>
 <body>
-<h1>You are offline :(</h1>
+<div id="application" class="application__base">
+    <div id="navbar" class="application__navbar">
+        <div class="navbar">
+            <img class="navbar__tabutask-logotype" src="/img/icons/tabutask_logo_white.svg"/>
+        </div>
+    </div>
+    <div id="content" class="application__content">
+        <h1 class="application__content_offline">
+            Кажется у вас нет доступа к сети интернет :( <br>
+            Попробуйте восстановить соединение и перезагрузить страницу
+        </h1>
+    </div>
+</div>
 </body>
 </html>

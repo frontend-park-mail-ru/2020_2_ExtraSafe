@@ -2,43 +2,7 @@
     <div class="main__container">
         <div class="home__container">
 
-<!--            <div class="home__left-side__container">-->
-<!--                <div class="home__left-side__menu__container">-->
-<!--                    <div class="home__left-side__menu__element_active">-->
-<!--                        Доски-->
-<!--                    </div>-->
-
-<!--                    <div class="home__left-side__menu__element">-->
-<!--                        Новостная лента-->
-<!--                    </div>-->
-<!--                </div>-->
-
-<!--                <div class="home__left-side__team__container">-->
-<!--                    <div class="home__left-side__team__title__container">-->
-<!--                        <div class="home__left-side__team__title" >-->
-<!--                            Команды-->
-<!--                        </div>-->
-<!--                    </div>-->
-
-<!--                    <div class="home__left-side__team__add-new__container">-->
-<!--                        <img src="../../img/icons/add_grey.svg" class="home__left-side__team__add-new_icon" alt="add new team"/>-->
-<!--                        <div class="home__left-side__team__add-new__text" >-->
-<!--                            Создать команду-->
-<!--                        </div>-->
-<!--                    </div>-->
-
-<!--                </div>-->
-<!--            </div>-->
-
             <div class="home__right-side__container">
-
-<!--                <div class="home__right-side__title__container">-->
-<!--                    <div class="home__right-side__title__text">-->
-<!--                        Избранные доски-->
-<!--                    </div>-->
-<!--                </div>-->
-
-<!--                <div class="boards__container" id="favoriteBoardsDiv"/>-->
 
                 <div class="home__right-side__title__container">
                     <div class="home__right-side__title__text">
@@ -47,9 +11,8 @@
                 </div>
 
                 <div class="boards__container">
-                    <div id="boardsDiv" style="display: contents"/>
+                    <div class="boards-all" id="boardsDiv"/>
 
-<!--                    TODO: сверстать добавление доски-->
                     <div class="board__container">
                         <div class="board__name__container" id="addBoard" style="justify-content: center">
                             <img class="new-card__title__icon_add-new" src="../../img/icons/add_white.svg" alt="add"/>

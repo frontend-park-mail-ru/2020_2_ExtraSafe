@@ -50,8 +50,17 @@ body {
         height: 100%;
 
         background: $main-background-color;
+
+        &_offline {
+            @include standard-font(normal, 25px, 35px);
+            margin: auto;
+        }
     }
 
+}
+
+.flex {
+    display: flex;
 }
 
 /* Стандартный input */
