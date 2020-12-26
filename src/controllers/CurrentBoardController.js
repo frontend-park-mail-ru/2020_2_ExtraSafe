@@ -197,6 +197,7 @@ export default class CurrentBoardController extends BaseController {
             console.log('currentBoardModel:memberExpelSuccess', responseBody);
             if (responseBody.memberUsername === userSession.data.username) {
                 this.router.open('/');
+                globalEventBus.emit('currentBoardController:boardClosed', this);
                 return;
             }
             this.render();

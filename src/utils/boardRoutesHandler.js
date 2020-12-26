@@ -1,5 +1,6 @@
 import network from './network.js';
 import CurrentBoardController from '../controllers/CurrentBoardController.js';
+import globalEventBus from './globalEventBus.js';
 
 /**
  * Board routes handler
@@ -32,6 +33,13 @@ export default class BoardRoutesHandler {
             } else {
                 const board = new CurrentBoardController(this.el, this.router, responseBody.boardName, boardID);
                 board.render();
+                globalEventBus.on('currentBoardController:boardClosed', (closedBoard) => {
+                    console.log('boardClosed');
+                    if (closedBoard === board) {
+                        delete board.model;
+                        delete board.view;
+                    }
+                });
             }
             return responseBody;
         });
