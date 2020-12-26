@@ -54,7 +54,7 @@ export default class ProfileSettingsView extends BaseView {
      */
     showServerSuccess() {
         const profileSuccess = document.getElementById('emailError');
-        if (profileSuccess.hidden) {
+        if (profileSuccess.hidden === true) {
             profileSuccess.className = 'changes__success';
             profileSuccess.innerHTML = 'Данные изменены';
             profileSuccess.hidden = false;
