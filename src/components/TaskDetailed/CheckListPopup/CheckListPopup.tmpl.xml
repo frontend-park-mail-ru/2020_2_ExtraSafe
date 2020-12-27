@@ -1,6 +1,6 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
     <div class="edit-check-lists-body">
-        <img class="edit-check-lists__close" src="../../img/icons/close.svg"
+        <img class="edit-check-lists-close" src="../../img/icons/close.svg"
              id="checkListPopupClose" alt="close"/>
         <div class="edit-check-lists-title">
             Создать чек-лист

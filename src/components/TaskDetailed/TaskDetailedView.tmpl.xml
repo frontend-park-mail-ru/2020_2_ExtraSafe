@@ -5,7 +5,7 @@
             <div class="edit-task-content-name__text" id="taskName" contenteditable="true">
                 <fest:value>json.taskName</fest:value>
             </div>
-            <img class="edit-task__close" src="../../img/icons/close.svg" id="closeTask" alt="close"/>
+            <img class="edit-task-close" src="../../img/icons/close.svg" id="closeTask" alt="close"/>
         </div>
 
         <div class="edit-task-content-info-container">
