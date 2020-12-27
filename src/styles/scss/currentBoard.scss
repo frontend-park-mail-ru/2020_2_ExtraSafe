@@ -194,7 +194,7 @@
         background: $white;
     }
 
-    &__title {
+    &-title {
         display: flex;
 
         align-self: flex-start;
@@ -318,7 +318,7 @@
         cursor: pointer;
     }
 
-    &__button {
+    &-button {
         display: flex;
 
         @include content-center;
@@ -333,7 +333,7 @@
         @include standard-button;
     }
 
-    &__close {
+    &-close {
         position: absolute;
 
         z-index: 2;
@@ -484,7 +484,7 @@
                 background: $light-grey;
 
                 // Тег
-                &__tag {
+                &-tag {
                     display: flex;
 
                     width: 30px;

@@ -5,16 +5,16 @@
             <div class="edit-task-content-name__text" id="taskName" contenteditable="true">
                 <fest:value>json.taskName</fest:value>
             </div>
-            <img class="edit-task__close" src="../../img/icons/close.svg" id="closeTask" alt="close"/>
+            <img class="edit-task-close" src="../../img/icons/close.svg" id="closeTask" alt="close"/>
         </div>
 
         <div class="edit-task-content-info-container">
 
-            <img class="edit-task-content-delete__icon" src="../../img/icons/bin.svg" id="deleteTask" title="Удалить задачу" alt="delete task"/>
+            <img class="edit-task-content-delete-icon" src="../../img/icons/bin.svg" id="deleteTask" title="Удалить задачу" alt="delete task"/>
 
             <div class="edit-task-content-info">
                 <div class="edit-task-content-info-collaborator-container ">
-                    <div class="edit-task-content-info__title">
+                    <div class="edit-task-content-info-title">
                         Участники
                     </div>
 
@@ -32,7 +32,7 @@
                 <div class="edit-task-content-info-tag-container">
                     <div class="edit-tags" id="tagPopup"/>
 
-                    <div class="edit-task-content-info__title">
+                    <div class="edit-task-content-info-title">
                         Метки
                     </div>
 
@@ -59,7 +59,7 @@
                         <fest:value>json.taskDescription</fest:value>
                     </div>
                 </div>
-                <button class="edit-task-content-description-body__footer-save-button" id="saveTaskDescription">
+                <button class="edit-task-content-description-body-footer-save-button" id="saveTaskDescription">
                     Сохранить
                 </button>
             </div>

@@ -140,7 +140,7 @@
             }
 
             // Названия блока информации
-            &__title {
+            &-title {
                 display: flex;
 
                 @include standard-font(normal, 14px, 16px);
@@ -307,7 +307,7 @@
 
                 // Футер в описании, содержащий кнопку и поле
                 // Для логического разделения внутри блока description
-                &__footer {
+                &-footer {
                     @include flex-row;
 
                     justify-content: flex-start;
@@ -490,7 +490,7 @@
             max-width: 550px;
 
             // Заголовок
-            &__title {
+            &-title {
 
 
                 &-container {
@@ -511,7 +511,7 @@
             }
 
             // Удаление чек-листа
-            &__delete {
+            &-delete {
                 display: flex;
 
                 @include standard-font(normal, 12px, 18px);
@@ -858,7 +858,7 @@
         &-delete {
 
             // Иконка удаления задачи
-            &__icon {
+            &-icon {
                 display: flex;
 
                 position: absolute;
@@ -875,7 +875,7 @@
     }
 
     // Закрытие настройки задачи
-    &__close {
+    &-close {
         position: absolute;
 
         z-index: 2;
@@ -1164,7 +1164,7 @@
         background: $white;
     }
 
-    &__title {
+    &-title {
         display: flex;
 
         @include standard-font(normal, 16px, 19px);
@@ -1182,7 +1182,7 @@
         margin: 15px 0 0 0;
     }
 
-    &__button {
+    &-button {
         width: 50%;
         height: 30px;
 
@@ -1191,7 +1191,7 @@
         @include standard-button;
     }
 
-    &__close {
+    &-close {
         position: absolute;
 
         z-index: 2;

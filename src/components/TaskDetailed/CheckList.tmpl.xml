@@ -1,11 +1,11 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
     <div id="{json.checkListHtmlID}" style="width: 95%; margin: 10px 0;">
-        <div class="edit-task-content-check-lists__title-container">
-            <div class="edit-task-content-check-lists__title">
+        <div class="edit-task-content-check-lists-title-container">
+            <div class="edit-task-content-check-lists-title">
                 <fest:value>json.checkListName</fest:value>
             </div>
 
-            <div class="edit-task-content-check-lists__delete" id="{json.checkListRemoveID}">
+            <div class="edit-task-content-check-lists-delete" id="{json.checkListRemoveID}">
                 Удалить
             </div>
         </div>

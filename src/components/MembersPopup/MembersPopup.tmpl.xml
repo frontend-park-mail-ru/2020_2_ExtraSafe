@@ -1,9 +1,9 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
-    <img class="add-collaborator__close" src="../../img/icons/close.svg" id="membersPopupClose" alt="close"/>
+    <img class="add-collaborator-close" src="../../img/icons/close.svg" id="membersPopupClose" alt="close"/>
 
     <div class="board-users" id="membersPopupDiv" style="display: flex; width: 100%">
         <div class="add-collaborator-body">
-            <div class="add-collaborator__title">
+            <div class="add-collaborator-title">
                 Участники
             </div>
 
