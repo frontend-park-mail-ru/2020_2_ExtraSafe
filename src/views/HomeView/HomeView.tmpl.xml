@@ -21,12 +21,15 @@
                     </div>
                 </div>
 
-<!--                <div class="home__right-side__title__container">
-                    <div class="home__right-side__title__text">
+                <div class="home-right-side-title">
+                    <div class="home-right-side-title__text">
                         Шаблоны
                     </div>
-                </div>-->
+                </div>
 
+                <div class="boards">
+                    <div class="boards-div" id="templatesDiv"/>
+                </div>
             </div>
         </div>
     </div>
