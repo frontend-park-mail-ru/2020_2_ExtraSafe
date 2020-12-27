@@ -79,6 +79,10 @@ export default class CurrentBoardController extends BaseController {
      */
     deleteCards() {
         this.cards = [];
+        globalEventBus.offByEvent('taskController:taskOrderChanged');
+        globalEventBus.offByEvent('taskController:taskMovedToAnotherCard');
+        globalEventBus.offByEvent('cardController:taskMovedToAnotherCard');
+        globalEventBus.offByEvent('cardController:taskRemovedFromOldCard');
         this.view.deleteCards();
     }
 

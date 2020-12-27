@@ -38,6 +38,14 @@ export default class EventBus {
     }
 
     /**
+     * unsubscribe off event
+     * @param {string} event
+     */
+    offByEvent(event) {
+        delete this.listeners[event];
+    }
+
+    /**
      * Unsubscribe from all events
      */
     offAll() {
