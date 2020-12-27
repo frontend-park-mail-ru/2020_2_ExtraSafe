@@ -68,6 +68,7 @@ export default class RegView extends BaseView {
      */
     templateJSONSetup() {
         return {
+            href: this.forwardUrl ? `/login?forward=${this.forwardUrl}` : '/login',
             emailInput: {
                 name: 'Электронная почта:',
                 inputs: [
@@ -145,8 +146,10 @@ export default class RegView extends BaseView {
 
     /**
      * Render Reg view.
+     * @param {string} forwardUrl
      */
-    render() {
+    render(forwardUrl) {
+        this.forwardUrl = forwardUrl;
         Navbar.navbarHide();
         const templateInput = this.templateJSONSetup();
         this.el.innerHTML = regViewTemplate(templateInput);

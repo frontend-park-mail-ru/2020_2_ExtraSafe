@@ -47,8 +47,8 @@ window.addEventListener('offline', () => {
     rendering.showOfflineMessage();
 });
 
-router.addRoute(/^\/login$/, loginController);
-router.addRoute(/^\/reg$/, regController);
+router.addRoute(/^\/login$|(\?forward=(\w+)$)/, loginController);
+router.addRoute(/^\/reg$|(\?forward=(\w+)$)/, regController);
 router.addRoute(/^\/settings$/, settingsController);
 router.addRoute(/^\/$/, homeController);
 router.addRoute(/^\/invite\/board\/(\d+)\/(\d+)$/, invitationHandler);

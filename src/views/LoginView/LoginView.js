@@ -36,6 +36,7 @@ export default class LoginView extends BaseView {
      */
     templateJSONSetup() {
         return {
+            href: this.forwardUrl ? `/reg?forward=${this.forwardUrl}` : '/reg',
             emailInput: {
                 name: 'Электронная почта:',
                 inputs: [
@@ -83,8 +84,10 @@ export default class LoginView extends BaseView {
 
     /**
      * Render Login view.
+     * @param {string} forwardUrl
      */
-    render() {
+    render(forwardUrl) {
+        this.forwardUrl = forwardUrl;
         Navbar.navbarHide();
         const templateInput = this.templateJSONSetup();
         this.el.innerHTML = loginViewTemplate(templateInput);

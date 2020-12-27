@@ -6,7 +6,7 @@
             <fest:include context="json.usernameInput" src="../../components/NamedInput/NamedInput.tmpl.xml"/>
             <fest:include context="json.passwordInput" src="../../components/NamedInput/NamedInput.tmpl.xml"/>
             <fest:include context="json.signUpButton" src="../../components/SubmitButton/SubmitButton.tmpl.xml"/>
-            <a class="login-reg__a" href="/login">Уже есть аккаунт? Войти!</a>
+            <a class="login-reg__a" href="{json.href}">Уже есть аккаунт? Войти!</a>
         </form>
     </div>
 </fest:template>

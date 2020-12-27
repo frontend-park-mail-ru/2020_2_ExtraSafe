@@ -59,11 +59,12 @@ export default class Router {
     renderIfAuth(route, handler, ...args) {
         if (route === '/login' || route === '/reg') {
             this.currentPage = '/';
-            for (const [regExp, controller] of this.routesMap.entries()) {
-                if (regExp.test('/')) {
-                    controller.render();
-                }
-            }
+            this.open('/');
+            // for (const [regExp, controller] of this.routesMap.entries()) {
+            //     if (regExp.test('/')) {
+            //         controller.render();
+            //     }
+            // }
         } else {
             this.currentPage = route;
             handler.render(...args);
@@ -82,11 +83,15 @@ export default class Router {
             handler.render(...args);
         } else {
             this.currentPage = '/login';
-            for (const [regExp, controller] of this.routesMap.entries()) {
-                if (regExp.test('/login')) {
-                    controller.render();
-                }
+            if (args.length === 2) {
+                this.open(`/login?forward=${route}`);
             }
+            this.open(`/login`);
+            // for (const [regExp, controller] of this.routesMap.entries()) {
+            //     if (regExp.test('/login')) {
+            //         controller.render(...args);
+            //     }
+            // }
         }
     }
 

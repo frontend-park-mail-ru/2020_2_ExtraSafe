@@ -29,7 +29,11 @@ export default class LoginController extends BaseController {
             this.model.requestAuthorization();
         });
         this.eventBus.on('loginModel:loginSuccess', () => {
-            this.router.open('/');
+            if (this.forwardUrl) {
+                this.router.open(this.forwardUrl);
+            } else {
+                this.router.open('/');
+            }
         });
         this.eventBus.on('loginModel:loginFailed', (input) => {
             Rendering.printServerErrors(input);
@@ -38,9 +42,11 @@ export default class LoginController extends BaseController {
 
     /**
      * Render view
+     * @param {string} forwardUrl
      */
-    render() {
+    render(forwardUrl) {
+        this.forwardUrl = forwardUrl;
         super.render();
-        this.view.render();
+        this.view.render(forwardUrl);
     }
 }
