@@ -18,11 +18,5 @@ export default class BoardModel {
             theme: 'dark',
             star: false,
         };
-        // this.boardJSON = {
-        //     boardID: boardID,
-        //     name: boardName,
-        //     theme: 'dark',
-        //     star: false,
-        // };
     }
 }

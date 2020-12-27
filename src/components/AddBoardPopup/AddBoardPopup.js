@@ -59,10 +59,18 @@ export default class AddBoardPopup {
         this.el.addEventListener('keydown', this.onKeyDownSubmitBind);
         this.el.addEventListener('keydown', this.onKeyDownHideBind);
         document.getElementById('createBoard').addEventListener('click', () => {
-            const boardName = document.getElementById('popupBoardName').innerText;
+            const boardNameEl = document.getElementById('popupBoardName');
             // TODO: сделать проверку на имя из пробелов
-            if (boardName !== '') {
-                this.eventBus.emit('addBoardPopup:addBoard', boardName);
+            if (this.boardData) {
+                if (boardNameEl.innerText !== '') {
+                    this.eventBus.emit('addBoardPopup:addBoardFromTmpl', boardNameEl.innerText);
+                } else {
+                    this.eventBus.emit('addBoardPopup:addBoardFromTmpl', this.boardData.templateName);
+                }
+            } else {
+                if (boardNameEl.innerText !== '') {
+                    this.eventBus.emit('addBoardPopup:addBoard', boardNameEl.innerText);
+                }
             }
         });
         document.getElementById('closePopup').addEventListener('click', () => {
@@ -72,9 +80,11 @@ export default class AddBoardPopup {
 
     /**
      * Render popup
+     * @param {Object} boardData
      */
-    render() {
-        const html = addBoardPopupTemplate();
+    render(boardData) {
+        this.boardData = boardData;
+        const html = addBoardPopupTemplate({boardName: boardData ? boardData.templateName : ''});
         this.el.appendChild(rendering.createElementsFromTmpl(html));
         this.el.style.display = 'flex';
         this.addEventListeners();

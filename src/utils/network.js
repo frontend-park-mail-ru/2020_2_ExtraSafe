@@ -221,6 +221,19 @@ class Network {
     }
 
     /**
+     * request to create card
+     * @param {requestData} data
+     * @param {string} boardID
+     * @return {Promise<Response>}
+     */
+    cardCreateFromTmpl(data, boardID) {
+        const url = this.serverAddr + '/api/card/' + boardID + '/';
+        this.requestPost.body = JSON.stringify(data);
+
+        return fetch(url, this.requestPost);
+    }
+
+    /**
      * request to get data for card by id
      * @param {string}cardID
      * @return {Promise<Response>}

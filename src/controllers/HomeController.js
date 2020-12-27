@@ -5,6 +5,7 @@ import AddBoardPopup from '../components/AddBoardPopup/AddBoardPopup.js';
 import userSession from '../utils/userSession.js';
 import BoardController from '../components/Board/BoardController.js';
 import globalEventBus from '../utils/globalEventBus.js';
+import BoardTemplateController from '../components/Board/BoardTemplate/BoardTemplateController.js';
 
 /**
  * Home controller
@@ -23,6 +24,7 @@ export default class HomeController extends BaseController {
         this.view = new HomeView(el, this.eventBus);
         this.model = new HomeModel(this.eventBus, router);
         this.boards = [];
+        this.templates = [];
     }
 
     /**
@@ -33,6 +35,20 @@ export default class HomeController extends BaseController {
     addBoard(boardID = -1, boardName = '') {
         const newBoard = new BoardController(this.boardsDiv, this.router, boardID, boardName);
         this.boards.push(newBoard);
+
+        this.view.renderBoard(newBoard);
+    }
+
+    /**
+     * Add board template data
+     * @param {string} templateSlug
+     * @param {string} templateName
+     * @param {string} templateDescription
+     */
+    addBoardTmpl(templateSlug, templateName, templateDescription) {
+        const newBoard = new BoardTemplateController(this.templatesDiv, this.router,
+            templateSlug, templateName, templateDescription);
+        this.templates.push(newBoard);
 
         this.view.renderBoard(newBoard);
     }
@@ -58,12 +74,16 @@ export default class HomeController extends BaseController {
             this.addBoard(data.boardID, data.name);
             this.router.open(`/board/${data.boardID}`);
         });
-        this.eventBus.on('homeView:viewRendered', (boardsDiv) => {
+        this.eventBus.on('homeView:viewRendered', ([boardsDiv, templatesDiv]) => {
             this.boardsDiv = boardsDiv;
+            this.templatesDiv = templatesDiv;
 
             this.addBoardPopup = new AddBoardPopup(document.getElementById('addBoardPopup'));
             this.addBoardPopup.eventBus.on('addBoardPopup:addBoard', (boardName) => {
                 this.model.addNewBoardOnServer(boardName);
+            });
+            this.addBoardPopup.eventBus.on('addBoardPopup:addBoardFromTmpl', (boardName) => {
+                this.model.addNewBoardOnServerFromTmpl(boardName);
             });
 
             this.model.getBoardsFromServer();
@@ -87,6 +107,9 @@ export default class HomeController extends BaseController {
         globalEventBus.on('navbar:addBoard', (wsBoard) => {
             this.boards = [];
             this.render();
+        });
+        globalEventBus.on('boardTemplateController:createBoard', (templateData) => {
+            this.addBoardPopup.render(templateData);
         });
     }
 

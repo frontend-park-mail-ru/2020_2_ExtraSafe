@@ -35,6 +35,27 @@ export default class HomeModel {
         });
     }
 
+    // TODO: переделать под шаблоны
+    /**
+     * Add new board from tmpl and send it to server
+     * @param {string} boardName
+     */
+    addNewBoardOnServerFromTmpl(boardName) {
+        const data = {
+            boardName: boardName,
+        };
+        network.boardCreate(data).then((response) => {
+            return response.json();
+        }).then((responseBody) => {
+            if (responseBody.status > 200) {
+                this.eventBus.emit('homeModel:boardCreateFailed', responseBody.codes);
+            } else {
+                this.eventBus.emit('homeModel:boardCreateSuccess', responseBody);
+            }
+            return responseBody;
+        });
+    }
+
     /**
      * Get boards from server
      */
