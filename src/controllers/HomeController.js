@@ -25,6 +25,14 @@ export default class HomeController extends BaseController {
         this.model = new HomeModel(this.eventBus, router);
         this.boards = [];
         this.templates = [];
+
+        globalEventBus.on('navbar:addBoard', (wsBoard) => {
+            this.boards = [];
+            this.render();
+        });
+        globalEventBus.on('boardTemplateController:createBoard', (templateData) => {
+            this.addBoardPopup.render(templateData);
+        });
     }
 
     /**
@@ -108,13 +116,6 @@ export default class HomeController extends BaseController {
                     this.addBoardTmpl(template.templateSlug, template.templateName, template.templateDescription);
                 }
             }
-        });
-        globalEventBus.on('navbar:addBoard', (wsBoard) => {
-            this.boards = [];
-            this.render();
-        });
-        globalEventBus.on('boardTemplateController:createBoard', (templateData) => {
-            this.addBoardPopup.render(templateData);
         });
     }
 

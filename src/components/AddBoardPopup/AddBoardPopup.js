@@ -83,7 +83,7 @@ export default class AddBoardPopup {
      */
     render(boardData) {
         this.boardData = boardData;
-        const html = addBoardPopupTemplate({boardName: boardData ? boardData.templateName : ''});
+        const html = addBoardPopupTemplate({boardName: boardData ? boardData.boardName : ''});
         this.el.appendChild(rendering.createElementsFromTmpl(html));
         this.el.style.display = 'flex';
         this.addEventListeners();
