@@ -14,14 +14,14 @@ export default class BoardTemplateController extends BaseController {
      * @constructor
      * @param {HTMLElement} el
      * @param {Router} router
-     * @param {string} templateID
+     * @param {string} templateSlug
      * @param {string} templateName
      * @param {string} templateDescription
      */
-    constructor(el, router, templateID, templateName, templateDescription) {
+    constructor(el, router, templateSlug, templateName, templateDescription) {
         super(el, router);
         this.view = new BoardTemplateView(el, this.eventBus);
-        this.model = new BoardTemplateModel(this.eventBus, templateID, templateName, templateDescription);
+        this.model = new BoardTemplateModel(this.eventBus, templateSlug, templateName, templateDescription);
     }
 
     /**

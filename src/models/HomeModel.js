@@ -42,9 +42,10 @@ export default class HomeModel {
      */
     addNewBoardOnServerFromTmpl(boardData) {
         const data = {
-            boardName: boardName,
+            boardName: boardData.boardName,
+            templateSlug: boardData.boardID,
         };
-        network.boardCreate(data).then((response) => {
+        network.boardCreateFromTmpl(data).then((response) => {
             return response.json();
         }).then((responseBody) => {
             if (responseBody.status > 200) {

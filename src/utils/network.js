@@ -8,10 +8,10 @@ class Network {
      * Constructor network
      */
     constructor() {
-        this.serverAddr = 'https://tabutask.ru';
-        this.serverAddrWS = 'wss://tabutask.ru';
-        // this.serverAddr = 'http://127.0.0.1:8080';
-        // this.serverAddrWS = 'ws://127.0.0.1:8080';
+        // this.serverAddr = 'https://tabutask.ru';
+        // this.serverAddrWS = 'wss://tabutask.ru';
+        this.serverAddr = 'http://127.0.0.1:8080';
+        this.serverAddrWS = 'ws://127.0.0.1:8080';
         this.requestGet = {
             mode: 'cors',
             credentials: 'include',
@@ -150,6 +150,19 @@ class Network {
     }
 
     /**
+     * request to create board
+     * @param {requestData} data
+     * @return {Promise<Response>}
+     */
+    boardCreateFromTmpl(data) {
+        const url = this.serverAddr + '/api/template-board/';
+        console.log(data);
+        this.requestPost.body = JSON.stringify(data);
+
+        return fetch(url, this.requestPost);
+    }
+
+    /**
      * request to get data for board by id
      * @param {string}boardID
      * @return {Promise<Response>}
@@ -214,19 +227,6 @@ class Network {
      * @return {Promise<Response>}
      */
     cardCreate(data, boardID) {
-        const url = this.serverAddr + '/api/card/' + boardID + '/';
-        this.requestPost.body = JSON.stringify(data);
-
-        return fetch(url, this.requestPost);
-    }
-
-    /**
-     * request to create card
-     * @param {requestData} data
-     * @param {string} boardID
-     * @return {Promise<Response>}
-     */
-    cardCreateFromTmpl(data, boardID) {
         const url = this.serverAddr + '/api/card/' + boardID + '/';
         this.requestPost.body = JSON.stringify(data);
 
