@@ -47,11 +47,12 @@ window.addEventListener('offline', () => {
     rendering.showOfflineMessage();
 });
 
-router.addRoute(/^\/login$|(\?forward=(\w+)$)/, loginController);
-router.addRoute(/^\/reg$|(\?forward=(\w+)$)/, regController);
+router.addRoute(/^\/login$|^\/login\?forward=(.+)$/, loginController);
+router.addRoute(/^\/reg$|^\/reg\?forward=(.+)$/, regController);
 router.addRoute(/^\/settings$/, settingsController);
 router.addRoute(/^\/$/, homeController);
 router.addRoute(/^\/invite\/board\/(\d+)\/(\d+)$/, invitationHandler);
 router.addRoute(/^\/board\/(\d+)$/, boardRoutesHandler);
 
-router.open(window.location.pathname);
+console.log(window.location.pathname + window.location.search);
+router.open(window.location.pathname + window.location.search);

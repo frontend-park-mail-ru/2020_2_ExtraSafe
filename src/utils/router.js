@@ -60,11 +60,6 @@ export default class Router {
         if (route === '/login' || route === '/reg') {
             this.currentPage = '/';
             this.open('/');
-            // for (const [regExp, controller] of this.routesMap.entries()) {
-            //     if (regExp.test('/')) {
-            //         controller.render();
-            //     }
-            // }
         } else {
             this.currentPage = route;
             handler.render(...args);
@@ -78,20 +73,17 @@ export default class Router {
      * @param {[*]} args
      */
     renderIfNotAuth(route, handler, ...args) {
-        if (route === '/login' || route === '/reg') {
+        if (/^\/login$|^\/login\?forward=(.+)$/.test(route) || /^\/reg$|^\/reg\?forward=(.+)$/.test(route)) {
             this.currentPage = route;
             handler.render(...args);
         } else {
-            this.currentPage = '/login';
             if (args.length === 2) {
+                this.currentPage = `/login?forward=${route}`;
                 this.open(`/login?forward=${route}`);
+            } else {
+                this.currentPage = '/login';
+                this.open(`/login`);
             }
-            this.open(`/login`);
-            // for (const [regExp, controller] of this.routesMap.entries()) {
-            //     if (regExp.test('/login')) {
-            //         controller.render(...args);
-            //     }
-            // }
         }
     }
 
@@ -145,26 +137,13 @@ export default class Router {
         if (event.target instanceof HTMLAnchorElement) {
             event.preventDefault();
 
-            const outHref = event.target.dataset.outhref;
-            if (outHref !== undefined) {
-                window.open(outHref, '_blank');
-                return;
-            }
-
             const link = event.target;
-            this.open(link.pathname);
+            this.open(link.pathname + link.search);
         } else if (event.target instanceof HTMLImageElement) {
             const href = event.target.dataset.href;
             if (href !== undefined) {
                 event.preventDefault();
                 this.open(href);
-                return;
-            }
-
-            const outHref = event.target.dataset.outhref;
-            if (outHref !== undefined) {
-                event.preventDefault();
-                window.open(outHref, '_blank');
             }
         }
     }
