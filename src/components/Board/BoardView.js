@@ -32,7 +32,9 @@ export default class BoardView extends BaseView {
      */
     render(board) {
         const html = boardTemplate(board);
-        this.el.appendChild(rendering.createElementsFromTmpl(html));
+        const addBoardEl = document.getElementById('addBoard');
+        const newBoardEl = rendering.createElementsFromTmpl(html);
+        this.el.insertBefore(newBoardEl, addBoardEl);
         this.addEventListeners(board);
     }
 }
