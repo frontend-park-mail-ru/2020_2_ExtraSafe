@@ -38,9 +38,9 @@ export default class HomeModel {
     // TODO: переделать под шаблоны
     /**
      * Add new board from tmpl and send it to server
-     * @param {string} boardName
+     * @param {Object} boardData
      */
-    addNewBoardOnServerFromTmpl(boardName) {
+    addNewBoardOnServerFromTmpl(boardData) {
         const data = {
             boardName: boardName,
         };
@@ -66,7 +66,7 @@ export default class HomeModel {
             if (responseBody.status > 200) {
                 this.eventBus.emit('homeModel:getBoardsFromServerFailed', responseBody.codes);
             } else {
-                this.eventBus.emit('homeModel:getBoardsFromServerSuccess', responseBody.boards);
+                this.eventBus.emit('homeModel:getBoardsFromServerSuccess', responseBody);
             }
             return responseBody;
         });

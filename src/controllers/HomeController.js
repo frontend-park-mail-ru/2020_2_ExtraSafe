@@ -82,8 +82,8 @@ export default class HomeController extends BaseController {
             this.addBoardPopup.eventBus.on('addBoardPopup:addBoard', (boardName) => {
                 this.model.addNewBoardOnServer(boardName);
             });
-            this.addBoardPopup.eventBus.on('addBoardPopup:addBoardFromTmpl', (boardName) => {
-                this.model.addNewBoardOnServerFromTmpl(boardName);
+            this.addBoardPopup.eventBus.on('addBoardPopup:addBoardFromTmpl', (boardData) => {
+                this.model.addNewBoardOnServerFromTmpl(boardData);
             });
 
             this.model.getBoardsFromServer();
@@ -94,13 +94,18 @@ export default class HomeController extends BaseController {
                 console.log(code);
             }
         });
-        this.eventBus.on('homeModel:getBoardsFromServerSuccess', (boards) => {
+        this.eventBus.on('homeModel:getBoardsFromServerSuccess', (responseBody) => {
             console.log('homeModel:getBoardsFromServerSuccess');
-            console.log(boards);
-            userSession.setBoards(boards);
-            if (Array.isArray(boards) && boards.length) {
-                for (const board of boards) {
+            console.log(responseBody);
+            userSession.setBoards(responseBody.boards);
+            if (Array.isArray(responseBody.boards) && responseBody.boards.length) {
+                for (const board of responseBody.boards) {
                     this.addBoard(board.boardID, board.boardName);
+                }
+            }
+            if (Array.isArray(responseBody.templates) && responseBody.templates.length) {
+                for (const template of responseBody.templates) {
+                    this.addBoardTmpl(template.templateSlug, template.templateName, template.templateDescription);
                 }
             }
         });

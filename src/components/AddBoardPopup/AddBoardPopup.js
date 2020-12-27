@@ -63,10 +63,9 @@ export default class AddBoardPopup {
             // TODO: сделать проверку на имя из пробелов
             if (this.boardData) {
                 if (boardNameEl.innerText !== '') {
-                    this.eventBus.emit('addBoardPopup:addBoardFromTmpl', boardNameEl.innerText);
-                } else {
-                    this.eventBus.emit('addBoardPopup:addBoardFromTmpl', this.boardData.templateName);
+                    this.boardData.templateName = boardNameEl.innerText;
                 }
+                this.eventBus.emit('addBoardPopup:addBoardFromTmpl', this.boardData);
             } else {
                 if (boardNameEl.innerText !== '') {
                     this.eventBus.emit('addBoardPopup:addBoard', boardNameEl.innerText);
