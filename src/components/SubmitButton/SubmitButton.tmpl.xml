@@ -1,5 +1,5 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
-    <button type="submit" class="login-reg__button">
+    <button type="submit" class="login-reg-button">
         <fest:attributes>
             <fest:for iterate="json.params" index="i" value="v">
                 <fest:attribute name="{v.name}"><fest:value>v.value</fest:value></fest:attribute>

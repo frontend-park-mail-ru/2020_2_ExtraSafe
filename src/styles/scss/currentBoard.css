@@ -12,7 +12,7 @@
   }
 }
 @media screen and (max-height: 450px) {
-  .card__container {
+  .card {
     max-height: 65vh !important;
   }
 }
@@ -115,7 +115,7 @@
   border-radius: 5px;
   background: #FFFFFF;
 }
-.add-collaborator__title {
+.add-collaborator-title {
   display: flex;
   align-self: flex-start;
   height: fit-content;
@@ -210,7 +210,7 @@
 .add-collaborator__input:focus {
   border: 2px #6D27E7 solid !important;
 }
-.add-collaborator__button {
+.add-collaborator-button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -230,7 +230,7 @@
   color: #FFFFFF;
   cursor: pointer;
 }
-.add-collaborator__close {
+.add-collaborator-close {
   position: absolute;
   z-index: 2;
   right: 0;
@@ -261,6 +261,9 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   border-radius: 5px;
   background: white;
+}
+.cards {
+  display: flex;
 }
 .card-name {
   display: flex;
@@ -319,14 +322,6 @@
 .card-content-task:last-child {
   margin: 0 7px 0 10px;
 }
-.card-content-task-tag {
-  display: flex;
-  width: 30px;
-  height: 7px;
-  top: -0.1px;
-  border-radius: 0;
-  background: #556b2f;
-}
 .card-content-task-tags {
   display: flex;
   flex-direction: row;
@@ -335,7 +330,15 @@
   overflow: auto;
   background: #F3F3F3;
 }
-.card-content-task-description {
+.card-content-task-tags-tag {
+  display: flex;
+  width: 30px;
+  height: 7px;
+  top: -0.1px;
+  border-radius: 0;
+  background: #556b2f;
+}
+.card-content-task__description {
   min-height: 17px;
   padding: 10px;
   font-family: Roboto, sans-serif;
@@ -345,7 +348,7 @@
   line-height: 17px;
   text-align: left;
 }
-.card-content-task-description:focus {
+.card-content-task__description:focus {
   outline: none;
   border-radius: 5px;
   box-shadow: 0 0 0 2px #6D27E7 inset !important;

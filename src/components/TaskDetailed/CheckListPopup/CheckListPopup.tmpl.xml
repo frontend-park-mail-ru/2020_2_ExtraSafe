@@ -2,12 +2,12 @@
     <div class="edit-check-lists-body">
         <img class="edit-check-lists__close" src="../../img/icons/close.svg"
              id="checkListPopupClose" alt="close"/>
-        <div class="edit-check-lists__title">
+        <div class="edit-check-lists-title">
             Создать чек-лист
         </div>
 
-        <input class="edit-check-lists__name" id="checkListPopupInput" placeholder="Чек-лист"/>
+        <input class="edit-check-lists-name" id="checkListPopupInput" placeholder="Чек-лист"/>
 
-        <button class="edit-check-lists__button" id="checkListPopupCreate" >Создать</button>
+        <button class="edit-check-lists-button" id="checkListPopupCreate" >Создать</button>
     </div>
 </fest:template>

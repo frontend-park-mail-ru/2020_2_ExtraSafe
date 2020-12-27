@@ -26,20 +26,32 @@ body {
   /* Ограничения для навбара */
   /* Стили для контента страницы без навбара */
 }
-.application__base {
+.application-base {
   display: flex;
   flex-direction: column;
   height: 100vh;
 }
-.application__navbar {
+.application-navbar {
   max-height: 10vh;
 }
-.application__content {
+.application-content {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   height: 100%;
   background: #F2F2F2;
+}
+.application-content_offline {
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 25px;
+  line-height: 35px;
+  margin: auto;
+}
+
+.flex {
+  display: flex;
 }
 
 /* Стандартный input */

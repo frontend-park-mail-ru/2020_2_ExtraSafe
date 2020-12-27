@@ -1,7 +1,7 @@
 @media screen and (max-width: 470px) {
   .edit-task-content,
 .edit-task-content-name,
-.edit-task-content-info {
+.edit-task-content-info-container {
     width: 90% !important;
   }
 
@@ -103,7 +103,7 @@
   max-width: 540px;
   margin: 20px 0 0 0;
 }
-.edit-task-content-info__title {
+.edit-task-content-info-title {
   display: flex;
   font-family: Roboto, sans-serif;
   font-style: normal;
@@ -117,6 +117,9 @@
   flex-direction: row;
   position: relative;
   flex-wrap: wrap;
+}
+.edit-task-content-info-elements-tags-div {
+  display: flex;
 }
 .edit-task-content-info-elements__add-new-icon {
   display: flex;
@@ -220,14 +223,14 @@
 .edit-task-content-description-body__text:focus {
   cursor: text;
 }
-.edit-task-content-description-body__footer {
+.edit-task-content-description-body-footer {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   margin: 0 0 10px 0;
   border-top: 1px solid #CCCCCC;
 }
-.edit-task-content-description-body__footer-save-button {
+.edit-task-content-description-body-footer-save-button {
   display: none;
   align-items: center;
   justify-content: center;
@@ -368,7 +371,7 @@
   width: 100%;
   max-width: 550px;
 }
-.edit-task-content-check-lists__title {
+.edit-task-content-check-lists-title {
   display: flex;
   font-family: Roboto, sans-serif;
   font-style: normal;
@@ -377,14 +380,14 @@
   line-height: 16px;
   cursor: default;
 }
-.edit-task-content-check-lists__title-container {
+.edit-task-content-check-lists-title-container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
   margin: 0 0 5px 0;
 }
-.edit-task-content-check-lists__delete {
+.edit-task-content-check-lists-delete {
   display: flex;
   font-family: Roboto, sans-serif;
   font-style: normal;
@@ -394,7 +397,7 @@
   color: #808080;
   cursor: pointer;
 }
-.edit-task-content-check-lists__delete:hover {
+.edit-task-content-check-lists-delete:hover {
   color: #6D27E7;
 }
 .edit-task-content-check-lists-body {
@@ -644,7 +647,7 @@
 .edit-task-content-comments-body-comment-right__text:focus {
   cursor: text;
 }
-.edit-task-content-delete__icon {
+.edit-task-content-delete-icon {
   display: flex;
   position: absolute;
   align-self: flex-end;
@@ -653,7 +656,7 @@
   height: 28px;
   cursor: pointer;
 }
-.edit-task__close {
+.edit-task-close {
   position: absolute;
   z-index: 2;
   right: 0;
@@ -868,7 +871,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   background: #FFFFFF;
 }
-.edit-check-lists__title {
+.edit-check-lists-title {
   display: flex;
   font-family: Roboto, sans-serif;
   font-style: normal;
@@ -883,7 +886,7 @@
   width: 190px;
   margin: 15px 0 0 0;
 }
-.edit-check-lists__button {
+.edit-check-lists-button {
   width: 50%;
   height: 30px;
   margin: 10px;
@@ -898,7 +901,7 @@
   color: #FFFFFF;
   cursor: pointer;
 }
-.edit-check-lists__close {
+.edit-check-lists-close {
   position: absolute;
   z-index: 2;
   right: 0;

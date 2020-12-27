@@ -3,14 +3,14 @@
 
     <div class="invite-users">
         <div class="add-collaborator-body">
-            <div class="add-collaborator__title">
+            <div class="add-collaborator-title">
                 Добавить пользователя
             </div>
 
             <fest:include context="json.inviteUrlInput" src="../NamedInput/NamedInput.tmpl.xml"/>
             <fest:include context="json.inviteUsernameInput" src="../NamedInput/NamedInput.tmpl.xml"/>
 
-            <button class="add-collaborator__button" id="memberInvitePopupAdd">Добавить</button>
+            <button class="add-collaborator-button" id="memberInvitePopupAdd">Добавить</button>
         </div>
     </div>
 </fest:template>
