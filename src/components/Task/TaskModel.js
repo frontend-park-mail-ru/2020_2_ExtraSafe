@@ -18,9 +18,12 @@ export default class TaskModel {
         this.card = card;
         this.task = {
             taskID: task.taskID,
-            taskHtmlID: `card${this.card.cardID}Task${task.taskID}`,
-            taskNameID: `card${this.card.cardID}Task${task.taskID}Name`,
-            tagsDivID: `card${this.card.cardID}Task${task.taskID}TagsDiv`,
+            // taskHtmlID: `card${this.card.cardID}Task${task.taskID}`,
+            // taskNameID: `card${this.card.cardID}Task${task.taskID}Name`,
+            // tagsDivID: `card${this.card.cardID}Task${task.taskID}TagsDiv`,
+            taskHtmlID: `task${task.taskID}`,
+            taskNameID: `task${task.taskID}Name`,
+            tagsDivID: `task${task.taskID}TagsDiv`,
             taskName: task.taskName,
             taskDescription: task.taskDescription,
             order: task.order,
@@ -286,6 +289,8 @@ export default class TaskModel {
                 }
                 this.eventBus.emit('taskModel:getTaskDetailedFailed', responseBody.codes);
             } else {
+                this.task.taskName = responseBody.taskName;
+                this.task.taskDescription = responseBody.taskDescription;
                 this.task.attachments = [];
                 // TODO: полукостыль
                 for (const attachment of responseBody.taskAttachments) {
