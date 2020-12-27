@@ -9,8 +9,7 @@
                     </div>
                 </div>
 
-                <div class="boards">
-                    <div class="boards-div" id="boardsDiv"/>
+                <div class="boards" id="boardsDiv">
                     <div class="board" id="addBoard">
                         <div class="board-name" style="justify-content: center">
                             <img class="new-card-title__add-new-icon" src="../../img/icons/add_white.svg" alt="add"/>
@@ -27,9 +26,7 @@
                     </div>
                 </div>
 
-                <div class="boards">
-                    <div class="boards-div" id="templatesDiv"/>
-                </div>
+                <div class="boards" id="templatesDiv"/>
             </div>
         </div>
     </div>
