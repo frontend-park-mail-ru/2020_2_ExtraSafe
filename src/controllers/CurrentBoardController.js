@@ -46,7 +46,6 @@ export default class CurrentBoardController extends BaseController {
             }
         });
 
-        this.cards = [];
         for (const card of cards) {
             const newCard = this.addCard(card.cardID, card.cardName, card.cardOrder);
             newCard.addTasksFromJSON(card.cardTasks);
@@ -132,7 +131,6 @@ export default class CurrentBoardController extends BaseController {
         });
         this.eventBus.on('currentBoardModel:getBoardSuccess', (responseJSON) => {
             console.log('currentBoardModel:getBoardSuccess');
-            console.log(responseJSON);
             this.addCardsFromJSON(responseJSON.boardCards);
         });
         this.eventBus.on('currentBoardView:addNewCard', () => {

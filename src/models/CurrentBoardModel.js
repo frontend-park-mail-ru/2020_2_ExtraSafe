@@ -43,6 +43,7 @@ export default class CurrentBoardModel {
                 this.board.isAdmin = responseBody.boardAdmin.username === userSession.data.username;
                 this.initTags();
                 this.initMembers();
+                console.log(responseBody);
             }
             return responseBody;
         });
