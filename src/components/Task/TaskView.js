@@ -150,10 +150,7 @@ export default class TaskView extends BaseView {
      * @param {number} taskOrder
      */
     updateTaskOrder(taskHtmlID, taskOrder) {
-        const taskEl = document.getElementById(taskHtmlID);
-        if (taskEl) {
-            taskEl.dataset.order = taskOrder.toString();
-        }
+        document.getElementById(taskHtmlID).dataset.order = taskOrder.toString();
     }
 
     /**
