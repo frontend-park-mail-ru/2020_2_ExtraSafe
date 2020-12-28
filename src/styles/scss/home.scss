@@ -45,8 +45,6 @@
     width: 100%;
     max-width: 1300px;
 
-    margin: 35px 0 0 0;
-
     // Левая сторона с меню и командами
     &-left-side {
         @include flex-column;
@@ -214,7 +212,7 @@
             width: 100%;
             max-width: 930px;
 
-            margin: 0 0 25px 0;
+            margin: 25px 0 25px 0;
 
             border-bottom: 1px solid $dark-grey;
 
