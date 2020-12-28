@@ -28,7 +28,7 @@ export default class TaskView extends BaseView {
         const taskNameEl = document.getElementById(task.taskNameID);
         const taskTagsDivEl = document.getElementById(task.tagsDivID);
 
-        taskEl.id = `card${newCardID}Task${newTaskID}`;
+        taskEl.id = `task${newTaskID}`;
         taskNameEl.id = `${taskEl.id}Name`;
         taskTagsDivEl.id = `${taskEl.id}TagsDiv`;
     }
