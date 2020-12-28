@@ -1,7 +1,18 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
     <div class="edit-task-content">
         <div class="edit-task-content-name">
-            <div class="edit-task-content-name__text" id="popupBoardName" contenteditable="true" placeholder="Введите название доски"/>
+            <div class="edit-task-content-name__text" id="popupBoardName" contenteditable="true">
+                <fest:attributes>
+                    <fest:if test="json.boardName">
+                        <fest:attribute name="data-placeholder">
+                            <fest:value>json.boardName</fest:value>
+                        </fest:attribute>
+                    </fest:if>
+                    <fest:attribute name="data-placeholder">
+                        Введите название доски
+                    </fest:attribute>
+                </fest:attributes>
+            </div>
             <img class="edit-task-close" src="../../img/icons/close.svg" id="closePopup" alt="close"/>
         </div>
 
@@ -10,63 +21,6 @@
                     style="display: flex; margin-left: 20px; margin-top: 0; max-width: 150px;">
                 Создать доску
             </button>
-<!--            <div class="edit-task__info-collaborators-and-tags__container">-->
-                <!--                <div class="edit-task__info-collaborators__container">-->
-                <!--                    <div class="edit-task__info_text">-->
-                <!--                        Участники-->
-                <!--                    </div>-->
-
-                <!--                    <div class="edit-task__info__elements">-->
-                <!--                        <img src="../../img/egor.jpg" class="edit-task__info_collaborator" alt="collaborator"/>-->
-                <!--                        <img src="../../img/icons/add_collaborator.svg" class="edit-task__add-new-element_icon"-->
-                <!--                             alt="add new collaborator"/>-->
-                <!--                    </div>-->
-                <!--                </div>-->
-
-                <!--                <div class="edit-task__info-tags__container">-->
-                <!--                    <div class="edit-task__info_text">-->
-                <!--                        Метки-->
-                <!--                    </div>-->
-
-                <!--                    <div class="edit-task__info__elements">-->
-                <!--                        <div class="edit-task__info__tag" style="background: #FF8080">-->
-                <!--                            <div class="edit-task__info__tag_text">-->
-                <!--                                frontend-->
-                <!--                            </div>-->
-                <!--                        </div>-->
-
-                <!--                        <div class="edit-task__info__tag" style="background: #FFE380">-->
-                <!--                            <div class="edit-task__info__tag_text">-->
-                <!--                                backend-->
-                <!--                            </div>-->
-                <!--                        </div>-->
-
-                <!--                        <div class="edit-task__info__tag" style="background: #FFFADD">-->
-                <!--                            <div class="edit-task__info__tag_text">-->
-                <!--                                product-->
-                <!--                            </div>-->
-                <!--                        </div>-->
-
-                <!--                        <img src="../../img/icons/add_tag.svg" class="edit-task__add-new-element_icon"-->
-                <!--                             alt="add new tag"/>-->
-                <!--                    </div>-->
-                <!--                </div>-->
-<!--            </div>-->
-
-<!--            <div class="edit-task__description__container">-->
-<!--                <div class="edit-task__description__title">-->
-<!--                    Описание-->
-<!--                </div>-->
-
-<!--                <div class="edit-task__description__body">-->
-<!--                    <div class="edit-task__description__body_text" id="taskDescription" contenteditable="true"/>-->
-<!--                    <div class="edit-task__description__footer">-->
-<!--                        <button class="edit-task__description__save-button" id="saveTaskDescription">-->
-<!--                            Сохранить-->
-<!--                        </button>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
         </div>
     </div>
 </fest:template>

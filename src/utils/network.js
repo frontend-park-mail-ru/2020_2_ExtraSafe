@@ -8,10 +8,10 @@ class Network {
      * Constructor network
      */
     constructor() {
-        this.serverAddr = 'https://tabutask.ru';
-        this.serverAddrWS = 'wss://tabutask.ru';
-        // this.serverAddr = 'http://127.0.0.1:8080';
-        // this.serverAddrWS = 'ws://127.0.0.1:8080';
+        // this.serverAddr = 'https://tabutask.ru';
+        // this.serverAddrWS = 'wss://tabutask.ru';
+        this.serverAddr = 'http://127.0.0.1:8080';
+        this.serverAddrWS = 'ws://127.0.0.1:8080';
         this.requestGet = {
             mode: 'cors',
             credentials: 'include',
@@ -143,6 +143,19 @@ class Network {
      */
     boardCreate(data) {
         const url = this.serverAddr + '/api/board/';
+        console.log(data);
+        this.requestPost.body = JSON.stringify(data);
+
+        return fetch(url, this.requestPost);
+    }
+
+    /**
+     * request to create board
+     * @param {requestData} data
+     * @return {Promise<Response>}
+     */
+    boardCreateFromTmpl(data) {
+        const url = this.serverAddr + '/api/template-board/';
         console.log(data);
         this.requestPost.body = JSON.stringify(data);
 

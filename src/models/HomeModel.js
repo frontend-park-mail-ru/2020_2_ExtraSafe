@@ -35,6 +35,28 @@ export default class HomeModel {
         });
     }
 
+    // TODO: переделать под шаблоны
+    /**
+     * Add new board from tmpl and send it to server
+     * @param {Object} boardData
+     */
+    addNewBoardOnServerFromTmpl(boardData) {
+        const data = {
+            boardName: boardData.boardName,
+            templateSlug: boardData.boardID,
+        };
+        network.boardCreateFromTmpl(data).then((response) => {
+            return response.json();
+        }).then((responseBody) => {
+            if (responseBody.status > 200) {
+                this.eventBus.emit('homeModel:boardCreateFailed', responseBody.codes);
+            } else {
+                this.eventBus.emit('homeModel:boardCreateSuccess', responseBody);
+            }
+            return responseBody;
+        });
+    }
+
     /**
      * Get boards from server
      */
@@ -45,7 +67,7 @@ export default class HomeModel {
             if (responseBody.status > 200) {
                 this.eventBus.emit('homeModel:getBoardsFromServerFailed', responseBody.codes);
             } else {
-                this.eventBus.emit('homeModel:getBoardsFromServerSuccess', responseBody.boards);
+                this.eventBus.emit('homeModel:getBoardsFromServerSuccess', responseBody);
             }
             return responseBody;
         });

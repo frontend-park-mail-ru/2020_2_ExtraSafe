@@ -4,14 +4,12 @@
             <div class="board-name__text">
                 <fest:value>json.boardName</fest:value>
             </div>
-<!--            <img src="../../img/icons/dots.svg" class="card__title_dots-icon" id="{json.removeBoardID}" alt="dots"/>-->
         </div>
 
-<!--        <div class="board__description__container">-->
-<!--            <div class="board__description__text">-->
-<!--                <fest:value>json.boardDescription</fest:value>-->
-<!--            </div>-->
-<!--            <img src="../../img/icons/favorite.svg" class="board__description__favorite" alt="favorite"/>-->
-<!--        </div>-->
+        <div class="board-description">
+            <div class="board-description__text">
+                <fest:value>json.boardDescription</fest:value>
+            </div>
+        </div>
     </div>
 </fest:template>

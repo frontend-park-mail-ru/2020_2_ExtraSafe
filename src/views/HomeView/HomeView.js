@@ -42,6 +42,7 @@ export default class HomeView extends BaseView {
         this.addEventListeners();
 
         this.boardsDiv = document.getElementById('boardsDiv');
-        this.eventBus.emit('homeView:viewRendered', this.boardsDiv);
+        this.templatesDiv = document.getElementById('templatesDiv');
+        this.eventBus.emit('homeView:viewRendered', [this.boardsDiv, this.templatesDiv]);
     }
 }
