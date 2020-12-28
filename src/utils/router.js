@@ -137,6 +137,12 @@ export default class Router {
         if (event.target instanceof HTMLAnchorElement) {
             event.preventDefault();
 
+            const outHref = event.target.dataset.outhref;
+            if (outHref !== undefined) {
+                window.open(outHref, '_blank');
+                return;
+            }
+
             const link = event.target;
             this.open(link.pathname + link.search);
         } else if (event.target instanceof HTMLImageElement) {
@@ -144,6 +150,12 @@ export default class Router {
             if (href !== undefined) {
                 event.preventDefault();
                 this.open(href);
+            }
+
+            const outHref = event.target.dataset.outhref;
+            if (outHref !== undefined) {
+                event.preventDefault();
+                window.open(outHref, '_blank');
             }
         }
     }
