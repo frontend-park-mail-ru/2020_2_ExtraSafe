@@ -231,7 +231,7 @@ export default class TaskModel {
      */
     updateTaskIDs(newTaskID= this.task.taskID) {
         this.task.taskID = newTaskID;
-        this.task.taskHtmlID = `card${this.card.cardID}Task${newTaskID}`;
+        this.task.taskHtmlID = `task${newTaskID}`;
         this.task.taskNameID = `${this.task.taskHtmlID}Name`;
         this.task.tagsDivID = `${this.task.taskHtmlID}TagsDiv`;
     }
